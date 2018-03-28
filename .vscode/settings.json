@@ -1,0 +1,7 @@
+{
+  "eslint.workingDirectories": [
+    "./src"
+],
+"eslint.autoFixOnSave": true,
+"eslint.nodePath": "./node_modules"
+}

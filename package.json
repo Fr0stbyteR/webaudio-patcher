@@ -1,0 +1,47 @@
+{
+  "name": "webaudio-patcher",
+  "version": "1.0.0",
+  "description": "A minimal Electron application",
+  "main": "main.js",
+  "scripts": {
+    "build": "webpack",
+    "start": "electron .",
+    "debug": "webpack && electron --inspect=9559 ."
+  },
+  "repository": "https://github.com/electron/electron-quick-start",
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
+  ],
+  "author": "GitHub",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.2",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.9",
+    "electron": "^1.7.12",
+    "eslint-config-google": "^0.9.1",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-react": "^7.7.0",
+    "event": "^1.0.0",
+    "jquery": "^3.3.1",
+    "jquery-ui": "^1.12.1",
+    "prop-types": "^15.6.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-draggable": "^3.0.5",
+    "style-loader": "^0.20.2",
+    "webpack": "^3.11.0",
+    "eslint": "^4.18.1",
+    "eslint-loader": "^1.9.0"
+  },
+  "dependencies": {
+    "semantic-ui": "^2.3.0"
+  }
+}

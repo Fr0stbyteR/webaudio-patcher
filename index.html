@@ -1,0 +1,285 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>JSPatcher</title>
+    <script type="text/javascript" src="./dist/bundle.js"></script>
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+    <style type="text/css">
+        body {
+            margin: 0px;
+            background-color: black;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        div.patcher {
+            position: absolute;
+            top: 40px;
+            right: 0px;
+            left: 0px;
+            bottom: 0px;
+        }
+
+        div.boxes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        div.lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        div.line {
+            position: absolute;
+            outline-width: 0;
+            pointer-events: none;
+        }
+
+        path.line-path {
+            pointer-events: auto;
+            stroke: rgb(158, 159, 159);
+            stroke-width: 2;
+            fill: transparent;
+        }
+
+        svg.line-svg {
+            filter: drop-shadow(rgba(200, 200, 200, 0.5) 0px 0px 0.5px);
+        }
+
+        svg.line-svg:hover {
+            filter: drop-shadow(rgb(0, 0, 0) 0px 0px 2px);
+            stroke-width: 3;
+        }
+
+        svg.line-svg:hover>path.line-path {
+            stroke-width: 3;
+        }
+
+        div.line:focus>svg.line-svg {
+            filter: drop-shadow(rgb(0, 0, 237) 0px 0px 2px);
+        }
+
+        div.line:focus>svg.line-svg>path.line-path {
+            stroke-width: 3;
+        }
+
+        div.line-handler {
+            position: absolute;
+            border-radius: 50%;
+            margin: -4px;
+            width: 6px;
+            height: 6px;
+            pointer-events: auto;
+            z-index: 100;
+            visibility: hidden;
+        }
+
+        div.line.selected div.line-handler {
+            visibility: visible;
+        }
+
+        div.line.selected.dragging div.line-handler {
+            visibility: hidden;
+        }
+
+        div.line-handler.line-handler-src {
+            background-color: rgba(144, 238, 144, 0.5);
+            border: 1px rgba(0, 255, 0, 0.5) solid;
+        }
+
+        div.line-handler.line-handler-src:hover {
+            background-color: rgba(144, 238, 144, 1);
+            border: 1px rgba(0, 255, 0, 1) solid;
+        }
+
+        div.line-handler.line-handler-dest {
+            background-color: rgba(255, 0, 0, 0.5);
+            border: 1px rgba(128, 0, 0, 0.5) solid;
+        }
+
+        div.line-handler.line-handler-dest:hover {
+            background-color: rgba(255, 0, 0, 1);
+            border: 1px rgba(128, 0, 0, 1) solid;
+        }
+
+        div.box {
+            display: block;
+            position: absolute;
+            pointer-events: auto;
+            min-width: 45px;
+        }
+
+        div.box-ui {
+            pointer-events: none;
+        }
+
+        div.box.selected div.box-ui {
+            pointer-events: auto;
+        }
+
+        div.box.selected {
+            outline: 1px rgb(0, 162, 255) solid;
+        }
+
+        /*ports*/
+
+        div.box-inlets {
+            position: absolute;
+            top: 0px;
+            left: 10px;
+            right: 10px;
+            height: 0px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        div.box-outlets {
+            position: absolute;
+            bottom: 0px;
+            left: 10px;
+            right: 10px;
+            height: 0px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        div.box-port {
+            position: relative;
+            width: 7px;
+            height: 3.5px;
+            background-color: rgb(192, 194, 196);
+            border-style: solid;
+            border-width: 0px;
+        }
+
+        div.box-inlet {
+            border-radius: 0px 0px 3.5px 3.5px;
+            margin: 0px -3.5px -3.5px -3.5px;
+        }
+
+        div.box-inlet-hot {
+            border-color: rgb(255, 141, 121);
+        }
+
+        div.box-inlet-cold {
+            border-color: rgb(85, 213, 236);
+        }
+
+        div.box-outlet {
+            border-radius: 3.5px 3.5px 0px 0px;
+            margin: -3.5px -3.5px 0px -3.5px;
+            border-color: rgb(211, 255, 0);
+        }
+
+        div.box:hover div.box-port {
+            margin: -3.5px;
+            border-radius: 50%;
+            height: 7px;
+        }
+
+        div.box:hover div.box-port-connected {
+            border-width: 1px;
+            height: 7px;
+        }
+
+        div.box-port:first {
+            float: left;
+        }
+
+        div.box-port:last {
+            float: right;
+        }
+
+        div.box-outlet.box-port-connected {
+            background-color: rgb(75, 80, 86);
+            border-width: 1px 1px 0px 1px;
+            margin: -3.5px -3.5px 0px -3.5px;
+            border-radius: 3.5px 3.5px 0px 0px;
+            height: 3.5px;
+            width: 7px;
+        }
+
+        div.box-outlet:hover,
+        div.box-outlet.box-port-highlight {
+            background-color: rgb(75, 80, 86);
+            border-width: 2px !important;
+            margin: -5.5px !important;
+            border-radius: 50%;
+            height: 11px !important;
+            width: 11px;
+        }
+
+        div.box-inlet.box-port-connected {
+            background-color: rgb(75, 80, 86);
+            border-width: 0px 1px 1px 1px;
+            margin: 0px -3.5px -3.5px -3.5px;
+            border-radius: 0px 0px 3.5px 3.5px;
+            height: 3.5px;
+            width: 7px;
+        }
+
+        div.box-inlet:hover,
+        div.box-inlet.box-port-highlight {
+            background-color: rgb(75, 80, 86);
+            border-width: 2px !important;
+            margin: -5.5px !important;
+            border-radius: 50%;
+            height: 11px !important;
+            width: 11px;
+        }
+
+        .ui-resizable-w {
+            left: 0px;
+            width: 4px
+        }
+
+        .ui-resizable-e {
+            right: 0px;
+            width: 4px
+        }
+    </style>
+</head>
+
+<body>
+    <div id="menu" class="ui top fixed inverted menu">
+        <a id="load" class="green item">Load</a>
+        <input type="file" style="display:none" />
+        <a id="save" class="red item">Save</a>
+    </div>
+    <div id="sidebar" class="ui right inverted visible overlay sidebar">
+        <table id="log" class="ui selectable inverted striped very compact small table">
+            <thead>
+                <tr>
+                    <th class="two wide">Title</th>
+                    <th class="fourteen wide">Message</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div class="patcher pusher">
+        <div class="lines"></div>
+        <div class="boxes"></div>
+    </div>
+</body>
+
+</html>

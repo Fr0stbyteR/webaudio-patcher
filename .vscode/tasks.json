@@ -1,0 +1,30 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "watch",
+            "command": "${workspaceFolder}/node_modules/.bin/babel",
+            "args": [
+                "src",
+                "--out-dir",
+                "lib",
+                "-w",
+                "--source-maps"
+            ],
+            "type": "shell",
+            "group": "none",
+            "isBackground": true
+        },
+
+        {
+            "label": "webpack",
+            "command": "${workspaceFolder}/node_modules/.bin/webpack",
+            "type": "process",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "isBackground": true
+        }
+    ]
+}
