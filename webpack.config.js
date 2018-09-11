@@ -20,7 +20,7 @@ module.exports = {
   },
 
   module: {
-    loaders: [
+    rules: [
       {
         enforce: "pre",
         test: /\.js$/,
@@ -38,7 +38,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          presets: ['react', 'env'],
+          presets: ['@babel/preset-react', '@babel/preset-env'],
 
         }
       },
