@@ -85,3 +85,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # Semantic
+semantic/src/
+semantic/tasks/
+semantic/gulpfile.js
