@@ -3,42 +3,42 @@ import Base from "./Base.js";
 class WANode extends Base.BaseObject {
     constructor(box, patcher) {
         super(box, patcher);
-        this.packageName = "wa";
-        this.icon = "volume up"
-        if (!this._patcher.hasOwnProperty("audioCtx"))
-            this._patcher.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        this.audioCtx.destination.channelInterpretation = "discrete";
-        this.data.node;
+        this._package = "wa";
+        this._icon = "volume up"
+        if (!this._patcher.hasOwnProperty("_audioCtx")) {
+            this._patcher._audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            this._audioCtx.destination.channelInterpretation = "discrete";
+        }
+        this._mem = {
+            node : null
+        }
     }
     fn(data, inlet) {
     }
     connectedInlet(inlet, srcObj, srcOutlet, lineID) {
         if (this.isInletFrom(inlet, srcObj, srcOutlet)) return; // already connected
-        if (srcObj.data.hasOwnProperty("node") && srcObj.data.node instanceof AudioNode) {
-            if (inlet >= this.data.node.numberOfInputs || srcOutlet >= srcObj.data.node.numberOfOutputs) return;
-            srcObj.data.node.connect(this.data.node, srcOutlet, inlet);
+        if (srcObj._mem.hasOwnProperty("node") && srcObj._mem.node instanceof AudioNode) {
+            if (inlet >= this._mem.node.numberOfInputs || srcOutlet >= srcObj._mem.node.numberOfOutputs) return;
+            srcObj._mem.node.connect(this._mem.node, srcOutlet, inlet);
         }
     }
     disconnectedInlet(inlet, srcObj, srcOutlet, lineID) {
         if (this.isInletFrom(inlet, srcObj, srcOutlet)) return; // not last cable
-        if (srcObj.data.hasOwnProperty("node") && srcObj.data.node instanceof AudioNode) {
-            if (inlet >= this.data.node.numberOfInputs || srcOutlet >= srcObj.data.node.numberOfOutputs) return;
-            srcObj.data.node.disconnect(this.data.node, srcOutlet, inlet);
+        if (srcObj._mem.hasOwnProperty("node") && srcObj._mem.node instanceof AudioNode) {
+            if (inlet >= this._mem.node.numberOfInputs || srcOutlet >= srcObj._mem.node.numberOfOutputs) return;
+            srcObj._mem.node.disconnect(this._mem.node, srcOutlet, inlet);
         }
-    }
-    get audioCtx() {
-        return this._patcher.audioCtx;
     }
 }
 
 class Oscillator extends WANode {
     constructor(box, patcher) {
         super(box, patcher);
-        this.data.node = this.audioCtx.createOscillator();
-        this.inlets = 2;
-        this.outlets = 1;
+        this._inlets = 2;
+        this._outlets = 1;
+        this._mem.node = this._patcher._audioCtx.createOscillator();
         this.update(box.args, box.props);
-        this.data.node.start();
+        this._mem.node.start();
     }
     fn(data, inlet) {
         if (inlet == 0) {
@@ -52,20 +52,20 @@ class Oscillator extends WANode {
     }
     set frequency(freq) {
         if (typeof freq == "number") {
-            this.data.node.frequency.setValueAtTime(freq, this.audioCtx.currentTime);
+            this._mem.node.frequency.setValueAtTime(freq, this._patcher._audioCtx.currentTime);
         }
     }
     set type(t) {
-        this.data.node.type = t || "sine"; //TODO
+        this._mem.node.type = t || "sine"; //TODO
     }
 }
 
 class Destination extends WANode {
     constructor(props, patcher) {
         super(props, patcher);
-        this.data.node = this.audioCtx.destination;
-        this.inlets = 1;
-        this.outlets = 0;
+        this._mem.node = this._patcher._audioCtx.destination;
+        this._inlets = 1;
+        this._outlets = 0;
     }
 
 }

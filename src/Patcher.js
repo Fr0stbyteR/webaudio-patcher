@@ -22,11 +22,13 @@ export default class Patcher extends EventEmitter {
         this.lines = {};
         this.boxes = {};
         this.data = {};
-        this.log = [];
-        if (this.hasOwnProperty("audioCtx")) this.audioCtx.close();
-        this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        this._log = [];
+        if (this.hasOwnProperty("_audioCtx")) this._audioCtx.close();
+        this._audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        this._audioCtx.destination.channelInterpretation = "discrete";
         this.emit("resetPatcher", this);
         if (patcher == undefined) return;
+        this._prevData = patcher.hasOwnProperty("data") ? patcher.data : null;
         // Patcher
         this.boxIndexCount = patcher.boxIndexCount;
         this.lineIndexCount = patcher.lineIndexCount;
@@ -212,11 +214,18 @@ export default class Patcher extends EventEmitter {
         return this.boxes[id].name;
     }
     getIDsByName(name, className) {
-        return this.data[name][className].boxes;
+        return this.data[name][className]._boxes;
     }
     newLog(errorLevel, title, message) {
-        this.log.push([errorLevel, title, message]);
+        this._log.push([errorLevel, title, message]);
         this.emit("newLog", [errorLevel, title, message]);
+    }
+
+    // stringify to save
+    toString() {
+        return JSON.stringify(this, (k, v) => {
+            if (k.charAt(0) !== "_") return v;
+		}, 4)
     }
 }
 
@@ -232,7 +241,9 @@ class Box {
         this.text = props.text || "";
         this.args = props.args;
         this.props = props.props;
-
+        this.prevData = null;
+        if (this._patcher._prevData && this._patcher._prevData.hasOwnProperty(this.name) && this._patcher._prevData[this.name].hasOwnProperty(this.class)) 
+            this.prevData = this._patcher._prevData[this.name][this.class];
         if (!this._patcher.data.hasOwnProperty(this.name)) this._patcher.data[this.name] = {};
         if (!this._patcher.data[this.name].hasOwnProperty(this.class)) {
             this._patcher.data[this.name][this.class] = this._patcher.createObject(this);
@@ -240,8 +251,8 @@ class Box {
             this._patcher.data[this.name][this.class].addBox(this.id);
         }
         if (this.isValid) {
-            this.inlets = this.object.inlets;
-            this.outlets = this.object.outlets;
+            this.inlets = this.object._inlets;
+            this.outlets = this.object._outlets;
         }
     }
 
@@ -256,8 +267,8 @@ class Box {
             this.args = props.args;
             this._patcher.data[this.name][this.class].update(this.args, this.props);
             if (this.isValid) {
-                this.inlets = this.object.inlets;
-                this.outlets = this.object.outlets;
+                this.inlets = this.object._inlets;
+                this.outlets = this.object._outlets;
             }
             return this;
         } 
@@ -284,8 +295,8 @@ class Box {
             this._patcher.data[this.name][this.class].addBox(this.id).update(this.args, this.props);
         }
         if (this.isValid) {
-            this.inlets = this.object.inlets;
-            this.outlets = this.object.outlets;
+            this.inlets = this.object._inlets;
+            this.outlets = this.object._outlets;
         }
         for (let i = 0; i < lineAsDest.length; i++) {
             this._patcher.lines[lineAsDest[i]].enable();
@@ -367,7 +378,7 @@ class Line {
         this.disabled = false;
         let srcObj = this.srcObj;
         let destObj = this.destObj;
-        if (this.src[1] >= srcObj.outlets || this.dest[1] >= destObj.inlets) return this._patcher.deleteLine(this.id);
+        if (this.src[1] >= srcObj._outlets || this.dest[1] >= destObj._inlets) return this._patcher.deleteLine(this.id);
         srcObj.connectedOutlet(this.src[1], destObj, this.dest[1], this.id);
         destObj.connectedInlet(this.dest[1], srcObj, this.src[1], this.id);
         destObj.on(this.id, (data) => {

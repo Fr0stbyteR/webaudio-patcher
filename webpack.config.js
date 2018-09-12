@@ -4,6 +4,7 @@ module.exports = {
   optimization: {
     minimize: false
   },
+  mode: 'development',
   plugins: [
     new webpack.ProvidePlugin({
       '$': 'jquery',

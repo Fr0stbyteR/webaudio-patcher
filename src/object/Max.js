@@ -3,17 +3,17 @@ import Base from "./Base.js";
 class MaxObject extends Base.BaseObject {
     constructor(box, patcher) {
         super(box, patcher);
-        this.packageName = "max";
-        this.icon = "microchip"
+        this._package = "max";
+        this._icon = "microchip"
     }
 }
 
 class metro extends MaxObject {
     constructor(box, patcher) {
         super(box, patcher);
-        this.inlets = 2;
-        this.outlets = 1;
-        this.mem = {
+        this._inlets = 2;
+        this._outlets = 1;
+        this._mem = {
             interval : 5,
             active : 0,
             timeoutID : null
@@ -23,9 +23,9 @@ class metro extends MaxObject {
     update(args, props) {
         let callback = () => {
             return () => {
-                if (this.mem.active) {
+                if (this._mem.active) {
                     this.outlet(0, new Base.Bang());
-                    this.mem.timeoutID = window.setTimeout(callback(), this.mem.interval);
+                    this._mem.timeoutID = window.setTimeout(callback(), this._mem.interval);
                 }
             }
         }
@@ -34,19 +34,19 @@ class metro extends MaxObject {
                 this.error("metro", "Don't understand" + args[0]);
             } else {
                 let interval = Base.Utils.toNumber(args[0]);
-                this.mem.interval = interval < 1 ? 1 : interval;
+                this._mem.interval = interval < 1 ? 1 : interval;
             }
         }
         if (props && props.hasOwnProperty("active")) {
             if (!Base.Utils.isNumber(props.active)) {
                 this.error("metro", "Don't understand" + props.active);
             } else {
-                this.mem.active = Base.Utils.toNumber(props.active) !== 0;
-                if (this.mem.active) {
-                    window.clearTimeout(this.mem.timeoutID);
+                this._mem.active = Base.Utils.toNumber(props.active) !== 0;
+                if (this._mem.active) {
+                    window.clearTimeout(this._mem.timeoutID);
                     this.outlet(0, new Base.Bang());
-                    this.mem.timeoutID = window.setTimeout(callback(), this.mem.interval);
-                } else window.clearTimeout(this.mem.timeoutID);
+                    this._mem.timeoutID = window.setTimeout(callback(), this._mem.interval);
+                } else window.clearTimeout(this._mem.timeoutID);
             }
         }
         if (props && props.hasOwnProperty("interval")) {
@@ -54,7 +54,7 @@ class metro extends MaxObject {
                 this.error("metro", "Don't understand" + props.interval);
             } else {
                 let interval = Base.Utils.toNumber(props.interval);
-                this.mem.interval = interval < 1 ? 1 : interval;
+                this._mem.interval = interval < 1 ? 1 : interval;
             }
         }
         return this;

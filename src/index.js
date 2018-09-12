@@ -153,10 +153,8 @@ $(document).ready(() => {
 		if (e.key == "Delete" || e.key == "Backspace") patcher.deleteLine($(e.currentTarget).attr("id"));
 	});
 	$(document).on("click", "#save", (e) => {
-		let p = JSON.stringify(patcher, (k, v) => {
-			if (k.charAt(0) !== "_") return v;
-		})
-		var url = "data:text/plain;charset=utf-8," + encodeURIComponent(p);
+		let p = patcher.toString();
+		let url = "data:text/plain;charset=utf-8," + encodeURIComponent(p);
 		$(e.currentTarget).attr("download", "patcher.json").attr("href", url);
 	}).on("click", "#load", (e) => {
 		$(e.currentTarget).siblings("input").click();

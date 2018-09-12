@@ -7,22 +7,22 @@ class BaseObject extends EventEmitter {
         super();
         // define name of package of this prototype object class, usage in UI object, see below 
         // div will have class "package-name" "package-name-objectname"
-        this.packageName = "base";
+        this._package = "base";
         // semantic icon to display in UI
-        this.icon = "code";
+        this._icon = "code";
         // patcher object outside, use _ for prevent recursive stringify
         this._patcher = patcher;
         // the box which create this instance, use _ for prevent recursive stringify
         this._box = box;
         // one instance of object can have multiple boxes with same @name
-        this.boxes = [box.id];
+        this._boxes = [box.id];
         // inlets and outlets count
-        this.inlets = 1;
-        this.outlets = 1;
+        this._inlets = 1;
+        this._outlets = 1;
         // data for store and stringify in patch
-        this.data = {};
+        this.storage = box.prevData.hasOwnProperty("storage") ? box.prevData.storage : {};
         // should save all temporary variables here
-        this.mem = {};
+        this._mem = {};
         // usually do this after initialization
         //this.update(box.args, box.props);
     }
@@ -36,8 +36,8 @@ class BaseObject extends EventEmitter {
     }
     // build ui on page, return a div
     ui($, box) {
-        let content = $("<div />").addClass(["package-" + this.packageName, "package-" + this.packageName + "-" + this.constructor.name.toLowerCase()]);
-        let icon = $("<i />").addClass([this.icon, "icon"]);
+        let content = $("<div />").addClass(["package-" + this._package, "package-" + this._package + "-" + this.constructor.name.toLowerCase()]);
+        let icon = $("<i />").addClass([this._icon, "icon"]);
         let span = $("<span />").attr({
                 "contenteditable": false,
             }).html(box.text)
@@ -65,7 +65,7 @@ class BaseObject extends EventEmitter {
     }
     // use this function to output data with ith outlet.
     outlet(i, data) {
-        if (i >= this.outlets) return;
+        if (i >= this._outlets) return;
         for (let j = 0; j < this.outletLines[i].length; j++) {
             const lineID = this.outletLines[i][j];
             this._patcher.lines[lineID].emit(data);
@@ -75,13 +75,13 @@ class BaseObject extends EventEmitter {
         delete this._patcher.data[this._box.name][this._box.class]; //TODO doesnt work class package
     }
     addBox(id) {
-        this.boxes.push(id);
+        this._boxes.push(id);
         return this;
     }
     removeBox(id) {
         // remove this box from boxes list, if is last one, destroy instance
-        this.boxes.splice(this.boxes.indexOf(id), 1);
-        if (this.boxes.length == 0) this.destroy();
+        this._boxes.splice(this._boxes.indexOf(id), 1);
+        if (this._boxes.length == 0) this.destroy();
         return this;
     }
     // called when inlet or outlet are connected or disconnected
@@ -112,10 +112,10 @@ class BaseObject extends EventEmitter {
     }
     get outletLines() {
         let lines = [];
-        for (let i = 0; i < this.outlets; i++) {
+        for (let i = 0; i < this._outlets; i++) {
             lines[i] = [];
-            for (let j = 0; j < this.boxes.length; j++) {
-                lines[i] = lines[i].concat(this._patcher.getLinesBySrcID(this.boxes[j], i));
+            for (let j = 0; j < this._boxes.length; j++) {
+                lines[i] = lines[i].concat(this._patcher.getLinesBySrcID(this._boxes[j], i));
 
             }
         }
@@ -123,10 +123,10 @@ class BaseObject extends EventEmitter {
     }
     get inletLines() {
         let lines = [];
-        for (let i = 0; i < this.inlets; i++) {
+        for (let i = 0; i < this._inlets; i++) {
             lines[i] = [];
-            for (let j = 0; j < this.boxes.length; j++) {
-                lines[i] = lines[i].concat(this._patcher.getLinesByDestID(this.boxes[j], i));
+            for (let j = 0; j < this._boxes.length; j++) {
+                lines[i] = lines[i].concat(this._patcher.getLinesByDestID(this._boxes[j], i));
             }
         }
         return lines;
@@ -161,14 +161,14 @@ class EmptyObject extends BaseObject {
 class InvalidObject extends BaseObject {
     constructor(box, patcher) {
         super(box, patcher);
-        this.data.class = box.class;
+        this._mem.class = box.class;
         // this.ui = UIObj.InvalidBox;
-        this.inlets = box.inlets;
-        this.outlets = box.outlets;
+        this._inlets = box._inlets;
+        this._outlets = box._outlets;
     }
     fn(data, inlet) {}
     get class() {
-        return this.data.class;
+        return this._mem.class;
     }
 }
 
@@ -176,31 +176,31 @@ class InvalidObject extends BaseObject {
 class Button extends BaseObject {
     constructor(box, patcher) {
         super(box, patcher);
-        this.inlets = 1;
-        this.outlets = 1;
-        this.data.text = box.props.text || "Bang";
+        this._inlets = 1;
+        this._outlets = 1;
+        this._mem.text = box.props.text || "Bang";
     }
     fn(data, inlet) {
         this.outlet(0, new Bang());
     }
     ui($, box) {
         return $("<button />")
-        .addClass(["package-" + this.packageName, "package-" + this.packageName + "-" + this.constructor.name.toLowerCase()])
+        .addClass(["package-" + this._package, "package-" + this._package + "-" + this.constructor.name.toLowerCase()])
         .addClass(["ui", "mini", "icon", "button"])
-        .text(this.data.text).on("click", (e) => {
+        .text(this._mem.text).on("click", (e) => {
             this.outlet(0, new Bang());
         });
     }
     update(args, props) {
-        if (props.hasOwnProperty("text")) this.data.text = props.text;
+        if (props.hasOwnProperty("text")) this._mem.text = props.text;
     }
 }
 
 class Print extends BaseObject {
     constructor(box, patcher) {
         super(box, patcher);
-        this.inlets = 1;
-        this.outlets = 0;
+        this._inlets = 1;
+        this._outlets = 0;
     }
     fn(data, inlet) {
         console.log(data);
