@@ -4,11 +4,14 @@ import {
 import Base from "./object/Base.js"
 import WA from "./object/WA.js"
 import JS from "./object/JS.js"
+import Max from "./object/Max.js"
 let Packages = {
     Base,
     WA,
-    JS
+    JS,
+    Max
 };
+
 export default class Patcher extends EventEmitter {
     constructor(patcher) {
         super();
@@ -20,6 +23,8 @@ export default class Patcher extends EventEmitter {
         this.boxes = {};
         this.data = {};
         this.log = [];
+        if (this.hasOwnProperty("audioCtx")) this.audioCtx.close();
+        this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         this.emit("resetPatcher", this);
         if (patcher == undefined) return;
         // Patcher
@@ -366,7 +371,7 @@ class Line {
         srcObj.connectedOutlet(this.src[1], destObj, this.dest[1], this.id);
         destObj.connectedInlet(this.dest[1], srcObj, this.src[1], this.id);
         destObj.on(this.id, (data) => {
-            destObj._fn(data, this.dest[1])
+            destObj.fn(data, this.dest[1])
         });
         return this;
     }

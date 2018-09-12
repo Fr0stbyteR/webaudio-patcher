@@ -4,11 +4,11 @@ import "./JS.css"
 class JSBaseObject extends Base.BaseObject {
     constructor(box, patcher) {
         super(box, patcher);
-        this.packageClass = "package-js";
+        this.packageName = "js";
         this.inlets = 3;
         this.outlets = 2;
     }
-    _fn(data, inlet) {
+    fn(data, inlet) {
         if (inlet == 0 && data instanceof Base.Bang) {
             this.outlet(0, this.data);
             return;
@@ -130,7 +130,7 @@ class JSFunction extends JSBaseObject {
         this.outlets = 1;
         this.update(box.args);
     }
-    _fn(data, inlet) {
+    fn(data, inlet) {
         if (inlet == 0 && data instanceof Base.Bang) {
             this.outlet(0, this.data);
             return;
@@ -166,7 +166,7 @@ class JSCall extends JSBaseObject { //TODO Call with function name
         this.data.result;
         this.update(box.args);
     }
-    _fn(data, inlet) {
+    fn(data, inlet) {
         if (inlet == 0 && data instanceof Base.Bang) {
             this.outlet(0, this.data.fn(...this.data.args));
             return;

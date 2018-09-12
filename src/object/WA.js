@@ -3,14 +3,14 @@ import Base from "./Base.js";
 class WANode extends Base.BaseObject {
     constructor(box, patcher) {
         super(box, patcher);
-        this.packageClass = "package-wa";
+        this.packageName = "wa";
         this.icon = "volume up"
         if (!this._patcher.hasOwnProperty("audioCtx"))
-            this._patcher.audioCtx = new(window.AudioContext || window.webkitAudioContext)();
+            this._patcher.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         this.audioCtx.destination.channelInterpretation = "discrete";
         this.data.node;
     }
-    _fn(data, inlet) {
+    fn(data, inlet) {
     }
     connectedInlet(inlet, srcObj, srcOutlet, lineID) {
         if (this.isInletFrom(inlet, srcObj, srcOutlet)) return; // already connected
@@ -40,7 +40,7 @@ class Oscillator extends WANode {
         this.update(box.args, box.props);
         this.data.node.start();
     }
-    _fn(data, inlet) {
+    fn(data, inlet) {
         if (inlet == 0) {
             this.update([], data);
         }

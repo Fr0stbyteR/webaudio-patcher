@@ -162,16 +162,18 @@ $(document).ready(() => {
 		$(e.currentTarget).siblings("input").click();
 	}).on("change", "#load + input", (e) => {
 		let file = $(e.currentTarget).get(0).files[0];
-		if (file) {
-			var reader = new FileReader();
-			reader.readAsText(file, "UTF-8");
-			reader.onload = (e) => {
-				patcher.load(JSON.parse(e.target.result));
-			}
-			reader.onerror = (e) => {}
-		}
+		if (file) loadPatcher(file);
 	})
 });
+
+let loadPatcher = (file) => {
+	var reader = new FileReader();
+	reader.readAsText(file, "UTF-8");
+	reader.onload = (e) => {
+		patcher.load(JSON.parse(e.target.result));
+	}
+	reader.onerror = (e) => {}
+}
 
 let dragLine = function (id, isSrc, offset) {
 	let start, end;

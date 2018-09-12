@@ -1,6 +1,9 @@
 const path = require('path');
 const webpack = require('webpack');
 module.exports = {
+  optimization: {
+    minimize: false
+  },
   plugins: [
     new webpack.ProvidePlugin({
       '$': 'jquery',

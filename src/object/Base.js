@@ -5,21 +5,38 @@ import {
 class BaseObject extends EventEmitter {
     constructor(box, patcher) {
         super();
-        this.packageClass = "package-base";
+        // define name of package of this prototype object class, usage in UI object, see below 
+        // div will have class "package-name" "package-name-objectname"
+        this.packageName = "base";
+        // semantic icon to display in UI
         this.icon = "code";
-        this.exportedClass = box.class;
+        // patcher object outside, use _ for prevent recursive stringify
         this._patcher = patcher;
-        this.name = box.name;
+        // the box which create this instance, use _ for prevent recursive stringify
+        this._box = box;
+        // one instance of object can have multiple boxes with same @name
         this.boxes = [box.id];
+        // inlets and outlets count
         this.inlets = 1;
         this.outlets = 1;
+        // data for store and stringify in patch
         this.data = {};
+        // should save all temporary variables here
+        this.mem = {};
+        // usually do this after initialization
+        //this.update(box.args, box.props);
     }
-    _fn(data, inlet) {
+    // when arguments and @properties are changed, can use this in constructor
+    update(args, props) {
+        return this;
+    }
+    // main function when receive data from a inlet (base 0);
+    fn(data, inlet) {
         this.outlet(0, data);
     }
+    // build ui on page, return a div
     ui($, box) {
-        let content = $("<div />").addClass([this.packageClass, this.packageClass + "-" + this.constructor.name.toLowerCase()]);
+        let content = $("<div />").addClass(["package-" + this.packageName, "package-" + this.packageName + "-" + this.constructor.name.toLowerCase()]);
         let icon = $("<i />").addClass([this.icon, "icon"]);
         let span = $("<span />").attr({
                 "contenteditable": false,
@@ -46,6 +63,7 @@ class BaseObject extends EventEmitter {
             content.append(icon).append(span);
         return content;
     }
+    // use this function to output data with ith outlet.
     outlet(i, data) {
         if (i >= this.outlets) return;
         for (let j = 0; j < this.outletLines[i].length; j++) {
@@ -54,20 +72,19 @@ class BaseObject extends EventEmitter {
         }
     }
     destroy() {
-        delete this._patcher.data[this.name][this.exportedClass]; //TODO doesnt work class package
+        delete this._patcher.data[this._box.name][this._box.class]; //TODO doesnt work class package
     }
     addBox(id) {
         this.boxes.push(id);
         return this;
     }
     removeBox(id) {
+        // remove this box from boxes list, if is last one, destroy instance
         this.boxes.splice(this.boxes.indexOf(id), 1);
         if (this.boxes.length == 0) this.destroy();
         return this;
     }
-    update(args, props) {
-        return this;
-    }
+    // called when inlet or outlet are connected or disconnected
     connectedOutlet(outlet, destObj, destInlet, lineID) {
         return this;
     }
@@ -80,6 +97,7 @@ class BaseObject extends EventEmitter {
     disconnectedInlet(inlet, srcObj, srcOutlet, lineID) {
         return this;
     }
+    // output to console
     post(title, data) {
         this._patcher.newLog(0, title, data);
     }
@@ -148,7 +166,7 @@ class InvalidObject extends BaseObject {
         this.inlets = box.inlets;
         this.outlets = box.outlets;
     }
-    _fn(data, inlet) {}
+    fn(data, inlet) {}
     get class() {
         return this.data.class;
     }
@@ -162,12 +180,12 @@ class Button extends BaseObject {
         this.outlets = 1;
         this.data.text = box.props.text || "Bang";
     }
-    _fn(data, inlet) {
+    fn(data, inlet) {
         this.outlet(0, new Bang());
     }
     ui($, box) {
         return $("<button />")
-        .addClass([this.packageClass, this.packageClass + "-" + this.constructor.name.toLowerCase()])
+        .addClass(["package-" + this.packageName, "package-" + this.packageName + "-" + this.constructor.name.toLowerCase()])
         .addClass(["ui", "mini", "icon", "button"])
         .text(this.data.text).on("click", (e) => {
             this.outlet(0, new Bang());
@@ -184,13 +202,31 @@ class Print extends BaseObject {
         this.inlets = 1;
         this.outlets = 0;
     }
-    _fn(data, inlet) {
-        this.post("print", (typeof data == "object" ? data.constructor.name : "") + JSON.stringify(data));
+    fn(data, inlet) {
+        console.log(data);
+        console.log(data instanceof Bang);
+        if (typeof data == "object") this.post("print", data.constructor.name + JSON.stringify(data));
+        else this.post("print", JSON.stringify(data));
     }
 }
 
-class Bang {
-    constructor() {}
+class Bang {}
+
+class Utils {
+    static toNumber(data) {
+        try {
+            return +data;
+        } catch (e) {
+            try {
+                return parseFloat(data);
+            } catch (e) {
+                return null;
+            }
+        }
+    }
+    static isNumber(data) {
+        return this.toNumber(data) !== null;
+    }
 }
 
 export default {
@@ -199,5 +235,6 @@ export default {
     BaseObject,
     Bang,
     Button,
-    Print
+    Print,
+    Utils
 }
