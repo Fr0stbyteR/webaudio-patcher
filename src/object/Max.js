@@ -21,7 +21,6 @@ class metro extends MaxObject {
         this.update(box.args, box.props);
     }
     update(args, props) {
-        let interval, active;
         let callback = () => {
             return () => {
                 if (this._mem.active) {
@@ -31,7 +30,7 @@ class metro extends MaxObject {
             }
         }
         if ((args && args[0]) || (props && props.hasOwnProperty("interval"))) {
-            interval = Base.Utils.toNumber(args[0]);
+            let interval = Base.Utils.toNumber(args[0]);
             if (interval === null) {
                 this.error("metro", "Don't understand" + args[0]);
             } else {
@@ -39,7 +38,7 @@ class metro extends MaxObject {
             }
         }
         if (props && props.hasOwnProperty("active")) {
-            active = Base.Utils.toNumber(props.active);
+            let active = Base.Utils.toNumber(props.active);
             if (active === null) {
                 this.error("metro", "Don't understand" + props.active);
             } else {

@@ -24,7 +24,7 @@ class DSP extends FaustObject {
             ftz : 2,
             polyVoices : 16,
             useWorklet : false,
-            libraries : "http://faust.grame.fr/editor/libraries/"
+            libraries : "https://faust.grame.fr/editor/libraries/"
         }
         this._mem.bufferSize = 256;
         this._mem.code = null;
