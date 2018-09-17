@@ -4,12 +4,43 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>JSPatcher</title>
+    <script 
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous">
+    </script>
     <script type="text/javascript" src="./dist/bundle.js"></script>
     <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+    <script type="text/javascript" src="semantic/dist/semantic.min.js"></script>
     <style type="text/css">
         body {
             margin: 0px;
             background-color: black;
+        }
+
+        #menu {
+            right: 300px; /*300px sidebar*/
+            width: auto; /*overload semantic 100% width*/
+        }
+        
+        #sidebar {
+            box-shadow: 0px 0px 2px black;
+            overflow-y: auto;
+        }
+
+        #console {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            left: 0px;
+            bottom: 0px;
+        }
+        
+        #log {
+            display: block;
+            height: 100%;
+            overflow-y: auto;
+            padding-top: 42px;
         }
 
         .hidden {
@@ -19,9 +50,10 @@
         div.patcher {
             position: absolute;
             top: 40px;
-            right: 0px;
+            right: 300px;
             left: 0px;
             bottom: 0px;
+            overflow: auto;
         }
 
         div.boxes {
@@ -264,19 +296,21 @@
         <input type="file" style="display:none" />
         <a id="save" class="red item">Save</a>
     </div>
-    <div id="sidebar" class="ui right inverted visible overlay sidebar">
-        <table id="log" class="ui selectable inverted striped very compact small table">
-            <thead>
-                <tr>
-                    <th class="two wide">Title</th>
-                    <th class="fourteen wide">Message</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+    <div id="sidebar" class="ui inverted right internal attached rail">
+        <div id="console">
+            <table id="log" class="ui selectable inverted striped very compact small table">
+                <thead class="ui sticky fixed top">
+                    <tr>
+                        <th class="two wide">Title</th>
+                        <th class="fourteen wide">Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div class="patcher pusher">
+    <div class="patcher">
         <div class="lines"></div>
         <div class="boxes"></div>
     </div>

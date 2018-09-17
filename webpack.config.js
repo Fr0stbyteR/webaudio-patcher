@@ -8,13 +8,9 @@ module.exports = {
     fs: 'empty'
   },
   mode: 'development',
-  plugins: [
-    new webpack.ProvidePlugin({
-      '$': 'jquery',
-      'jQuery': 'jquery',
-      'windows.jQuery': 'jquery',
-    }),
-  ],
+  externals: {
+    jquery: 'jQuery'
+  },
   entry: './src/index.js',
   output: {
     filename: 'bundle.js',
@@ -36,7 +32,7 @@ module.exports = {
         options: {
           configFile: path.resolve('.eslintrc.json'),
           eslint: {
-              configFile: path.resolve(__dirname, '.eslintrc.json')
+            configFile: path.resolve(__dirname, '.eslintrc.json')
           }
         }
       },

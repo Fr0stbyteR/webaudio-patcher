@@ -1,14 +1,11 @@
 import $ from 'jquery';
-import {
-	content
-} from "./maxpat.js";
 import Patcher from "./Patcher.js";
 import UIObj from "./UIObj.js";
 import "jquery-ui/ui/widgets/draggable.js";
 import "jquery-ui/ui/widgets/resizable.js";
 import "jquery-ui/themes/base/draggable.css";
 import "jquery-ui/themes/base/resizable.css";
-window.$ = window.JQuery = $;
+window.$ = $, window.jQuery = $;
 
 let patcher = new Patcher();
 window.patcher = patcher;
@@ -109,12 +106,17 @@ $(document).ready(() => {
 	patcher.on("newLog", (log) => {
 		$("#log tbody").append(
 			$('<tr>').addClass(log[0] == 1 ? "error" : log[0] == -1 ? "warning" : log[0] == -2 ? "positive" : "")
-			.append($('<td>').text(log[1]))
-			.append($('<td>').text(log[2]))
+			.append($('<td>').addClass(["two", "wide"]).text(log[1]))
+			.append($('<td>').addClass(["fourteen", "wide"]).text(log[2]))
 		)
+		$("#log").animate({
+			scrollTop: $("#log").get(0).scrollHeight
+		}, 100)
 	});
 
-	patcher.load(content);
+	fetch("patcher.json").then(response => {
+		return response.json();
+	}).then(content => patcher.load(content));
 
 
 	$(document).on("dblclick", ".boxes", (e) => {

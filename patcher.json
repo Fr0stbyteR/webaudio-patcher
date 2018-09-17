@@ -297,8 +297,8 @@
             "inlets": 1,
             "outlets": 0,
             "patching_rect": [
-                297,
-                263,
+                216,
+                258,
                 126,
                 28
             ],
@@ -595,7 +595,9 @@
                 "active": 1
             },
             "prevData": {
-                "storage": {}
+                "storage": {
+                    "a": 1
+                }
             }
         }
     },
@@ -693,8 +695,8 @@
             }
         }
     },
-    "boxIndexCount": 22,
-    "lineIndexCount": 29,
+    "boxIndexCount": 23,
+    "lineIndexCount": 33,
     "bgcolor": [
         61,
         65,

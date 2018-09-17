@@ -88,3 +88,7 @@ $RECYCLE.BIN/
 semantic/src/
 semantic/tasks/
 semantic/gulpfile.js
+
+app.js
+cycle-dac.maxpat
+maxpat.js

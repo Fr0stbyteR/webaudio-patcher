@@ -5,7 +5,7 @@ class FaustObject extends Base.BaseObject {
     constructor(box, patcher) {
         super(box, patcher);
         this._package = "faust";
-        this._icon = "microchip";
+        this._icon = "terminal";
         this._mem.faust = Faust;
         if (!this._patcher.hasOwnProperty("_audioCtx")) {
             this._patcher._audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -40,34 +40,6 @@ class DSP extends FaustObject {
             }
             this._mem.node = node;
             this._mem.params = node.getJSON();
-            let inletLines = this.inletLines;
-            for (let inlet = 0; inlet < this._inlets; inlet++) {
-                for (let j = 0; j < inletLines[inlet].length; j++) {
-                    const line = this._patcher.lines[inletLines[inlet][j]];
-                    let srcObj = line.srcObj;
-                    let srcOutlet = line.srcOutlet;
-                    if (srcObj._mem.hasOwnProperty("node") 
-                            && srcObj._mem.node instanceof AudioNode) {
-                        if (inlet >= this._mem.node.numberOfInputs 
-                                || srcOutlet >= srcObj._mem.node.numberOfOutputs) return this;
-                        srcObj._mem.node.connect(this._mem.node, srcOutlet, inlet);
-                    }
-                }
-            }
-            let outletLines = this.outletLines;
-            for (let outlet = 0; outlet < this.outlets; outlet++) {
-                for (let j = 0; j < outletLines[outlet].length; j++) {
-                    const line = this._patcher.lines[outletLines[outlet][j]];
-                    let destObj = line.destObj;
-                    let destInlet = line.destInlet;
-                    if (destObj._mem.hasOwnProperty("node") 
-                            && destObj._mem.node instanceof AudioNode) {
-                        if (outlet >= this._mem.node.numberOfOutputs 
-                                || destInlet >= destObj._mem.node.numberOfInputs) return this;
-                        this._mem.node.connect(destObj._mem.node, outlet, destInlet);
-                    }
-                }
-            }
             this.emit("loadFaustModule", node.getJSON());
         }
         if (props && props.hasOwnProperty("bufferSize")) {
@@ -79,6 +51,7 @@ class DSP extends FaustObject {
             }
         }
         if (args && args[0]) {
+            if (this._mem.node && this._mem.node instanceof AudioNode) this._disConnectAll();
             let code = Base.Utils.toString(args[0]);
             if (code === null) {
                 this.error("Faust.DSP", "Don't understand" + args[0]);
@@ -133,6 +106,66 @@ class DSP extends FaustObject {
             srcObj._mem.node.disconnect(this._mem.node, srcOutlet, inlet);
         }
         return this;
+    }
+    _connectAll() {
+        let inletLines = this.inletLines;
+        for (let inlet = 0; inlet < this._inlets; inlet++) {
+            for (let j = 0; j < inletLines[inlet].length; j++) {
+                const line = this._patcher.lines[inletLines[inlet][j]];
+                let srcObj = line.srcObj;
+                let srcOutlet = line.srcOutlet;
+                if (srcObj._mem.hasOwnProperty("node") 
+                        && srcObj._mem.node instanceof AudioNode) {
+                    if (inlet >= this._mem.node.numberOfInputs 
+                            || srcOutlet >= srcObj._mem.node.numberOfOutputs) return this;
+                    srcObj._mem.node.connect(this._mem.node, srcOutlet, inlet);
+                }
+            }
+        }
+        let outletLines = this.outletLines;
+        for (let outlet = 0; outlet < this.outlets; outlet++) {
+            for (let j = 0; j < outletLines[outlet].length; j++) {
+                const line = this._patcher.lines[outletLines[outlet][j]];
+                let destObj = line.destObj;
+                let destInlet = line.destInlet;
+                if (destObj._mem.hasOwnProperty("node") 
+                        && destObj._mem.node instanceof AudioNode) {
+                    if (outlet >= this._mem.node.numberOfOutputs 
+                            || destInlet >= destObj._mem.node.numberOfInputs) return this;
+                    this._mem.node.connect(destObj._mem.node, outlet, destInlet);
+                }
+            }
+        }
+    }
+    _disConnectAll() {
+        let inletLines = this.inletLines;
+        for (let inlet = 0; inlet < this._inlets; inlet++) {
+            for (let j = 0; j < inletLines[inlet].length; j++) {
+                const line = this._patcher.lines[inletLines[inlet][j]];
+                let srcObj = line.srcObj;
+                let srcOutlet = line.srcOutlet;
+                if (srcObj._mem.hasOwnProperty("node") 
+                        && srcObj._mem.node instanceof AudioNode) {
+                    if (inlet >= this._mem.node.numberOfInputs 
+                            || srcOutlet >= srcObj._mem.node.numberOfOutputs) return this;
+                    srcObj._mem.node.disconnect(this._mem.node, srcOutlet, inlet);
+                }
+            }
+        }
+        let outletLines = this.outletLines;
+        for (let outlet = 0; outlet < this.outlets; outlet++) {
+            for (let j = 0; j < outletLines[outlet].length; j++) {
+                const line = this._patcher.lines[outletLines[outlet][j]];
+                let destObj = line.destObj;
+                let destInlet = line.destInlet;
+                if (destObj._mem.hasOwnProperty("node") 
+                        && destObj._mem.node instanceof AudioNode) {
+                    if (outlet >= this._mem.node.numberOfOutputs 
+                            || destInlet >= destObj._mem.node.numberOfInputs) return this;
+                    this._mem.node.disconnect(destObj._mem.node, outlet, destInlet);
+                }
+            }
+        }
     }
 }
 
