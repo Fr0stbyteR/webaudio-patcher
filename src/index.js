@@ -119,7 +119,7 @@ $(document).ready(() => {
 
 	$(document).on("dblclick", ".boxes", (e) => {
 		let box = {
-			patching_rect: [e.offsetX, e.offsetY, 60, 22],
+			patching_rect: [e.offsetX, e.offsetY, 100, 22],
 		}
 		box = patcher.createBox(box);
 		$("#" + box.id).mousedown().find("span").click();
@@ -165,7 +165,7 @@ $(document).ready(() => {
 });
 
 let loadPatcher = (file) => {
-	var reader = new FileReader();
+	let reader = new FileReader();
 	reader.readAsText(file, "UTF-8");
 	reader.onload = (e) => {
 		patcher.load(JSON.parse(e.target.result));
@@ -173,7 +173,7 @@ let loadPatcher = (file) => {
 	reader.onerror = (e) => {}
 }
 
-let dragLine = function (id, isSrc, offset) {
+let dragLine = (id, isSrc, offset) => {
 	let start, end;
 	if (isSrc) {
 		start = offset;
@@ -186,7 +186,7 @@ let dragLine = function (id, isSrc, offset) {
 
 }
 
-let updateLine = function (id) {
+let updateLine = (id) => {
 	let lineObj = patcher.lines[id];
 	let startJQ = $("#" + lineObj.src[0]).find(".box-outlet").eq(lineObj.src[1]);
 	let destJQ = $("#" + lineObj.dest[0]).find(".box-inlet").eq(lineObj.dest[1]);
@@ -200,7 +200,7 @@ let updateLine = function (id) {
 		.siblings(".line-handler-src").first().css("left", handlerPos[0]).css("top", handlerPos[1]);
 }
 
-let drawLine = function (id, start, end) {
+let drawLine = (id, start, end) => {
 	let divStyle = {
 		"left": Math.min(start[0], end[0]) - 5,
 		"top": Math.min(start[1], end[1]) - 10,
@@ -222,14 +222,14 @@ let drawLine = function (id, start, end) {
 			"end": end
 		});
 }
-let updateLineByObj = function (id) {
+let updateLineByObj = (id) => {
 	let lineIDs = patcher.getLinesByDestID(id).concat(patcher.getLinesBySrcID(id));
 	for (let i = 0; i < lineIDs.length; i++) {
 		updateLine(lineIDs[i]);
 	}
 }
 
-let findHandlerPosLine = function (id) {
+let findHandlerPosLine = (id) => {
 	let path = $("#" + id).find(".line-path")[0];
 	let length = path.getTotalLength();
 	let res = [];
@@ -242,7 +242,7 @@ let findHandlerPosLine = function (id) {
 	return res;
 }
 
-let findClosestPort = function (offset, findOutlet, exclude) {
+let findClosestPort = (offset, findOutlet, exclude) => {
 	let closest = [];
 	let distance;
 	$(findOutlet ? ".box-outlet" : ".box-inlet").each((index, element) => {
@@ -267,7 +267,7 @@ let findClosestPort = function (offset, findOutlet, exclude) {
 	return distance < 50 ? closest : [];
 }
 
-let updateBoxIO = function (id) {
+let updateBoxIO = (id) => {
 	let box = patcher.boxes[id];
 	for (let i = 0; i < box.inlets; i++) {
 		let inlets = patcher.getLinesByDestID(id, i);
@@ -326,7 +326,7 @@ let updateBoxIO = function (id) {
 	});
 }
 
-let updateBoxRect = function (id) {
+let updateBoxRect = (id) => {
 	let jq = $("#" + id);
 	let l = jq.position().left;
 	let t = jq.position().top;

@@ -1,1 +1,2 @@
-./src/object.faust.libfaust-wasm.js
+/src/object/faust/libfaust-wasm.js
+/src/object/faust/webaudio-wasm-wrapper.js

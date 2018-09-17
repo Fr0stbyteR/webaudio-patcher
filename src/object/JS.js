@@ -60,15 +60,8 @@ class JSNumber extends JSBaseObject {
         this.update(box.args);
     }
     _convert(data) {
-        try {
-            this._mem.data = +data;
-        } catch (e) {
-            try {
-                this._mem.data = parseFloat(data);
-            } catch (e) {
-                this.error("number", e);
-            }
-        }
+        if (Base.Utils.toNumber(data) !== null) this._mem.data = data;
+        else this.error("Cannot convert " + data + " as a Number");
     }
 }
 
@@ -78,14 +71,8 @@ class JSString extends JSBaseObject {
         this.update(box.args);
     }
     _convert(data) {
-        if (typeof data == "string") this._mem.data = data;
-        else {
-            try {
-                this._mem.data = JSON.stringify(data);
-            } catch (e) {
-                this.error("string", e);
-            }
-        }
+        if (Base.Utils.toString(data) !== null) this._mem.data = data;
+        else this.error("Cannot convert " + data + " as a String");
     }
 }
 class JSArray extends JSBaseObject {

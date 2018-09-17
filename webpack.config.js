@@ -4,6 +4,9 @@ module.exports = {
   optimization: {
     minimize: false
   },
+  node: {
+    fs: 'empty'
+  },
   mode: 'development',
   plugins: [
     new webpack.ProvidePlugin({

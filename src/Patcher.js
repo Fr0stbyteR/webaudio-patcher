@@ -5,11 +5,13 @@ import Base from "./object/Base.js"
 import WA from "./object/WA.js"
 import JS from "./object/JS.js"
 import Max from "./object/Max.js"
+import Faust from "./object/faust/Faust.js"
 let Packages = {
     Base,
     WA,
     JS,
-    Max
+    Max,
+    Faust
 };
 
 export default class Patcher extends EventEmitter {
@@ -23,6 +25,7 @@ export default class Patcher extends EventEmitter {
         this.boxes = {};
         this.data = {};
         this._log = [];
+        this._packages = Packages;
         if (this.hasOwnProperty("_audioCtx")) this._audioCtx.close();
         this._audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         this._audioCtx.destination.channelInterpretation = "discrete";
@@ -129,6 +132,8 @@ export default class Patcher extends EventEmitter {
     }
 
     changeLineSrc(id, srcID, srcOutlet) {
+        if (this.getLinesByIO(srcID, this.lines[id].dest[0], srcOutlet, this.lines[id].dest[1]).length > 0) 
+            return this.line[id];
         let oldSrc = this.lines[id].src;
         this.lines[id].setSrc([srcID, srcOutlet]);
         this.emit("changeLineSrc", this.lines[id], oldSrc);
@@ -137,6 +142,8 @@ export default class Patcher extends EventEmitter {
     }
 
     changeLineDest(id, destID, destOutlet) {
+        if (this.getLinesByIO(this.lines[id].src[0], destID, this.lines[id].dest[1], destOutlet).length > 0)
+            return this.line[id];
         let oldDest = this.lines[id].dest;
         this.lines[id].setDest([destID, destOutlet]);
         this.emit("changeLineDest", this.lines[id], oldDest);

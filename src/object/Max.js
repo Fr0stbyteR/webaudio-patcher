@@ -21,6 +21,7 @@ class metro extends MaxObject {
         this.update(box.args, box.props);
     }
     update(args, props) {
+        let interval, active;
         let callback = () => {
             return () => {
                 if (this._mem.active) {
@@ -29,32 +30,27 @@ class metro extends MaxObject {
                 }
             }
         }
-        if (args && args[0]) {
-            if (!Base.Utils.isNumber(args[0])) {
+        if ((args && args[0]) || (props && props.hasOwnProperty("interval"))) {
+            interval = Base.Utils.toNumber(args[0]);
+            if (interval === null) {
                 this.error("metro", "Don't understand" + args[0]);
             } else {
-                let interval = Base.Utils.toNumber(args[0]);
                 this._mem.interval = interval < 1 ? 1 : interval;
             }
         }
         if (props && props.hasOwnProperty("active")) {
-            if (!Base.Utils.isNumber(props.active)) {
+            active = Base.Utils.toNumber(props.active);
+            if (active === null) {
                 this.error("metro", "Don't understand" + props.active);
             } else {
-                this._mem.active = Base.Utils.toNumber(props.active) !== 0;
+                this._mem.active = active !== 0;
                 if (this._mem.active) {
                     window.clearTimeout(this._mem.timeoutID);
                     this.outlet(0, new Base.Bang());
                     this._mem.timeoutID = window.setTimeout(callback(), this._mem.interval);
-                } else window.clearTimeout(this._mem.timeoutID);
-            }
-        }
-        if (props && props.hasOwnProperty("interval")) {
-            if (!Base.Utils.isNumber(props.interval)) {
-                this.error("metro", "Don't understand" + props.interval);
-            } else {
-                let interval = Base.Utils.toNumber(props.interval);
-                this._mem.interval = interval < 1 ? 1 : interval;
+                } else {
+                    window.clearTimeout(this._mem.timeoutID);
+                }
             }
         }
         return this;

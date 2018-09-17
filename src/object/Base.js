@@ -20,7 +20,7 @@ class BaseObject extends EventEmitter {
         this._inlets = 1;
         this._outlets = 1;
         // data for store and stringify in patch
-        this.storage = box.prevData.hasOwnProperty("storage") ? box.prevData.storage : {};
+        this.storage = box.hasOwnProperty("prevData") && box.prevData && box.prevData.hasOwnProperty("storage") ? box.prevData.storage : {};
         // should save all temporary variables here
         this._mem = {};
         // usually do this after initialization
@@ -100,15 +100,19 @@ class BaseObject extends EventEmitter {
     // output to console
     post(title, data) {
         this._patcher.newLog(0, title, data);
+        return this;
     }
     error(title, data) {
         this._patcher.newLog(1, title, data);
+        return this;
     }
     info(title, data) {
         this._patcher.newLog(-2, title, data);
+        return this;
     }
     warn(title, data) {
         this._patcher.newLog(-1, title, data);
+        return this;
     }
     get outletLines() {
         let lines = [];
@@ -133,6 +137,9 @@ class BaseObject extends EventEmitter {
     }
     get class() {
         return this.constructor.name;
+    }
+    get importedClass() {
+        return this._box.class;
     }
     isOutletTo(outlet, obj, inlet) {
         let outletLines = this.outletLines[outlet];
@@ -203,8 +210,6 @@ class Print extends BaseObject {
         this._outlets = 0;
     }
     fn(data, inlet) {
-        console.log(data);
-        console.log(data instanceof Bang);
         if (typeof data == "object") this.post("print", data.constructor.name + JSON.stringify(data));
         else this.post("print", JSON.stringify(data));
     }
@@ -224,8 +229,19 @@ class Utils {
             }
         }
     }
+    static toString(data) {
+        if (typeof data == "string") return data;
+        try {
+            return JSON.stringify(data);
+        } catch (e) {
+            return null;
+        }
+    }
     static isNumber(data) {
         return this.toNumber(data) !== null;
+    }
+    static isString(data) {
+        return this.toString(data) !== null
     }
 }
 

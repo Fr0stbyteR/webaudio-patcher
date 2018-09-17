@@ -9,25 +9,27 @@ class WANode extends Base.BaseObject {
             this._patcher._audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             this._audioCtx.destination.channelInterpretation = "discrete";
         }
-        this._mem = {
-            node : null
-        }
+        this._mem.node = null;
     }
     fn(data, inlet) {
     }
     connectedInlet(inlet, srcObj, srcOutlet, lineID) {
-        if (this.isInletFrom(inlet, srcObj, srcOutlet)) return; // already connected
-        if (srcObj._mem.hasOwnProperty("node") && srcObj._mem.node instanceof AudioNode) {
-            if (inlet >= this._mem.node.numberOfInputs || srcOutlet >= srcObj._mem.node.numberOfOutputs) return;
+        if (srcObj._mem.hasOwnProperty("node") 
+                && srcObj._mem.node instanceof AudioNode) {
+            if (inlet >= this._mem.node.numberOfInputs 
+                    || srcOutlet >= srcObj._mem.node.numberOfOutputs) return this;
             srcObj._mem.node.connect(this._mem.node, srcOutlet, inlet);
         }
+        return this;
     }
     disconnectedInlet(inlet, srcObj, srcOutlet, lineID) {
-        if (this.isInletFrom(inlet, srcObj, srcOutlet)) return; // not last cable
-        if (srcObj._mem.hasOwnProperty("node") && srcObj._mem.node instanceof AudioNode) {
-            if (inlet >= this._mem.node.numberOfInputs || srcOutlet >= srcObj._mem.node.numberOfOutputs) return;
+        if (srcObj._mem.hasOwnProperty("node") 
+                && srcObj._mem.node instanceof AudioNode) {
+            if (inlet >= this._mem.node.numberOfInputs 
+                    || srcOutlet >= srcObj._mem.node.numberOfOutputs) return this;
             srcObj._mem.node.disconnect(this._mem.node, srcOutlet, inlet);
         }
+        return this;
     }
 }
 
