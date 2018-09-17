@@ -41,6 +41,7 @@ class DSP extends FaustObject {
             this._mem.node = node;
             this._mem.params = node.getJSON();
             this.emit("loadFaustModule", node.getJSON());
+            this._connectAll();
         }
         if (props && props.hasOwnProperty("bufferSize")) {
             let bufferSize = Base.Utils.toNumber(props.bufferSize);
@@ -51,7 +52,7 @@ class DSP extends FaustObject {
             }
         }
         if (args && args[0]) {
-            if (this._mem.node && this._mem.node instanceof AudioNode) this._disConnectAll();
+            if (this._mem.node && this._mem.node instanceof AudioNode) this._disconnectAll();
             let code = Base.Utils.toString(args[0]);
             if (code === null) {
                 this.error("Faust.DSP", "Don't understand" + args[0]);
@@ -123,7 +124,7 @@ class DSP extends FaustObject {
             }
         }
         let outletLines = this.outletLines;
-        for (let outlet = 0; outlet < this.outlets; outlet++) {
+        for (let outlet = 0; outlet < this._outlets; outlet++) {
             for (let j = 0; j < outletLines[outlet].length; j++) {
                 const line = this._patcher.lines[outletLines[outlet][j]];
                 let destObj = line.destObj;
@@ -136,8 +137,9 @@ class DSP extends FaustObject {
                 }
             }
         }
+        return this;
     }
-    _disConnectAll() {
+    _disconnectAll() {
         let inletLines = this.inletLines;
         for (let inlet = 0; inlet < this._inlets; inlet++) {
             for (let j = 0; j < inletLines[inlet].length; j++) {
@@ -153,7 +155,7 @@ class DSP extends FaustObject {
             }
         }
         let outletLines = this.outletLines;
-        for (let outlet = 0; outlet < this.outlets; outlet++) {
+        for (let outlet = 0; outlet < this._outlets; outlet++) {
             for (let j = 0; j < outletLines[outlet].length; j++) {
                 const line = this._patcher.lines[outletLines[outlet][j]];
                 let destObj = line.destObj;
@@ -166,6 +168,7 @@ class DSP extends FaustObject {
                 }
             }
         }
+        return this;
     }
 }
 
