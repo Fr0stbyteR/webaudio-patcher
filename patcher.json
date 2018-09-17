@@ -599,27 +599,6 @@
                     "a": 1
                 }
             }
-        },
-        "box-24": {
-            "id": "box-24",
-            "name": "box-24",
-            "class": "Faust.DSP",
-            "inlets": 1,
-            "outlets": 1,
-            "patching_rect": [
-                1293,
-                106,
-                100,
-                68
-            ],
-            "text": "Faust.DSP process=0; @bufferSize 1024",
-            "args": [
-                "process=0;"
-            ],
-            "props": {
-                "bufferSize": 1024
-            },
-            "prevData": null
         }
     },
     "data": {
@@ -713,11 +692,6 @@
                 "storage": {
                     "a": 1
                 }
-            }
-        },
-        "box-24": {
-            "Faust.DSP": {
-                "storage": {}
             }
         }
     },
