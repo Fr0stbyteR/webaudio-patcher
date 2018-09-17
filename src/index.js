@@ -215,8 +215,8 @@ let drawLine = (id, start, end) => {
 	let dBezier = [dStart[0] * 0.8 + dMid[0] * 0.2, start[1] - divStyle.top + divStyle.height / 5];
 	if (dBezier[1] > divStyle.height) dBezier[1] = divStyle.height;
 	let d = ["M", dStart[0], dStart[1], "Q", dBezier[0], dBezier[1], ",", dMid[0], dMid[1], "T", dEnd[0], dEnd[1]];
-	divStyle.left -= $(".patcher").offset().left;
-	divStyle.top -= $(".patcher").offset().top;
+	divStyle.left -= $("#" + id).parents(".lines").offset().left;
+	divStyle.top -= $("#" + id).parents(".lines").offset().top;
 	$("#" + id).css(divStyle)
 		.find("svg").width(divStyle.width).height(divStyle.height)
 		.find("path").attr("d", d.join(" ")).data({

@@ -8,9 +8,6 @@ module.exports = {
     fs: 'empty'
   },
   mode: 'development',
-  externals: {
-    jquery: 'jQuery'
-  },
   entry: './src/index.js',
   output: {
     filename: 'bundle.js',
