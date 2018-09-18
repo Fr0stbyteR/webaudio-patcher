@@ -14,7 +14,6 @@ class FaustObject extends Base.BaseObject {
                 this.emit("faustLoaded", Faust);
             });
         }
-        
         if (!this._patcher.hasOwnProperty("_audioCtx")) {
             this._patcher._audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             this._audioCtx.destination.channelInterpretation = "discrete";
@@ -183,6 +182,12 @@ class DSP extends FaustObject {
             }
         }
         return this;
+    }
+    ui($, box) {
+        let dropdownIcon = $("<i />").addClass(["dropdown", "icon"])
+            .on();
+        let content = super.ui().append(dropdownIcon);
+        return content;
     }
 }
 

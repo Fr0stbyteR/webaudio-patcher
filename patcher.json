@@ -227,6 +227,18 @@
             ],
             "id": "line-28",
             "disabled": false
+        },
+        "line-35": {
+            "src": [
+                "box-25",
+                0
+            ],
+            "dest": [
+                "box-8",
+                0
+            ],
+            "id": "line-35",
+            "disabled": false
         }
     },
     "boxes": {
@@ -297,8 +309,8 @@
             "inlets": 1,
             "outlets": 0,
             "patching_rect": [
-                216,
-                258,
+                128,
+                293,
                 126,
                 28
             ],
@@ -607,19 +619,21 @@
             "inlets": 1,
             "outlets": 1,
             "patching_rect": [
-                1182,
-                127,
-                100,
-                68
+                130,
+                22,
+                242,
+                88
             ],
-            "text": "Faust.DSP process=0; @bufferSize 1024",
+            "text": "Faust.DSP import(\"stdfaust.lib\");echo=+~(@(10000):*(0.75));process=ba.pulsen(1,10000):pm.djembe(60,0.3,0.4,1):echo; @bufferSize 1024",
             "args": [
-                "process=0;"
+                "import(\"stdfaust.lib\");echo=+~(@(10000):*(0.75));process=ba.pulsen(1,10000):pm.djembe(60,0.3,0.4,1):echo;"
             ],
             "props": {
                 "bufferSize": 1024
             },
-            "prevData": null
+            "prevData": {
+                "storage": {}
+            }
         }
     },
     "data": {
@@ -722,7 +736,7 @@
         }
     },
     "boxIndexCount": 25,
-    "lineIndexCount": 34,
+    "lineIndexCount": 35,
     "bgcolor": [
         61,
         65,
