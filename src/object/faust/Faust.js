@@ -184,9 +184,8 @@ class DSP extends FaustObject {
         return this;
     }
     ui($, box) {
-        let dropdownIcon = $("<i />").addClass(["dropdown", "icon"])
-            .on();
-        let content = super.ui().append(dropdownIcon);
+        let dropdownIcon = $("<i />").addClass(["dropdown", "icon"]);
+        let content = super.ui($, box).append(dropdownIcon);
         return content;
     }
 }
