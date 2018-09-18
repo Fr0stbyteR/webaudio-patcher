@@ -171,6 +171,7 @@ export default class Patcher extends EventEmitter {
                 }
                 obj = new fn(box, this);
             } catch (e) {
+                this.newLog(1, "Patcher", e);
                 obj = new Packages.Base.InvalidObject(box, this);
             }
             if (!(obj instanceof Packages.Base.BaseObject)) obj = new Packages.Base.InvalidObject(box, this);

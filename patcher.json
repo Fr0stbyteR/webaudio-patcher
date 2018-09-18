@@ -599,6 +599,27 @@
                     "a": 1
                 }
             }
+        },
+        "box-25": {
+            "id": "box-25",
+            "name": "box-25",
+            "class": "Faust.DSP",
+            "inlets": 1,
+            "outlets": 1,
+            "patching_rect": [
+                1182,
+                127,
+                100,
+                68
+            ],
+            "text": "Faust.DSP process=0; @bufferSize 1024",
+            "args": [
+                "process=0;"
+            ],
+            "props": {
+                "bufferSize": 1024
+            },
+            "prevData": null
         }
     },
     "data": {
@@ -693,9 +714,14 @@
                     "a": 1
                 }
             }
+        },
+        "box-25": {
+            "Faust.DSP": {
+                "storage": {}
+            }
         }
     },
-    "boxIndexCount": 24,
+    "boxIndexCount": 25,
     "lineIndexCount": 34,
     "bgcolor": [
         61,

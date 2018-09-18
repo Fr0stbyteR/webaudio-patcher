@@ -7,6 +7,14 @@ class FaustObject extends Base.BaseObject {
         this._package = "faust";
         this._icon = "terminal";
         this._mem.faust = Faust;
+        this._mem.faustLoaded = Faust.isLoaded;
+        if (!this._mem.faustLoaded) {
+            Faust.init(() => {
+                this._mem.faustLoaded = true;
+                this.emit("faustLoaded", Faust);
+            });
+        }
+        
         if (!this._patcher.hasOwnProperty("_audioCtx")) {
             this._patcher._audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             this._audioCtx.destination.channelInterpretation = "discrete";
@@ -30,7 +38,13 @@ class DSP extends FaustObject {
         this._mem.code = null;
         this._mem.node = null;
         this._mem.params = null;
-        this.update(box.args, box.props);
+        if (this._mem.faustLoaded) this.update(box.args, box.props);
+        else {
+            this.on("faustLoaded", () => {
+                this.update(box.args, box.props);
+                this.removeAllListeners("faustLoaded");
+            });
+        }
     }
     update(args, props) {
         let nodeReady = (node) => {

@@ -181,14 +181,7 @@ Utf8.decode = function(strUtf) {
 */
 
 'use strict';
-
-var faust_module = FaustModule(); // Emscripten generated module
-
-faust_module.lengthBytesUTF8 = function(str)
-{
-	var len=0;for(var i=0;i<str.length;++i){var u=str.charCodeAt(i);if(u>=55296&&u<=57343)u=65536+((u&1023)<<10)|str.charCodeAt(++i)&1023;if(u<=127){++len}else if(u<=2047){len+=2}else if(u<=65535){len+=3}else if(u<=2097151){len+=4}else if(u<=67108863){len+=5}else{len+=6}}return len;
-}
-
+var faust_module;
 var faust = faust || {};
 
 faust.remap = function(v, mn0, mx0, mn1, mx1)
@@ -197,19 +190,35 @@ faust.remap = function(v, mn0, mx0, mn1, mx1)
 }
 
 faust.debug = false;
+faust.isLoaded = false;
+faust.init = (callback) => {
+    if (faust_module) {
+        return callback();
+    }
+    faust_module = FaustModule({
+        postRun : () => {
+            faust.isLoaded = true;
+            return callback();
+        }
+    }); // Emscripten generated module
+    faust_module.lengthBytesUTF8 = function(str)
+    {
+        var len=0;for(var i=0;i<str.length;++i){var u=str.charCodeAt(i);if(u>=55296&&u<=57343)u=65536+((u&1023)<<10)|str.charCodeAt(++i)&1023;if(u<=127){++len}else if(u<=2047){len+=2}else if(u<=65535){len+=3}else if(u<=2097151){len+=4}else if(u<=67108863){len+=5}else{len+=6}}return len;
+    }
 
-// Low-level API
-faust.createWasmCDSPFactoryFromString = faust_module.cwrap('createWasmCDSPFactoryFromString', 'number', ['number', 'number', 'number', 'number', 'number', 'number']);
-faust.expandCDSPFromString = faust_module.cwrap('expandCDSPFromString', 'number', ['number', 'number', 'number', 'number', 'number', 'number']);
-faust.getCLibFaustVersion = faust_module.cwrap('getCLibFaustVersion', 'number', []);
-faust.getWasmCModule = faust_module.cwrap('getWasmCModule', 'number', ['number']);
-faust.getWasmCModuleSize = faust_module.cwrap('getWasmCModuleSize', 'number', ['number']);
-faust.getWasmCHelpers = faust_module.cwrap('getWasmCHelpers', 'number', ['number']);
-faust.freeWasmCModule = faust_module.cwrap('freeWasmCModule', null, ['number']);
-faust.freeCMemory = faust_module.cwrap('freeCMemory', null, ['number']);
-faust.cleanupAfterException = faust_module.cwrap('cleanupAfterException', null, []);
-faust.getErrorAfterException = faust_module.cwrap('getErrorAfterException', 'number', []);
+    // Low-level API
+    faust.createWasmCDSPFactoryFromString = faust_module.cwrap('createWasmCDSPFactoryFromString', 'number', ['number', 'number', 'number', 'number', 'number', 'number']);
+    faust.expandCDSPFromString = faust_module.cwrap('expandCDSPFromString', 'number', ['number', 'number', 'number', 'number', 'number', 'number']);
+    faust.getCLibFaustVersion = faust_module.cwrap('getCLibFaustVersion', 'number', []);
+    faust.getWasmCModule = faust_module.cwrap('getWasmCModule', 'number', ['number']);
+    faust.getWasmCModuleSize = faust_module.cwrap('getWasmCModuleSize', 'number', ['number']);
+    faust.getWasmCHelpers = faust_module.cwrap('getWasmCHelpers', 'number', ['number']);
+    faust.freeWasmCModule = faust_module.cwrap('freeWasmCModule', null, ['number']);
+    faust.freeCMemory = faust_module.cwrap('freeCMemory', null, ['number']);
+    faust.cleanupAfterException = faust_module.cwrap('cleanupAfterException', null, []);
+    faust.getErrorAfterException = faust_module.cwrap('getErrorAfterException', 'number', []);
 
+}
 faust.error_msg = null;
 faust.factory_number = 0;
 faust.factory_table = [];
