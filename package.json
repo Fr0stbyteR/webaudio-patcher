@@ -27,6 +27,7 @@
     "babel-cli": "^6.26.0",
     "babel-eslint": "^9.0.0",
     "babel-loader": "^8.0.2",
+    "codemirror": "^5.40.0",
     "css-loader": "^1.0.0",
     "electron": "^2.0.9",
     "eslint": "^5.5.0",

@@ -194,8 +194,8 @@ let updateLine = (id) => {
 	let destJQ = $("#" + lineObj.dest[0]).find(".box-inlet").eq(lineObj.dest[1]);
 	let startC = startJQ.offset();
 	let destC = destJQ.offset();
-	let start = [startC.left + startJQ.outerWidth() / 2, startC.top + startJQ.outerHeight() / 2];
-	let dest = [destC.left + destJQ.outerWidth() / 2, destC.top + destJQ.outerHeight() / 2];
+	let start = [startC.left + startJQ.outerWidth() / 2, startJQ.parent(".box-outlets").offset().top];
+	let dest = [destC.left + destJQ.outerWidth() / 2, destJQ.parent(".box-inlets").offset().top];
 	drawLine(id, start, dest);
 	let handlerPos = findHandlerPosLine(id);
 	$("#" + id).find(".line-handler-dest").first().css("left", handlerPos[2]).css("top", handlerPos[3])

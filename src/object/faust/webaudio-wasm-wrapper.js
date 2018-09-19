@@ -196,7 +196,7 @@ faust.init = (callback) => {
         return callback();
     }
     faust_module = FaustModule({
-        postRun : () => {
+        onRuntimeInitialized : () => {
             faust.isLoaded = true;
             return callback();
         }

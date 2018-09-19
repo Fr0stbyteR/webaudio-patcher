@@ -1,4 +1,4 @@
-div.box-ui>div {
+div.box-ui div.package-base-text-container {
     display: inline-flex;
     background-color: rgb(73, 80, 77);
     padding: 0px 5px;
@@ -11,27 +11,35 @@ div.box-ui>div {
     cursor: default;
     user-select: none;
     border: rgb(125, 126, 132) solid;
-    border-width: 4px 0px;
+    border-width: 0px;
+}
+
+div.box-ui>div.package-base-text-container:first-child {
+    border-top-width: 4px;
+}
+
+div.box-ui>div.package-base-text-container:last-child {
+    border-bottom-width: 4px;
 }
 
 div.box-ui>div.package-base.package-base-invalidobject {
     background-color: rgb(128, 64, 64);
 }
 
-div.box-ui span {
+div.box-ui div.package-base-text-container span {
     word-break: break-all;
     width: 100%;
     line-height: 20px;
     font-weight: normal;
 }
 
-div.box-ui span.editing {
+div.box-ui div.package-base-text-container span.editing {
     pointer-events: auto;
     cursor: text;
     user-select: auto;
 }
 
-div.box-ui span:empty::before {
+div.box-ui div.package-base-text-container span:empty::before {
     content: "\200b";
 }
 

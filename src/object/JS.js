@@ -31,7 +31,7 @@ class JSBaseObject extends Base.BaseObject {
     }
     _convert(data) {}
     ui($, box) {
-        return super.ui($, box).addClass(["ui", "label"]);
+        return super.ui($, box).addClass(["ui", "label"]).removeClass("package-base-text-container");
     }
 }
 

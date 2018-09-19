@@ -36,9 +36,12 @@ class BaseObject extends EventEmitter {
     }
     // build ui on page, return a div
     ui($, box) {
-        let content = $("<div />").addClass(["package-" + this._package, "package-" + this._package + "-" + this.constructor.name.toLowerCase()]);
-        let icon = $("<i />").addClass([this._icon, "icon"]);
-        let span = $("<span />").attr({
+        let content = $("<div>").addClass([
+            "package-base-text-container", 
+            "package-" + this._package, 
+            "package-" + this._package + "-" + this.constructor.name.toLowerCase()]);
+        let icon = $("<i>").addClass([this._icon, "icon"]);
+        let span = $("<span>").attr({
                 "contenteditable": false,
             }).html(box.text)
             .on("click", (e) => {
@@ -191,7 +194,7 @@ class Button extends BaseObject {
         this.outlet(0, new Bang());
     }
     ui($, box) {
-        return $("<button />")
+        return $("<button>")
         .addClass(["package-" + this._package, "package-" + this._package + "-" + this.constructor.name.toLowerCase()])
         .addClass(["ui", "mini", "icon", "button"])
         .text(this._mem.text).on("click", (e) => {

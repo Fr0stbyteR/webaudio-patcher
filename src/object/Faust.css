@@ -1,0 +1,10 @@
+div.box-ui>div.package-faust-dsp {
+
+}
+
+div.box-ui>div.package-faust-dsp-editor {
+    width: 100%;
+    border: rgb(125, 126, 132) solid;
+    padding: 0px 5px;
+    border-width: 0px 0px 4px 0px;
+}

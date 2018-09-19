@@ -1,5 +1,10 @@
 import Base from "../Base.js";
 import Faust from "./webaudio-wasm-wrapper.js";
+import CodeMirror from "codemirror";
+import "codemirror/theme/darcula.css";
+import "codemirror/lib/codemirror.css";
+
+window.CodeMirror = CodeMirror;
 
 class FaustObject extends Base.BaseObject {
     constructor(box, patcher) {
@@ -51,10 +56,46 @@ class DSP extends FaustObject {
                 this.error("Faust.DSP", "Compilation of Node failed " + Faust.getErrorMessage());
                 return;
             }
+            if (this._mem.node && this._mem.node instanceof AudioNode) this._disconnectAll();
             this._mem.node = node;
             this._mem.params = node.getJSON();
             this.emit("loadFaustModule", node.getJSON());
             this._connectAll();
+        }
+        let updateCode = (code) => {
+            if (code == this._mem.code) return;
+            if (!code) {
+                this.error("Faust.DSP", "Don't understand" + args[0]);
+                return;
+            } 
+            this._mem.code = code;
+            let args = this._mem.compileArgs;
+            let argv = ["-ftz", args.ftz, "-I", args.libraries];
+            if (args.isPoly) {
+                Faust.createPolyDSPFactory(code, argv, (factory) => {
+                    if (!factory) {
+                        this.error("Faust.DSP", "Compilation of Factory failed " + Faust.getErrorMessage());
+                        return;
+                    }
+                    if (args.useWorklet) {
+                        Faust.createPolyDSPWorkletInstance(factory, this._patcher._audioCtx, this._mem.bufferSize, nodeReady);
+                    } else {
+                        Faust.createPolyDSPInstance(factory, this._patcher._audioCtx, args.polyVoices, nodeReady);
+                    }
+                });
+            } else {
+                Faust.createDSPFactory(code, argv, (factory) => {
+                    if (!factory) {
+                        this.error("Faust.DSP", "Compilation of Factory failed " + Faust.getErrorMessage());
+                        return;
+                    }
+                    if (args.useWorklet) {
+                        Faust.createDSPWorkletInstance(factory, this._patcher._audioCtx, this._mem.bufferSize, nodeReady);
+                    } else {
+                        Faust.createDSPInstance(factory, this._patcher._audioCtx, this._mem.bufferSize, nodeReady);
+                    }
+                });
+            }
         }
         if (props && props.hasOwnProperty("bufferSize")) {
             let bufferSize = Base.Utils.toNumber(props.bufferSize);
@@ -65,40 +106,8 @@ class DSP extends FaustObject {
             }
         }
         if (args && args[0]) {
-            if (this._mem.node && this._mem.node instanceof AudioNode) this._disconnectAll();
             let code = Base.Utils.toString(args[0]);
-            if (code === null) {
-                this.error("Faust.DSP", "Don't understand" + args[0]);
-            } else {
-                this._mem.code = code;
-                let args = this._mem.compileArgs;
-                let argv = ["-ftz", args.ftz, "-I", args.libraries];
-                if (args.isPoly) {
-                    Faust.createPolyDSPFactory(code, argv, (factory) => {
-                        if (!factory) {
-                            this.error("Faust.DSP", "Compilation of Factory failed " + Faust.getErrorMessage());
-                            return;
-                        }
-                        if (args.useWorklet) {
-                            Faust.createPolyDSPWorkletInstance(factory, this._patcher._audioCtx, this._mem.bufferSize, nodeReady);
-                        } else {
-                            Faust.createPolyDSPInstance(factory, this._patcher._audioCtx, args.polyVoices, nodeReady);
-                        }
-                    });
-                } else {
-                    Faust.createDSPFactory(code, argv, (factory) => {
-                        if (!factory) {
-                            this.error("Faust.DSP", "Compilation of Factory failed " + Faust.getErrorMessage());
-                            return;
-                        }
-                        if (args.useWorklet) {
-                            Faust.createDSPWorkletInstance(factory, this._patcher._audioCtx, this._mem.bufferSize, nodeReady);
-                        } else {
-                            Faust.createDSPInstance(factory, this._patcher._audioCtx, this._mem.bufferSize, nodeReady);
-                        }
-                    });
-                }
-            }
+            updateCode(code);
         }
     }
     connectedInlet(inlet, srcObj, srcOutlet, lineID) {
@@ -184,9 +193,29 @@ class DSP extends FaustObject {
         return this;
     }
     ui($, box) {
-        let dropdownIcon = $("<i />").addClass(["dropdown", "icon"]);
+        let dropdownIcon = $("<i>").addClass(["dropdown", "icon"]);
         let content = super.ui($, box).append(dropdownIcon);
-        return content;
+        let textarea = $("<textarea>").html(box.args.length ? box.args[0] : "");
+        let editor = $("<div>").addClass(["package-faust-dsp-editor"]).append(textarea);
+        return content.ready(() => {
+            content.after(editor);
+            let cm = CodeMirror.fromTextArea(textarea.get(0), {
+                mode: "faust",
+                theme: "darcula",
+            })
+            cm.on("focus", (cm, e) => {
+                if ($(e.currentTarget).parents(".ui-draggable").hasClass("dragged")) return;
+                if (cm.state.focused) return;
+                $(e.currentTarget).parents(".ui-draggable").draggable("disable");
+            });
+            cm.on("blur", (cm, e) => {
+                $(e.currentTarget).parents(".ui-draggable").draggable("enable");
+                this.update([cm.getValue()]);
+            });
+            cm.on("keydown", (cm, e) => {
+                if (e.key == "Delete" || e.key == "Backspace") e.stopPropagation();
+            });
+        });
     }
 }
 
