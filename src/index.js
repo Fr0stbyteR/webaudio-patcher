@@ -21,24 +21,25 @@ $(document).ready(() => {
 	patcher.on("createBox", (box) => {
 		let obj = patcher.getObjByID(box.id);
 		let dom = UIObj.box($, box);
-		dom.find(".box-ui").append(obj.ui($, box));
+		let objUI = obj.ui($, box);
+		dom.find(".box-ui").append(objUI);
 		$(".boxes").append(dom);
 		dom.draggable({
 			start: (event, ui) => {
 				ui.helper.addClass("dragged");
 			},
 			drag: (event, ui) => {
-				updateLineByObj(ui.helper.attr("id"));
+				updateLineByBox(ui.helper.attr("id"));
 			},
 			stop: (event, ui) => {
-				updateLineByObj(ui.helper.attr("id"));
+				updateLineByBox(ui.helper.attr("id"));
 				updateBoxRect(ui.helper.attr("id"));
 			}
 		}).resizable({
 			disabled: true,
-			handles: "e, w",
+			handles: objUI.data("resizeHandles") ? objUI.data("resizeHandles") : "e, w",
 			resize: (event, ui) => {
-				updateLineByObj(ui.helper.attr("id"));
+				updateLineByBox(ui.helper.attr("id"));
 				updateBoxRect(ui.helper.attr("id"));
 			}
 		});
@@ -96,6 +97,10 @@ $(document).ready(() => {
 		updateBoxIO(oldCon[0]);
 		updateBoxIO(line.src[0]);
 		updateBoxIO(line.dest[0]);
+	})
+	patcher.on("resizeBox", (box) => {
+		updateLineByBox(box.id);
+		updateBoxRect(box.id);
 	})
 	patcher.on("deleteLine", (line) => {
 		$("#" + line.id).remove();
@@ -224,7 +229,7 @@ let drawLine = (id, start, end) => {
 			"end": end
 		});
 }
-let updateLineByObj = (id) => {
+let updateLineByBox = (id) => {
 	let lineIDs = patcher.getLinesByDestID(id).concat(patcher.getLinesBySrcID(id));
 	for (let i = 0; i < lineIDs.length; i++) {
 		updateLine(lineIDs[i]);

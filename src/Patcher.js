@@ -158,6 +158,11 @@ export default class Patcher extends EventEmitter {
         return line;
     }
 
+    resizeBox(box) {
+        this.emit("resizeBox", box);
+        return this;
+    }
+
     createObject(box) {
         let obj;
         let str = box.class;

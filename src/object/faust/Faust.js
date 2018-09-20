@@ -1,6 +1,7 @@
 import Base from "../Base.js";
 import Faust from "./webaudio-wasm-wrapper.js";
 import CodeMirror from "codemirror";
+import "./Faust.css";
 import "codemirror/theme/darcula.css";
 import "codemirror/lib/codemirror.css";
 
@@ -31,6 +32,8 @@ class DSP extends FaustObject {
         super(box, patcher);
         this._inlets = 1;
         this._outlets = 1;
+        if (!this.storage.hasOwnProperty("showEditor")) this.storage.showEditor = true;
+        if (!this.storage.hasOwnProperty("code")) this.storage.code = "";
         this._mem.compileArgs = {
             isPoly : false,
             ftz : 2,
@@ -39,9 +42,9 @@ class DSP extends FaustObject {
             libraries : "https://faust.grame.fr/editor/libraries/"
         }
         this._mem.bufferSize = 256;
-        this._mem.code = null;
         this._mem.node = null;
         this._mem.params = null;
+        this._mem.compiled = false;
         if (this._mem.faustLoaded) this.update(box.args, box.props);
         else {
             this.on("faustLoaded", () => {
@@ -61,14 +64,15 @@ class DSP extends FaustObject {
             this._mem.params = node.getJSON();
             this.emit("loadFaustModule", node.getJSON());
             this._connectAll();
+            this._mem.compiled = true;
         }
         let updateCode = (code) => {
-            if (code == this._mem.code) return;
+            if (this._mem.compiled && (code == this.storage.code)) return;
             if (!code) {
                 this.error("Faust.DSP", "Don't understand" + args[0]);
                 return;
             } 
-            this._mem.code = code;
+            this.storage.code = code;
             let args = this._mem.compileArgs;
             let argv = ["-ftz", args.ftz, "-I", args.libraries];
             if (args.isPoly) {
@@ -109,6 +113,7 @@ class DSP extends FaustObject {
             let code = Base.Utils.toString(args[0]);
             updateCode(code);
         }
+        if (this.storage.code) updateCode(this.storage.code);
     }
     connectedInlet(inlet, srcObj, srcOutlet, lineID) {
         if (this._mem.node instanceof AudioNode 
@@ -193,28 +198,41 @@ class DSP extends FaustObject {
         return this;
     }
     ui($, box) {
-        let dropdownIcon = $("<i>").addClass(["dropdown", "icon"]);
-        let content = super.ui($, box).append(dropdownIcon);
-        let textarea = $("<textarea>").html(box.args.length ? box.args[0] : "");
-        let editor = $("<div>").addClass(["package-faust-dsp-editor"]).append(textarea);
-        return content.ready(() => {
-            content.after(editor);
+        let dropdownIcon = $("<i>").addClass(["dropdown", "icon", "box-ui-toggle"]).on("click", (e) => {
+            editor.children('.CodeMirror').slideToggle(100, () => {
+                this._patcher.resizeBox(box);
+                this.storage.showEditor = !this.storage.showEditor;
+            });
+        });
+        let textarea = $("<textarea>").html(this.storage.code ? this.storage.code : box.args.length ? box.args[0] : "");
+        let editor = $("<div>").addClass(["dsp-editor"]).append(textarea);
+        let container = super.defaultUI($, box);
+        container.addClass(["ui", "accordion"]).append(editor)
+            .find(".box-ui-text-container").append(dropdownIcon);
+        //container.data("resizeHandles", "e, w, n, s");
+        return container.ready(() => {
             let cm = CodeMirror.fromTextArea(textarea.get(0), {
+                lineNumbers: true,
+                minFoldSize: 5,
                 mode: "faust",
                 theme: "darcula",
             })
-            cm.on("focus", (cm, e) => {
-                if ($(e.currentTarget).parents(".ui-draggable").hasClass("dragged")) return;
-                if (cm.state.focused) return;
-                $(e.currentTarget).parents(".ui-draggable").draggable("disable");
+            editor.on("click", (e) => {
+                if (editor.parents(".ui-draggable").hasClass("dragged")) return;
+                if (editor.hasClass("editing")) return;
+                editor.addClass("editing")
+                    .parents(".ui-draggable").draggable("disable");
             });
             cm.on("blur", (cm, e) => {
-                $(e.currentTarget).parents(".ui-draggable").draggable("enable");
+                editor.removeClass("editing")
+                    .parents(".ui-draggable").draggable("enable");
                 this.update([cm.getValue()]);
             });
             cm.on("keydown", (cm, e) => {
                 if (e.key == "Delete" || e.key == "Backspace") e.stopPropagation();
             });
+            if (!this.storage.showEditor) editor.children('.CodeMirror').hide();
+            this._patcher.resizeBox(box);
         });
     }
 }

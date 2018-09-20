@@ -1,5 +1,5 @@
 
-div.box-ui>div.package-js {
+div.package-js .box-ui-text-container {
     display: inline-flex;
     padding: 4px 5px;
     line-height: 20px;
@@ -10,23 +10,23 @@ div.box-ui>div.package-js {
     user-select: none;
 }
 
-div.box-ui>div.package-js>i.icon {
+div.package-js .box-ui-text-container>i.icon {
     margin: 0 .25rem 0 0;
 }
 
-div.box-ui div.package-js span {
+div.package-js .box-ui-text-container span {
     word-break: break-all;
     width: 100%;
     line-height: 20px;
     font-weight: normal;
 }
 
-div.box-ui div.package-js span.editing {
+div.package-js .box-ui-text-container span.editing {
     pointer-events: auto;
     cursor: text;
     user-select: auto;
 }
 
-div.box-ui div.package-js span:empty::before {
+div.package-js .box-ui-text-container span:empty::before {
     content: "\200b";
 }

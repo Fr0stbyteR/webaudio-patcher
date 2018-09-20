@@ -1,0 +1,14 @@
+div.package-faust .dsp-editor {
+    width: 100%;
+    border: rgb(125, 126, 132) solid;
+    padding: 0px;
+    border-width: 0px 0px 4px 0px;
+}
+
+div.package-faust .dsp-editor CodeMirror {
+    height: auto;
+}
+
+div.package-faust .box-ui-toggle {
+    cursor: pointer;
+}

@@ -249,10 +249,10 @@
             "inlets": 1,
             "outlets": 1,
             "patching_rect": [
-                24,
-                152,
+                856,
+                507,
                 100,
-                28
+                30.8438
             ],
             "text": "Base.Button",
             "args": [],
@@ -268,8 +268,8 @@
             "inlets": 1,
             "outlets": 0,
             "patching_rect": [
-                25,
-                401,
+                871,
+                573,
                 196,
                 28
             ],
@@ -287,10 +287,10 @@
             "inlets": 2,
             "outlets": 1,
             "patching_rect": [
-                297,
-                206,
+                823,
+                446,
                 270,
-                28
+                48
             ],
             "text": "WA.Oscillator @frequency 220 @type sine",
             "args": [],
@@ -309,8 +309,8 @@
             "inlets": 1,
             "outlets": 0,
             "patching_rect": [
-                128,
-                293,
+                48,
+                411,
                 126,
                 28
             ],
@@ -328,8 +328,8 @@
             "inlets": 3,
             "outlets": 2,
             "patching_rect": [
-                684,
-                160,
+                1218,
+                515,
                 150,
                 28
             ],
@@ -349,8 +349,8 @@
             "inlets": 3,
             "outlets": 2,
             "patching_rect": [
-                669,
-                301,
+                1348,
+                273,
                 146,
                 28
             ],
@@ -370,10 +370,10 @@
             "inlets": 1,
             "outlets": 1,
             "patching_rect": [
-                681,
-                31,
+                1224,
+                461,
                 60,
-                28
+                30.8438
             ],
             "text": "Base.Button",
             "args": [],
@@ -389,10 +389,10 @@
             "inlets": 1,
             "outlets": 1,
             "patching_rect": [
-                668,
-                261,
+                1343,
+                217,
                 60,
-                28
+                30.8438
             ],
             "text": "Base.Button",
             "args": [],
@@ -408,8 +408,8 @@
             "inlets": 2,
             "outlets": 1,
             "patching_rect": [
-                810,
-                115,
+                1320,
+                455,
                 265,
                 28
             ],
@@ -430,8 +430,8 @@
             "inlets": 3,
             "outlets": 2,
             "patching_rect": [
-                665,
-                350,
+                1345,
+                328,
                 162,
                 28
             ],
@@ -451,10 +451,10 @@
             "inlets": 1,
             "outlets": 1,
             "patching_rect": [
-                807,
-                35,
+                1308,
+                402,
                 60,
-                28
+                30.8438
             ],
             "text": "Base.Button",
             "args": [],
@@ -470,8 +470,8 @@
             "inlets": 2,
             "outlets": 1,
             "patching_rect": [
-                841,
-                349,
+                1352,
+                115,
                 261,
                 28
             ],
@@ -494,10 +494,10 @@
             "inlets": 1,
             "outlets": 1,
             "patching_rect": [
-                834,
-                299,
+                1354,
+                76,
                 60,
-                28
+                30.8438
             ],
             "text": "Base.Button",
             "args": [],
@@ -513,8 +513,8 @@
             "inlets": 3,
             "outlets": 2,
             "patching_rect": [
-                707,
-                392,
+                1339,
+                164,
                 161,
                 28
             ],
@@ -534,8 +534,8 @@
             "inlets": 2,
             "outlets": 1,
             "patching_rect": [
-                386,
-                96,
+                1033,
+                322,
                 273,
                 28
             ],
@@ -556,8 +556,8 @@
             "inlets": 3,
             "outlets": 2,
             "patching_rect": [
-                320,
-                158,
+                1011,
+                383,
                 99,
                 28
             ],
@@ -575,10 +575,10 @@
             "inlets": 1,
             "outlets": 1,
             "patching_rect": [
-                384,
-                48,
+                1043,
+                268,
                 60,
-                28
+                30.8438
             ],
             "text": "Base.Button",
             "args": [],
@@ -594,8 +594,8 @@
             "inlets": 2,
             "outlets": 1,
             "patching_rect": [
-                929,
-                286,
+                1348,
+                38,
                 260,
                 28
             ],
@@ -619,20 +619,21 @@
             "inlets": 1,
             "outlets": 1,
             "patching_rect": [
-                130,
-                22,
-                242,
-                88
+                47,
+                28,
+                505,
+                328
             ],
-            "text": "Faust.DSP import(\"stdfaust.lib\");echo=+~(@(10000):*(0.75));process=ba.pulsen(1,10000):pm.djembe(60,0.3,0.4,1):echo; @bufferSize 1024",
-            "args": [
-                "import(\"stdfaust.lib\");echo=+~(@(10000):*(0.75));process=ba.pulsen(1,10000):pm.djembe(60,0.3,0.4,1):echo;"
-            ],
+            "text": "Faust.DSP  @bufferSize 1024",
+            "args": [],
             "props": {
                 "bufferSize": 1024
             },
             "prevData": {
-                "storage": {}
+                "storage": {
+                    "showEditor": true,
+                    "code": "import(\"stdfaust.lib\");\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nsaw(f) = (phasor(f) - 0.5) * 2;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsquare(f) = (phasor(f) > 0.5) * 2 - 1;\nprocess=hslider(\"freq\", 440, 10, 10000, 1) : osc;"
+                }
             }
         }
     },
@@ -731,7 +732,10 @@
         },
         "box-25": {
             "Faust.DSP": {
-                "storage": {}
+                "storage": {
+                    "showEditor": true,
+                    "code": "import(\"stdfaust.lib\");\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nsaw(f) = (phasor(f) - 0.5) * 2;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsquare(f) = (phasor(f) > 0.5) * 2 - 1;\nprocess=hslider(\"freq\", 440, 10, 10000, 1) : osc;"
+                }
             }
         }
     },

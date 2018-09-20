@@ -1,4 +1,5 @@
-import "./Base.css"
+import "./Base.css";
+import "./Default.css";
 import {
     EventEmitter
 } from "events";
@@ -36,10 +37,16 @@ class BaseObject extends EventEmitter {
     }
     // build ui on page, return a div
     ui($, box) {
-        let content = $("<div>").addClass([
-            "package-base-text-container", 
-            "package-" + this._package, 
-            "package-" + this._package + "-" + this.constructor.name.toLowerCase()]);
+        return this.defaultUI($, box);
+    }
+    //  <div class="package-base package-base-button box-ui-container">
+    //      <div class="box-ui-text-container">
+    //      </div>
+    //  </div>
+    defaultUI($, box) {
+        let packageName = "package-" + this._package;
+        let className = "package-" + this._package + "-" + this.constructor.name.toLowerCase();
+        let textContainer = $("<div>").addClass(["box-ui-text-container", "box-ui-default"]);
         let icon = $("<i>").addClass([this._icon, "icon"]);
         let span = $("<span>").attr({
                 "contenteditable": false,
@@ -63,8 +70,11 @@ class BaseObject extends EventEmitter {
                     if (e.key == "Delete" || e.key == "Backspace") e.stopPropagation();
                 }
             });
-            content.append(icon).append(span);
-        return content;
+        textContainer.append(icon).append(span);
+        let container = $("<div>").addClass([packageName, className, "box-ui-container", "box-ui-default"]);
+        container.append(textContainer);
+        container.data("resizeHandles", "e, w");
+        return container;
     }
     // use this function to output data with ith outlet.
     outlet(i, data) {

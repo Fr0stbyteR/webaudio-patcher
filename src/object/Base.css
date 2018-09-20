@@ -1,51 +1,10 @@
-div.box-ui div.package-base-text-container {
-    display: inline-flex;
-    background-color: rgb(73, 80, 77);
-    padding: 0px 5px;
-    width: 100%;
-    color: white;
-    font-family: Lato;
-    font-size: 12px;
-    margin: 0px;
-    overflow-wrap: break-word;
-    cursor: default;
-    user-select: none;
-    border: rgb(125, 126, 132) solid;
-    border-width: 0px;
-}
-
-div.box-ui>div.package-base-text-container:first-child {
-    border-top-width: 4px;
-}
-
-div.box-ui>div.package-base-text-container:last-child {
-    border-bottom-width: 4px;
-}
-
-div.box-ui>div.package-base.package-base-invalidobject {
-    background-color: rgb(128, 64, 64);
-}
-
-div.box-ui div.package-base-text-container span {
-    word-break: break-all;
-    width: 100%;
-    line-height: 20px;
-    font-weight: normal;
-}
-
-div.box-ui div.package-base-text-container span.editing {
-    pointer-events: auto;
-    cursor: text;
-    user-select: auto;
-}
-
-div.box-ui div.package-base-text-container span:empty::before {
-    content: "\200b";
-}
-
-div.box-ui>button.package-base.package-base-button {
+button.package-base-button {
     padding: 4px 5px;
     width: 100%;
     line-height: 20px;
     font-weight: normal;
+}
+
+div.package-base-invalidobject .box-ui-text-container {
+    background-color: rgb(128, 64, 64);
 }
