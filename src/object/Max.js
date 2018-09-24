@@ -8,16 +8,48 @@ class MaxObject extends Base.BaseObject {
     }
 }
 
+import RNG from "seedrandom";
+class random extends MaxObject {
+    constructor(box, patcher) {
+        super(box, patcher);
+        this._inlets = 2;
+        this._outlets = 1;
+        this._mem.seed = 0;
+        this._mem.rng = Math.random;
+        this._mem.maximum = 0;
+        this.update(box.args, box.props);
+    }
+
+    update(args, props) {
+        if (args && args[0] && Base.Utils.toNumber(args[0]) >= 0) {
+            this._mem.maximum = Base.Utils.toNumber(args[0]);
+        }
+        if (args && args[1]) {
+            if (args[1] !== 0) this._mem.rng = new RNG(args[0]);
+            else this._mem.rng = Math.random;
+        }
+    }
+
+    fn(data, inlet) {
+        let arrayIn = Base.Utils.list2Array(data);
+        if (inlet == 0) {
+            if (data instanceof Base.Bang) this.outlet(0, Math.floor(this._mem.rng() * this._mem.maximum));
+            if (arrayIn && arrayIn.length >= 2 && arrayIn[0] == "seed") this.update([null, arrayIn[0]]);
+
+        }
+        if (inlet == 1) {
+            this.update([data]);
+        }
+    }
+}
 class metro extends MaxObject {
     constructor(box, patcher) {
         super(box, patcher);
         this._inlets = 2;
         this._outlets = 1;
-        this._mem = {
-            interval : 5,
-            active : 0,
-            timeoutID : null
-        };
+        this._mem.interval = 5;
+        this._mem.active = 0;
+        this._mem.timeoutID = null;
         this.update(box.args, box.props);
     }
     update(args, props) {
@@ -65,5 +97,6 @@ class metro extends MaxObject {
 }
 
 export default {
-    metro
+    metro,
+    random
 }

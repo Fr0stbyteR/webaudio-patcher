@@ -162,7 +162,10 @@ export default class Patcher extends EventEmitter {
         this.emit("resizeBox", box);
         return this;
     }
-
+    uiRefresh(box) {
+        this.emit("uiRefreshBox", box);
+        return this;
+    }
     createObject(box) {
         let obj;
         let str = box.class;

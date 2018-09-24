@@ -46,6 +46,15 @@ $(document).ready(() => {
 		updateBoxIO(box.id);
 		updateBoxRect(box.id);
 	});
+	patcher.on("uiRefreshBox", (box) => {
+		let obj = patcher.getObjByID(box.id);
+		$("#" + box.id).find(".box-ui").empty().append(obj.ui($, box));
+		$("#" + box.id).find(".box-inlets").replaceWith(UIObj.inlets($, box.inlets))
+		$("#" + box.id).find(".box-outlets").replaceWith(UIObj.outlets($, box.outlets));
+		updateBoxIO(box.id);
+		updateBoxRect(box.id);
+		updateLineByBox(box.id);
+	});
 	patcher.on("changeBoxText", (box) => {
 		let obj = patcher.getObjByID(box.id);
 		$("#" + box.id).find(".box-ui").empty().append(obj.ui($, box));
@@ -53,6 +62,7 @@ $(document).ready(() => {
 		$("#" + box.id).find(".box-outlets").replaceWith(UIObj.outlets($, box.outlets));
 		updateBoxIO(box.id);
 		updateBoxRect(box.id);
+		updateLineByBox(box.id);
 	})
 	patcher.on("deleteBox", (box) => {
 		$("#" + box.id).remove();

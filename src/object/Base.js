@@ -76,6 +76,10 @@ class BaseObject extends EventEmitter {
         container.data("resizeHandles", "e, w");
         return container;
     }
+    uiRefresh() {
+        this._patcher.uiRefresh(this._box);
+        return this;
+    }
     // use this function to output data with ith outlet.
     outlet(i, data) {
         if (i >= this._outlets) return;
@@ -250,11 +254,47 @@ class Utils {
             return null;
         }
     }
+    static toArray(data) {  
+        if (Array.isArray(data)) return data;
+        else {
+            try {
+                let parsed = JSON.parse(data);
+                if (Array.isArray(parsed)) return parsed;
+                else return [data];
+            } catch (e) {
+                return [data];
+            }
+        }
+    }
     static isNumber(data) {
         return this.toNumber(data) !== null;
     }
     static isString(data) {
         return this.toString(data) !== null
+    }
+    static list2Array(data) {
+        if (Array.isArray(data)) return data;
+        try {
+            let parsed = JSON.parse(data);
+            if (Array.isArray(parsed)) return parsed;
+            else return [data];
+        } catch (e) {
+            try {
+                const REGEX = /"([^"]*)"|[^\s]+/gi;
+                let strArray = [];
+                let match = REGEX.exec(data);
+                while (match != null) {
+                    //Index 1 in the array is the captured group if it exists
+                    //Index 0 is the matched text, which we use if no captured group exists
+                    strArray.push(match[1] ? match[1] : match[0]);
+                    //Each call to exec returns the next regex match as an array
+                    match = REGEX.exec(data);
+                }
+                return strArray;
+            } catch (e) {
+                return null;
+            }
+        }
     }
 }
 

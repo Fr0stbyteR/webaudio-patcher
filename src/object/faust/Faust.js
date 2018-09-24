@@ -4,8 +4,9 @@ import CodeMirror from "codemirror";
 import "./Faust.css";
 import "codemirror/theme/darcula.css";
 import "codemirror/lib/codemirror.css";
-
-window.CodeMirror = CodeMirror;
+import "./codemirror/mode/faust/faust.js";
+import "jquery-ui/ui/widgets/slider";
+import "jquery-ui/themes/base/slider.css";
 
 class FaustObject extends Base.BaseObject {
     constructor(box, patcher) {
@@ -65,6 +66,7 @@ class DSP extends FaustObject {
             this.emit("loadFaustModule", node.getJSON());
             this._connectAll();
             this._mem.compiled = true;
+            this.uiRefresh();
         }
         let updateCode = (code) => {
             if (this._mem.compiled && (code == this.storage.code)) return;
@@ -199,23 +201,64 @@ class DSP extends FaustObject {
     }
     ui($, box) {
         let dropdownIcon = $("<i>").addClass(["dropdown", "icon", "box-ui-toggle"]).on("click", (e) => {
-            editor.children('.CodeMirror').slideToggle(100, () => {
+            editor.children('.CodeMirror').add(faustUI).slideToggle(100, () => {
                 this._patcher.resizeBox(box);
                 this.storage.showEditor = !this.storage.showEditor;
             });
         });
         let textarea = $("<textarea>").html(this.storage.code ? this.storage.code : box.args.length ? box.args[0] : "");
         let editor = $("<div>").addClass(["dsp-editor"]).append(textarea);
+        let faustUI = $("<div>").addClass(["faust-ui"]);
+        if (this._mem.params && this._mem.params.hasOwnProperty("ui") && this._mem.params.ui.length) {
+            let faustUITabular = $("<div>").addClass(["ui", "bottom", "attached", "tabular", "mini", "menu"]);
+            for (let i = 0; i < this._mem.params.ui.length; i++) {
+                const group = this._mem.params.ui[i];
+                faustUITabular.append(
+                    $("<a>").addClass(["item", i == 0 ? "active" : ""])
+                    .attr("data-tab", i).html(group.label)
+                );
+                let tab = $("<div>").addClass(["ui", "top", "attached", "tab", "segment", i == 0 ? "active" : ""]);
+                for (let j = 0; j < group.items.length; j++) {
+                    const item = group.items[j];
+                    let faustUIItem = $("<div>").addClass("faust-ui-item");
+                    switch (item.type) {
+                        case "hslider":
+                            faustUIItem.append($("<a>").addClass(["ui", "horizontal", "label", "faust-hslider-tag"]).html(item.label))
+                            .append($("<div>").addClass("faust-hslider").attr("data-address", item.address)
+                            .slider({
+                                value : +item.init,
+                                min : +item.min,
+                                max : +item.max,
+                                step : +item.step,
+                                slide : (e, ui) => {
+                                    this._mem.node.setParamValue(item.address, ui.value);
+                                }
+                            }));
+                            break;
+                        default:
+                            break;
+                    }
+                    tab.append(faustUIItem);
+                }
+                faustUI.append(tab);
+            }
+            faustUI.append(faustUITabular);
+        }
         let container = super.defaultUI($, box);
-        container.addClass(["ui", "accordion"]).append(editor)
+        container.addClass(["ui", "accordion"]).append(faustUI).append(editor)
             .find(".box-ui-text-container").append(dropdownIcon);
         //container.data("resizeHandles", "e, w, n, s");
         return container.ready(() => {
             let cm = CodeMirror.fromTextArea(textarea.get(0), {
                 lineNumbers: true,
                 minFoldSize: 5,
-                mode: "faust",
+                mode: "application/faust",
+                smartIndent: true,
+                tabSize: 4,
                 theme: "darcula",
+                lineWrapping: true,
+                allowDropFileTypes: ["application/octet-stream"],
+                indentWithTabs: false
             })
             editor.on("click", (e) => {
                 if (editor.parents(".ui-draggable").hasClass("dragged")) return;
@@ -231,7 +274,10 @@ class DSP extends FaustObject {
             cm.on("keydown", (cm, e) => {
                 if (e.key == "Delete" || e.key == "Backspace") e.stopPropagation();
             });
-            if (!this.storage.showEditor) editor.children('.CodeMirror').hide();
+            if (!this.storage.showEditor) {
+                faustUI.hide();
+                editor.children('.CodeMirror').hide();
+            }
             this._patcher.resizeBox(box);
         });
     }
