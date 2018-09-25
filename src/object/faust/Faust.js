@@ -5,7 +5,7 @@ import "./Faust.css";
 import "codemirror/theme/darcula.css";
 import "codemirror/lib/codemirror.css";
 import "./codemirror/mode/faust/faust.js";
-import "jquery-ui/ui/widgets/slider";
+import "jquery-ui/ui/widgets/slider.js";
 import "jquery-ui/themes/base/slider.css";
 
 class FaustObject extends Base.BaseObject {
@@ -209,22 +209,40 @@ class DSP extends FaustObject {
         let textarea = $("<textarea>").html(this.storage.code ? this.storage.code : box.args.length ? box.args[0] : "");
         let editor = $("<div>").addClass(["dsp-editor"]).append(textarea);
         let faustUI = $("<div>").addClass(["faust-ui"]);
-        if (this._mem.params && this._mem.params.hasOwnProperty("ui") && this._mem.params.ui.length) {
-            let faustUITabular = $("<div>").addClass(["ui", "bottom", "attached", "tabular", "mini", "menu"]);
-            for (let i = 0; i < this._mem.params.ui.length; i++) {
-                const group = this._mem.params.ui[i];
-                faustUITabular.append(
-                    $("<a>").addClass(["item", i == 0 ? "active" : ""])
-                    .attr("data-tab", i).html(group.label)
-                );
-                let tab = $("<div>").addClass(["ui", "top", "attached", "tab", "segment", i == 0 ? "active" : ""]);
-                for (let j = 0; j < group.items.length; j++) {
-                    const item = group.items[j];
-                    let faustUIItem = $("<div>").addClass("faust-ui-item");
-                    switch (item.type) {
-                        case "hslider":
-                            faustUIItem.append($("<a>").addClass(["ui", "horizontal", "label", "faust-hslider-tag"]).html(item.label))
-                            .append($("<div>").addClass("faust-hslider").attr("data-address", item.address)
+        
+        let _genFaustUI = ($, parent, items) => {
+            for (let j = 0; j < items.length; j++) {
+                const item = items[j];
+                let uiItem = $("<div>").addClass("faust-ui-item");
+                switch (item.type) {
+                    case "button":
+                        uiItem.addClass("faust-ui-button").append(
+                            $("<button>").addClass(["ui", "basic", "mini", "button", "faust-button"])
+                            .attr("data-address", item.address).html(item.label)
+                            .on("mousedown", () => {
+                                this._mem.node.setParamValue(item.address, 1);
+                            }).on("mouseup", () => {
+                                this._mem.node.setParamValue(item.address, 0);
+                            })
+                        )
+                        break;
+                    case "checkbox":
+                        uiItem.addClass(["ui", "toggle", "checkbox", "faust-ui-checkbox"])
+                        .append($("<div>").addClass(["ui", "horizontal", "label", "faust-ui-label"]).html(item.label))
+                        .append($("<input>").attr("type", "checkbox").attr("name", item.label).attr("data-address", item.address))
+                        .checkbox({
+                            onChecked : () => {
+                                this._mem.node.setParamValue(item.address, 1);
+                            },
+                            onUnchecked : () => {
+                                this._mem.node.setParamValue(item.address, 0);
+                            }
+                        });
+                        break;
+                    case "hslider":
+                        uiItem.addClass("faust-ui-hslider").append(
+                            $("<div>").addClass(["ui", "horizontal", "label", "faust-ui-label"]).html(item.label)
+                        ).append($("<div>").attr("data-address", item.address)
                             .slider({
                                 value : +item.init,
                                 min : +item.min,
@@ -233,19 +251,81 @@ class DSP extends FaustObject {
                                 slide : (e, ui) => {
                                     this._mem.node.setParamValue(item.address, ui.value);
                                 }
-                            }));
-                            break;
-                        default:
-                            break;
-                    }
-                    tab.append(faustUIItem);
+                            })
+                        );
+                        break;
+                    case "vslider":
+                        uiItem.addClass("faust-ui-vslider").append(
+                            $("<div>").addClass(["ui", "horizontal", "label", "faust-ui-label"]).html(item.label)
+                        ).append($("<div>").attr("data-address", item.address)
+                            .slider({
+                                orientation : "vertical",
+                                value : +item.init,
+                                min : +item.min,
+                                max : +item.max,
+                                step : +item.step,
+                                slide : (e, ui) => {
+                                    this._mem.node.setParamValue(item.address, ui.value);
+                                }
+                            })
+                        );
+                        break;
+                    case "nentry":
+                        uiItem.addClass("faust-ui-nentry").append(
+                            $("<div>").addClass(["ui", "horizontal", "label", "faust-ui-label"]).html(item.label)
+                        ).append($("<div>").attr("data-address", item.address)
+                            .slider({
+                                value : +item.init,
+                                min : +item.min,
+                                max : +item.max,
+                                step : +item.step,
+                                slide : (e, ui) => {
+                                    this._mem.node.setParamValue(item.address, ui.value);
+                                }
+                            })
+                        );
+                        break;
+                    case "vgroup":
+                        uiItem.addClass(["ui", "segment", "faust-ui-group", "faust-ui-vgroup"]).append(
+                            $("<div>").addClass(["ui", "left", "top", "attached", "label", "faust-ui-label"]).html(item.label)
+                        );
+                        _genFaustUI($, uiItem, item.items);
+                        break;
+                    case "hgroup":
+                        uiItem.addClass(["ui", "segment", "faust-ui-group", "faust-ui-hgroup"]).append(
+                            $("<div>").addClass(["ui", "left", "top", "attached", "label", "faust-ui-label"]).html(item.label)
+                        );
+                        _genFaustUI($, uiItem, item.items);
+                    break;
+                    case "tgroup":
+                        uiItem.addClass(["ui", "segment", "faust-ui-group", "faust-ui-tgroup"]).append(
+                            $("<div>").addClass(["ui", "left", "top", "attached", "label", "faust-ui-label"]).html(item.label)
+                        );
+                        _genFaustUI($, uiItem, item.items);
+                        break;
+                    default:
+                        break;
                 }
-                faustUI.append(tab);
+                parent.append(uiItem);
+            }
+            return parent;
+        }
+        if (this._mem.params && this._mem.params.hasOwnProperty("ui") && this._mem.params.ui.length) {
+            let faustUITabular = $("<div>").addClass(["ui", "bottom", "attached", "tabular", "mini", "menu"]);
+            for (let i = 0; i < this._mem.params.ui.length; i++) {
+                const group = this._mem.params.ui[i];
+                faustUITabular.append(
+                    $("<a>").addClass(["item", i == 0 ? "active" : ""])
+                    .attr("data-tab", i).html(group.label)
+                );
+                let tab = $("<div>").addClass(["faust-ui-group", "ui", "top", "attached", "tab", "segment", i == 0 ? "active" : ""]);
+                
+                faustUI.append(_genFaustUI($, tab, group.items));
             }
             faustUI.append(faustUITabular);
         }
         let container = super.defaultUI($, box);
-        container.addClass(["ui", "accordion"]).append(faustUI).append(editor)
+        container.append(faustUI).append(editor)
             .find(".box-ui-text-container").append(dropdownIcon);
         //container.data("resizeHandles", "e, w, n, s");
         return container.ready(() => {

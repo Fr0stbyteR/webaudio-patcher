@@ -5,7 +5,9 @@ import "jquery-ui/ui/widgets/draggable.js";
 import "jquery-ui/ui/widgets/resizable.js";
 import "jquery-ui/themes/base/draggable.css";
 import "jquery-ui/themes/base/resizable.css";
+import "../semantic/dist/semantic.min.js";
 window.$ = $, window.jQuery = $;
+
 
 let patcher = new Patcher();
 window.patcher = patcher;

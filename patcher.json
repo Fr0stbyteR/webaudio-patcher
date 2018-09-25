@@ -252,7 +252,7 @@
                 856,
                 507,
                 100,
-                30.8438
+                32
             ],
             "text": "Base.Button",
             "args": [],
@@ -290,7 +290,7 @@
                 823,
                 446,
                 270,
-                48
+                28
             ],
             "text": "WA.Oscillator @frequency 220 @type sine",
             "args": [],
@@ -373,7 +373,7 @@
                 1224,
                 461,
                 60,
-                30.8438
+                32
             ],
             "text": "Base.Button",
             "args": [],
@@ -392,7 +392,7 @@
                 1343,
                 217,
                 60,
-                30.8438
+                32
             ],
             "text": "Base.Button",
             "args": [],
@@ -454,7 +454,7 @@
                 1308,
                 402,
                 60,
-                30.8438
+                32
             ],
             "text": "Base.Button",
             "args": [],
@@ -473,7 +473,7 @@
                 1352,
                 115,
                 261,
-                28
+                48
             ],
             "text": "JS.JSFunction [\"x\"] \"return x/2\" @name Half",
             "args": [
@@ -497,7 +497,7 @@
                 1354,
                 76,
                 60,
-                30.8438
+                32
             ],
             "text": "Base.Button",
             "args": [],
@@ -537,7 +537,7 @@
                 1033,
                 322,
                 273,
-                28
+                48
             ],
             "text": "JS.JSFunction [\"x\"] \"return {frequency: x}\"",
             "args": [
@@ -559,7 +559,7 @@
                 1011,
                 383,
                 99,
-                28
+                48
             ],
             "text": "JS.JSNumber",
             "args": [],
@@ -578,7 +578,7 @@
                 1043,
                 268,
                 60,
-                30.8438
+                32
             ],
             "text": "Base.Button",
             "args": [],
@@ -619,10 +619,10 @@
             "inlets": 1,
             "outlets": 1,
             "patching_rect": [
-                47,
-                28,
+                259,
+                57,
                 505,
-                328
+                259.875
             ],
             "text": "Faust.DSP  @bufferSize 1024",
             "args": [],
@@ -632,7 +632,7 @@
             "prevData": {
                 "storage": {
                     "showEditor": true,
-                    "code": "import(\"stdfaust.lib\");\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nsaw(f) = (phasor(f) - 0.5) * 2;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsquare(f) = (phasor(f) > 0.5) * 2 - 1;\nprocess=hslider(\"freq\", 440, 10, 10000, 1) : osc;"
+                    "code": "import(\"stdfaust.lib\");\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nsaw(f) = (phasor(f) - 0.5) * 2;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsquare(f) = (phasor(f) > 0.5) * 2 - 1;\nprocess=checkbox(\"enable\") * hslider(\"freq\", 440, 20, 2000, 1) : osc;"
                 }
             }
         }
@@ -734,13 +734,13 @@
             "Faust.DSP": {
                 "storage": {
                     "showEditor": true,
-                    "code": "import(\"stdfaust.lib\");\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nsaw(f) = (phasor(f) - 0.5) * 2;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsquare(f) = (phasor(f) > 0.5) * 2 - 1;\nprocess=hslider(\"freq\", 440, 10, 10000, 1) : osc;"
+                    "code": "import(\"stdfaust.lib\");\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nsaw(f) = (phasor(f) - 0.5) * 2;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsquare(f) = (phasor(f) > 0.5) * 2 - 1;\nprocess=checkbox(\"enable\") * hslider(\"freq\", 440, 20, 2000, 1) : osc;"
                 }
             }
         }
     },
     "boxIndexCount": 25,
-    "lineIndexCount": 35,
+    "lineIndexCount": 38,
     "bgcolor": [
         61,
         65,

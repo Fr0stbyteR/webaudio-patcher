@@ -18,7 +18,13 @@ module.exports = {
       "jquery-ui": "jquery-ui"
     }
   },
-
+  // expose jquery's $ for imports
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
+    })
+ ],
   module: {
     rules: [
       {
