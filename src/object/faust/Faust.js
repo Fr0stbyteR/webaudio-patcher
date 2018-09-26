@@ -21,9 +21,9 @@ class FaustObject extends Base.BaseObject {
                 this.emit("faustLoaded", Faust);
             });
         }
-        if (!this._patcher.hasOwnProperty("_audioCtx")) {
+        if (!this._patcher.hasOwnProperty("_audioCtx") || !this._patcher._audioCtx) {
             this._patcher._audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            this._audioCtx.destination.channelInterpretation = "discrete";
+            this._patcher._audioCtx.destination.channelInterpretation = "discrete";
         }
     }
 }
@@ -341,15 +341,17 @@ class DSP extends FaustObject {
                 indentWithTabs: false
             })
             editor.on("click", (e) => {
+                if (this._patcher.state.locked) return;
                 if (editor.parents(".ui-draggable").hasClass("dragged")) return;
                 if (editor.hasClass("editing")) return;
                 editor.addClass("editing")
                     .parents(".ui-draggable").draggable("disable");
             });
             cm.on("blur", (cm, e) => {
+                this.update([cm.getValue()]);
+                if (this._patcher.state.locked) return;
                 editor.removeClass("editing")
                     .parents(".ui-draggable").draggable("enable");
-                this.update([cm.getValue()]);
             });
             cm.on("keydown", (cm, e) => {
                 if (e.key == "Delete" || e.key == "Backspace") e.stopPropagation();

@@ -17,6 +17,12 @@
             width: auto; /*overload semantic 100% width*/
         }
         
+        #toolbar {
+            right: 300px; /*300px sidebar*/
+            width: auto; /*overload semantic 100% width*/
+            height: 35px;
+        }
+        
         #sidebar {
             box-shadow: 0px 0px 2px black;
             overflow-y: auto;
@@ -41,12 +47,12 @@
             display: none;
         }
 
-        div.patcher {
+        #patcher {
             position: absolute;
             top: 40px;
             right: 300px;
             left: 0px;
-            bottom: 0px;
+            bottom: 35px;
             overflow: auto;
         }
 
@@ -60,6 +66,14 @@
             bottom: 0;
         }
 
+        #patcher.locked div.boxes {
+            z-index: 20;
+        }
+
+        #patcher.unlocked div.boxes {
+            z-index: 10;
+        }
+
         div.lines {
             position: absolute;
             width: 100%;
@@ -68,8 +82,15 @@
             left: 0;
             right: 0;
             bottom: 0;
-            z-index: 10;
             pointer-events: none;
+        }
+        
+        #patcher.locked div.lines {
+            z-index: 10;
+        }
+
+        #patcher.unlocked div.lines {
+            z-index: 20;
         }
 
         div.line {
@@ -79,10 +100,17 @@
         }
 
         path.line-path {
-            pointer-events: auto;
             stroke: rgb(158, 159, 159);
             stroke-width: 2;
             fill: transparent;
+        }
+
+        #patcher.unlocked path.line-path {
+            pointer-events: auto;
+        }
+
+        #patcher.locked path.line-path {
+            pointer-events: none;
         }
 
         svg.line-svg {
@@ -152,11 +180,11 @@
             min-width: 45px;
         }
 
-        div.box-ui {
+        #patcher.unlocked div.box-ui {
             pointer-events: none;
         }
 
-        div.box.selected div.box-ui {
+        #patcher.locked div.box-ui {
             pointer-events: auto;
         }
 
@@ -194,6 +222,11 @@
             background-color: rgb(192, 194, 196);
             border-style: solid;
             border-width: 0px;
+            z-index: 90;
+        }
+
+        #patcher.locked div.box-port {
+            pointer-events: none;
         }
 
         div.box-inlet {
@@ -215,13 +248,13 @@
             border-color: rgb(211, 255, 0);
         }
 
-        div.box:hover div.box-port {
+        #patcher.unlocked div.box:hover div.box-port {
             margin: -3.5px;
             border-radius: 50%;
             height: 7px;
         }
 
-        div.box:hover div.box-port-connected {
+        #patcher.unlocked div.box:hover div.box-port-connected {
             border-width: 1px;
             height: 7px;
         }
@@ -304,9 +337,13 @@
             </table>
         </div>
     </div>
-    <div class="patcher">
+    <div id="patcher">
         <div class="lines"></div>
         <div class="boxes"></div>
+    </div>
+    <div id="toolbar" class="ui bottom fixed inverted tiny borderless icon menu">
+        <a id="lock" class="item"><i class="lock icon"></i></a>
+        <a id="presentation" class="blue item"><i class="slideshare icon"></i></a>
     </div>
 </body>
 

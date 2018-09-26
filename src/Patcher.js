@@ -26,17 +26,20 @@ export default class Patcher extends EventEmitter {
         this.data = {};
         this._log = [];
         this._packages = Packages;
-        if (this.hasOwnProperty("_audioCtx")) this._audioCtx.close();
-        this._audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        this._audioCtx.destination.channelInterpretation = "discrete";
+        if (this.hasOwnProperty("_audioCtx") && this._audioCtx) this._audioCtx.close();
+        this._audioCtx = null;
         this.emit("resetPatcher", this);
         if (patcher == undefined) return;
         this._prevData = patcher.hasOwnProperty("data") ? patcher.data : null;
         // Patcher
-        this.boxIndexCount = patcher.boxIndexCount;
-        this.lineIndexCount = patcher.lineIndexCount;
-        this.bgcolor = patcher.bgcolor;
-        this.editing_bgcolor = patcher.editing_bgcolor;
+        this.state = {
+            locked : true,
+            presentation : false
+        }
+        this.boxIndexCount = patcher.hasOwnProperty("boxIndexCount") ? patcher.boxIndexCount : 0;
+        this.lineIndexCount = patcher.hasOwnProperty("lineIndexCount") ? patcher.lineIndexCount : 0;
+        this.bgcolor = patcher.hasOwnProperty("bgcolor") ? patcher.bgcolor : [61, 65, 70, 1];
+        this.editing_bgcolor = patcher.hasOwnProperty("editing_bgcolor") ? patcher.editing_bgcolor : [82, 87, 94, 1];
         // Boxes & data
         for (const id in patcher.boxes) {
             this.createBox(patcher.boxes[id]);
@@ -132,8 +135,10 @@ export default class Patcher extends EventEmitter {
     }
 
     changeLineSrc(id, srcID, srcOutlet) {
-        if (this.getLinesByIO(srcID, this.lines[id].dest[0], srcOutlet, this.lines[id].dest[1]).length > 0) 
-            return this.line[id];
+        if (this.getLinesByIO(srcID, this.lines[id].dest[0], srcOutlet, this.lines[id].dest[1]).length > 0) {
+            this.emit("uiRefreshLine", this.lines[id]);
+            return this.lines[id];
+        }
         let oldSrc = this.lines[id].src;
         this.lines[id].setSrc([srcID, srcOutlet]);
         this.emit("changeLineSrc", this.lines[id], oldSrc);
@@ -142,8 +147,10 @@ export default class Patcher extends EventEmitter {
     }
 
     changeLineDest(id, destID, destOutlet) {
-        if (this.getLinesByIO(this.lines[id].src[0], destID, this.lines[id].dest[1], destOutlet).length > 0)
-            return this.line[id];
+        if (this.getLinesByIO(this.lines[id].src[0], destID, this.lines[id].dest[1], destOutlet).length > 0) {
+            this.emit("uiRefreshLine", this.lines[id]);
+            return this.lines[id];
+        }
         let oldDest = this.lines[id].dest;
         this.lines[id].setDest([destID, destOutlet]);
         this.emit("changeLineDest", this.lines[id], oldDest);
@@ -162,6 +169,7 @@ export default class Patcher extends EventEmitter {
         this.emit("resizeBox", box);
         return this;
     }
+
     uiRefresh(box) {
         this.emit("uiRefreshBox", box);
         return this;

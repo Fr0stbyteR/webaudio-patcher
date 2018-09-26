@@ -52,6 +52,7 @@ class BaseObject extends EventEmitter {
                 "contenteditable": false,
             }).html(box.text)
             .on("click", (e) => {
+                if (this._patcher.state.locked) return;
                 if ($(e.currentTarget).parents(".ui-draggable").hasClass("dragged")) return;
                 if ($(e.currentTarget).hasClass("editing")) return;
                 $(e.currentTarget).attr("contenteditable", true).addClass("editing").parents(".ui-draggable").draggable("disable");
@@ -61,6 +62,7 @@ class BaseObject extends EventEmitter {
                 selection.removeAllRanges();
                 selection.addRange(range);
             }).on("blur", (e) => {
+                if (this._patcher.state.locked) return;
                 $(e.currentTarget).attr("contenteditable", false).removeClass("editing").parents(".ui-draggable").draggable("enable");
                 window.getSelection().removeAllRanges();
                 if ($(e.currentTarget).text() != box.text) box._patcher.changeBoxText(box.id, $(e.currentTarget).text());

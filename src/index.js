@@ -19,6 +19,7 @@ $(document).ready(() => {
 	})
 	patcher.on("loadPatcher", (patcher) => {
 		if (patcher.hasOwnProperty("bgcolor")) $("body").css("background-color", "rgba(" + patcher.bgcolor.join(",") + ")");
+		lockPatcher();
 	})
 	patcher.on("createBox", (box) => {
 		let obj = patcher.getObjByID(box.id);
@@ -27,6 +28,7 @@ $(document).ready(() => {
 		dom.find(".box-ui").append(objUI);
 		$(".boxes").append(dom);
 		dom.draggable({
+			grid: [1, 1],
 			start: (event, ui) => {
 				ui.helper.addClass("dragged");
 			},
@@ -104,6 +106,9 @@ $(document).ready(() => {
 		updateBoxIO(line.src[0]);
 		updateBoxIO(line.dest[0]);
 	});
+	patcher.on("uiRefreshLine", (line) => {
+		updateLine(line.id);
+	})
 	patcher.on("changeLine", (line, isSrc, oldCon) => {
 		updateLine(line.id);
 		updateBoxIO(oldCon[0]);
@@ -137,6 +142,7 @@ $(document).ready(() => {
 
 
 	$(document).on("dblclick", ".boxes", (e) => {
+		if (patcher.state.locked) return;
 		let box = {
 			patching_rect: [e.offsetX, e.offsetY, 100, 22],
 		}
@@ -150,25 +156,31 @@ $(document).ready(() => {
 		e.stopPropagation();
 	});
 	$(document).on("mousedown", ".box", (e) => {
+		if (patcher.state.locked) return;
 		$(e.currentTarget).removeClass("dragged");
 		if ($(e.currentTarget).hasClass("selected")) return;
 		$(".selected").removeClass("selected");
 		$(e.currentTarget).addClass("selected").resizable("enable").focus();
 	}).on("blur", ".box.selected", (e) => {
+		if (patcher.state.locked) return;
 		if (!$.contains(document, $(e.currentTarget))) return; //if deleted
 		$(e.currentTarget).removeClass("selected").resizable("disable");
 	}).on("keydown", ".box.selected", (e) => {
+		if (patcher.state.locked) return;
 		if (e.key == "Delete" || e.key == "Backspace") patcher.deleteBox($(e.currentTarget).attr("id"));
 	});
 	$(document).on("focus", ".line", (e) => {
+		if (patcher.state.locked) return;
 		if ($(e.currentTarget).hasClass("selected")) return;
 		$(".selected").removeClass("selected");
 		$(e.currentTarget).addClass("selected");
 		updateLine($(e.currentTarget).attr("id"));
 	}).on("blur", ".line.selected", (e) => {
+		if (patcher.state.locked) return;
 		if (!$.contains(document, $(e.currentTarget))) return; //if deleted
 		$(e.currentTarget).removeClass("selected");
 	}).on("keydown", ".line.selected", (e) => {
+		if (patcher.state.locked) return;
 		if (e.key == "Delete" || e.key == "Backspace") patcher.deleteLine($(e.currentTarget).attr("id"));
 	});
 	$(document).on("click", "#save", (e) => {
@@ -181,6 +193,11 @@ $(document).ready(() => {
 		let file = $(e.currentTarget).get(0).files[0];
 		if (file) loadPatcher(file);
 	})
+	
+	$(document).on("click", "#lock", (e) => {
+		if (patcher.state.locked) unlockPatcher();
+		else lockPatcher();
+	});
 });
 
 let loadPatcher = (file) => {
@@ -352,4 +369,26 @@ let updateBoxRect = (id) => {
 	let w = jq.outerWidth();
 	let h = jq.outerHeight();
 	patcher.boxes[id].patching_rect = [l, t, w, h];
+}
+
+let lockPatcher = () => {
+	$(".selected").removeClass("selected");
+	$(".box").blur();
+	$(".line").blur();
+	$(".box.ui-draggable").draggable("disable");
+	$(".box-port.ui-draggable").draggable("disable");
+	patcher.state.locked = true;
+	$("#lock").children("i.lock.open").removeClass("open");
+	$("#patcher").removeClass("unlocked").addClass("locked");
+}
+
+let unlockPatcher = () => {
+	$(".selected").removeClass("selected");
+	$(".box").blur();
+	$(".line").blur();
+	$(".box.ui-draggable").draggable("enable");
+	$(".box-port.ui-draggable").draggable("enable");
+	patcher.state.locked = false;
+	$("#lock").children("i.lock").addClass("open");
+	$("#patcher").removeClass("locked").addClass("unlocked");
 }

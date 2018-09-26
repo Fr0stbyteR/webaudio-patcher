@@ -5,9 +5,9 @@ class WANode extends Base.BaseObject {
         super(box, patcher);
         this._package = "wa";
         this._icon = "volume up"
-        if (!this._patcher.hasOwnProperty("_audioCtx")) {
+        if (!this._patcher.hasOwnProperty("_audioCtx") || !this._patcher._audioCtx) {
             this._patcher._audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            this._audioCtx.destination.channelInterpretation = "discrete";
+            this._patcher._audioCtx.destination.channelInterpretation = "discrete";
         }
         this._mem.node = null;
     }
