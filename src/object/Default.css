@@ -1,6 +1,9 @@
+div.box-ui-default {
+    background-color: rgb(73, 80, 77);
+}
+
 div.box-ui-default.box-ui-text-container {
     display: inline-flex;
-    background-color: rgb(73, 80, 77);
     padding: 0px 5px;
     width: 100%;
     color: white;

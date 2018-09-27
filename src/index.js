@@ -18,7 +18,7 @@ $(document).ready(() => {
 		$(".line").remove();
 	})
 	patcher.on("loadPatcher", (patcher) => {
-		if (patcher.hasOwnProperty("bgcolor")) $("body").css("background-color", "rgba(" + patcher.bgcolor.join(",") + ")");
+		if (patcher.hasOwnProperty("bgcolor")) $("#patcher").css("background-color", "rgba(" + patcher.bgcolor.join(",") + ")");
 		lockPatcher();
 	})
 	patcher.on("createBox", (box) => {
@@ -28,11 +28,14 @@ $(document).ready(() => {
 		dom.find(".box-ui").append(objUI);
 		$(".boxes").append(dom);
 		dom.draggable({
-			grid: [1, 1],
 			start: (event, ui) => {
 				ui.helper.addClass("dragged");
 			},
 			drag: (event, ui) => {
+				if (patcher.state.showGrid) {
+					ui.position.top = ui.position.top - ui.position.top % patcher.grid[0];
+					ui.position.left = ui.position.left - ui.position.left % patcher.grid[1];
+				}
 				updateLineByBox(ui.helper.attr("id"));
 			},
 			stop: (event, ui) => {
@@ -197,6 +200,9 @@ $(document).ready(() => {
 	$(document).on("click", "#lock", (e) => {
 		if (patcher.state.locked) unlockPatcher();
 		else lockPatcher();
+	}).on("click", "#grid", (e) => {
+		if (patcher.state.showGrid) hideGrid();
+		else showGrid();
 	});
 });
 
@@ -380,6 +386,7 @@ let lockPatcher = () => {
 	patcher.state.locked = true;
 	$("#lock").children("i.lock.open").removeClass("open");
 	$("#patcher").removeClass("unlocked").addClass("locked");
+	hideGrid();
 }
 
 let unlockPatcher = () => {
@@ -391,4 +398,31 @@ let unlockPatcher = () => {
 	patcher.state.locked = false;
 	$("#lock").children("i.lock").addClass("open");
 	$("#patcher").removeClass("locked").addClass("unlocked");
+	if (patcher.state.showGrid) showGrid();
+}
+
+//background-image: repeating-linear-gradient(0deg,transparent,transparent 70px,#CCC 70px,#CCC 71px)
+//	,repeating-linear-gradient(-90deg,transparent,transparent 70px,#CCC 70px,#CCC 71px);
+//background-size: 71px 71px;
+let showGrid = () => {
+	let grid = patcher.grid;
+	let bgcolor = patcher.bgcolor;
+	let isWhite = bgcolor[0] + bgcolor[1] + bgcolor[2] < 128 * 3;
+	let gridColor = isWhite ? "#FFFFFF30" : "#00000030";
+	let pxx = grid[0] + "px";
+	let pxx1 = (grid[0] - 1) + "px";
+	let pxy = grid[1] + "px";
+	let pxy1 = (grid[1] - 1) + "px";
+	let sBGImageX = "repeating-linear-gradient(" + ["0deg, transparent, transparent " + pxx1, gridColor + " " + pxx1, gridColor + " " + pxx].join(", ") + ")";
+	let sBGImageY = "repeating-linear-gradient(" + ["-90deg, transparent, transparent " + pxy1, gridColor + " " + pxy1, gridColor + " " + pxy].join(", ") + ")";
+	$("#patcher").addClass("grid").css("background-image", sBGImageX + ", " + sBGImageY).css("background-size", pxx + " " + pxy);
+	
+	patcher.state.showGrid = true;
+	$("#grid").children("i.th").addClass("enabled");
+}
+
+let hideGrid = () => {
+	$("#patcher").removeClass("grid").css("background-image", "").css("background-size", "");
+	if (!patcher.state.locked) patcher.state.showGrid = false;
+	$("#grid").children("i.th").removeClass("enabled");
 }

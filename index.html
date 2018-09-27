@@ -4,13 +4,13 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>JSPatcher</title>
-    <script type="text/javascript" src="./dist/bundle.js?v=0.180920"></script>
+    <script type="text/javascript" src="./dist/bundle.js?v=0.180926"></script>
     <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
     <style type="text/css">
         *:focus {
             outline: none;
         }
-        
+
         body {
             margin: 0px;
             background-color: black;
@@ -25,6 +25,11 @@
             right: 300px; /*300px sidebar*/
             width: auto; /*overload semantic 100% width*/
             height: 35px;
+        }
+
+        #toolbar i.enabled{
+            text-shadow: 0px 0px 5px;
+            color: deepskyblue;
         }
         
         #sidebar {
@@ -184,6 +189,11 @@
             min-width: 45px;
         }
 
+        div.box-ui {
+            height: 100%;
+            width: 100%;
+        }
+        
         #patcher.unlocked div.box-ui {
             pointer-events: none;
         }
@@ -323,9 +333,9 @@
 
 <body>
     <div id="menu" class="ui top fixed inverted menu">
-        <a id="load" class="green item">Load</a>
+        <a id="load" class="item">Load</a>
         <input type="file" style="display:none" />
-        <a id="save" class="red item">Save</a>
+        <a id="save" class="item">Save</a>
     </div>
     <div id="sidebar" class="ui inverted right internal attached rail">
         <div id="console">
@@ -347,7 +357,8 @@
     </div>
     <div id="toolbar" class="ui bottom fixed inverted tiny borderless icon menu">
         <a id="lock" class="item"><i class="lock icon"></i></a>
-        <a id="presentation" class="blue item"><i class="slideshare icon"></i></a>
+        <a id="presentation" class="item"><i class="slideshare icon"></i></a>
+        <a id="grid" class="item"><i class="th icon"></i></a>
     </div>
 </body>
 

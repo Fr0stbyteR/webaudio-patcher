@@ -1,64 +1,74 @@
-div.package-faust .dsp-editor {
+
+
+div.package-faust-dsp {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+div.package-faust-dsp .dsp-editor {
+    flex: 1 0 auto;
+    display: flex;
     width: 100%;
     border: rgb(125, 126, 132) solid;
     padding: 0px;
     border-width: 0px 0px 4px 0px;
 }
 
-div.package-faust .dsp-editor .CodeMirror {
+div.package-faust-dsp .dsp-editor .CodeMirror {
     height: auto;
     font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
 }
 
-div.package-faust .box-ui-toggle {
+div.package-faust-dsp .box-ui-toggle {
     cursor: pointer;
 }
 
-div.package-faust .faust-ui {
+div.package-faust-dsp .faust-ui {
     margin: 0px 1px;
 }
 
-div.package-faust .faust-ui .faust-ui-item {
+div.package-faust-dsp .faust-ui .faust-ui-item {
     display: flex;
     align-items: center;
     padding-bottom: 5px;
 }
 
-div.package-faust div.faust-ui-group {
+div.package-faust-dsp div.faust-ui-group {
     display: grid !important;
     grid-column: span 4;
     grid-template-columns: repeat(4, 25%);
 }
 
-div.package-faust .faust-ui-group .faust-ui-hslider {
+div.package-faust-dsp .faust-ui-group .faust-ui-hslider {
     grid-column: span 2;
     padding-right: 10px;
 }
 
-div.package-faust .faust-ui-group .faust-ui-vslider {
+div.package-faust-dsp .faust-ui-group .faust-ui-vslider {
     display: inline-block;
     grid-row: span 4;
 }
 
-div.package-faust .faust-ui-vgroup {
+div.package-faust-dsp .faust-ui-vgroup {
     grid-column: span 4;
 }
 
-div.package-faust .faust-ui-hgroup {
+div.package-faust-dsp .faust-ui-hgroup {
     grid-row: span 4;
 }
 
-div.package-faust .faust-ui-tgroup {
+div.package-faust-dsp .faust-ui-tgroup {
     grid-column: span 4;
     grid-row: span 4;
 }
 
-div.package-faust .faust-ui .faust-ui-item .label {
+div.package-faust-dsp .faust-ui .faust-ui-item .label {
     min-width: 60px;
     overflow-x: hidden;
 }
 
-div.package-faust .faust-ui .faust-ui-item .ui-slider-horizontal {
+div.package-faust-dsp .faust-ui .faust-ui-item .ui-slider-horizontal {
     width: 100%;
 }
 

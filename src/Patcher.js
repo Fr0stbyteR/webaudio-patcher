@@ -34,12 +34,14 @@ export default class Patcher extends EventEmitter {
         // Patcher
         this.state = {
             locked : true,
-            presentation : false
+            presentation : false,
+            showGrid : true,
         }
         this.boxIndexCount = patcher.hasOwnProperty("boxIndexCount") ? patcher.boxIndexCount : 0;
         this.lineIndexCount = patcher.hasOwnProperty("lineIndexCount") ? patcher.lineIndexCount : 0;
         this.bgcolor = patcher.hasOwnProperty("bgcolor") ? patcher.bgcolor : [61, 65, 70, 1];
         this.editing_bgcolor = patcher.hasOwnProperty("editing_bgcolor") ? patcher.editing_bgcolor : [82, 87, 94, 1];
+        this.grid = patcher.hasOwnProperty("grid") ? patcher.grid : [15, 15];
         // Boxes & data
         for (const id in patcher.boxes) {
             this.createBox(patcher.boxes[id]);
@@ -61,6 +63,7 @@ export default class Patcher extends EventEmitter {
         };
         patcher.bgcolor = rgbaMax2Css(maxPatcher.patcher.bgcolor);
         patcher.editing_bgcolor = rgbaMax2Css(maxPatcher.patcher.editing_bgcolor);
+        patcher.grid = maxPatcher.patcher.gridsize;
         patcher.boxIndexCount = 0;
         patcher.lineIndexCount = 0;
         for (let i = 0; i < maxLines.length; i++) {
