@@ -803,7 +803,7 @@ eval("exports = module.exports = __webpack_require__(/*! ../../../css-loader/lib
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ \"./node_modules/css-loader/lib/css-base.js\")(false);\n// imports\n\n\n// module\nexports.push([module.i, \"button.package-base-button {\\r\\n    padding: 4px 5px;\\r\\n    width: 100%;\\r\\n    line-height: 20px;\\r\\n    font-weight: normal;\\r\\n}\\r\\n\\r\\ndiv.package-base-invalidobject .box-ui-text-container {\\r\\n    background-color: rgb(128, 64, 64);\\r\\n}\\r\\n\", \"\"]);\n\n// exports\n\n\n//# sourceURL=webpack:///./src/object/Base.css?./node_modules/css-loader");
+eval("exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ \"./node_modules/css-loader/lib/css-base.js\")(false);\n// imports\n\n\n// module\nexports.push([module.i, \"button.package-base-button {\\r\\n    padding: 4px 5px;\\r\\n    width: 100%;\\r\\n    line-height: 20px;\\r\\n    font-weight: normal;\\r\\n}\\r\\n\\r\\ndiv.package-base-invalidobject .box-ui-text-container {\\r\\n    background-color: rgb(128, 64, 64);\\r\\n}\\r\\n\\r\\n#patcher.unlocked div.box.selected .box-ui-text-container {\\r\\n    pointer-events: auto;\\r\\n}\\r\\n\", \"\"]);\n\n// exports\n\n\n//# sourceURL=webpack:///./src/object/Base.css?./node_modules/css-loader");
 
 /***/ }),
 

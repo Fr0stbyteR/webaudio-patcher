@@ -8,3 +8,7 @@ button.package-base-button {
 div.package-base-invalidobject .box-ui-text-container {
     background-color: rgb(128, 64, 64);
 }
+
+#patcher.unlocked div.box.selected .box-ui-text-container {
+    pointer-events: auto;
+}
