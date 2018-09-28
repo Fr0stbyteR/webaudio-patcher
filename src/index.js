@@ -30,17 +30,29 @@ $(document).ready(() => {
 		dom.draggable({
 			start: (event, ui) => {
 				ui.helper.addClass("dragged");
+				$('.box.selected').each((i) => {
+					let box = $('.box.selected').eq(i)
+					box.data("originalPosition", [box.position().top, box.position().left]);
+				})
 			},
 			drag: (event, ui) => {
 				if (patcher.state.showGrid) {
-					ui.position.top = ui.position.top - ui.position.top % patcher.grid[0];
-					ui.position.left = ui.position.left - ui.position.left % patcher.grid[1];
+					ui.position.top -= ui.position.top % patcher.grid[0];
+					ui.position.left -= ui.position.left % patcher.grid[1];
 				}
-				updateLineByBox(ui.helper.attr("id"));
+				let d = [ui.position.top - ui.originalPosition.top, ui.position.left - ui.originalPosition.left];
+				$('.box.selected').each((i) => {
+					let box = $('.box.selected').eq(i);
+					box.css("top", box.data("originalPosition")[0] + d[0])
+					.css("left", box.data("originalPosition")[1] + d[1]);
+					updateLineByBox(box.attr("id"));
+				})
 			},
-			stop: (event, ui) => {
-				updateLineByBox(ui.helper.attr("id"));
-				updateBoxRect(ui.helper.attr("id"));
+			stop: (event, ui) => {$('.box.selected').each((i) => {
+				let box = $('.box.selected').eq(i);
+				updateLineByBox(box.attr("id"));
+				updateBoxRect(box.attr("id"));
+			})
 			}
 		}).resizable({
 			disabled: true,
