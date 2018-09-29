@@ -63,7 +63,6 @@ class BaseObject extends EventEmitter {
                 selection.removeAllRanges();
                 selection.addRange(range);
             }).on("blur", (e) => {
-                if (this._patcher.state.locked) return;
                 $(e.currentTarget).attr("contenteditable", false).removeClass("editing").parents(".ui-draggable").draggable("enable");
                 window.getSelection().removeAllRanges();
                 if ($(e.currentTarget).text() != box.text) box._patcher.changeBoxText(box.id, $(e.currentTarget).text());

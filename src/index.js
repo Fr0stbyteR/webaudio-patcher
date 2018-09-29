@@ -6,11 +6,17 @@ import "jquery-ui/ui/widgets/resizable.js";
 import "jquery-ui/themes/base/draggable.css";
 import "jquery-ui/themes/base/resizable.css";
 import "../semantic/dist/semantic.min.js";
+import Selection from "@simonwep/selection-js"
 window.$ = $, window.jQuery = $;
 
 
 let patcher = new Patcher();
 window.patcher = patcher;
+
+let keysPressed = {};
+let checkKeyPressed = (key) =>{
+	return keysPressed.hasOwnProperty(key) && keysPressed[key];
+}
 
 $(document).ready(() => {
 	patcher.on("resetPatcher", (patcher) => {
@@ -155,6 +161,30 @@ $(document).ready(() => {
 		return response.json();
 	}).then(content => patcher.load(content));
 
+	//keys
+	$(document).on("keydown", (e) => {
+		keysPressed[e.key] = true;
+		if (e.key == "Delete" || e.key == "Backspace") {
+			if (!patcher.state.locked) {
+				let boxIDs = [];
+				$(".box.selected").each((i) => {
+					boxIDs.push($(".box.selected").eq(i).attr("id"));
+				})
+				boxIDs.forEach((id) => {
+					patcher.deleteBox(id);
+				})
+				let lineIDs = [];
+				$(".line.selected").each((i) => {
+					lineIDs.push($(".line.selected").eq(i).attr("id"));
+				})
+				lineIDs.forEach((id) => {
+					patcher.deleteLine(id);
+				})
+			}
+		}
+	}).on("keyup", (e) => {
+		keysPressed[e.key] = false;
+	});
 
 	$(document).on("dblclick", ".boxes", (e) => {
 		if (patcher.state.locked) return;
@@ -165,25 +195,71 @@ $(document).ready(() => {
 		$("#" + box.id).mousedown().find("span").click();
 	}).on("dblclick", ".boxes div", (e) => {
 		e.stopPropagation();
-	}).on("click", ".boxes", (e) => {
-		$(".selected").removeClass("selected");
-	}).on("click", ".box, .line", (e) => {
+	}).on("mousedown", ".boxes", (e) => {
+		$(".editing").blur();
+		if (checkKeyPressed("Control") || checkKeyPressed("Command")) return;
+		$(".box.selected, .line.selected").removeClass("selected");
+	}).on("mousedown", ".box, .line", (e) => {
 		e.stopPropagation();
 	});
+	const selection = Selection.create({
+		class: "selection",
+		startThreshold: 2,
+		containers: [".boxes"],
+		boundaries: [".boxes"],
+		selectables: [".box"],
+		validateStart(e) {
+			if (!e.target.classList.contains('boxes')) return false;
+			return true;
+		},
+		onStart(e) {
+			// Get elements which has been selected so far
+			const selectedElements = e.selectedElements;
+			// Remove class if the user don't pressed the control key or command key
+			if (!e.originalEvent.ctrlKey && !e.originalEvent.metaKey) {
+				// Unselect all elements
+				selectedElements.forEach(s => s.classList.remove('selected'));
+				// Clear previous selection
+				this.clearSelection();
+			}
+		},
+		onMove(e) {
+			// Get the currently selected elements and those
+			// which where removed since the last selection.
+			const selectedElements = e.selectedElements;
+			const removedElements = e.changedElements.removed;
+			// Add a custom class to the elements which where selected.
+			selectedElements.forEach(s => s.classList.add('selected'));
+			// Remove the class from elements which where removed
+			// since the last selection
+			removedElements.forEach(s => s.classList.remove('selected'));
+		},
+		onStop() {
+			this.keepSelection();
+		}
+	})
+	//boxes
 	$(document).on("mousedown", ".box", (e) => {
 		if (patcher.state.locked) return;
 		$(e.currentTarget).removeClass("dragged");
-		if ($(e.currentTarget).hasClass("selected")) return;
-		$(".selected").removeClass("selected");
-		$(e.currentTarget).addClass("selected").resizable("enable").focus();
+		
+		if (checkKeyPressed("Control") || checkKeyPressed("Command")) {
+			if ($(e.currentTarget).hasClass("selected")) {
+				$(e.currentTarget).removeClass("selected").resizable("disable");
+			} else {
+				$(e.currentTarget).addClass("selected").resizable("enable").focus();
+			}
+		} else {
+			if ($(e.currentTarget).hasClass("selected")) return;
+			$(".box.selected, .line.selected").removeClass("selected");
+			$(e.currentTarget).addClass("selected").resizable("enable").focus();
+		}
 	}).on("blur", ".box.selected", (e) => {
 		if (patcher.state.locked) return;
 		if (!$.contains(document, $(e.currentTarget))) return; //if deleted
 		$(e.currentTarget).removeClass("selected").resizable("disable");
-	}).on("keydown", ".box.selected", (e) => {
-		if (patcher.state.locked) return;
-		if (e.key == "Delete" || e.key == "Backspace") patcher.deleteBox($(e.currentTarget).attr("id"));
 	});
+	//lines
 	$(document).on("focus", ".line", (e) => {
 		if (patcher.state.locked) return;
 		if ($(e.currentTarget).hasClass("selected")) return;
@@ -198,6 +274,8 @@ $(document).ready(() => {
 		if (patcher.state.locked) return;
 		if (e.key == "Delete" || e.key == "Backspace") patcher.deleteLine($(e.currentTarget).attr("id"));
 	});
+
+	//Menu
 	$(document).on("click", "#save", (e) => {
 		let p = patcher.toString();
 		let url = "data:text/plain;charset=utf-8," + encodeURIComponent(p);
@@ -209,6 +287,7 @@ $(document).ready(() => {
 		if (file) loadPatcher(file);
 	})
 	
+	//Toolbar
 	$(document).on("click", "#lock", (e) => {
 		if (patcher.state.locked) unlockPatcher();
 		else lockPatcher();
@@ -216,6 +295,60 @@ $(document).ready(() => {
 		if (patcher.state.showGrid) hideGrid();
 		else showGrid();
 	});
+	
+	let lockPatcher = () => {
+		$(".selected").removeClass("selected");
+		$(".box").blur();
+		$(".line").blur();
+		$(".box.ui-draggable").draggable("disable");
+		$(".box-port.ui-draggable").draggable("disable");
+		patcher.state.locked = true;
+		selection.disable();
+		$("#lock i.lock.open").removeClass("open");
+		$("#patcher").removeClass("unlocked").addClass("locked");
+		hideGrid();
+		$("#grid i.th").addClass("disabled");
+	}
+
+	let unlockPatcher = () => {
+		$(".selected").removeClass("selected");
+		$(".box").blur();
+		$(".line").blur();
+		$(".box.ui-draggable").draggable("enable");
+		$(".box-port.ui-draggable").draggable("enable");
+		patcher.state.locked = false;
+		selection.enable();
+		$("#lock i.lock").addClass("open");
+		$("#patcher").removeClass("locked").addClass("unlocked");
+		if (patcher.state.showGrid) showGrid();
+		$("#grid i.th").removeClass("disabled");
+	}
+
+	//background-image: repeating-linear-gradient(0deg,transparent,transparent 70px,#CCC 70px,#CCC 71px)
+	//	,repeating-linear-gradient(-90deg,transparent,transparent 70px,#CCC 70px,#CCC 71px);
+	//background-size: 71px 71px;
+	let showGrid = () => {
+		let grid = patcher.grid;
+		let bgcolor = patcher.bgcolor;
+		let isWhite = bgcolor[0] + bgcolor[1] + bgcolor[2] < 128 * 3;
+		let gridColor = isWhite ? "#FFFFFF30" : "#00000030";
+		let pxx = grid[0] + "px";
+		let pxx1 = (grid[0] - 1) + "px";
+		let pxy = grid[1] + "px";
+		let pxy1 = (grid[1] - 1) + "px";
+		let sBGImageX = "repeating-linear-gradient(" + ["0deg, transparent, transparent " + pxx1, gridColor + " " + pxx1, gridColor + " " + pxx].join(", ") + ")";
+		let sBGImageY = "repeating-linear-gradient(" + ["-90deg, transparent, transparent " + pxy1, gridColor + " " + pxy1, gridColor + " " + pxy].join(", ") + ")";
+		$("#patcher").addClass("grid").css("background-image", sBGImageX + ", " + sBGImageY).css("background-size", pxx + " " + pxy);
+		
+		patcher.state.showGrid = true;
+		$("#grid i.th").addClass("enabled");
+	}
+
+	let hideGrid = () => {
+		$("#patcher").removeClass("grid").css("background-image", "").css("background-size", "");
+		if (!patcher.state.locked) patcher.state.showGrid = false;
+		$("#grid i.th").removeClass("enabled");
+	}
 });
 
 let loadPatcher = (file) => {
@@ -387,54 +520,4 @@ let updateBoxRect = (id) => {
 	let w = jq.outerWidth();
 	let h = jq.outerHeight();
 	patcher.boxes[id].patching_rect = [l, t, w, h];
-}
-
-let lockPatcher = () => {
-	$(".selected").removeClass("selected");
-	$(".box").blur();
-	$(".line").blur();
-	$(".box.ui-draggable").draggable("disable");
-	$(".box-port.ui-draggable").draggable("disable");
-	patcher.state.locked = true;
-	$("#lock").children("i.lock.open").removeClass("open");
-	$("#patcher").removeClass("unlocked").addClass("locked");
-	hideGrid();
-}
-
-let unlockPatcher = () => {
-	$(".selected").removeClass("selected");
-	$(".box").blur();
-	$(".line").blur();
-	$(".box.ui-draggable").draggable("enable");
-	$(".box-port.ui-draggable").draggable("enable");
-	patcher.state.locked = false;
-	$("#lock").children("i.lock").addClass("open");
-	$("#patcher").removeClass("locked").addClass("unlocked");
-	if (patcher.state.showGrid) showGrid();
-}
-
-//background-image: repeating-linear-gradient(0deg,transparent,transparent 70px,#CCC 70px,#CCC 71px)
-//	,repeating-linear-gradient(-90deg,transparent,transparent 70px,#CCC 70px,#CCC 71px);
-//background-size: 71px 71px;
-let showGrid = () => {
-	let grid = patcher.grid;
-	let bgcolor = patcher.bgcolor;
-	let isWhite = bgcolor[0] + bgcolor[1] + bgcolor[2] < 128 * 3;
-	let gridColor = isWhite ? "#FFFFFF30" : "#00000030";
-	let pxx = grid[0] + "px";
-	let pxx1 = (grid[0] - 1) + "px";
-	let pxy = grid[1] + "px";
-	let pxy1 = (grid[1] - 1) + "px";
-	let sBGImageX = "repeating-linear-gradient(" + ["0deg, transparent, transparent " + pxx1, gridColor + " " + pxx1, gridColor + " " + pxx].join(", ") + ")";
-	let sBGImageY = "repeating-linear-gradient(" + ["-90deg, transparent, transparent " + pxy1, gridColor + " " + pxy1, gridColor + " " + pxy].join(", ") + ")";
-	$("#patcher").addClass("grid").css("background-image", sBGImageX + ", " + sBGImageY).css("background-size", pxx + " " + pxy);
-	
-	patcher.state.showGrid = true;
-	$("#grid").children("i.th").addClass("enabled");
-}
-
-let hideGrid = () => {
-	$("#patcher").removeClass("grid").css("background-image", "").css("background-size", "");
-	if (!patcher.state.locked) patcher.state.showGrid = false;
-	$("#grid").children("i.th").removeClass("enabled");
 }
