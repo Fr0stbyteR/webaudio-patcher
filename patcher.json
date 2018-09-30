@@ -644,7 +644,7 @@
             "prevData": {
                 "storage": {
                     "showEditor": true,
-                    "code": "import(\"stdfaust.lib\");\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nsaw(f) = (phasor(f) - 0.5) * 2;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsquare(f) = (phasor(f) > 0.5) * 2 - 1;\nprocess=checkbox(\"enable\") * hslider(\"freq\", 440, 20, 2000, 1) : osc;"
+                    "code": "import(\"stdfaust.lib\");\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nsaw(f) = (phasor(f) - 0.5) * 2;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsquare(f) = (phasor(f) > 0.5) * 2 - 1;\nprocess=checkbox(\"enable\") * (hslider(\"freq\", 440, 20, 20000, 1) : osc);"
                 }
             }
         },
@@ -684,7 +684,9 @@
             "text": "WA.Spectrogram",
             "args": [],
             "props": {},
-            "prevData": null
+            "prevData": {
+                "storage": {}
+            }
         }
     },
     "data": {
@@ -784,7 +786,7 @@
             "Faust.DSP": {
                 "storage": {
                     "showEditor": true,
-                    "code": "import(\"stdfaust.lib\");\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nsaw(f) = (phasor(f) - 0.5) * 2;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsquare(f) = (phasor(f) > 0.5) * 2 - 1;\nprocess=checkbox(\"enable\") * hslider(\"freq\", 440, 20, 2000, 1) : osc;"
+                    "code": "import(\"stdfaust.lib\");\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nsaw(f) = (phasor(f) - 0.5) * 2;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsquare(f) = (phasor(f) > 0.5) * 2 - 1;\nprocess=checkbox(\"enable\") * (hslider(\"freq\", 440, 20, 20000, 1) : osc);"
                 }
             }
         },
