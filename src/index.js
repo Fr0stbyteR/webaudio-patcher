@@ -13,10 +13,11 @@ window.$ = $, window.jQuery = $;
 let patcher = new Patcher();
 window.patcher = patcher;
 
-let keysPressed = {};
-let checkKeyPressed = (key) =>{
-	return keysPressed.hasOwnProperty(key) && keysPressed[key];
-}
+let keysPressed = {
+	_check(key) {
+		return this.hasOwnProperty(key) && this[key];
+	}
+};
 
 $(document).ready(() => {
 	patcher.on("resetPatcher", (patcher) => {
@@ -197,7 +198,7 @@ $(document).ready(() => {
 		e.stopPropagation();
 	}).on("mousedown", ".boxes", (e) => {
 		$(".editing").blur();
-		if (checkKeyPressed("Control") || checkKeyPressed("Command")) return;
+		if (keysPressed._check("Control") || keysPressed._check("Command")) return;
 		$(".box.selected, .line.selected").removeClass("selected");
 	}).on("mousedown", ".box, .line", (e) => {
 		e.stopPropagation();
@@ -243,7 +244,7 @@ $(document).ready(() => {
 		if (patcher.state.locked) return;
 		$(e.currentTarget).removeClass("dragged");
 		
-		if (checkKeyPressed("Control") || checkKeyPressed("Command")) {
+		if (keysPressed._check("Control") || keysPressed._check("Command")) {
 			if ($(e.currentTarget).hasClass("selected")) {
 				$(e.currentTarget).removeClass("selected").resizable("disable");
 			} else {
@@ -331,7 +332,7 @@ $(document).ready(() => {
 		let grid = patcher.grid;
 		let bgcolor = patcher.bgcolor;
 		let isWhite = bgcolor[0] + bgcolor[1] + bgcolor[2] < 128 * 3;
-		let gridColor = isWhite ? "#FFFFFF30" : "#00000030";
+		let gridColor = isWhite ? "#FFFFFF1A" : "#0000001A";
 		let pxx = grid[0] + "px";
 		let pxx1 = (grid[0] - 1) + "px";
 		let pxy = grid[1] + "px";

@@ -1,6 +1,24 @@
 div.box-ui-default {
     background-color: rgb(73, 80, 77);
 }
+div.box-ui-default.box-ui-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+div.box-ui-default.box-ui-container .box-ui-dropdown-container {
+    flex: 1 0 auto;
+    display: flex;
+    width: 100%;
+    border: rgb(125, 126, 132) solid;
+    padding: 0px;
+    border-width: 0px 0px 4px 0px;
+}
+
+div.box-ui-default.box-ui-container .box-ui-toggle {
+    cursor: pointer;
+}
 
 div.box-ui-default.box-ui-text-container {
     display: inline-flex;

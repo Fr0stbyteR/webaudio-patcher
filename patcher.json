@@ -228,16 +228,28 @@
             "id": "line-28",
             "disabled": false
         },
-        "line-35": {
+        "line-39": {
             "src": [
                 "box-25",
                 0
             ],
             "dest": [
-                "box-8",
+                "box-26",
                 0
             ],
-            "id": "line-35",
+            "id": "line-39",
+            "disabled": false
+        },
+        "line-40": {
+            "src": [
+                "box-25",
+                0
+            ],
+            "dest": [
+                "box-27",
+                0
+            ],
+            "id": "line-40",
             "disabled": false
         }
     },
@@ -249,10 +261,10 @@
             "inlets": 1,
             "outlets": 1,
             "patching_rect": [
-                856,
-                507,
+                870,
+                495,
                 100,
-                32
+                30.8438
             ],
             "text": "Base.Button",
             "args": [],
@@ -268,8 +280,8 @@
             "inlets": 1,
             "outlets": 0,
             "patching_rect": [
-                871,
-                573,
+                870,
+                540,
                 196,
                 28
             ],
@@ -287,8 +299,8 @@
             "inlets": 2,
             "outlets": 1,
             "patching_rect": [
-                823,
-                446,
+                795,
+                75,
                 270,
                 28
             ],
@@ -309,8 +321,8 @@
             "inlets": 1,
             "outlets": 0,
             "patching_rect": [
-                48,
-                411,
+                45,
+                300,
                 126,
                 28
             ],
@@ -328,8 +340,8 @@
             "inlets": 3,
             "outlets": 2,
             "patching_rect": [
-                1218,
-                515,
+                1215,
+                465,
                 150,
                 28
             ],
@@ -349,8 +361,8 @@
             "inlets": 3,
             "outlets": 2,
             "patching_rect": [
-                1348,
-                273,
+                1140,
+                225,
                 146,
                 28
             ],
@@ -370,10 +382,10 @@
             "inlets": 1,
             "outlets": 1,
             "patching_rect": [
-                1224,
-                461,
+                1215,
+                420,
                 60,
-                32
+                30.8438
             ],
             "text": "Base.Button",
             "args": [],
@@ -389,10 +401,10 @@
             "inlets": 1,
             "outlets": 1,
             "patching_rect": [
-                1343,
-                217,
+                1140,
+                180,
                 60,
-                32
+                30.8438
             ],
             "text": "Base.Button",
             "args": [],
@@ -409,7 +421,7 @@
             "outlets": 1,
             "patching_rect": [
                 1320,
-                455,
+                420,
                 265,
                 28
             ],
@@ -430,8 +442,8 @@
             "inlets": 3,
             "outlets": 2,
             "patching_rect": [
-                1345,
-                328,
+                1320,
+                330,
                 162,
                 28
             ],
@@ -451,10 +463,10 @@
             "inlets": 1,
             "outlets": 1,
             "patching_rect": [
-                1308,
-                402,
+                1320,
+                375,
                 60,
-                32
+                30.8438
             ],
             "text": "Base.Button",
             "args": [],
@@ -470,10 +482,10 @@
             "inlets": 2,
             "outlets": 1,
             "patching_rect": [
-                1352,
-                115,
+                1140,
+                90,
                 261,
-                48
+                28
             ],
             "text": "JS.JSFunction [\"x\"] \"return x/2\" @name Half",
             "args": [
@@ -494,10 +506,10 @@
             "inlets": 1,
             "outlets": 1,
             "patching_rect": [
-                1354,
-                76,
+                1140,
+                45,
                 60,
-                32
+                30.8438
             ],
             "text": "Base.Button",
             "args": [],
@@ -513,8 +525,8 @@
             "inlets": 3,
             "outlets": 2,
             "patching_rect": [
-                1339,
-                164,
+                1140,
+                135,
                 161,
                 28
             ],
@@ -534,10 +546,10 @@
             "inlets": 2,
             "outlets": 1,
             "patching_rect": [
-                1033,
-                322,
+                1035,
+                330,
                 273,
-                48
+                28
             ],
             "text": "JS.JSFunction [\"x\"] \"return {frequency: x}\"",
             "args": [
@@ -556,10 +568,10 @@
             "inlets": 3,
             "outlets": 2,
             "patching_rect": [
-                1011,
-                383,
+                1035,
+                375,
                 99,
-                48
+                28
             ],
             "text": "JS.JSNumber",
             "args": [],
@@ -575,10 +587,10 @@
             "inlets": 1,
             "outlets": 1,
             "patching_rect": [
-                1043,
-                268,
+                1035,
+                285,
                 60,
-                32
+                30.8438
             ],
             "text": "Base.Button",
             "args": [],
@@ -594,8 +606,8 @@
             "inlets": 2,
             "outlets": 1,
             "patching_rect": [
-                1348,
-                38,
+                795,
+                120,
                 260,
                 28
             ],
@@ -619,8 +631,8 @@
             "inlets": 1,
             "outlets": 1,
             "patching_rect": [
-                259,
-                57,
+                45,
+                30,
                 505,
                 259.875
             ],
@@ -635,6 +647,44 @@
                     "code": "import(\"stdfaust.lib\");\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nsaw(f) = (phasor(f) - 0.5) * 2;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsquare(f) = (phasor(f) > 0.5) * 2 - 1;\nprocess=checkbox(\"enable\") * hslider(\"freq\", 440, 20, 2000, 1) : osc;"
                 }
             }
+        },
+        "box-26": {
+            "id": "box-26",
+            "name": "box-26",
+            "class": "WA.Oscilloscope",
+            "inlets": 1,
+            "outlets": 0,
+            "patching_rect": [
+                195,
+                300,
+                256,
+                228
+            ],
+            "text": "WA.Oscilloscope 512",
+            "args": [
+                "512"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-27": {
+            "id": "box-27",
+            "name": "box-27",
+            "class": "WA.Spectrogram",
+            "inlets": 1,
+            "outlets": 0,
+            "patching_rect": [
+                480,
+                300,
+                267,
+                228
+            ],
+            "text": "WA.Spectrogram",
+            "args": [],
+            "props": {},
+            "prevData": null
         }
     },
     "data": {
@@ -737,10 +787,25 @@
                     "code": "import(\"stdfaust.lib\");\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nsaw(f) = (phasor(f) - 0.5) * 2;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsquare(f) = (phasor(f) > 0.5) * 2 - 1;\nprocess=checkbox(\"enable\") * hslider(\"freq\", 440, 20, 2000, 1) : osc;"
                 }
             }
+        },
+        "box-26": {
+            "WA.Oscilloscope": {
+                "storage": {}
+            }
+        },
+        "box-27": {
+            "WA.Spectrogram": {
+                "storage": {}
+            }
         }
     },
-    "boxIndexCount": 25,
-    "lineIndexCount": 38,
+    "state": {
+        "locked": true,
+        "presentation": false,
+        "showGrid": true
+    },
+    "boxIndexCount": 27,
+    "lineIndexCount": 40,
     "bgcolor": [
         61,
         65,
@@ -752,5 +817,9 @@
         87,
         94,
         1
+    ],
+    "grid": [
+        15,
+        15
     ]
 }

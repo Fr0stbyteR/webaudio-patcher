@@ -78,6 +78,18 @@ class BaseObject extends EventEmitter {
         container.data("resizeHandles", "e, w");
         return container;
     }
+    defaultDropdownUI($, box) {
+        let dropdownContainer = $("<div>").addClass(["box-ui-dropdown-container", "box-ui-default"]);
+        let dropdownIcon = $("<i>").addClass(["dropdown", "icon", "box-ui-toggle"]).on("click", (e) => {
+            dropdownContainer.children().slideToggle(100, () => {
+                this._patcher.resizeBox(box);
+            });
+        });
+        let container = this.defaultUI($, box);
+        container.append(dropdownContainer)
+        .find(".box-ui-text-container").append(dropdownIcon);
+        return container;
+    }
     uiRefresh() {
         this._patcher.uiRefresh(this._box);
         return this;

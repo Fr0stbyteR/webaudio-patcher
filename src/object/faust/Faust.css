@@ -1,12 +1,12 @@
 
 
-div.package-faust-dsp {
+div.package-faust-dsp.box-ui-container {
     display: flex;
     flex-direction: column;
     height: 100%;
 }
 
-div.package-faust-dsp .dsp-editor {
+div.package-faust-dsp.box-ui-container .dsp-editor {
     flex: 1 0 auto;
     display: flex;
     width: 100%;
@@ -15,60 +15,61 @@ div.package-faust-dsp .dsp-editor {
     border-width: 0px 0px 4px 0px;
 }
 
-div.package-faust-dsp .dsp-editor .CodeMirror {
+div.package-faust-dsp.box-ui-container .dsp-editor .CodeMirror {
     height: auto;
+    width: 100%;
     font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
 }
 
-div.package-faust-dsp .box-ui-toggle {
+div.package-faust-dsp.box-ui-container .box-ui-toggle {
     cursor: pointer;
 }
 
-div.package-faust-dsp .faust-ui {
+div.package-faust-dsp.box-ui-container .faust-ui {
     margin: 0px 1px;
 }
 
-div.package-faust-dsp .faust-ui .faust-ui-item {
+div.package-faust-dsp.box-ui-container .faust-ui .faust-ui-item {
     display: flex;
     align-items: center;
     padding-bottom: 5px;
 }
 
-div.package-faust-dsp div.faust-ui-group {
+div.package-faust-dsp.box-ui-container div.faust-ui-group {
     display: grid !important;
     grid-column: span 4;
     grid-template-columns: repeat(4, 25%);
 }
 
-div.package-faust-dsp .faust-ui-group .faust-ui-hslider {
+div.package-faust-dsp.box-ui-container .faust-ui-group .faust-ui-hslider {
     grid-column: span 2;
     padding-right: 10px;
 }
 
-div.package-faust-dsp .faust-ui-group .faust-ui-vslider {
+div.package-faust-dsp.box-ui-container .faust-ui-group .faust-ui-vslider {
     display: inline-block;
     grid-row: span 4;
 }
 
-div.package-faust-dsp .faust-ui-vgroup {
+div.package-faust-dsp.box-ui-container .faust-ui-vgroup {
     grid-column: span 4;
 }
 
-div.package-faust-dsp .faust-ui-hgroup {
+div.package-faust-dsp.box-ui-container .faust-ui-hgroup {
     grid-row: span 4;
 }
 
-div.package-faust-dsp .faust-ui-tgroup {
+div.package-faust-dsp.box-ui-container .faust-ui-tgroup {
     grid-column: span 4;
     grid-row: span 4;
 }
 
-div.package-faust-dsp .faust-ui .faust-ui-item .label {
+div.package-faust-dsp.box-ui-container .faust-ui .faust-ui-item .label {
     min-width: 60px;
     overflow-x: hidden;
 }
 
-div.package-faust-dsp .faust-ui .faust-ui-item .ui-slider-horizontal {
+div.package-faust-dsp.box-ui-container .faust-ui .faust-ui-item .ui-slider-horizontal {
     width: 100%;
 }
 
