@@ -211,6 +211,12 @@ $(document).ready(() => {
 			}
 		}
 	});
+
+	//ui
+	$("#patcher").on("scroll", (e) => {
+		$(e.target).css("background-position", -e.target.scrollLeft + "px -" + e.target.scrollTop + "px");
+		$(".boxes, .lines").css("height", e.target.scrollHeight).css("width", e.target.scrollWidth);
+	});
 	const selection = Selection.create({
 		class: "selection",
 		startThreshold: 2,
@@ -242,6 +248,13 @@ $(document).ready(() => {
 			// Remove the class from elements which where removed
 			// since the last selection
 			removedElements.forEach(s => s.classList.remove('selected'));
+			const t = $("#patcher").get(0);
+			const x = e.originalEvent.clientX - t.offsetLeft;
+			const y = e.originalEvent.clientY - t.offsetTop;
+			if (x < 0) t.scrollLeft += x;
+			if (x > t.offsetWidth) t.scrollLeft += x - t.offsetWidth;
+			if (y < 0) t.scrollTop += y;
+			if (y > t.offsetHeight) t.scrollTop += y - t.offsetHeight;
 		},
 		onStop() {
 			this.keepSelection();
