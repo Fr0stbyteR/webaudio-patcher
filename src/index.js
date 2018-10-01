@@ -202,12 +202,20 @@ $(document).ready(() => {
 		$(".box.selected, .line.selected").removeClass("selected");
 	}).on("mousedown", ".box, .line", (e) => {
 		e.stopPropagation();
+	}).on("mouseup", ".boxes", (e) => {
+		if (keysPressed._check("Control") || keysPressed._check("Command")) {
+			if ($(e.target).hasClass("boxes")) {
+				if (patcher.state.locked) unlockPatcher();
+				else lockPatcher();
+				e.stopPropagation();
+			}
+		}
 	});
 	const selection = Selection.create({
 		class: "selection",
 		startThreshold: 2,
-		containers: [".boxes"],
-		boundaries: [".boxes"],
+		containers: ["#patcher"],
+		boundaries: ["#patcher"],
 		selectables: [".box"],
 		validateStart(e) {
 			if (!e.target.classList.contains('boxes')) return false;

@@ -190,14 +190,15 @@ faust.remap = function(v, mn0, mx0, mn1, mx1)
 }
 
 faust.debug = false;
-faust.isLoaded = false;
+faust.loadStatus = -1; // -1 : notloaded, 0 : loading, 1 : loaded
 faust.init = (callback) => {
+    faust.loadStatus = 0;
     if (faust_module) {
         return callback();
     }
     faust_module = FaustModule({
         onRuntimeInitialized : () => {
-            faust.isLoaded = true;
+            faust.loadStatus = 1;
             return callback();
         }
     }); // Emscripten generated module

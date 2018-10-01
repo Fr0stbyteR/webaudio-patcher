@@ -251,6 +251,30 @@
             ],
             "id": "line-40",
             "disabled": false
+        },
+        "line-41": {
+            "src": [
+                "box-25",
+                0
+            ],
+            "dest": [
+                "box-8",
+                0
+            ],
+            "id": "line-41",
+            "disabled": false
+        },
+        "line-45": {
+            "src": [
+                "box-28",
+                0
+            ],
+            "dest": [
+                "box-25",
+                0
+            ],
+            "id": "line-45",
+            "disabled": false
         }
     },
     "boxes": {
@@ -261,7 +285,7 @@
             "inlets": 1,
             "outlets": 1,
             "patching_rect": [
-                870,
+                1035,
                 495,
                 100,
                 30.8438
@@ -280,7 +304,7 @@
             "inlets": 1,
             "outlets": 0,
             "patching_rect": [
-                870,
+                1035,
                 540,
                 196,
                 28
@@ -321,8 +345,8 @@
             "inlets": 1,
             "outlets": 0,
             "patching_rect": [
-                45,
-                300,
+                0,
+                780,
                 126,
                 28
             ],
@@ -631,10 +655,10 @@
             "inlets": 1,
             "outlets": 1,
             "patching_rect": [
-                45,
-                30,
-                505,
-                259.875
+                0,
+                195,
+                731,
+                514.469
             ],
             "text": "Faust.DSP  @bufferSize 1024",
             "args": [],
@@ -644,7 +668,7 @@
             "prevData": {
                 "storage": {
                     "showEditor": true,
-                    "code": "import(\"stdfaust.lib\");\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nsaw(f) = (phasor(f) - 0.5) * 2;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsquare(f) = (phasor(f) > 0.5) * 2 - 1;\nprocess=checkbox(\"enable\") * (hslider(\"freq\", 440, 20, 20000, 1) : osc);"
+                    "code": "import(\"stdfaust.lib\");\nsig = ba.pulsen(1, 5000) : pm.djembe(60, 0.3, 0.4, 1);\necho(t, fb) = + ~ (@((t / 1000) * ma.SR) : *(fb));\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nsaw(f) = (phasor(f) - 0.5) * 2;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsquare(f) = (phasor(f) > 0.5) * 2 - 1;\npan(v) = @(*(lGain), rGain * delHead), @(*(rGain), lGain * delHead) with {\n    rGain = v : si.smooth(0.999) : min(1.) : max(0.) : sqrt;\n    lGain = (1 - rGain) : sqrt;\n\tdelHead = ma.SR * 0.2 / 340;\n};\n\nprocess(i1) = i1 : echo(delay, fb) <: pan(osc(f) * depth) with {\n  fb = hslider(\"fb\", 0.65, 0, 1, 0.01);\n  delay = hslider(\"delay\", 50, 20, 2000, 1);\n  f = hslider(\"freq\", 1, 0, 20, 0.1);\n  depth = hslider(\"depth\", 1, 0, 1, 0.01);\n}; "
                 }
             }
         },
@@ -655,8 +679,8 @@
             "inlets": 1,
             "outlets": 0,
             "patching_rect": [
-                195,
-                300,
+                735,
+                345,
                 256,
                 228
             ],
@@ -676,16 +700,42 @@
             "inlets": 1,
             "outlets": 0,
             "patching_rect": [
-                480,
-                300,
-                267,
+                735,
+                585,
+                256,
                 228
             ],
-            "text": "WA.Spectrogram",
-            "args": [],
+            "text": "WA.Spectrogram 512",
+            "args": [
+                "512"
+            ],
             "props": {},
             "prevData": {
                 "storage": {}
+            }
+        },
+        "box-28": {
+            "id": "box-28",
+            "name": "box-28",
+            "class": "Faust.DSP",
+            "inlets": 1,
+            "outlets": 1,
+            "patching_rect": [
+                0,
+                0,
+                730,
+                164.875
+            ],
+            "text": "Faust.DSP @bufferSize 1024",
+            "args": [],
+            "props": {
+                "bufferSize": 1024
+            },
+            "prevData": {
+                "storage": {
+                    "showEditor": true,
+                    "code": "import(\"stdfaust.lib\");\nprocess = checkbox(\"enable\") * (ba.pulsen(1, 10000) : pm.djembe(60, 0.3, 0.4, 1));"
+                }
             }
         }
     },
@@ -786,7 +836,7 @@
             "Faust.DSP": {
                 "storage": {
                     "showEditor": true,
-                    "code": "import(\"stdfaust.lib\");\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nsaw(f) = (phasor(f) - 0.5) * 2;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsquare(f) = (phasor(f) > 0.5) * 2 - 1;\nprocess=checkbox(\"enable\") * (hslider(\"freq\", 440, 20, 20000, 1) : osc);"
+                    "code": "import(\"stdfaust.lib\");\nsig = ba.pulsen(1, 5000) : pm.djembe(60, 0.3, 0.4, 1);\necho(t, fb) = + ~ (@((t / 1000) * ma.SR) : *(fb));\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nsaw(f) = (phasor(f) - 0.5) * 2;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsquare(f) = (phasor(f) > 0.5) * 2 - 1;\npan(v) = @(*(lGain), rGain * delHead), @(*(rGain), lGain * delHead) with {\n    rGain = v : si.smooth(0.999) : min(1.) : max(0.) : sqrt;\n    lGain = (1 - rGain) : sqrt;\n\tdelHead = ma.SR * 0.2 / 340;\n};\n\nprocess(i1) = i1 : echo(delay, fb) <: pan(osc(f) * depth) with {\n  fb = hslider(\"fb\", 0.65, 0, 1, 0.01);\n  delay = hslider(\"delay\", 50, 20, 2000, 1);\n  f = hslider(\"freq\", 1, 0, 20, 0.1);\n  depth = hslider(\"depth\", 1, 0, 1, 0.01);\n}; "
                 }
             }
         },
@@ -799,15 +849,23 @@
             "WA.Spectrogram": {
                 "storage": {}
             }
+        },
+        "box-28": {
+            "Faust.DSP": {
+                "storage": {
+                    "showEditor": true,
+                    "code": "import(\"stdfaust.lib\");\nprocess = checkbox(\"enable\") * (ba.pulsen(1, 10000) : pm.djembe(60, 0.3, 0.4, 1));"
+                }
+            }
         }
     },
     "state": {
-        "locked": true,
+        "locked": false,
         "presentation": false,
         "showGrid": true
     },
-    "boxIndexCount": 27,
-    "lineIndexCount": 40,
+    "boxIndexCount": 28,
+    "lineIndexCount": 45,
     "bgcolor": [
         61,
         65,

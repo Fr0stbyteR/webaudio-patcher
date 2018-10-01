@@ -7,6 +7,21 @@ import "codemirror/lib/codemirror.css";
 import "./codemirror/mode/faust/faust.js";
 import "jquery-ui/ui/widgets/slider.js";
 import "jquery-ui/themes/base/slider.css";
+import { EventEmitter } from "events";
+
+class FaustLoader extends EventEmitter {
+    constructor() {
+        super();
+    }
+    load() {
+        if (Faust.loadStatus == -1) {
+            Faust.init(() => {
+                this.emit("faustLoaded", Faust);
+            });
+        }
+    }
+}
+let faustLoader = new FaustLoader();
 
 class FaustObject extends Base.BaseObject {
     constructor(box, patcher) {
@@ -14,13 +29,7 @@ class FaustObject extends Base.BaseObject {
         this._package = "faust";
         this._icon = "terminal";
         this._mem.faust = Faust;
-        this._mem.faustLoaded = Faust.isLoaded;
-        if (!this._mem.faustLoaded) {
-            Faust.init(() => {
-                this._mem.faustLoaded = true;
-                this.emit("faustLoaded", Faust);
-            });
-        }
+        faustLoader.load();
         if (!this._patcher.hasOwnProperty("_audioCtx") || !this._patcher._audioCtx) {
             this._patcher._audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             this._patcher._audioCtx.destination.channelInterpretation = "discrete";
@@ -46,11 +55,10 @@ class DSP extends FaustObject {
         this._mem.node = null;
         this._mem.params = null;
         this._mem.compiled = false;
-        if (this._mem.faustLoaded) this.update(box.args, box.props);
+        if (Faust.loadStatus == 1) this.update(box.args, box.props);
         else {
-            this.on("faustLoaded", () => {
+            faustLoader.on("faustLoaded", () => {
                 this.update(box.args, box.props);
-                this.removeAllListeners("faustLoaded");
             });
         }
     }
@@ -62,6 +70,8 @@ class DSP extends FaustObject {
             }
             if (this._mem.node && this._mem.node instanceof AudioNode) this._disconnectAll();
             this._mem.node = node;
+            this._inlets = node.numberOfInputs > 1 ? node.numberOfInputs : 1;
+            this._outlets = node.numberOfOutputs;
             this._mem.params = node.getJSON();
             this.emit("loadFaustModule", node.getJSON());
             this._connectAll();

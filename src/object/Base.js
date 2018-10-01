@@ -1,9 +1,7 @@
 /* eslint no-unused-vars: 0 */
 import "./Base.css";
 import "./Default.css";
-import {
-    EventEmitter
-} from "events";
+import { EventEmitter } from "events";
 class BaseObject extends EventEmitter {
     constructor(box, patcher) {
         super();
