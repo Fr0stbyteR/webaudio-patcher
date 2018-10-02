@@ -104,7 +104,7 @@ class Oscilloscope extends WANode {
                 canvasCtx.beginPath();
                 for (let i = 0; i < l; i++) {
                     let x = w * i / (l - 1);
-                    let y = this._mem.data[i] / 128.0 * (h / 2);
+                    let y = h - this._mem.data[i] / 128.0 * (h / 2);
                     if (i === 0) canvasCtx.moveTo(x, y);
                     else canvasCtx.lineTo(x, y);
                 }

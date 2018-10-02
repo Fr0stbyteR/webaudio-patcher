@@ -186,9 +186,15 @@ $(document).ready(() => {
 	}).on("keyup", (e) => {
 		keysPressed[e.key] = false;
 	});
+	$(window).on("blur", (e) => {
+		for (const key in keysPressed) {
+			if (typeof keysPressed[key] == "boolean") keysPressed[key] = false;
+		}
+	})
 
 	$(document).on("dblclick", ".boxes", (e) => {
 		if (patcher.state.locked) return;
+		if (keysPressed._check("Control") || keysPressed._check("Command")) return;
 		let box = {
 			patching_rect: [e.offsetX, e.offsetY, 100, 22],
 		}
