@@ -41,7 +41,7 @@ class DSP extends FaustObject {
     constructor(box, patcher) {
         super(box, patcher);
         this._inlets = 1;
-        this._outlets = 1;
+        this._outlets = 2;
         if (!this.storage.hasOwnProperty("showEditor")) this.storage.showEditor = true;
         if (!this.storage.hasOwnProperty("code")) this.storage.code = "";
         this._mem.compileArgs = {
@@ -70,10 +70,8 @@ class DSP extends FaustObject {
             }
             if (this._mem.node && this._mem.node instanceof AudioNode) this._disconnectAll();
             this._mem.node = node;
-            this._inlets = node.numberOfInputs > 1 ? node.numberOfInputs : 1;
-            this._outlets = node.numberOfOutputs;
             this._mem.params = node.getJSON();
-            this.emit("loadFaustModule", node.getJSON());
+            this.outlet(1, {code : this.storage.code, params : this._mem.params, node : this._mem.node});
             this._connectAll();
             this._mem.compiled = true;
             this.uiRefresh();
@@ -212,7 +210,7 @@ class DSP extends FaustObject {
     ui($, box) {
         let dropdownIcon = $("<i>").addClass(["dropdown", "icon", "box-ui-toggle"]).on("click", (e) => {
             editor.children('.CodeMirror').add(faustUI).slideToggle(100, () => {
-                this._patcher.resizeBox(box);
+                this.uiResize();
                 this.storage.showEditor = !this.storage.showEditor;
             });
         });
@@ -260,9 +258,10 @@ class DSP extends FaustObject {
                                 step : +item.step,
                                 slide : (e, ui) => {
                                     this._mem.node.setParamValue(item.address, ui.value);
+                                    $(ui.handle).attr("data-tooltip", ui.value);
                                 }
                             })
-                        );
+                        ).find(".ui-slider-handle").attr("data-tooltip", +item.init).attr("data-inverted", "");
                         break;
                     case "vslider":
                         uiItem.addClass("faust-ui-vslider").append(
@@ -276,9 +275,10 @@ class DSP extends FaustObject {
                                 step : +item.step,
                                 slide : (e, ui) => {
                                     this._mem.node.setParamValue(item.address, ui.value);
+                                    $(ui.handle).attr("data-tooltip", ui.value);
                                 }
                             })
-                        );
+                        ).find(".ui-slider-handle").attr("data-tooltip", +item.init).attr("data-inverted", "").attr("data-position", "left center");
                         break;
                     case "nentry":
                         uiItem.addClass("faust-ui-nentry").append(
@@ -291,9 +291,10 @@ class DSP extends FaustObject {
                                 step : +item.step,
                                 slide : (e, ui) => {
                                     this._mem.node.setParamValue(item.address, ui.value);
+                                    $(ui.handle).attr("data-tooltip", ui.value);
                                 }
                             })
-                        );
+                        ).find(".ui-slider-handle").attr("data-tooltip", +item.init).attr("data-inverted", "");
                         break;
                     case "vgroup":
                         uiItem.addClass(["ui", "segment", "faust-ui-group", "faust-ui-vgroup"]).append(
@@ -370,11 +371,51 @@ class DSP extends FaustObject {
                 faustUI.hide();
                 editor.children('.CodeMirror').hide();
             }
-            this._patcher.resizeBox(box);
+            this.uiResize();
         });
     }
 }
 
+class Diagram extends FaustObject {
+    constructor(box, patcher) {
+        super(box, patcher);
+        this._inlets = 1;
+        this._outlets = 0;
+        this._mem.diagram = null;
+        this._mem.code = null;
+    }
+    fn(data, inlet) {
+        if (data && data.hasOwnProperty("code") && data.code) {
+            this._mem.code = data.code;
+            this.uiRefresh();
+        }
+    }
+    ui($, box) {
+        let src = $("<embed>").addClass("faust-diagram").css("width", "100%").css("height", "100%");
+        let container = super.defaultDropdownUI($, box);
+        container.find(".box-ui-dropdown-container").append(src);
+        if (!this._mem.code) return container;
+        let formData = new FormData();
+        formData.append("file", new File([this._mem.code], "temp.dsp"));
+        $.ajax({
+            url : "https://faustservice.grame.fr/filepost",
+            type : "POST",
+            data : formData,
+            cache : false,
+            contentType : false,
+            processData : false,
+            success : (data, textStatus, jqXHR) => {
+                src.attr("src", "https://faustservice.grame.fr/" + data + "/diagram/process.svg");
+                this.uiResize();
+            },
+            error : (jqXHR, textStatus, errorThrown) => {
+                this.error("Faust.Diagram", errorThrown);
+            }
+        })
+        return container;
+    }
+}
 export default {
-    DSP
+    DSP,
+    Diagram
 }

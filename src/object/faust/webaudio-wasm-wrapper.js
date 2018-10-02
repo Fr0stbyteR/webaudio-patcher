@@ -283,7 +283,7 @@ faust.compileCode = function (factory_name, code, argv, internal_memory)
         var module_code_ptr = faust.createWasmCDSPFactoryFromString(name_ptr, code_ptr, argv_aux.length, argv_ptr, error_msg_ptr, internal_memory);            
         var time2 = performance.now();
         
-        console.log("Faust compilation duration : " + (time2 - time1));
+        /* console.log("Faust compilation duration : " + (time2 - time1)); */
 
         faust.error_msg = faust_module.Pointer_stringify(error_msg_ptr);
         
@@ -330,11 +330,11 @@ faust.compileCode = function (factory_name, code, argv, internal_memory)
         fetch('t1.wasm')
         .then(dsp_file => dsp_file.arrayBuffer())
         .then(dsp_bytes => { var factory_ptr1 = faust_module.wasm_dsp_factory.readWasmDSPFactoryFromMachine2(dsp_bytes);
-        	console.log("factory_ptr1 " + factory_ptr);
+        	console.log("factory_ptr1 " + factory_ptr); 
         	var instance_ptr1 = factory_ptr.createDSPInstance();
-        	console.log("instance_ptr1 " + instance_ptr);
-        	console.log("instance_ptr1 getNumInputs " + instance_ptr1.getNumInputs());
-        	console.log("instance_ptr1 getNumOutputs " + instance_ptr1.getNumOutputs());
+        	console.log("instance_ptr1 " + instance_ptr); 
+        	console.log("instance_ptr1 getNumInputs " + instance_ptr1.getNumInputs()); 
+        	console.log("instance_ptr1 getNumOutputs " + instance_ptr1.getNumOutputs()); 
         	
         	//console.log("faust_module.wasm_dsp_factory.createAudioBuffers " + faust_module.wasm_dsp_factory.createAudioBuffers);
         	
@@ -413,13 +413,13 @@ faust.createDSPFactoryAux = function (code, argv, internal_memory, callback)
     var sha_key = Sha1.hash(code + ((internal_memory) ? "internal_memory": "external_memory") + argv_str, true);
     var factory = faust.factory_table[sha_key];
     if (factory) {
-        console.log("Existing library : " + factory.name);
+        /* console.log("Existing library : " + factory.name); */
         // Existing factory, do not create it...
         callback(factory);
         return;
     }
 
-    console.log("libfaust.js version : " + faust.getLibFaustVersion());
+    /* console.log("libfaust.js version : " + faust.getLibFaustVersion()); */
 
     // Factory name for DSP and effect
     var factory_name1 = "mydsp" + faust.factory_number;
@@ -498,7 +498,7 @@ faust.createPolyDSPFactory = function (code, argv, callback)
  */
 faust.expandDSP = function (code, argv)
 {
-    console.log("libfaust.js version : " + faust.getLibFaustVersion());
+    /* console.log("libfaust.js version : " + faust.getLibFaustVersion()); */
 
     // Force "wasm" compilation
     argv.push("-lang");
@@ -631,20 +631,20 @@ faust.readDSPFactoryFromMachineAux = function (factory_name1,
 
     try {
         var binaryen_module = Binaryen.readBinary(factory_code1);
-        console.log("Binaryen based optimisation");
+        /* console.log("Binaryen based optimisation"); */
         binaryen_module.optimize();
         //console.log(binaryen_module.emitText());
         factory_code = binaryen_module.emitBinary();
         binaryen_module.dispose();
     } catch(e) {
-        console.log("Binaryen not available, no optimisation...");
+        /* console.log("Binaryen not available, no optimisation..."); */
     }
 
     WebAssembly.compile(factory_code1)
     .then(module => {
 
         var time2 = performance.now();
-        console.log("WASM compilation duration : " + (time2 - time1));
+        /* console.log("WASM compilation duration : " + (time2 - time1)); */
 
         var factory = {};
         factory.polyphony = [];  // Default mode
@@ -703,12 +703,12 @@ faust.readDSPFactoryFromMachineAux = function (factory_name1,
                   factory.name_effect = factory_name2;
                   callback(factory);
             })
-            .catch(function(error) { console.log(error); faust.error_msg = "Faust DSP factory cannot be compiled"; callback(null); });
+            .catch(function(error) { /* console.log(error); */ faust.error_msg = "Faust DSP factory cannot be compiled"; callback(null); });
           } else {
             callback(factory);
           }
     })
-    .catch(function(error) { console.log(error); faust.error_msg = "Faust DSP factory cannot be compiled"; callback(null); });
+    .catch(function(error) { /* console.log(error); */ faust.error_msg = "Faust DSP factory cannot be compiled"; callback(null); });
 }
 
 faust.deleteDSPFactory = function (factory) { faust.factory_table[factory.sha_key] = null; };
@@ -818,7 +818,7 @@ faust.createDSPInstance = function (factory, context, buffer_size, callback)
     .then(dsp_instance => {
 
         var time2 = performance.now();
-        console.log("Instantiation duration : " + (time2 - time1));
+        /* console.log("Instantiation duration : " + (time2 - time1)); */
 
         var sp;
         try {
@@ -982,7 +982,7 @@ faust.createDSPInstance = function (factory, context, buffer_size, callback)
             var i;
 
             // Setup web audio context
-            console.log("buffer_size " + buffer_size);
+            /* console.log("buffer_size " + buffer_size); */
             sp.onaudioprocess = sp.compute;
 
             if (sp.numIn > 0) {
@@ -1205,7 +1205,7 @@ faust.createDSPInstance = function (factory, context, buffer_size, callback)
         callback(sp);
 
     })
-    .catch(function(error) { console.log(error); faust.error_msg = "Faust DSP cannot be instantiated"; callback(null); });
+    .catch(function(error) { /* console.log(error); */ faust.error_msg = "Faust DSP cannot be instantiated"; callback(null); });
 }
 
 faust.deleteDSPInstance = function (dsp) {}
@@ -1573,7 +1573,7 @@ var mydspProcessorString = `
         mydspProcessor.wasm_module = new WebAssembly.Module(mydspProcessor.atob(getBase64Codemydsp()));
         registerProcessor('mydsp', mydspProcessor);
     } catch (e) {
-        console.log(e); console.log("Faust mydsp cannot be loaded or compiled");
+        /* console.log(e); */ /* console.log("Faust mydsp cannot be loaded or compiled"); */
     }
 `;
 
@@ -1591,7 +1591,7 @@ faust.createDSPWorkletInstanceAux = function(factory, context, callback)
                                             channelCountMode: "explicit",
                                             channelInterpretation: "speakers" });
 
-    audio_node.onprocessorerror = () => { console.log('An error from mydspProcessor was detected.');}
+    audio_node.onprocessorerror = () => { /* console.log('An error from mydspProcessor was detected.'); */}
     // Patch it with additional functions
     audio_node.handleMessage = function(event)
     {
@@ -1833,7 +1833,7 @@ faust.createDSPWorkletInstance = function(factory, context, callback)
               // Create audio node
               faust.createDSPWorkletInstanceAux(factory, context, callback);
         })
-        .catch(function(error) { console.log(error); console.log("Faust mydsp cannot be loaded or compiled"); alert(error); });
+        .catch(function(error) { /* console.log(error); */ /* console.log("Faust mydsp cannot be loaded or compiled"); */ alert(error); });
 
     } else {
         // Create audio node
@@ -1910,7 +1910,7 @@ faust.createPolyDSPInstanceAux = function (factory, time1, mixer_instance, dsp_i
     context.resume();
 
     var time2 = performance.now();
-    console.log("Instantiation duration : " + (time2 - time1));
+    /* console.log("Instantiation duration : " + (time2 - time1)); */
 
     var sp;
     try {
@@ -2069,12 +2069,12 @@ faust.createPolyDSPInstanceAux = function (factory, time1, mixer_instance, dsp_i
         // Then decide which one to steal
         if (oldest_date_release != Number.MAX_VALUE) {
             if (faust.debug) {
-                console.log("Steal release voice : voice_date = %d cur_date = %d voice = %d", sp.dsp_voices_date[voice_release], sp.fDate, voice_release);
+                /* console.log("Steal release voice : voice_date = %d cur_date = %d voice = %d", sp.dsp_voices_date[voice_release], sp.fDate, voice_release); */
             }
             return sp.allocVoice(voice_release);
         } else if (oldest_date_playing != Number.MAX_VALUE) {
             if (faust.debug) {
-                console.log("Steal playing voice : voice_date = %d cur_date = %d voice = %d", sp.dsp_voices_date[voice_playing], sp.fDate, voice_playing);
+                /* console.log("Steal playing voice : voice_date = %d cur_date = %d voice = %d", sp.dsp_voices_date[voice_playing], sp.fDate, voice_playing); */
             }
             return sp.allocVoice(voice_playing);
         } else {
@@ -2223,7 +2223,7 @@ faust.createPolyDSPInstanceAux = function (factory, time1, mixer_instance, dsp_i
         var i;
 
         // Setup web audio context
-        console.log("buffer_size " + buffer_size);
+        /* console.log("buffer_size " + buffer_size); */
         sp.onaudioprocess = sp.compute;
 
         if (sp.numIn > 0) {
@@ -2405,7 +2405,7 @@ faust.createPolyDSPInstanceAux = function (factory, time1, mixer_instance, dsp_i
     {
         var voice = sp.getFreeVoice();
         if (faust.debug) {
-            console.log("keyOn voice %d", voice);
+            /* console.log("keyOn voice %d", voice); */
         }
         for (var i = 0; i < sp.fFreqLabel.length; i++) {
             sp.factory.setParamValue(sp.dsp_voices[voice], sp.fFreqLabel[i], sp.midiToFreq(pitch));
@@ -2428,7 +2428,7 @@ faust.createPolyDSPInstanceAux = function (factory, time1, mixer_instance, dsp_i
         var voice = sp.getPlayingVoice(pitch);
         if (voice !== sp.kNoVoice) {
             if (faust.debug) {
-                console.log("keyOff voice %d", voice);
+                /* console.log("keyOff voice %d", voice); */
             }
             // No use of velocity for now...
             for (var i = 0; i < sp.fGateLabel.length; i++) {
@@ -2438,7 +2438,7 @@ faust.createPolyDSPInstanceAux = function (factory, time1, mixer_instance, dsp_i
             sp.dsp_voices_state[voice] = sp.kReleaseVoice;
         } else {
             if (faust.debug) {
-                console.log("Playing voice not found...");
+                /* console.log("Playing voice not found..."); */
             }
         }
     }
@@ -2691,14 +2691,14 @@ faust.createPolyDSPInstance = function (factory, context, buffer_size, polyphony
                                                                       buffer_size,
                                                                       polyphony,
                                                                       callback))
-              .catch(function(error) { console.log(error); faust.error_msg = "Faust DSP cannot be instantiated"; callback(null); });
+              .catch(function(error) { /* console.log(error); */ faust.error_msg = "Faust DSP cannot be instantiated"; callback(null); });
             } else {
               faust.createPolyDSPInstanceAux(factory, time1, mixer_module.instance, dsp_instance, null, memory, context, buffer_size, polyphony, callback);
             }
         })
-        .catch(function(error) { console.log(error); faust.error_msg = "Faust DSP cannot be instantiated"; callback(null); });
+        .catch(function(error) { /* console.log(error); */ faust.error_msg = "Faust DSP cannot be instantiated"; callback(null); });
     })
-    .catch(function(error) { console.log(error); faust.error_msg = "Faust DSP cannot be instantiated"; callback(null); });
+    .catch(function(error) { /* console.log(error); */ faust.error_msg = "Faust DSP cannot be instantiated"; callback(null); });
 }
 
 faust.deletePolyDSPInstance = function (dsp) {}
@@ -3067,12 +3067,12 @@ var mydspPolyProcessorString = `
                 // Then decide which one to steal
                 if (oldest_date_release != Number.MAX_VALUE) {
                     if (this.debug) {
-                        console.log("Steal release voice : voice_date = %d cur_date = %d voice = %d", this.dsp_voices_date[voice_release], this.fDate, voice_release);
+                        /* console.log("Steal release voice : voice_date = %d cur_date = %d voice = %d", this.dsp_voices_date[voice_release], this.fDate, voice_release); */
                     }
                     return this.allocVoice(voice_release);
                 } else if (oldest_date_playing != Number.MAX_VALUE) {
                     if (this.debug) {
-                        console.log("Steal playing voice : voice_date = %d cur_date = %d voice = %d", this.dsp_voices_date[voice_playing], this.fDate, voice_playing);
+                        /* console.log("Steal playing voice : voice_date = %d cur_date = %d voice = %d", this.dsp_voices_date[voice_playing], this.fDate, voice_playing); */
                     }
                     return this.allocVoice(voice_playing);
                 } else {
@@ -3148,7 +3148,7 @@ var mydspPolyProcessorString = `
             {
                 var voice = this.getFreeVoice();
                 if (this.debug) {
-                    console.log("keyOn voice %d", voice);
+                    /* console.log("keyOn voice %d", voice); */
                 }
                 for (var i = 0; i < this.fFreqLabel.length; i++) {
                     this.factory.setParamValue(this.dsp_voices[voice], this.fFreqLabel[i], this.midiToFreq(pitch));
@@ -3170,7 +3170,7 @@ var mydspPolyProcessorString = `
                     this.dsp_voices_state[voice] = this.kReleaseVoice;
                 } else {
                     if (this.debug) {
-                        console.log("Playing voice not found...");
+                        /* console.log("Playing voice not found..."); */
                     }
                 }
             }
@@ -3347,7 +3347,7 @@ var mydspPolyProcessorString = `
         }
         registerProcessor('mydspPoly', mydspPolyProcessor);
     } catch (e) {
-        console.log(e); console.log("Faust mydspPoly cannot be loaded or compiled");
+        /* console.log(e); */ /* console.log("Faust mydspPoly cannot be loaded or compiled"); */
     }
 `;
 
@@ -3366,7 +3366,7 @@ faust.createPolyDSPWorkletInstanceAux = function (factory, context, polyphony, c
                                             outputChannelCount: [parseInt(factory.json_object.outputs)],
                                             channelCountMode: "explicit",
                                             channelInterpretation: "speakers" });
-    audio_node.onprocessorerror = () => { console.log('An error from mydspPolyProcessor was detected.');}
+    audio_node.onprocessorerror = () => { /* console.log('An error from mydspPolyProcessor was detected.'); */}
     // Patch it with additional functions
     audio_node.handleMessage = function(event)
     {
@@ -3583,7 +3583,7 @@ faust.createPolyDSPWorkletInstance = function(factory, context, polyphony, callb
               // Create audio node
               faust.createPolyDSPWorkletInstanceAux(factory, context, polyphony, callback);
         })
-        .catch(function(error) { console.log(error); console.log("Faust mydspPoly cannot be loaded or compiled"); alert(error); });
+        .catch(function(error) { /* console.log(error); */ /* console.log("Faust mydspPoly cannot be loaded or compiled"); */ alert(error); });
 
     } else {
         // Create audio node

@@ -80,7 +80,7 @@ class BaseObject extends EventEmitter {
         let dropdownContainer = $("<div>").addClass(["box-ui-dropdown-container", "box-ui-default"]);
         let dropdownIcon = $("<i>").addClass(["dropdown", "icon", "box-ui-toggle"]).on("click", (e) => {
             dropdownContainer.children().slideToggle(100, () => {
-                this._patcher.resizeBox(box);
+                this.uiResize();
             });
         });
         let container = this.defaultUI($, box);
@@ -90,6 +90,10 @@ class BaseObject extends EventEmitter {
     }
     uiRefresh() {
         this._patcher.uiRefresh(this._box);
+        return this;
+    }
+    uiResize() {
+        this._patcher.resizeBox(this._box);
         return this;
     }
     // use this function to output data with ith outlet.

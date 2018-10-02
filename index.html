@@ -194,6 +194,7 @@
             position: absolute;
             pointer-events: auto;
             min-width: 45px;
+            z-index: inherit;
         }
 
         div.box-ui {
@@ -243,11 +244,13 @@
             background-color: rgb(192, 194, 196);
             border-style: solid;
             border-width: 0px;
-            z-index: 90;
         }
-
+        #patcher.unlocked div.box-port {
+            z-index: 30;
+        }
         #patcher.locked div.box-port {
             pointer-events: none;
+            z-index: 10;
         }
 
         div.box-inlet {
