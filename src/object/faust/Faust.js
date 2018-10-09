@@ -32,7 +32,9 @@ class FaustObject extends Base.BaseObject {
         faustLoader.load();
         if (!this._patcher.hasOwnProperty("_audioCtx") || !this._patcher._audioCtx) {
             this._patcher._audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            this._patcher._audioCtx.destination.channelInterpretation = "discrete";
+            this._patcher._audioCtx.onstatechange = () => {
+                this._patcher.emit("audioCtxState", this._patcher._audioCtx.state);
+            }
         }
     }
 }

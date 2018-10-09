@@ -161,6 +161,25 @@ $(document).ready(() => {
 		}, 100)
 	});
 
+	patcher.on("audioCtxState", (state) => {
+		switch (state) {
+			case "running":
+				$("#audio_on").removeClass("disabled");
+				$("#audio_on i").addClass("enabled");
+				break;
+			case "suspended":
+				$("#audio_on").removeClass("disabled");
+				$("#audio_on i").removeClass("enabled");
+				break;
+			case "closed":
+				$("#audio_on").addClass("disabled");
+				$("#audio_on i").removeClass("enabled");
+				break;
+			default:
+				break;
+		}
+	});
+
 	fetch("patcher.json").then(response => {
 		return response.json();
 	}).then(content => patcher.load(content));
@@ -363,7 +382,14 @@ $(document).ready(() => {
 	}).on("click", "#grid", (e) => {
 		if (patcher.state.showGrid) hideGrid();
 		else showGrid();
+	}).on("click", "#audio_on", (e) => {
+		if (patcher._audioCtx) {
+			if (patcher._audioCtx.state == "suspended") patcher._audioCtx.resume();
+			if (patcher._audioCtx.state == "running") patcher._audioCtx.suspend();
+		}
 	});
+	if (patcher._audioCtx.state == "running") $("#audio_on").addClass("enabled");
+
 	
 	let lockPatcher = () => {
 		$(".selected").removeClass("selected");
@@ -372,10 +398,10 @@ $(document).ready(() => {
 		$(".box.ui-draggable").draggable("disable");
 		$(".box-port.ui-draggable").draggable("disable");
 		patcher.state.locked = true;
-		$("#lock i.lock.open").removeClass("open");
+		$("#lock i").removeClass("open");
 		$("#patcher").removeClass("unlocked").addClass("locked");
 		hideGrid();
-		$("#grid i.th").addClass("disabled");
+		$("#grid i").addClass("disabled");
 		$("#undo, #redo").addClass("disabled");
 	}
 
@@ -386,10 +412,10 @@ $(document).ready(() => {
 		$(".box.ui-draggable").draggable("enable");
 		$(".box-port.ui-draggable").draggable("enable");
 		patcher.state.locked = false;
-		$("#lock i.lock").addClass("open");
+		$("#lock i").addClass("open");
 		$("#patcher").removeClass("locked").addClass("unlocked");
 		if (patcher.state.showGrid) showGrid();
-		$("#grid i.th").removeClass("disabled");
+		$("#grid i").removeClass("disabled");
 		$("#undo, #redo").removeClass("disabled");
 	}
 

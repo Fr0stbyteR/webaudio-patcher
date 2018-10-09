@@ -7,7 +7,9 @@ class WANode extends Base.BaseObject {
         this._icon = "volume up"
         if (!this._patcher.hasOwnProperty("_audioCtx") || !this._patcher._audioCtx) {
             this._patcher._audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            this._patcher._audioCtx.destination.channelInterpretation = "discrete";
+            this._patcher._audioCtx.onstatechange = () => {
+                this._patcher.emit("audioCtxState", this._patcher._audioCtx.state);
+            }
         }
         this._mem.node = null;
     }
@@ -66,6 +68,7 @@ class Destination extends WANode {
     constructor(box, patcher) {
         super(box, patcher);
         this._mem.node = this._patcher._audioCtx.destination;
+        this._mem.node.channelInterpretation = "discrete";
         this._inlets = 1;
         this._outlets = 0;
     }

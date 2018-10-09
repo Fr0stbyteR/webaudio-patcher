@@ -29,7 +29,10 @@ export default class Patcher extends EventEmitter {
         this._history = new History(this);
         this._packages = Packages;
         if (this.hasOwnProperty("_audioCtx") && this._audioCtx) this._audioCtx.close();
-        this._audioCtx = null;
+        this._audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        this._audioCtx.onstatechange = () => {
+            this.emit("audioCtxState", this._audioCtx.state);
+        }
         this.emit("resetPatcher", this);
         // Patcher
         this.state = {
