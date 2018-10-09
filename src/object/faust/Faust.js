@@ -7,6 +7,7 @@ import "codemirror/lib/codemirror.css";
 import "./codemirror/mode/faust/faust.js";
 import "jquery-ui/ui/widgets/slider.js";
 import "jquery-ui/themes/base/slider.css";
+import "jquery-ui-touch-punch";
 import { EventEmitter } from "events";
 
 class FaustLoader extends EventEmitter {
