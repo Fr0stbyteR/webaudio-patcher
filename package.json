@@ -51,6 +51,6 @@
     "ws": "^6.0.0"
   },
   "dependencies": {
-    "semantic-ui": "^2.3.0"
+    "semantic-ui": "^2.4.0"
   }
 }

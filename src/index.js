@@ -5,6 +5,7 @@ import "jquery-ui/ui/widgets/draggable.js";
 import "jquery-ui/ui/widgets/resizable.js";
 import "jquery-ui/themes/base/draggable.css";
 import "jquery-ui/themes/base/resizable.css";
+import "jquery-ui-touch-punch";
 import "../semantic/dist/semantic.min.js";
 import Selection from "@simonwep/selection-js"
 window.$ = $, window.jQuery = $;
