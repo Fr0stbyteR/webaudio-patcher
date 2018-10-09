@@ -18,6 +18,7 @@ export default class Patcher extends EventEmitter {
     constructor(patcher) {
         super();
         this.load(patcher);
+        this.observeHistory();
     }
 
     load(patcher) {
@@ -25,34 +26,49 @@ export default class Patcher extends EventEmitter {
         this.boxes = {};
         this.data = {};
         this._log = [];
+        this._history = new History(this);
         this._packages = Packages;
         if (this.hasOwnProperty("_audioCtx") && this._audioCtx) this._audioCtx.close();
         this._audioCtx = null;
         this.emit("resetPatcher", this);
-        if (patcher == undefined) return;
-        this._prevData = patcher.hasOwnProperty("data") ? patcher.data : null;
         // Patcher
         this.state = {
             locked : true,
             presentation : false,
             showGrid : true,
         }
-        this.boxIndexCount = patcher.hasOwnProperty("boxIndexCount") ? patcher.boxIndexCount : 0;
-        this.lineIndexCount = patcher.hasOwnProperty("lineIndexCount") ? patcher.lineIndexCount : 0;
-        this.bgcolor = patcher.hasOwnProperty("bgcolor") ? patcher.bgcolor : [61, 65, 70, 1];
-        this.editing_bgcolor = patcher.hasOwnProperty("editing_bgcolor") ? patcher.editing_bgcolor : [82, 87, 94, 1];
-        this.grid = patcher.hasOwnProperty("grid") ? patcher.grid : [15, 15];
+        this._prevData = (patcher && patcher.hasOwnProperty("data")) ? patcher.data : null;
+        this.boxIndexCount = (patcher && patcher.hasOwnProperty("boxIndexCount")) ? patcher.boxIndexCount : 0;
+        this.lineIndexCount = (patcher && patcher.hasOwnProperty("lineIndexCount")) ? patcher.lineIndexCount : 0;
+        this.bgcolor = (patcher && patcher.hasOwnProperty("bgcolor")) ? patcher.bgcolor : [61, 65, 70, 1];
+        this.editing_bgcolor = (patcher && patcher.hasOwnProperty("editing_bgcolor")) ? patcher.editing_bgcolor : [82, 87, 94, 1];
+        this.grid = (patcher && patcher.hasOwnProperty("grid")) ? patcher.grid : [15, 15];
         // Boxes & data
-        for (const id in patcher.boxes) {
-            this.createBox(patcher.boxes[id]);
+        if (patcher && patcher.hasOwnProperty("boxes")) {
+            for (const id in patcher.boxes) {
+                this.createBox(patcher.boxes[id]);
+            }
         }
         // Lines
-        for (const id in patcher.lines) {
-            this.createLine(patcher.lines[id]);
+        if (patcher && patcher.hasOwnProperty("lines")) {
+            for (const id in patcher.lines) {
+                this.createLine(patcher.lines[id]);
+            }
         }
         this.emit("loadPatcher", this);
+        return this;
+        
     }
+
     static fromMaxPatcher(maxPatcher) {
+        let rgbaMax2Css = (arr) => {
+            let res = [];
+            for (let i = 0; i < 3; i++) {
+                res[i] = parseInt(arr[i] * 255);
+            }
+            if (arr.length == 4) res[3] = arr[3];
+            return res;
+        }
         let maxBoxes = maxPatcher.patcher.boxes;
         let maxLines = maxPatcher.patcher.lines;
 
@@ -61,6 +77,7 @@ export default class Patcher extends EventEmitter {
             boxes: {},
             data: {}
         };
+        
         patcher.bgcolor = rgbaMax2Css(maxPatcher.patcher.bgcolor);
         patcher.editing_bgcolor = rgbaMax2Css(maxPatcher.patcher.editing_bgcolor);
         patcher.grid = maxPatcher.patcher.gridsize;
@@ -95,7 +112,7 @@ export default class Patcher extends EventEmitter {
             }
             if (maxBox.hasOwnProperty("text")) {
                 box.text = maxBox.text;
-                Object.assign(box, parseObjText(maxBox.text));
+                Object.assign(box, Box.parseObjText(maxBox.text));
             }
             // get the name out to root
             if (box.hasOwnProperty("props") && box.props.hasOwnProperty("name")) {
@@ -111,13 +128,16 @@ export default class Patcher extends EventEmitter {
         if (!props.hasOwnProperty("id")) props.id = "box-" + ++this.boxIndexCount;
         let box = new Box(props, this);
         this.boxes[box.id] = box;
+        this.newTimestamp();
         this.emit("createBox", box);
         return box;
     }
 
-    changeBoxText(id, str) {
-        this.boxes[id].changeText(str);
-        this.emit("changeBoxText", this.boxes[id]);
+    changeBoxText(id, text) {
+        let oldText = this.boxes[id].text;
+        this.boxes[id].changeText(text);
+        this.newTimestamp();
+        this.emit("changeBoxText", this.boxes[id], oldText, text);
         return this.boxes[id];
     }
 
@@ -133,32 +153,39 @@ export default class Patcher extends EventEmitter {
         if (!props.hasOwnProperty("id")) props.id = "line-" + ++this.lineIndexCount;
         let line = new Line(props, this);
         this.lines[line.id] = line;
+        this.newTimestamp();
         this.emit("createLine", line);
         return line;
     }
 
     changeLineSrc(id, srcID, srcOutlet) {
-        if (this.getLinesByIO(srcID, this.lines[id].dest[0], srcOutlet, this.lines[id].dest[1]).length > 0) {
-            this.emit("uiRefreshLine", this.lines[id]);
-            return this.lines[id];
+        let line = this.lines[id];
+        if (this.getLinesByIO(srcID, line.dest[0], srcOutlet, line.dest[1]).length > 0) {
+            this.emit("redrawLine", line);
+            return line;
         }
-        let oldSrc = this.lines[id].src;
-        this.lines[id].setSrc([srcID, srcOutlet]);
-        this.emit("changeLineSrc", this.lines[id], oldSrc);
-        this.emit("changeLine", this.lines[id], true, oldSrc);
-        return this.lines[id];
+        let oldSrc = line.src;
+        let src = [srcID, srcOutlet]
+        line.setSrc(src);
+        this.newTimestamp();
+        this.emit("changeLineSrc", line, oldSrc, src);
+        this.emit("changeLine", line, true, oldSrc, src);
+        return line;
     }
 
     changeLineDest(id, destID, destOutlet) {
-        if (this.getLinesByIO(this.lines[id].src[0], destID, this.lines[id].dest[1], destOutlet).length > 0) {
-            this.emit("uiRefreshLine", this.lines[id]);
-            return this.lines[id];
+        let line = this.lines[id];
+        if (this.getLinesByIO(line.src[0], destID, line.dest[1], destOutlet).length > 0) {
+            this.emit("redrawLine", line);
+            return line;
         }
-        let oldDest = this.lines[id].dest;
-        this.lines[id].setDest([destID, destOutlet]);
-        this.emit("changeLineDest", this.lines[id], oldDest);
-        this.emit("changeLine", this.lines[id], false, oldDest);
-        return this.lines[id];
+        let oldDest = line.dest;
+        let dest = [destID, destOutlet];
+        line.setDest(dest);
+        this.newTimestamp();
+        this.emit("changeLineDest", line, oldDest, dest);
+        this.emit("changeLine", line, false, oldDest, dest);
+        return line;
     }
 
     deleteLine(id) {
@@ -173,10 +200,19 @@ export default class Patcher extends EventEmitter {
         return this;
     }
 
-    uiRefresh(box) {
-        this.emit("uiRefreshBox", box);
+    updateBoxRect(id, rect) { //[left, top, width, height]
+        let oldRect = this.boxes[id].patching_rect;
+        if (oldRect == rect) return this;
+        this.boxes[id].patching_rect = rect;
+        this.emit("updateBoxRect", this.boxes[id], oldRect, rect);
         return this;
     }
+
+    redrawBox(box) {
+        this.emit("redrawBox", box);
+        return this;
+    }
+    
     createObject(box) {
         let obj;
         let str = box.class;
@@ -254,6 +290,155 @@ export default class Patcher extends EventEmitter {
             if (k.charAt(0) !== "_") return v;
 		}, 4)
     }
+
+    observeHistory() {
+        this.on("createBox", (box) => {
+            this._history.do("createBox", box);
+        }).on("deleteBox", (box) => {
+            this._history.do("deleteBox", box);
+        }).on("createLine", (line) => {
+            this._history.do("createLine", line);
+        }).on("deleteLine", (line) => {
+            this._history.do("deleteLine", line);
+        }).on("changeBoxText", (box, oldText, text) => {
+            const info = {box : box, oldText : oldText, text : text};
+            this._history.do("changeBoxText", info);
+        }).on("changeLineSrc", (line, oldSrc, src) => {
+            const info = {line : line, oldSrc : oldSrc, src : src};
+            this._history.do("changeLineSrc", info);
+        }).on("changeLineDest", (line, oldDest, dest) => {
+            const info = {line : line, oldDest : oldDest, dest : dest};
+            this._history.do("changeLineDest", info);
+        }).on("updateBoxRect", (box, oldRect, rect) => {
+            const info = {box : box, oldRect : oldRect, rect : rect};
+            this._history.do("updateBoxRect", info);
+        });
+    }
+    newTimestamp() {
+        this._history.newTimestamp();
+    }
+}
+
+class History {
+    constructor(patcher) {
+        this.newTimestamp();
+        this._patcher = patcher;
+        this.undoList = [];
+        this.redoList = [];
+        this.capture = true;
+        this.events = {};
+    }
+    newTimestamp() {
+        if (this.capture) this.timestamp = new Date().getTime();
+        return this;
+    }
+    do(e, data) {
+        if (!this.capture) return this;
+        if (!this.events.hasOwnProperty(this.timestamp)) {
+            if (this.redoList.length) this.redoList = [];
+            this.undoList.push(this.timestamp);
+            this.events[this.timestamp] = [];
+        }
+        if (!this.events[this.timestamp].hasOwnProperty(e)) this.events[this.timestamp][e] = [];
+        this.events[this.timestamp][e].push(data);
+        return this;
+    }
+    undo() {
+        this.capture = false;
+        if (this.undoList.length === 0) return this;
+        const eID = this.undoList.pop();
+        if (this.events[eID].hasOwnProperty("deleteBox")) {
+            for (const box of this.events[eID]["deleteBox"]) {
+                this._patcher.createBox(box);
+            }
+        }
+        if (this.events[eID].hasOwnProperty("deleteLine")) {
+            for (const line of this.events[eID]["deleteLine"]) {
+                this._patcher.createLine(line);
+            }
+        }
+        if (this.events[eID].hasOwnProperty("changeBoxText")) {
+            for (const info of this.events[eID]["changeBoxText"]) {
+                this._patcher.changeBoxText(info.box.id, info.oldText);
+            }
+        }
+        if (this.events[eID].hasOwnProperty("updateBoxRect")) {
+            for (const info of this.events[eID]["updateBoxRect"]) {
+                this._patcher.updateBoxRect(info.box.id, info.oldRect);
+            }
+        }
+        if (this.events[eID].hasOwnProperty("changeLineSrc")) {
+            for (const info of this.events[eID]["changeLineSrc"]) {
+                this._patcher.changeLineSrc(info.line.id, info.oldSrc[0], info.oldSrc[1]);
+            }
+        }
+        if (this.events[eID].hasOwnProperty("changeLineDest")) {
+            for (const info of this.events[eID]["changeLineDest"]) {
+                this._patcher.changeLineDest(info.line.id, info.oldDest[0], info.oldDest[1]);
+            }
+        }
+        if (this.events[eID].hasOwnProperty("createLine")) {
+            for (const line of this.events[eID]["createLine"]) {
+                this._patcher.deleteLine(line.id);
+            }
+        }
+        if (this.events[eID].hasOwnProperty("createBox")) {
+            for (const box of this.events[eID]["createBox"]) {
+                this._patcher.deleteBox(box.id);
+            }
+        }
+        this.redoList.push(eID);
+        this.capture = true;
+        return this;
+    }
+    redo() {
+        this.capture = false;
+        if (this.redoList.length === 0) return this;
+        const eID = this.redoList.pop();
+        if (this.events[eID].hasOwnProperty("createBox")) {
+            for (const box of this.events[eID]["createBox"]) {
+                this._patcher.createBox(box);
+            }
+        }
+        if (this.events[eID].hasOwnProperty("createLine")) {
+            for (const line of this.events[eID]["createLine"]) {
+                this._patcher.createLine(line);
+            }
+        }
+        if (this.events[eID].hasOwnProperty("changeBoxText")) {
+            for (const info of this.events[eID]["changeBoxText"]) {
+                this._patcher.changeBoxText(info.box.id, info.text);
+            }
+        }
+        if (this.events[eID].hasOwnProperty("updateBoxRect")) {
+            for (const info of this.events[eID]["updateBoxRect"]) {
+                this._patcher.updateBoxRect(info.box.id, info.rect);
+            }
+        }
+        if (this.events[eID].hasOwnProperty("changeLineSrc")) {
+            for (const info of this.events[eID]["changeLineSrc"]) {
+                this._patcher.changeLineSrc(info.line.id, info.src[0], info.src[1]);
+            }
+        }
+        if (this.events[eID].hasOwnProperty("changeLineDest")) {
+            for (const info of this.events[eID]["changeLineDest"]) {
+                this._patcher.changeLineDest(info.line.id, info.dest[0], info.dest[1]);
+            }
+        }
+        if (this.events[eID].hasOwnProperty("deleteLine")) {
+            for (const line of this.events[eID]["deleteLine"]) {
+                this._patcher.deleteLine(line.id);
+            }
+        }
+        if (this.events[eID].hasOwnProperty("deleteBox")) {
+            for (const box of this.events[eID]["deleteBox"]) {
+                this._patcher.deleteBox(box.id);
+            }
+        }
+        this.undoList.push(eID);
+        this.capture = true;
+        return this;
+    }
 }
 
 class Box {
@@ -287,7 +472,7 @@ class Box {
         if (textIn == this.text) return this;
         this.text = textIn;
         
-        let props = parseObjText(textIn);
+        let props = Box.parseObjText(textIn);
         // if same class and name
         if (this.name == (props.props.name || this.id) && this.class == props.class) { 
             this.props = props.props;
@@ -352,6 +537,52 @@ class Box {
     get isValid() {
         return this.object instanceof Packages.Base.BaseObject && !(this.object instanceof Packages.Base.InvalidObject);
     }
+    
+    static parseObjText(strIn) {
+        let parseToPrimitive = (value) => {
+            try {
+                return eval(value);
+            } catch (e) {
+                return value;
+            }
+        }
+        const REGEX = /"([^"]*)"|[^\s]+/gi;
+        let strArray = [];
+        let match = REGEX.exec(strIn);
+        while (match != null) {
+            //Index 1 in the array is the captured group if it exists
+            //Index 0 is the matched text, which we use if no captured group exists
+            strArray.push(match[1] ? match[1] : match[0]);
+            //Each call to exec returns the next regex match as an array
+            match = REGEX.exec(strIn);
+        } 
+        let objOut = {
+            class: "",
+            args: [],
+            props: {}
+        }
+        let lastProp;
+        if (strArray.length) objOut.class = strArray.shift();
+        while (strArray.length) {
+            const e = strArray.shift();
+            if (typeof lastProp == "undefined" && e.charAt(0) != "@") {
+                objOut.args.push(e);
+                continue;
+            }
+            if (e.length > 1 && e.charAt(0) == "@") {
+                lastProp = e.substr(1);
+                objOut.props[lastProp] = [];
+                continue;
+            }
+            objOut.props[lastProp].push(e);
+        }
+        for (const key in objOut.props) {
+            if (objOut.props[key].length == 0) objOut.props[key] = true;
+            else if (objOut.props[key].length == 1) objOut.props[key] = parseToPrimitive(objOut.props[key][0]);
+        }
+        return objOut;
+    }
+    
 }
 
 class Line {
@@ -430,60 +661,5 @@ class Line {
     }
     get destObj() {
         return this._patcher.getObjByID(this.dest[0]);
-    }
-}
-
-let rgbaMax2Css = function (arr) {
-    let res = [];
-    for (let i = 0; i < 3; i++) {
-        res[i] = parseInt(arr[i] * 255);
-    }
-    if (arr.length == 4) res[3] = arr[3];
-    return res;
-}
-
-let parseObjText = function (strIn) {
-    const REGEX = /"([^"]*)"|[^\s]+/gi;
-    let strArray = [];
-    let match = REGEX.exec(strIn);
-    while (match != null) {
-        //Index 1 in the array is the captured group if it exists
-        //Index 0 is the matched text, which we use if no captured group exists
-        strArray.push(match[1] ? match[1] : match[0]);
-        //Each call to exec returns the next regex match as an array
-        match = REGEX.exec(strIn);
-    } 
-    let objOut = {
-        class: "",
-        args: [],
-        props: {}
-    }
-    let lastProp;
-    if (strArray.length) objOut.class = strArray.shift();
-    while (strArray.length) {
-        const e = strArray.shift();
-        if (typeof lastProp == "undefined" && e.charAt(0) != "@") {
-            objOut.args.push(e);
-            continue;
-        }
-        if (e.length > 1 && e.charAt(0) == "@") {
-            lastProp = e.substr(1);
-            objOut.props[lastProp] = [];
-            continue;
-        }
-        objOut.props[lastProp].push(e);
-    }
-    for (const key in objOut.props) {
-        if (objOut.props[key].length == 0) objOut.props[key] = true;
-        else if (objOut.props[key].length == 1) objOut.props[key] = parseToPrimitive(objOut.props[key][0]);
-    }
-    return objOut;
-}
-
-function parseToPrimitive(value) {
-    try {
-        return eval(value);
-    } catch (e) {
-        return value;
     }
 }

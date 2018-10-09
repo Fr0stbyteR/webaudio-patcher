@@ -89,7 +89,7 @@ class BaseObject extends EventEmitter {
         return container;
     }
     uiRefresh() {
-        this._patcher.uiRefresh(this._box);
+        this._patcher.redrawBox(this._box);
         return this;
     }
     uiResize() {

@@ -55,16 +55,19 @@ $(document).ready(() => {
 					updateLineByBox(box.attr("id"));
 				})
 			},
-			stop: (event, ui) => {$('.box.selected').each((i) => {
-				let box = $('.box.selected').eq(i);
-				updateLineByBox(box.attr("id"));
-				updateBoxRect(box.attr("id"));
-			})
+			stop: (event, ui) => {
+				$('.box.selected').each((i) => {
+					let box = $('.box.selected').eq(i);
+					patcher.newTimestamp();
+					updateLineByBox(box.attr("id"));
+					updateBoxRect(box.attr("id"));
+				})
 			}
 		}).resizable({
 			disabled: true,
 			handles: objUI.data("resizeHandles") ? objUI.data("resizeHandles") : "e, w",
 			resize: (event, ui) => {
+				patcher.newTimestamp();
 				updateLineByBox(ui.helper.attr("id"));
 				updateBoxRect(ui.helper.attr("id"));
 			}
@@ -72,7 +75,7 @@ $(document).ready(() => {
 		updateBoxIO(box.id);
 		updateBoxRect(box.id);
 	});
-	patcher.on("uiRefreshBox", (box) => {
+	patcher.on("redrawBox", (box) => {
 		let obj = patcher.getObjByID(box.id);
 		$("#" + box.id).find(".box-ui").empty().append(obj.ui($, box));
 		$("#" + box.id).find(".box-inlets").replaceWith(UIObj.inlets($, box.inlets))
@@ -81,7 +84,7 @@ $(document).ready(() => {
 		updateBoxRect(box.id);
 		updateLineByBox(box.id);
 	});
-	patcher.on("changeBoxText", (box) => {
+	patcher.on("changeBoxText", (box, oldText, text) => {
 		let obj = patcher.getObjByID(box.id);
 		$("#" + box.id).find(".box-ui").empty().append(obj.ui($, box));
 		$("#" + box.id).find(".box-inlets").replaceWith(UIObj.inlets($, box.inlets))
@@ -89,10 +92,10 @@ $(document).ready(() => {
 		updateBoxIO(box.id);
 		updateBoxRect(box.id);
 		updateLineByBox(box.id);
-	})
+	});
 	patcher.on("deleteBox", (box) => {
 		$("#" + box.id).remove();
-	})
+	});
 	patcher.on("createLine", (line) => {
 		let dom = UIObj.line($, line);
 		$(".lines").append(dom);
@@ -128,10 +131,10 @@ $(document).ready(() => {
 		updateBoxIO(line.src[0]);
 		updateBoxIO(line.dest[0]);
 	});
-	patcher.on("uiRefreshLine", (line) => {
+	patcher.on("redrawLine", (line) => {
 		updateLine(line.id);
 	})
-	patcher.on("changeLine", (line, isSrc, oldCon) => {
+	patcher.on("changeLine", (line, isSrc, oldCon, con) => {
 		updateLine(line.id);
 		updateBoxIO(oldCon[0]);
 		updateBoxIO(line.src[0]);
@@ -165,23 +168,53 @@ $(document).ready(() => {
 	//keys
 	$(document).on("keydown", (e) => {
 		keysPressed[e.key] = true;
-		if (e.key == "Delete" || e.key == "Backspace") {
+		if (e.key == "Delete" || e.key == "Backspace") { // delete selection
 			if (!patcher.state.locked) {
 				let boxIDs = [];
 				$(".box.selected").each((i) => {
 					boxIDs.push($(".box.selected").eq(i).attr("id"));
 				})
-				boxIDs.forEach((id) => {
-					patcher.deleteBox(id);
-				})
 				let lineIDs = [];
 				$(".line.selected").each((i) => {
 					lineIDs.push($(".line.selected").eq(i).attr("id"));
+				})
+				if (boxIDs.length + lineIDs.length > 0) this.newTimestamp();
+				boxIDs.forEach((id) => {
+					patcher.deleteBox(id);
 				})
 				lineIDs.forEach((id) => {
 					patcher.deleteLine(id);
 				})
 			}
+			return;
+		}
+		if (e.key == "n") { // Ctrl + Shift + N
+			if (keysPressed._check("Control") && keysPressed._check("Shift")) {
+				$("#new_patcher").click();
+				e.preventDefault();
+			}
+			return;
+		}
+		if (e.key == "o") { // Ctrl + O
+			if (keysPressed._check("Control")) {
+				$("#open").click();
+				e.preventDefault();
+			}
+			return;
+		}
+		if (e.key == "z") { // Ctrl + Z
+			if (keysPressed._check("Control") && !patcher.state.locked) {
+				$("#undo").click();
+				e.preventDefault();
+			}
+			return;
+		}
+		if (e.key == "y") { // Ctrl + Y
+			if (keysPressed._check("Control") && !patcher.state.locked) {
+				$("#redo").click();
+				e.preventDefault();
+			}
+			return;
 		}
 	}).on("keyup", (e) => {
 		keysPressed[e.key] = false;
@@ -202,13 +235,13 @@ $(document).ready(() => {
 		$("#" + box.id).mousedown().find("span").click();
 	}).on("dblclick", ".boxes div", (e) => {
 		e.stopPropagation();
-	}).on("mousedown", ".boxes", (e) => {
+	}).on("mousedown touchstart", ".boxes", (e) => {
 		$(".editing").blur();
 		if (keysPressed._check("Control") || keysPressed._check("Command")) return;
 		$(".box.selected, .line.selected").removeClass("selected");
-	}).on("mousedown", ".box, .line", (e) => {
+	}).on("mousedown touchstart", ".box, .line", (e) => {
 		e.stopPropagation();
-	}).on("mouseup", ".boxes", (e) => {
+	}).on("mouseup touchend", ".boxes", (e) => {
 		if (keysPressed._check("Control") || keysPressed._check("Command")) {
 			if ($(e.target).hasClass("boxes")) {
 				if (patcher.state.locked) unlockPatcher();
@@ -226,8 +259,7 @@ $(document).ready(() => {
 	const selection = Selection.create({
 		class: "selection",
 		startThreshold: 2,
-		containers: ["#patcher"],
-		boundaries: ["#patcher"],
+		boundaries: ["#patcher.unlocked"],
 		selectables: [".box"],
 		validateStart(e) {
 			if (!e.target.classList.contains('boxes')) return false;
@@ -267,7 +299,7 @@ $(document).ready(() => {
 		}
 	})
 	//boxes
-	$(document).on("mousedown", ".box", (e) => {
+	$(document).on("mousedown touchdown", ".box", (e) => {
 		if (patcher.state.locked) return;
 		$(e.currentTarget).removeClass("dragged");
 		
@@ -304,16 +336,25 @@ $(document).ready(() => {
 	});
 
 	//Menu
-	$(document).on("click", "#save", (e) => {
+	$("#menu .dropdown").dropdown({
+		action: "hide"
+	});
+	$(document).on("click", "#new_patcher", (e) => {
+		patcher.load();
+	}).on("click", "#save", (e) => {
 		let p = patcher.toString();
 		let url = "data:text/plain;charset=utf-8," + encodeURIComponent(p);
-		$(e.currentTarget).attr("download", "patcher.json").attr("href", url);
-	}).on("click", "#load", (e) => {
-		$(e.currentTarget).siblings("input").click();
-	}).on("change", "#load + input", (e) => {
-		let file = $(e.currentTarget).get(0).files[0];
+		$("#save a").attr("download", "patcher.json").attr("href", url);
+	}).on("click", "#open", (e) => {
+		$("#open input").click(e => e.stopPropagation()).click();
+	}).on("change", "#open input", (e) => {
+		let file = $("#open input").get(0).files[0];
 		if (file) loadPatcher(file);
-	})
+	}).on("click", "#undo", (e) => {
+		patcher._history.undo();
+	}).on("click", "#redo", (e) => {
+		patcher._history.redo();
+	});
 	
 	//Toolbar
 	$(document).on("click", "#lock", (e) => {
@@ -331,11 +372,11 @@ $(document).ready(() => {
 		$(".box.ui-draggable").draggable("disable");
 		$(".box-port.ui-draggable").draggable("disable");
 		patcher.state.locked = true;
-		selection.disable();
 		$("#lock i.lock.open").removeClass("open");
 		$("#patcher").removeClass("unlocked").addClass("locked");
 		hideGrid();
 		$("#grid i.th").addClass("disabled");
+		$("#undo, #redo").addClass("disabled");
 	}
 
 	let unlockPatcher = () => {
@@ -345,11 +386,11 @@ $(document).ready(() => {
 		$(".box.ui-draggable").draggable("enable");
 		$(".box-port.ui-draggable").draggable("enable");
 		patcher.state.locked = false;
-		selection.enable();
 		$("#lock i.lock").addClass("open");
 		$("#patcher").removeClass("locked").addClass("unlocked");
 		if (patcher.state.showGrid) showGrid();
 		$("#grid i.th").removeClass("disabled");
+		$("#undo, #redo").removeClass("disabled");
 	}
 
 	//background-image: repeating-linear-gradient(0deg,transparent,transparent 70px,#CCC 70px,#CCC 71px)
@@ -370,12 +411,14 @@ $(document).ready(() => {
 		
 		patcher.state.showGrid = true;
 		$("#grid i.th").addClass("enabled");
+		$(".box").resizable("option", "grid", grid);
 	}
 
 	let hideGrid = () => {
 		$("#patcher").removeClass("grid").css("background-image", "").css("background-size", "");
 		if (!patcher.state.locked) patcher.state.showGrid = false;
 		$("#grid i.th").removeClass("enabled");
+		$(".box").resizable("option", "grid", [1, 1]);
 	}
 });
 
@@ -547,5 +590,5 @@ let updateBoxRect = (id) => {
 	let t = jq.position().top;
 	let w = jq.outerWidth();
 	let h = jq.outerHeight();
-	patcher.boxes[id].patching_rect = [l, t, w, h];
+	patcher.updateBoxRect(id, [l, t, w, h]);
 }
