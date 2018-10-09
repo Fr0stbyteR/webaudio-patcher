@@ -198,7 +198,7 @@ $(document).ready(() => {
 				$(".line.selected").each((i) => {
 					lineIDs.push($(".line.selected").eq(i).attr("id"));
 				})
-				if (boxIDs.length + lineIDs.length > 0) this.newTimestamp();
+				if (boxIDs.length + lineIDs.length > 0) patcher.newTimestamp();
 				boxIDs.forEach((id) => {
 					patcher.deleteBox(id);
 				})
@@ -318,6 +318,15 @@ $(document).ready(() => {
 			this.keepSelection();
 		}
 	})
+	$("#sidebar").resizable({
+		handles: "w",
+		resize: (event, ui) => {
+			ui.position.left = 0;
+		},
+		stop: (event, ui) => {
+			if (ui.size.width < 100) hideSidebar();
+		}
+	})
 	//boxes
 	$(document).on("mousedown touchdown", ".box", (e) => {
 		if (patcher.state.locked) return;
@@ -374,6 +383,9 @@ $(document).ready(() => {
 		patcher._history.undo();
 	}).on("click", "#redo", (e) => {
 		patcher._history.redo();
+	}).on("click", "#show_sidebar", (e) => {
+		if ($("#sidebar").is(':visible')) hideSidebar();
+		else showSidebar();
 	});
 	
 	//Toolbar
@@ -437,15 +449,26 @@ $(document).ready(() => {
 		$("#patcher").addClass("grid").css("background-image", sBGImageX + ", " + sBGImageY).css("background-size", pxx + " " + pxy);
 		
 		patcher.state.showGrid = true;
-		$("#grid i.th").addClass("enabled");
+		$("#grid i").addClass("enabled");
 		$(".box").resizable("option", "grid", grid);
 	}
 
 	let hideGrid = () => {
 		$("#patcher").removeClass("grid").css("background-image", "").css("background-size", "");
 		if (!patcher.state.locked) patcher.state.showGrid = false;
-		$("#grid i.th").removeClass("enabled");
+		$("#grid i").removeClass("enabled");
 		$(".box").resizable("option", "grid", [1, 1]);
+	}
+	
+	let hideSidebar = () => {
+		$("#sidebar").hide(100);
+		$("#show_sidebar i").removeClass("enabled");
+	}
+
+	let showSidebar = () => {
+		if ($("#sidebar").width() < 100) $("#sidebar").width(300);
+		$("#sidebar").show(100);
+		$("#show_sidebar i").addClass("enabled");
 	}
 });
 
