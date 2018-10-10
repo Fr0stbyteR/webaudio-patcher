@@ -66,30 +66,29 @@ $(document).ready(() => {
 			}
 		}).resizable({
 			disabled: true,
-			handles: objUI.data("resizeHandles") ? objUI.data("resizeHandles") : "e, w",
+			handles: objUI.data("resizeVertical") ? "e, w, n, s, ne, se, sw, nw" : "e, w",
+			minHeight: 28,
+			grid: patcher.state.showGrid ? patcher.grid : [1, 1],
 			resize: (event, ui) => {
-				patcher.newTimestamp();
 				updateLineByBox(ui.helper.attr("id"));
+			},
+			stop: (event, ui) => {
+				patcher.newTimestamp();
 				updateBoxRect(ui.helper.attr("id"));
 			}
 		});
+		updateBoxResizable(objUI, box.id);
 		updateBoxIO(box.id);
 		updateBoxRect(box.id);
 	});
 	patcher.on("redrawBox", (box) => {
-		let obj = patcher.getObjByID(box.id);
-		$("#" + box.id).find(".box-ui").empty().append(obj.ui($, box));
-		$("#" + box.id).find(".box-inlets").replaceWith(UIObj.inlets($, box.inlets))
-		$("#" + box.id).find(".box-outlets").replaceWith(UIObj.outlets($, box.outlets));
+		updateBoxUI(box);
 		updateBoxIO(box.id);
 		updateBoxRect(box.id);
 		updateLineByBox(box.id);
 	});
 	patcher.on("changeBoxText", (box, oldText, text) => {
-		let obj = patcher.getObjByID(box.id);
-		$("#" + box.id).find(".box-ui").empty().append(obj.ui($, box));
-		$("#" + box.id).find(".box-inlets").replaceWith(UIObj.inlets($, box.inlets))
-		$("#" + box.id).find(".box-outlets").replaceWith(UIObj.outlets($, box.outlets));
+		updateBoxUI(box);
 		updateBoxIO(box.id);
 		updateBoxRect(box.id);
 		updateLineByBox(box.id);
@@ -134,22 +133,29 @@ $(document).ready(() => {
 	});
 	patcher.on("redrawLine", (line) => {
 		updateLine(line.id);
-	})
+	});
 	patcher.on("changeLine", (line, isSrc, oldCon, con) => {
 		updateLine(line.id);
 		updateBoxIO(oldCon[0]);
 		updateBoxIO(line.src[0]);
 		updateBoxIO(line.dest[0]);
-	})
+	});
 	patcher.on("resizeBox", (box) => {
+		updateBoxResizable($("#" + box.id).find(".box-ui").children().eq(0), box.id);
 		updateLineByBox(box.id);
 		updateBoxRect(box.id);
+	});
+	patcher.on("forceBoxRect", (id, rect) => {
+		$("#" + id).css({left : rect[0], top : rect[1], width : rect[2], height : rect[3]});
+		updateBoxResizable($("#" + id).find(".box-ui").children().eq(0), id);
+		updateLineByBox(id);
+		updateBoxRect(id);
 	})
 	patcher.on("deleteLine", (line) => {
 		$("#" + line.id).remove();
 		updateBoxIO(line.src[0]);
 		updateBoxIO(line.dest[0]);
-	})
+	});
 
 	patcher.on("newLog", (log) => {
 		$("#log tbody").append(
@@ -209,28 +215,28 @@ $(document).ready(() => {
 			return;
 		}
 		if (e.key == "n") { // Ctrl + Shift + N
-			if (keysPressed._check("Control") && keysPressed._check("Shift")) {
+			if ((keysPressed._check("Control") || keysPressed._check("Command")) && keysPressed._check("Shift")) {
 				$("#new_patcher").click();
 				e.preventDefault();
 			}
 			return;
 		}
 		if (e.key == "o") { // Ctrl + O
-			if (keysPressed._check("Control")) {
+			if (keysPressed._check("Control") || keysPressed._check("Command")) {
 				$("#open").click();
 				e.preventDefault();
 			}
 			return;
 		}
 		if (e.key == "z") { // Ctrl + Z
-			if (keysPressed._check("Control") && !patcher.state.locked) {
+			if ((keysPressed._check("Control") || keysPressed._check("Command")) && !patcher.state.locked) {
 				$("#undo").click();
 				e.preventDefault();
 			}
 			return;
 		}
 		if (e.key == "y") { // Ctrl + Y
-			if (keysPressed._check("Control") && !patcher.state.locked) {
+			if ((keysPressed._check("Control") || keysPressed._check("Command")) && !patcher.state.locked) {
 				$("#redo").click();
 				e.preventDefault();
 			}
@@ -258,6 +264,7 @@ $(document).ready(() => {
 	}).on("mousedown touchstart", ".boxes", (e) => {
 		$(".editing").blur();
 		if (keysPressed._check("Control") || keysPressed._check("Command")) return;
+		$(".box.selected").resizable("disable");
 		$(".box.selected, .line.selected").removeClass("selected");
 	}).on("mousedown touchstart", ".box, .line", (e) => {
 		e.stopPropagation();
@@ -345,8 +352,9 @@ $(document).ready(() => {
 		}
 	}).on("blur", ".box.selected", (e) => {
 		if (patcher.state.locked) return;
-		if (!$.contains(document, $(e.currentTarget))) return; //if deleted
-		$(e.currentTarget).removeClass("selected").resizable("disable");
+		if (!$.contains($(".boxes").get(0), e.currentTarget)) return; //if deleted
+		$(e.currentTarget).removeClass("selected")
+		if ($(e.currentTarget).hasClass("resizable")) $(e.currentTarget).resizable("disable");
 	});
 	//lines
 	$(document).on("focus", ".line", (e) => {
@@ -359,9 +367,6 @@ $(document).ready(() => {
 		if (patcher.state.locked) return;
 		if (!$.contains(document, $(e.currentTarget))) return; //if deleted
 		$(e.currentTarget).removeClass("selected");
-	}).on("keydown", ".line.selected", (e) => {
-		if (patcher.state.locked) return;
-		if (e.key == "Delete" || e.key == "Backspace") patcher.deleteLine($(e.currentTarget).attr("id"));
 	});
 
 	//Menu
@@ -641,4 +646,23 @@ let updateBoxRect = (id) => {
 	let w = jq.outerWidth();
 	let h = jq.outerHeight();
 	patcher.updateBoxRect(id, [l, t, w, h]);
+}
+
+let updateBoxUI = (box) => {
+	let obj = patcher.getObjByID(box.id);
+	let objUI = obj.ui($, box);
+	$("#" + box.id).find(".box-ui").empty().append(objUI);
+	$("#" + box.id).find(".box-inlets").replaceWith(UIObj.inlets($, box.inlets))
+	$("#" + box.id).find(".box-outlets").replaceWith(UIObj.outlets($, box.outlets));
+	updateBoxResizable(objUI, box.id);
+}
+
+let updateBoxResizable = (objUI, id) => {
+	$("#" + id).resizable("option", "handles", objUI.data("resizeVertical") ? "e, w, n, s, ne, se, sw, nw" : "e, w")
+	if (objUI.data("resizeVertical")) {
+		if (objUI.data("resizeMinHeight")) $("#" + id).resizable("option", "minHeight", objUI.data("resizeMinHeight"));
+	} else {
+		$("#" + id).resizable("option", "minHeight", 28)
+	}
+	$("#" + id).find(".ui-resizable-handle").css("display", "");
 }

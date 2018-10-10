@@ -367,7 +367,7 @@ class History {
         }
         if (this.events[eID].hasOwnProperty("updateBoxRect")) {
             for (const info of this.events[eID]["updateBoxRect"]) {
-                this._patcher.updateBoxRect(info.box.id, info.oldRect);
+                this._patcher.emit("forceBoxRect", info.box.id, info.oldRect);
             }
         }
         if (this.events[eID].hasOwnProperty("changeLineSrc")) {
@@ -415,7 +415,7 @@ class History {
         }
         if (this.events[eID].hasOwnProperty("updateBoxRect")) {
             for (const info of this.events[eID]["updateBoxRect"]) {
-                this._patcher.updateBoxRect(info.box.id, info.rect);
+                this._patcher.emit("forceBoxRect", info.box.id, info.rect);
             }
         }
         if (this.events[eID].hasOwnProperty("changeLineSrc")) {

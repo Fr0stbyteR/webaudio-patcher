@@ -92,9 +92,10 @@ class Oscilloscope extends WANode {
         return this;
     }
     ui($, box) {
-        let canvas = $("<canvas>").addClass("scope").css("width", "100%").css("height", "200px");
+        let canvas = $("<canvas>").addClass("scope").css("width", "100%").css("height", "100%").css("min-height", "50px");
         let container = super.defaultDropdownUI($, box);
         container.find(".box-ui-dropdown-container").append(canvas);
+        container.data("resizeMinHeight", 100);
         return container.ready(() => {
             let canvasCtx = canvas.get(0).getContext('2d');
             canvasCtx.strokeStyle = "#FFFFFF";
@@ -136,9 +137,10 @@ class Spectrogram extends WANode {
         return this;
     }
     ui($, box) {
-        let canvas = $("<canvas>").addClass("spectrogram").css("width", "100%").css("height", "200px");
+        let canvas = $("<canvas>").addClass("spectrogram").css("width", "100%").css("height", "100%").css("min-height", "50px");
         let container = super.defaultDropdownUI($, box);
         container.find(".box-ui-dropdown-container").append(canvas);
+        container.data("resizeMinHeight", 100);
         return container.ready(() => {
             let canvasCtx = canvas.get(0).getContext('2d');
             let w = canvas.get(0).width;

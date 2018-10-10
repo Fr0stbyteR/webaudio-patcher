@@ -1,18 +1,8 @@
-
-
-div.package-faust-dsp.box-ui-container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
 div.package-faust-dsp.box-ui-container .dsp-editor {
     flex: 1 0 auto;
     display: flex;
     width: 100%;
-    border: rgb(125, 126, 132) solid;
     padding: 0px;
-    border-width: 0px 0px 4px 0px;
 }
 
 div.package-faust-dsp.box-ui-container .dsp-editor .CodeMirror {

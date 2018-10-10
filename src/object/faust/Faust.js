@@ -211,12 +211,6 @@ class DSP extends FaustObject {
         return this;
     }
     ui($, box) {
-        let dropdownIcon = $("<i>").addClass(["dropdown", "icon", "box-ui-toggle"]).on("click", (e) => {
-            editor.children('.CodeMirror').add(faustUI).slideToggle(100, () => {
-                this.uiResize();
-                this.storage.showEditor = !this.storage.showEditor;
-            });
-        });
         let textarea = $("<textarea>").html(this.storage.code ? this.storage.code : box.args.length ? box.args[0] : "");
         let editor = $("<div>").addClass(["dsp-editor"]).append(textarea);
         let faustUI = $("<div>").addClass(["faust-ui"]);
@@ -338,10 +332,11 @@ class DSP extends FaustObject {
             }
             faustUI.append(faustUITabular);
         }
-        let container = super.defaultUI($, box);
-        container.append(faustUI).append(editor)
-            .find(".box-ui-text-container").append(dropdownIcon);
-        //container.data("resizeHandles", "e, w, n, s");
+        let container = super.defaultDropdownUI($, box);
+        container.find(".box-ui-dropdown-container").append(faustUI).append(editor);
+        container.find(".box-ui-toggle").on("click", (e) => {
+            this.storage.showEditor = !this.storage.showEditor;
+        });
         return container.ready(() => {
             let cm = CodeMirror.fromTextArea(textarea.get(0), {
                 lineNumbers: true,
@@ -370,9 +365,10 @@ class DSP extends FaustObject {
             cm.on("keydown", (cm, e) => {
                 if (e.key == "Delete" || e.key == "Backspace") e.stopPropagation();
             });
+            container.data("resizeVertical", false);
+            //container.data("resizeMinHeight", container.height());
             if (!this.storage.showEditor) {
-                faustUI.hide();
-                editor.children('.CodeMirror').hide();
+                container.find(".box-ui-toggle").click();
             }
             this.uiResize();
         });
@@ -394,7 +390,7 @@ class Diagram extends FaustObject {
         }
     }
     ui($, box) {
-        let src = $("<embed>").addClass("faust-diagram").css("width", "100%").css("height", "100%");
+        let src = $("<iframe>").addClass("faust-diagram").css("width", "100%").css("height", "auto").css("border", "0px");
         let container = super.defaultDropdownUI($, box);
         container.find(".box-ui-dropdown-container").append(src);
         if (!this._mem.code) return container;
@@ -415,6 +411,7 @@ class Diagram extends FaustObject {
                 this.error("Faust.Diagram", errorThrown);
             }
         })
+        container.data("resizeMinHeight", 120);
         return container;
     }
 }

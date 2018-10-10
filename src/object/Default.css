@@ -8,8 +8,9 @@ div.box-ui-default.box-ui-container {
 }
 
 div.box-ui-default.box-ui-container .box-ui-dropdown-container {
-    flex: 1 0 auto;
+    flex: 1 1 100%;
     display: flex;
+    flex-direction: column;
     width: 100%;
     border: rgb(125, 126, 132) solid;
     padding: 0px;
@@ -22,6 +23,7 @@ div.box-ui-default.box-ui-container .box-ui-toggle {
 
 div.box-ui-default.box-ui-text-container {
     display: inline-flex;
+    flex: 0 0 auto;
     padding: 0px 5px;
     width: 100%;
     color: white;

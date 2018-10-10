@@ -73,19 +73,32 @@ class BaseObject extends EventEmitter {
         textContainer.append(icon).append(span);
         let container = $("<div>").addClass([packageName, className, "box-ui-container", "box-ui-default"]);
         container.append(textContainer);
-        container.data("resizeHandles", "e, w");
+        container.data("resizeVertical", false);
         return container;
     }
     defaultDropdownUI($, box) {
+        let container = this.defaultUI($, box);
         let dropdownContainer = $("<div>").addClass(["box-ui-dropdown-container", "box-ui-default"]);
         let dropdownIcon = $("<i>").addClass(["dropdown", "icon", "box-ui-toggle"]).on("click", (e) => {
-            dropdownContainer.children().slideToggle(100, () => {
-                this.uiResize();
-            });
+            let parent = container.parents(".box");
+            if (dropdownContainer.children().is(":visible")) {
+                parent.data("prevHeight", parent.height()).height("auto");
+                dropdownContainer.children().slideUp(100, () => {
+                    container.data("resizeVertical", false);
+                    this.uiResize();
+                });
+            } else {
+                parent.height(parent.data("prevHeight"));
+                dropdownContainer.children().slideDown(100, () => {
+                    container.data("resizeVertical", true);
+                    this.uiResize();
+                });
+            }
         });
-        let container = this.defaultUI($, box);
         container.append(dropdownContainer)
         .find(".box-ui-text-container").append(dropdownIcon);
+        container.data("resizeVertical", true);
+        container.data("resizeMinHeight", 28);
         return container;
     }
     uiRefresh() {
