@@ -26,7 +26,7 @@ let box = function($, box) {
 	let id = box.id;
 	let ui = $("<div />").addClass("box-ui");
 	let div = $("<div />").attr({"id": id, "tabindex": 0}).addClass(["box", "box-default"]);
-	div.css({"left": rect[0], "top": rect[1], "width": rect[2]/**, "height": rect[3]**/});
+	div.css({"left": rect[0], "top": rect[1], "width": rect[2], "height": rect[3]});
 	div.append(inlets($, is)).append(outlets($, os)).append(ui);
 	return div;
 }

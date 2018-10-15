@@ -20,6 +20,8 @@ let keysPressed = {
 	}
 };
 
+let clipboard = {boxes : [], lines : []};
+
 $(document).ready(() => {
 	patcher.on("resetPatcher", (patcher) => {
 		$(".box").remove();
@@ -195,23 +197,7 @@ $(document).ready(() => {
 	$(document).on("keydown", (e) => {
 		keysPressed[e.key] = true;
 		if (e.key == "Delete" || e.key == "Backspace") { // delete selection
-			if (!patcher.state.locked) {
-				let boxIDs = [];
-				$(".box.selected").each((i) => {
-					boxIDs.push($(".box.selected").eq(i).attr("id"));
-				})
-				let lineIDs = [];
-				$(".line.selected").each((i) => {
-					lineIDs.push($(".line.selected").eq(i).attr("id"));
-				})
-				if (boxIDs.length + lineIDs.length > 0) patcher.newTimestamp();
-				boxIDs.forEach((id) => {
-					patcher.deleteBox(id);
-				})
-				lineIDs.forEach((id) => {
-					patcher.deleteLine(id);
-				})
-			}
+			$("#delete").click();
 			return;
 		}
 		if (e.key == "n") { // Ctrl + Shift + N
@@ -242,6 +228,41 @@ $(document).ready(() => {
 			}
 			return;
 		}
+		if (e.key == "c") { // Ctrl + C
+			if ((keysPressed._check("Control") || keysPressed._check("Command")) && !patcher.state.locked) {
+				$("#copy").click();
+				e.preventDefault();
+			}
+			return;
+		}
+		if (e.key == "v") { // Ctrl + V
+			if ((keysPressed._check("Control") || keysPressed._check("Command")) && !patcher.state.locked) {
+				$("#paste").click();
+				e.preventDefault();
+			}
+			return;
+		}
+		if (e.key == "x") { // Ctrl + X
+			if ((keysPressed._check("Control") || keysPressed._check("Command")) && !patcher.state.locked) {
+				$("#cut").click();
+				e.preventDefault();
+			}
+			return;
+		}
+		if (e.key == "a") { // Ctrl + A
+			if ((keysPressed._check("Control") || keysPressed._check("Command")) && !patcher.state.locked) {
+				$("#select_all").click();
+				e.preventDefault();
+			}
+			return;
+		}
+		if (e.key == "d") { // Ctrl + D
+			if ((keysPressed._check("Control") || keysPressed._check("Command")) && !patcher.state.locked) {
+				$("#duplicate").click();
+				e.preventDefault();
+			}
+			return;
+		}
 	}).on("keyup", (e) => {
 		keysPressed[e.key] = false;
 	});
@@ -257,6 +278,7 @@ $(document).ready(() => {
 		let box = {
 			patching_rect: [e.offsetX, e.offsetY, 100, 22],
 		}
+        patcher.newTimestamp();
 		box = patcher.createBox(box);
 		$("#" + box.id).mousedown().find("span").click();
 	}).on("dblclick", ".boxes div", (e) => {
@@ -353,7 +375,7 @@ $(document).ready(() => {
 	}).on("blur", ".box.selected", (e) => {
 		if (patcher.state.locked) return;
 		if (!$.contains($(".boxes").get(0), e.currentTarget)) return; //if deleted
-		$(e.currentTarget).removeClass("selected")
+		//$(e.currentTarget).removeClass("selected");
 		if ($(e.currentTarget).hasClass("resizable")) $(e.currentTarget).resizable("disable");
 	});
 	//lines
@@ -366,7 +388,7 @@ $(document).ready(() => {
 	}).on("blur", ".line.selected", (e) => {
 		if (patcher.state.locked) return;
 		if (!$.contains(document, $(e.currentTarget))) return; //if deleted
-		$(e.currentTarget).removeClass("selected");
+		//$(e.currentTarget).removeClass("selected");
 	});
 
 	//Menu
@@ -388,6 +410,52 @@ $(document).ready(() => {
 		patcher._history.undo();
 	}).on("click", "#redo", (e) => {
 		patcher._history.redo();
+	}).on("click", "#copy", (e) => {
+		clipboard = {boxes : [], lines : []};
+		$(".box.selected").each((i) => {
+			clipboard.boxes.push(patcher.boxes[$(".box.selected").eq(i).attr("id")]);
+		});
+		clipboard.lines = patcher.getLinesByBoxes(clipboard.boxes);
+	}).on("click", "#cut", (e) => {
+		clipboard = {boxes : [], lines : []};
+		$(".box.selected").each((i) => {
+			clipboard.boxes.push(patcher.boxes[$(".box.selected").eq(i).attr("id")]);
+		});
+		clipboard.lines = patcher.getLinesByBoxes(clipboard.boxes);
+		$("#delete").click();
+	}).on("click", "#paste", (e) => {
+		patcher.newTimestamp();
+		clipboard = patcher.paste(clipboard);
+		$(".box.selected, .line.selected").removeClass("selected");
+		for (const box of clipboard.boxes) {
+			$("#" + box.id).addClass("selected");
+		}
+		for (const line of clipboard.lines) {
+			$("#" + line.id).addClass("selected");
+		}
+	}).on("click", "#duplicate", (e) => {
+		$("#copy").click();
+		$("#paste").click();
+	}).on("click", "#select_all", (e) => {
+		$(".box, .line").addClass("selected");
+	}).on("click", "#delete", (e) => {
+		if (!patcher.state.locked) {
+			let boxIDs = [];
+			$(".box.selected").each((i) => {
+				boxIDs.push($(".box.selected").eq(i).attr("id"));
+			});
+			let lineIDs = [];
+			$(".line.selected").each((i) => {
+				lineIDs.push($(".line.selected").eq(i).attr("id"));
+			});
+			if (boxIDs.length + lineIDs.length > 0) patcher.newTimestamp();
+			lineIDs.forEach((id) => {
+				patcher.deleteLine(id);
+			});
+			boxIDs.forEach((id) => {
+				patcher.deleteBox(id);
+			});
+		}
 	}).on("click", "#show_sidebar", (e) => {
 		if ($("#sidebar").is(':visible')) hideSidebar();
 		else showSidebar();
@@ -627,14 +695,19 @@ let updateBoxIO = (id) => {
 			let closest = findClosestPort(ui.offset, isSrc);
 			if (!closest.length) return;
 			$(".box-port-highlight").removeClass("box-port-highlight");
-			if (isSrc) patcher.createLine({
+			let line;
+			if (isSrc) line = {
 				src: closest,
 				dest: [ui.helper.parents(".box").attr("id"), +ui.helper.attr("data-index")]
-			});
-			else patcher.createLine({
+			};
+			else line = {
 				src: [ui.helper.parents(".box").attr("id"), +ui.helper.attr("data-index")],
 				dest: closest
-			});
+			};
+			if (patcher.canCreateLine(line)) {
+				patcher.newTimestamp();
+				patcher.createLine(line);
+			}
 		}
 	});
 }

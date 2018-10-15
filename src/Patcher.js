@@ -131,7 +131,6 @@ export default class Patcher extends EventEmitter {
         if (!props.hasOwnProperty("id")) props.id = "box-" + ++this.boxIndexCount;
         let box = new Box(props, this);
         this.boxes[box.id] = box;
-        this.newTimestamp();
         this.emit("createBox", box);
         return box;
     }
@@ -152,13 +151,17 @@ export default class Patcher extends EventEmitter {
     }
 
     createLine(props) { //{src[], dest[]}
-        if (this.getLinesByIO(props.src[0], props.dest[0], props.src[1], props.dest[1]).length > 0) return;
+        if (!this.canCreateLine(props)) return;
         if (!props.hasOwnProperty("id")) props.id = "line-" + ++this.lineIndexCount;
         let line = new Line(props, this);
         this.lines[line.id] = line;
-        this.newTimestamp();
         this.emit("createLine", line);
         return line;
+    }
+    
+    canCreateLine(props) {
+        if (this.getLinesByIO(props.src[0], props.dest[0], props.src[1], props.dest[1]).length > 0) return false;
+        return true;
     }
 
     changeLineSrc(id, srcID, srcOutlet) {
@@ -273,6 +276,21 @@ export default class Patcher extends EventEmitter {
         return result;
     }
 
+    getLinesByObj(srcObj, destObj, srcOutlet, destInlet) {
+        let result = [], srcOut = [], destIn = [];
+        if (srcOutlet) srcOut = srcObj.outletLines[srcOutlet];
+        else srcOut = srcObj.outletLines.flat();
+        if (destInlet) destIn = destObj.inletLines[destInlet];
+        else destIn = destObj.inletLines.flat();
+        if (!srcOut || !destIn) return result;
+        for (const idOut of srcOut) {
+            for (const idIn of destIn) {
+                if (idIn == idOut) result.push(idIn);
+            }
+        }
+        return result;
+    }
+
     getObjByID(id) {
         return this.data[this.boxes[id].name][this.boxes[id].class];
     }
@@ -291,6 +309,7 @@ export default class Patcher extends EventEmitter {
     toString() {
         return JSON.stringify(this, (k, v) => {
             if (k.charAt(0) !== "_") return v;
+            if (v instanceof Array) return JSON.stringify(v);
 		}, 4)
     }
 
@@ -317,19 +336,74 @@ export default class Patcher extends EventEmitter {
             this._history.do("updateBoxRect", info);
         });
     }
+
     newTimestamp() {
         this._history.newTimestamp();
+        return this;
     }
+
+    paste(clipboard) { // {boxes : [], lines : []}
+        console.log(clipboard);
+        let idMap = {};
+		let pasted = {boxes : [], lines : []};
+        for (let box of clipboard.boxes) {
+            if (this.boxes.hasOwnProperty(box.id)) {
+                box = new Box(box, this);
+                idMap[box.id] = "box-" + ++this.boxIndexCount;
+                box.id = idMap[box.id];
+                box.name = idMap[box.id];
+            } else {
+                idMap[box.id] = box.id;
+            }
+            box.patching_rect[0] += 20;
+            box.patching_rect[1] += 20;
+            this.createBox(box);
+            pasted.boxes.push(box);
+        }
+        for (let line of clipboard.lines) {
+            if (this.lines.hasOwnProperty(line.id)) {
+                line = new Line(line, this);
+                line.id = "line-" + ++this.lineIndexCount;
+            }
+            line.src[0] = idMap[line.src[0]];
+            line.dest[0] = idMap[line.dest[0]];
+            this.createLine(line);
+            pasted.lines.push(line);
+        }
+        return pasted;
+    }
+    
+    getLinesByBoxes(boxes) {
+        let ids = [], lineIDs = [];
+        for (const box of boxes) {
+            ids.push(box.id);
+        }
+        for (const pair of Patcher.arrangement2(ids)) {
+            lineIDs = this.getLinesByIO(pair[0], pair[1]).concat(this.getLinesByIO(pair[1], pair[0]));
+        }
+        return lineIDs.map(id => this.lines[id]);
+    }
+
+    static arrangement2(arr) {
+        let res = [];
+        for (let i = 0; i < arr.length - 1; i++) {
+            for (let j = i + 1; j < arr.length; j++) {
+                res.push([arr[i], arr[j]]);
+            }
+        }
+        return res;
+    }
+
 }
 
 class History {
     constructor(patcher) {
-        this.newTimestamp();
         this._patcher = patcher;
         this.undoList = [];
         this.redoList = [];
         this.capture = true;
         this.events = {};
+        this.newTimestamp();
     }
     newTimestamp() {
         if (this.capture) this.timestamp = new Date().getTime();
@@ -347,8 +421,8 @@ class History {
         return this;
     }
     undo() {
-        this.capture = false;
         if (this.undoList.length === 0) return this;
+        this.capture = false;
         const eID = this.undoList.pop();
         if (this.events[eID].hasOwnProperty("deleteBox")) {
             for (const box of this.events[eID]["deleteBox"]) {
@@ -395,8 +469,8 @@ class History {
         return this;
     }
     redo() {
-        this.capture = false;
         if (this.redoList.length === 0) return this;
+        this.capture = false;
         const eID = this.redoList.pop();
         if (this.events[eID].hasOwnProperty("createBox")) {
             for (const box of this.events[eID]["createBox"]) {
@@ -628,6 +702,7 @@ class Line {
         this.disabled = true;
         let srcObj = this.srcObj;
         let destObj = this.destObj;
+        if (this._patcher.getLinesByObj(srcObj, destObj, this.src[1], this.dest[1]).length > 1) return this; // not last cable
         destObj.removeAllListeners(this.id);
         srcObj.disconnectedOutlet(this.src[1], destObj, this.dest[1], this.id);
         destObj.disconnectedInlet(this.dest[1], srcObj, this.src[1], this.id);
@@ -640,6 +715,7 @@ class Line {
         let srcObj = this.srcObj;
         let destObj = this.destObj;
         if (this.src[1] >= srcObj._outlets || this.dest[1] >= destObj._inlets) return this._patcher.deleteLine(this.id);
+        if (this._patcher.getLinesByObj(srcObj, destObj, this.src[1], this.dest[1]).length > 1) return this; // not last cable
         srcObj.connectedOutlet(this.src[1], destObj, this.dest[1], this.id);
         destObj.connectedInlet(this.dest[1], srcObj, this.src[1], this.id);
         destObj.on(this.id, (data) => {

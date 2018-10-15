@@ -115,7 +115,7 @@
                 885,
                 480,
                 225,
-                228
+                180
             ],
             "text": "WA.Oscilloscope 512",
             "args": [
@@ -136,7 +136,7 @@
                 1125,
                 480,
                 272,
-                228
+                180
             ],
             "text": "WA.Spectrogram 512",
             "args": [
@@ -181,7 +181,7 @@
                 870,
                 0,
                 733,
-                263.781
+                178
             ],
             "text": "Faust.Diagram",
             "args": [],
@@ -230,7 +230,7 @@
         }
     },
     "state": {
-        "locked": true,
+        "locked": false,
         "presentation": false,
         "showGrid": true
     },

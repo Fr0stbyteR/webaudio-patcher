@@ -74,7 +74,9 @@ class BaseObject extends EventEmitter {
         let container = $("<div>").addClass([packageName, className, "box-ui-container", "box-ui-default"]);
         container.append(textContainer);
         container.data("resizeVertical", false);
-        return container;
+        return container.ready(() => {
+            if (!container.data("resizeVertical")) container.parents(".box").height("auto");
+        });
     }
     defaultDropdownUI($, box) {
         let container = this.defaultUI($, box);

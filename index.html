@@ -72,8 +72,7 @@
         }
 
         #log {
-            display: block;
-            height: 100%;
+            display: table;
             overflow-y: auto;
             padding-top: 42px;
             font-size: .8em;
@@ -395,6 +394,32 @@
                         <span class="description">Ctrl + Y</span>
                         <span class="text">Redo</span>
                     </div>
+                    <div class="divider"></div>
+                    <div id="cut" class="item">
+                        <span class="description">Ctrl + X</span>
+                        <span class="text">Cut</span>
+                    </div>
+                    <div id="copy" class="item">
+                        <span class="description">Ctrl + C</span>
+                        <span class="text">Copy</span>
+                    </div>
+                    <div id="paste" class="item">
+                        <span class="description">Ctrl + V</span>
+                        <span class="text">Paste</span>
+                    </div>
+                    <div id="delete" class="item">
+                        <span class="description">Del</span>
+                        <span class="text">Delete</span>
+                    </div>
+                    <div class="divider"></div>
+                    <div id="duplicate" class="item">
+                        <span class="description">Ctrl + D</span>
+                        <span class="text">Duplicate</span>
+                    </div>
+                    <div id="select_all" class="item">
+                        <span class="description">Ctrl + A</span>
+                        <span class="text">Select All</span>
+                    </div>
                 </div>
             </div>
             <a id="show_sidebar" class="item right"><i class="list ui icon enabled"></i></a>
@@ -410,7 +435,7 @@
             <a id="audio_on" class="item right"><i class="power off icon"></i></a>
         </div>
     </div>
-    <div id="sidebar" class="ui inverted right internal attached rail">
+    <div id="sidebar" class="ui inverted">
         <div id="console">
             <table id="log" class="ui selectable inverted striped very compact small table">
                 <thead class="ui sticky fixed top">
