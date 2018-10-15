@@ -343,7 +343,6 @@ export default class Patcher extends EventEmitter {
     }
 
     paste(clipboard) { // {boxes : [], lines : []}
-        console.log(clipboard);
         let idMap = {};
 		let pasted = {boxes : [], lines : []};
         for (let box of clipboard.boxes) {

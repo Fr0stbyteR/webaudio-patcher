@@ -67,7 +67,6 @@ $(document).ready(() => {
 				})
 			}
 		}).resizable({
-			disabled: true,
 			handles: objUI.data("resizeVertical") ? "e, w, n, s, ne, se, sw, nw" : "e, w",
 			minHeight: 28,
 			grid: patcher.state.showGrid ? patcher.grid : [1, 1],
@@ -286,7 +285,6 @@ $(document).ready(() => {
 	}).on("mousedown touchstart", ".boxes", (e) => {
 		$(".editing").blur();
 		if (keysPressed._check("Control") || keysPressed._check("Command")) return;
-		$(".box.selected").resizable("disable");
 		$(".box.selected, .line.selected").removeClass("selected");
 	}).on("mousedown touchstart", ".box, .line", (e) => {
 		e.stopPropagation();
@@ -363,7 +361,7 @@ $(document).ready(() => {
 		
 		if (keysPressed._check("Control") || keysPressed._check("Command")) {
 			if ($(e.currentTarget).hasClass("selected")) {
-				$(e.currentTarget).removeClass("selected").resizable("disable");
+				$(e.currentTarget).removeClass("selected");
 			} else {
 				$(e.currentTarget).addClass("selected").resizable("enable").focus();
 			}
@@ -376,7 +374,6 @@ $(document).ready(() => {
 		if (patcher.state.locked) return;
 		if (!$.contains($(".boxes").get(0), e.currentTarget)) return; //if deleted
 		//$(e.currentTarget).removeClass("selected");
-		if ($(e.currentTarget).hasClass("resizable")) $(e.currentTarget).resizable("disable");
 	});
 	//lines
 	$(document).on("focus", ".line", (e) => {
@@ -731,9 +728,14 @@ let updateBoxUI = (box) => {
 }
 
 let updateBoxResizable = (objUI, id) => {
-	$("#" + id).resizable("option", "handles", objUI.data("resizeVertical") ? "e, w, n, s, ne, se, sw, nw" : "e, w")
-	if (objUI.data("resizeVertical")) {
-		if (objUI.data("resizeMinHeight")) $("#" + id).resizable("option", "minHeight", objUI.data("resizeMinHeight"));
+	let resizeVertical = objUI.data("resizeVertical");
+	let resizeMinHeight = objUI.data("resizeMinHeight");
+	$("#" + id).resizable("option", "handles", resizeVertical ? "e, w, n, s, ne, se, sw, nw" : "e, w")
+	if (resizeVertical) {
+		if (resizeMinHeight) {
+			$("#" + id).resizable("option", "minHeight", resizeMinHeight);
+			if ($("#" + id).height() < resizeMinHeight) $("#" + id).height(resizeMinHeight);
+		}
 	} else {
 		$("#" + id).resizable("option", "minHeight", 28)
 	}

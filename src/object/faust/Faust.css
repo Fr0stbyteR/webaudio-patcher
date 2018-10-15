@@ -1,5 +1,5 @@
 div.package-faust-dsp.box-ui-container .dsp-editor {
-    flex: 1 0 auto;
+    flex: 1 1 100%;
     display: flex;
     width: 100%;
     padding: 0px;

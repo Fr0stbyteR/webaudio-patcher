@@ -30,6 +30,7 @@
             position: relative;
             flex: 0 0 auto;
             width: 300px;
+            z-index: 100;
         }
 
         #menu {
@@ -60,7 +61,7 @@
             background: rgba(255, 255, 255, 0.2);
             border-radius: 0.1em;
             border: 0.1em solid rgba(255, 255, 255, 0.4);
-            z-index: 200;
+            z-index: 80;
         }
 
         #console {
@@ -177,7 +178,7 @@
             width: 6px;
             height: 6px;
             pointer-events: auto;
-            z-index: 100;
+            z-index: 50;
             visibility: hidden;
         }
 
@@ -349,6 +350,10 @@
             border-radius: 50%;
             height: 11px !important;
             width: 11px;
+        }
+        
+        div.box:not(.selected) .ui-resizable-handle {
+            display: none;
         }
 
         .ui-resizable-w {

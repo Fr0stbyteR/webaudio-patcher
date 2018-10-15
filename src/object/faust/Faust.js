@@ -365,8 +365,8 @@ class DSP extends FaustObject {
             cm.on("keydown", (cm, e) => {
                 if (e.key == "Delete" || e.key == "Backspace") e.stopPropagation();
             });
-            container.data("resizeVertical", false);
-            //container.data("resizeMinHeight", container.height());
+            let codeHeight = editor.find(".CodeMirror-sizer").height();
+            container.data("resizeMinHeight", 28 + faustUI.height() + (codeHeight > 120 ? 120 : codeHeight));
             if (!this.storage.showEditor) {
                 container.find(".box-ui-toggle").click();
             }
