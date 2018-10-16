@@ -279,9 +279,13 @@ export default class Patcher extends EventEmitter {
     getLinesByObj(srcObj, destObj, srcOutlet, destInlet) {
         let result = [], srcOut = [], destIn = [];
         if (srcOutlet) srcOut = srcObj.outletLines[srcOutlet];
-        else srcOut = srcObj.outletLines.flat();
+        else srcOut = srcObj.outletLines.reduce((acc, cur) => {
+            return acc.concat(cur);
+        }, []); // flat
         if (destInlet) destIn = destObj.inletLines[destInlet];
-        else destIn = destObj.inletLines.flat();
+        else destIn = destObj.inletLines.reduce((acc, cur) => {
+            return acc.concat(cur);
+        }, []);
         if (!srcOut || !destIn) return result;
         for (const idOut of srcOut) {
             for (const idIn of destIn) {
