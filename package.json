@@ -30,7 +30,7 @@
     "babel-loader": "^8.0.2",
     "codemirror": "^5.40.0",
     "css-loader": "^1.0.0",
-    "electron": "^2.0.9",
+    "electron": "^3.0.4",
     "eslint": "^5.5.0",
     "eslint-config-google": "^0.10.0",
     "eslint-loader": "^2.1.0",

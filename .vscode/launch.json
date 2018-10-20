@@ -9,7 +9,7 @@
             "request": "launch",
             "name": "启动程序",
             "cwd": "${workspaceRoot}",
-            "preLaunchTask": "webpack",
+            //"preLaunchTask": "webpack",
             "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
             "windows": {
                 "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"

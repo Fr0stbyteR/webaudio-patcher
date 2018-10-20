@@ -4,7 +4,7 @@ import {
 import Base from "./object/Base.js"
 import WA from "./object/WA.js"
 import JS from "./object/JS.js"
-import Max from "./object/Max.js"
+import Max from "./object/max/Max.js"
 import Faust from "./object/faust/Faust.js"
 let Packages = {
     Base,
@@ -13,6 +13,8 @@ let Packages = {
     Max,
     Faust
 };
+// TODO
+// patcher.imported = { alias : Object };
 
 export default class Patcher extends EventEmitter {
     constructor(patcher) {
@@ -27,7 +29,9 @@ export default class Patcher extends EventEmitter {
         this.data = {};
         this._log = [];
         this._history = new History(this);
+        this._lib = {};
         this._packages = Packages;
+        this.packageRegister(Packages);
         if (this.hasOwnProperty("_audioCtx") && this._audioCtx) this._audioCtx.close();
         this._audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         this._audioCtx.onstatechange = () => {
@@ -127,6 +131,23 @@ export default class Patcher extends EventEmitter {
         return patcher;
     }
 
+    packageRegister(pkg, path, count) {
+        for (const key in pkg) {
+            const el = pkg[key];
+            if (typeof el === "object") {
+                const full = path ? path + "." + key : key;
+                this.packageRegister(el, full);
+            } else if (typeof el === "function" && el.prototype instanceof Packages.Base.BaseObject) {
+                const full = path ? path + "." + key : key;
+                if (!this._lib.hasOwnProperty(key)) this._lib[key] = el;
+                if (this._lib.hasOwnProperty(full)) this.newLog(1, "Patcher", "Path duplicated, cannot register " + full);
+                else this._lib[full] = el;
+                count++;
+            } else continue;
+        }
+        return count;
+    }
+
     createBox(props) {
         if (!props.hasOwnProperty("id")) props.id = "box-" + ++this.boxIndexCount;
         let box = new Box(props, this);
@@ -224,18 +245,15 @@ export default class Patcher extends EventEmitter {
         let str = box.class;
         if (typeof str != "string" || str.length == 0) obj = new Packages.Base.EmptyObject(box, this);
         else {
-            try {
-                let arr = str.split(".");
-                let fn = Packages;
-                for (var i = 0, len = arr.length; i < len; i++) {
-                    fn = fn[arr[i]];
-                }
-                obj = new fn(box, this);
-            } catch (e) {
-                this.newLog(1, "Patcher", e);
+            if (this._lib.hasOwnProperty(str)) obj = new this._lib[str](box, this);
+            else {
+                this.newLog(1, "Patcher", "Object " + str + " not found.");
                 obj = new Packages.Base.InvalidObject(box, this);
             }
-            if (!(obj instanceof Packages.Base.BaseObject)) obj = new Packages.Base.InvalidObject(box, this);
+            if (!(obj instanceof Packages.Base.BaseObject)) {
+                this.newLog(1, "Patcher", "Object " + str + " is not valid.");
+                obj = new Packages.Base.InvalidObject(box, this);
+            }
         }
         this.emit("createObject", obj);
         return obj;

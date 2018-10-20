@@ -34,7 +34,7 @@ $(document).ready(() => {
 	patcher.on("createBox", (box) => {
 		let obj = patcher.getObjByID(box.id);
 		let dom = UIObj.box($, box);
-		let objUI = obj.ui($, box);
+		let objUI = obj.requestUI($, box);
 		dom.find(".box-ui").append(objUI);
 		$(".boxes").append(dom);
 		dom.draggable({
@@ -720,7 +720,7 @@ let updateBoxRect = (id) => {
 
 let updateBoxUI = (box) => {
 	let obj = patcher.getObjByID(box.id);
-	let objUI = obj.ui($, box);
+	let objUI = obj.newUI($, box);
 	$("#" + box.id).find(".box-ui").empty().append(objUI);
 	$("#" + box.id).find(".box-inlets").replaceWith(UIObj.inlets($, box.inlets))
 	$("#" + box.id).find(".box-outlets").replaceWith(UIObj.outlets($, box.outlets));

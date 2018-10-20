@@ -1,4 +1,8 @@
 /* eslint no-unused-vars: 0 */
+
+// TODO : 
+// this._alias = ["something"];
+
 import "./Base.css";
 import "./Default.css";
 import { EventEmitter } from "events";
@@ -16,6 +20,8 @@ class BaseObject extends EventEmitter {
         this._box = box;
         // one instance of object can have multiple boxes with same @name
         this._boxes = [box.id];
+        // all ui jQuery object, box.id : $ui
+        this._uiList = {};
         // inlets and outlets count
         this._inlets = 1;
         this._outlets = 1;
@@ -30,11 +36,37 @@ class BaseObject extends EventEmitter {
     update(args, props) {
         return this;
     }
-    // main function when receive data from a inlet (base 0);
+    // main function when receive data from a inlet (base 0)
     fn(data, inlet) {
         this.outlet(0, data);
     }
-    // build ui on page, return a div
+    // called by index.js
+    requestUI($, box) {
+        if (!this._uiList.hasOwnProperty(box.id)) this._uiList[box.ui] = this.ui($, box);
+        return this._uiList[box.ui];
+    }
+    newUI($, box) {
+        this._uiList[box.ui] = this.ui($, box);
+        return this._uiList[box.ui];
+    }
+    uiUpdate(props) {
+        this.emit("uiUpdate", props);
+        return this;
+    }
+    onUIUpdate(handler) {
+        this.on("uiUpdate", props => handler(props, this._ui));
+        return this;
+    }
+    // get all ui jquery object in one
+    get _ui() {
+        let obj = null;
+        for (const id in this._uiList) {
+            if (!obj) obj = this._uiList[id];
+            else obj.add(this._uiList[id]);
+        }
+        return obj;
+    } 
+    // build new ui on page, return a div, override this
     ui($, box) {
         return this.defaultUI($, box);
     }
@@ -103,7 +135,7 @@ class BaseObject extends EventEmitter {
         container.data("resizeMinHeight", 28);
         return container;
     }
-    uiRefresh() {
+    uiRedraw() {
         this._patcher.redrawBox(this._box);
         return this;
     }
@@ -129,6 +161,7 @@ class BaseObject extends EventEmitter {
     removeBox(id) {
         // remove this box from boxes list, if is last one, destroy instance
         this._boxes.splice(this._boxes.indexOf(id), 1);
+        delete this._uiList[id];
         if (this._boxes.length == 0) this.destroy();
         return this;
     }

@@ -77,7 +77,8 @@ class DSP extends FaustObject {
             this.outlet(1, {code : this.storage.code, params : this._mem.params, node : this._mem.node});
             this._connectAll();
             this._mem.compiled = true;
-            this.uiRefresh();
+            this.uiUpdate(this.storage);
+            this.uiUpdate(this._mem);
         }
         let updateCode = (code) => {
             if (this._mem.compiled && (code == this.storage.code)) return;
@@ -211,10 +212,6 @@ class DSP extends FaustObject {
         return this;
     }
     ui($, box) {
-        let textarea = $("<textarea>").html(this.storage.code ? this.storage.code : box.args.length ? box.args[0] : "");
-        let editor = $("<div>").addClass(["dsp-editor"]).append(textarea);
-        let faustUI = $("<div>").addClass(["faust-ui"]);
-        
         let _genFaustUI = ($, parent, items) => {
             for (let j = 0; j < items.length; j++) {
                 const item = items[j];
@@ -318,26 +315,35 @@ class DSP extends FaustObject {
             }
             return parent;
         }
-        if (this._mem.params && this._mem.params.hasOwnProperty("ui") && this._mem.params.ui.length) {
-            let faustUITabular = $("<div>").addClass(["ui", "bottom", "attached", "tabular", "mini", "menu"]);
-            for (let i = 0; i < this._mem.params.ui.length; i++) {
-                const group = this._mem.params.ui[i];
-                faustUITabular.append(
-                    $("<a>").addClass(["item", i == 0 ? "active" : ""])
-                    .attr("data-tab", i).html(group.label)
-                );
-                let tab = $("<div>").addClass(["faust-ui-group", "ui", "top", "attached", "tab", "segment", i == 0 ? "active" : ""]);
-                
-                faustUI.append(_genFaustUI($, tab, group.items));
-            }
-            faustUI.append(faustUITabular);
-        }
+        let textarea = $("<textarea>").html(this.storage.code ? this.storage.code : box.args.length ? box.args[0] : "");
+        let editor = $("<div>").addClass(["dsp-editor"]).append(textarea);
+        let faustUI = $("<div>").addClass(["faust-ui"]);
         let container = super.defaultDropdownUI($, box);
         container.find(".box-ui-dropdown-container").append(faustUI).append(editor);
         container.find(".box-ui-toggle").on("click", (e) => {
             this.storage.showEditor = !this.storage.showEditor;
         });
-        return container.ready(() => {
+        let uiUpdateHandler = (props, $box) => {
+            if (props.params && props.params.hasOwnProperty("ui") && props.params.ui.length) {
+                faustUI.empty();
+                let faustUITabular = $("<div>").addClass(["ui", "bottom", "attached", "tabular", "mini", "menu"]);
+                for (let i = 0; i < props.params.ui.length; i++) {
+                    const group = props.params.ui[i];
+                    faustUITabular.append(
+                        $("<a>").addClass(["item", i == 0 ? "active" : ""])
+                        .attr("data-tab", i).html(group.label)
+                    );
+                    let tab = $("<div>").addClass(["faust-ui-group", "ui", "top", "attached", "tab", "segment", i == 0 ? "active" : ""]);
+                    
+                    faustUI.append(_genFaustUI($, tab, group.items));
+                }
+                faustUI.append(faustUITabular);
+                this.uiResize();
+            }
+        }
+        uiUpdateHandler(this._mem);
+        this.onUIUpdate(uiUpdateHandler);
+        container.ready(() => {
             let cm = CodeMirror.fromTextArea(textarea.get(0), {
                 lineNumbers: true,
                 minFoldSize: 5,
@@ -365,13 +371,21 @@ class DSP extends FaustObject {
             cm.on("keydown", (cm, e) => {
                 if (e.key == "Delete" || e.key == "Backspace") e.stopPropagation();
             });
-            let codeHeight = editor.find(".CodeMirror-sizer").height();
-            container.data("resizeMinHeight", 28 + faustUI.height() + (codeHeight > 120 ? 120 : codeHeight));
+            let uiUpdateHandler = (props, $box) => {
+                if (props.hasOwnProperty("code") && props.code) {
+                    cm.setValue(props.code);
+                    let codeHeight = editor.find(".CodeMirror-sizer").height();
+                    container.data("resizeMinHeight", 28 + faustUI.height() + (codeHeight > 120 ? 120 : codeHeight));
+                    this.uiResize();
+                }
+            }
+            uiUpdateHandler(this.storage);
+            this.onUIUpdate(uiUpdateHandler);
             if (!this.storage.showEditor) {
                 container.find(".box-ui-toggle").click();
             }
-            this.uiResize();
         });
+        return container;
     }
 }
 
@@ -386,32 +400,37 @@ class Diagram extends FaustObject {
     fn(data, inlet) {
         if (data && data.hasOwnProperty("code") && data.code) {
             this._mem.code = data.code;
-            this.uiRefresh();
+            this.uiUpdate(this._mem);
         }
     }
     ui($, box) {
         let src = $("<iframe>").addClass("faust-diagram").css("width", "100%").css("height", "auto").css("border", "0px");
         let container = super.defaultDropdownUI($, box);
         container.find(".box-ui-dropdown-container").append(src);
-        if (!this._mem.code) return container;
-        let formData = new FormData();
-        formData.append("file", new File([this._mem.code], "temp.dsp"));
-        $.ajax({
-            url : "https://faustservice.grame.fr/filepost",
-            type : "POST",
-            data : formData,
-            cache : false,
-            contentType : false,
-            processData : false,
-            success : (data, textStatus, jqXHR) => {
-                src.attr("src", "https://faustservice.grame.fr/" + data + "/diagram/process.svg");
-                this.uiResize();
-            },
-            error : (jqXHR, textStatus, errorThrown) => {
-                this.error("Faust.Diagram", errorThrown);
+        let uiUpdateHandler = (props, $box) => {
+            if (props.hasOwnProperty("code") && props.code) {
+                let formData = new FormData();
+                formData.append("file", new File([this._mem.code], "temp.dsp"));
+                $.ajax({
+                    url : "https://faustservice.grame.fr/filepost",
+                    type : "POST",
+                    data : formData,
+                    cache : false,
+                    contentType : false,
+                    processData : false,
+                    success : (data, textStatus, jqXHR) => {
+                        src.attr("src", "https://faustservice.grame.fr/" + data + "/diagram/process.svg");
+                        container.data("resizeMinHeight", 120);
+                        this.uiResize();
+                    },
+                    error : (jqXHR, textStatus, errorThrown) => {
+                        this.error("Faust.Diagram", errorThrown);
+                    }
+                })
             }
-        })
-        container.data("resizeMinHeight", 120);
+        }
+        uiUpdateHandler(this._mem);
+        this.onUIUpdate(uiUpdateHandler);
         return container;
     }
 }
