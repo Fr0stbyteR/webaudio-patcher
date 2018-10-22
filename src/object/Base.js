@@ -78,7 +78,7 @@ class BaseObject extends EventEmitter {
         let packageName = "package-" + this._package;
         let className = "package-" + this._package + "-" + this.constructor.name.toLowerCase();
         let textContainer = $("<div>").addClass(["box-ui-text-container", "box-ui-default"]);
-        let icon = $("<i>").addClass([this._icon, "icon"]);
+        let icon = $("<i>").addClass(["mini", this._icon, "icon"]);
         let span = $("<span>").attr({
                 "contenteditable": false,
             }).html(box.text)
@@ -113,7 +113,7 @@ class BaseObject extends EventEmitter {
     defaultDropdownUI($, box) {
         let container = this.defaultUI($, box);
         let dropdownContainer = $("<div>").addClass(["box-ui-dropdown-container", "box-ui-default"]);
-        let dropdownIcon = $("<i>").addClass(["dropdown", "icon", "box-ui-toggle"]).on("click", (e) => {
+        let dropdownIcon = $("<i>").addClass(["mini", "dropdown", "icon", "box-ui-toggle"]).on("click", (e) => {
             let parent = container.parents(".box");
             if (dropdownContainer.children().is(":visible")) {
                 parent.data("prevHeight", parent.height()).height("auto");
@@ -274,7 +274,7 @@ class Button extends BaseObject {
     ui($, box) {
         return $("<button>")
         .addClass(["package-" + this._package, "package-" + this._package + "-" + this.constructor.name.toLowerCase()])
-        .addClass(["ui", "mini", "icon", "button"])
+        .addClass(["ui", "mini", "button"])
         .text(this._mem.text).on("click", (e) => {
             this.outlet(0, new Bang());
         });
@@ -293,6 +293,78 @@ class Print extends BaseObject {
     fn(data, inlet) {
         if (typeof data == "object") this.post("print", data.constructor.name + JSON.stringify(data));
         else this.post("print", JSON.stringify(data));
+    }
+}
+
+class Message extends BaseObject {
+    constructor(box, patcher) {
+        super(box, patcher);
+        this._inlets = 2;
+        this._outlets = 1;
+        this._mem.buffer = null;
+        if (!this.storage.hasOwnProperty("text")) {
+            this.storage.text = box.args && box.args[0] ? box.args[0] : "";
+        }
+        this.update([this.storage.text]);
+    }
+    fn(data, inlet) {
+        if (inlet == 0) {
+            this.outlet(0, this._mem.buffer);
+            return;
+        }
+        if (inlet == 1) {
+            this.update([JSON.stringify(data)]);
+        }
+    }
+    ui($, box) {
+        let packageName = "package-" + this._package;
+        let className = "package-" + this._package + "-" + this.constructor.name.toLowerCase();
+        let container = $("<div>").addClass([packageName, className, "box-ui-container"]);
+        let textContainer = $("<div>").addClass(["box-ui-text-container", "ui", "mini", "button"]).attr({
+                "contenteditable": false,
+            }).html(box.text)
+            .on("click", (e) => {
+                if (this._patcher.state.locked) {
+                    this.outlet(0, this._mem.buffer);
+                    return;
+                }
+                if ($(e.currentTarget).parents(".ui-draggable").hasClass("dragged")) return;
+                if ($(e.currentTarget).hasClass("editing")) return;
+                $(e.currentTarget).attr("contenteditable", true).addClass("editing").parents(".ui-draggable").draggable("disable");
+                let range = document.createRange();
+                let selection = window.getSelection();
+                range.selectNodeContents($(e.currentTarget)[0]);
+                selection.removeAllRanges();
+                selection.addRange(range);
+            }).on("blur", (e) => {
+                $(e.currentTarget).attr("contenteditable", false).removeClass("editing").parents(".ui-draggable").draggable("enable");
+                window.getSelection().removeAllRanges();
+                if ($(e.currentTarget).text() != box.text) this.update([$(e.currentTarget).text()]);
+            }).on("keydown", (e) => {
+                if ($(e.currentTarget).hasClass("editing")) {
+                    if (e.key == "Enter") $(e.currentTarget).blur().parents(".box").focus();
+                    if (e.key == "Delete" || e.key == "Backspace") e.stopPropagation();
+                }
+            });
+        container.append(textContainer);
+        container.data("resizeVertical", false);
+        let uiUpdateHandler = (props, $box) => {
+            if (props.hasOwnProperty("text")) textContainer.html(props.text);
+        }
+        uiUpdateHandler(this.storage);
+        this.onUIUpdate(uiUpdateHandler);
+        return container;
+    }
+    update(args, props) {
+        if (args && args[0]) {
+            this.storage.text = args[0];
+            this.uiUpdate({text : args[0]});
+            try {
+                this._mem.buffer = JSON.parse(args[0]);
+            } catch (e) {
+                this._mem.buffer = args[0];
+            }
+        }
     }
 }
 
@@ -368,6 +440,7 @@ export default {
     BaseObject,
     Bang,
     Button,
+    Message,
     Print,
     Utils
 }

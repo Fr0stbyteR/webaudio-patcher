@@ -48,8 +48,13 @@ div.box-ui-default.box-ui-text-container:last-child {
 div.box-ui-default.box-ui-text-container span {
     word-break: break-all;
     width: 100%;
-    line-height: 20px;
+    line-height: 14px;
     font-weight: normal;
+}
+
+
+div.box-ui-default.box-ui-text-container i.icon {
+    line-height: 14px;
 }
 
 div.box-ui-default.box-ui-text-container span.editing {

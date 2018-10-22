@@ -1,8 +1,26 @@
 button.package-base-button {
-    padding: 4px 5px;
+    word-break: break-all;
+    padding: 4px 5px !important;
     width: 100%;
-    line-height: 20px;
-    font-weight: normal;
+    line-height: 14px !important;
+    font-weight: normal !important;
+}
+
+div.package-base-message .box-ui-text-container {
+    word-break: break-all;
+    text-align: left;
+    padding: 4px 5px !important;
+    width: 100%;
+    line-height: 14px !important;
+    font-weight: normal !important;
+}
+
+div.package-base-message .box-ui-text-container:empty::before {
+    content: "\200b";
+}
+
+#patcher.unlocked div.package-base-message .box-ui-text-container {
+    cursor: default;
 }
 
 div.package-base-invalidobject .box-ui-text-container {
