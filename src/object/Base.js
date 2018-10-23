@@ -359,7 +359,7 @@ class Message extends BaseObject {
         return container;
     }
     update(args, props) {
-        if (args && args[0]) {
+        if (args && typeof args[0] === "string") {
             this.storage.text = args[0];
             this.uiUpdate({text : args[0]});
             try {
