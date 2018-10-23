@@ -132,7 +132,7 @@ class BaseObject extends EventEmitter {
         container.append(dropdownContainer)
         .find(".box-ui-text-container").append(dropdownIcon);
         container.data("resizeVertical", true);
-        container.data("resizeMinHeight", 28);
+        container.data("resizeMinHeight", 22);
         return container;
     }
     uiRedraw() {
@@ -146,8 +146,11 @@ class BaseObject extends EventEmitter {
     // use this function to output data with ith outlet.
     outlet(i, data) {
         if (i >= this._outlets) return;
-        for (let j = 0; j < this.outletLines[i].length; j++) {
-            const lineID = this.outletLines[i][j];
+        let outletLines = this.outletLines[i].sort((id1, id2) => {
+            return this._patcher.lines[id2].positionHash - this._patcher.lines[id1].positionHash;
+        });
+        for (let j = 0; j < outletLines.length; j++) {
+            const lineID = outletLines[j];
             this._patcher.lines[lineID].emit(data);
         }
     }
@@ -155,7 +158,7 @@ class BaseObject extends EventEmitter {
         delete this._patcher.data[this._box.name][this._box.class]; //TODO doesnt work class package
     }
     addBox(id) {
-        this._boxes.push(id);
+        if (this._boxes.indexOf(id) == -1) this._boxes.push(id);
         return this;
     }
     removeBox(id) {
@@ -272,7 +275,7 @@ class Button extends BaseObject {
         this.outlet(0, new Bang());
     }
     ui($, box) {
-        return $("<button>")
+        return $("<div>")
         .addClass(["package-" + this._package, "package-" + this._package + "-" + this.constructor.name.toLowerCase()])
         .addClass(["ui", "mini", "button"])
         .text(this._mem.text).on("click", (e) => {

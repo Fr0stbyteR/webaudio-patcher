@@ -1,4 +1,4 @@
-button.package-base-button {
+div.package-base-button {
     word-break: break-all;
     padding: 4px 5px !important;
     width: 100%;
@@ -21,6 +21,10 @@ div.package-base-message .box-ui-text-container:empty::before {
 
 #patcher.unlocked div.package-base-message .box-ui-text-container {
     cursor: default;
+}
+
+#patcher.unlocked div.package-base-message .box-ui-text-container.editing {
+    cursor: text;
 }
 
 div.package-base-invalidobject .box-ui-text-container {

@@ -629,6 +629,7 @@ class Box {
         if (Object.keys(this._patcher.data[this.name]).length == 0) delete this._patcher.data[this.name];
         delete this._patcher.boxes[this.id];
     }
+    
     get object() {
         return this._patcher.data[this.name][this.class];
     }
@@ -686,10 +687,11 @@ class Box {
 class Line {
     constructor(props, patcher) {
         this._patcher = patcher;
-        this.src = [props.src[0], props.src[1]];
-        this.dest = [props.dest[0], props.dest[1]];
+        this.src = [props.src[0], props.src[1]]; // box id, box outlet
+        this.dest = [props.dest[0], props.dest[1]]; // box id. box inlet
         this.id = props.id;
         this.disabled = true;
+        this.positionHash = Line.calcPositionHash(this._patcher.boxes[this.dest[0]].patching_rect, this.dest[1], this._patcher.boxes[this.dest[0]].inlets);
         this.enable();
     }
     emit(data) {
@@ -743,6 +745,9 @@ class Line {
             destObj.fn(data, this.dest[1])
         });
         return this;
+    }
+    static calcPositionHash(rect, port, portCount) {
+        return ((rect[0] + 10) + (rect[2] - 20) * (port / portCount - 1)) * 65536 + rect[1] + rect[3];
     }
     get srcID() {
         return this.src[0];

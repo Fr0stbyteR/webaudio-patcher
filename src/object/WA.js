@@ -103,6 +103,7 @@ class Oscilloscope extends WANode {
             let h = canvas.get(0).height;
             let l = this._mem.node.frequencyBinCount;
             let draw = () => {
+                if (this._patcher._audioCtx.state != "running") return requestAnimationFrame(draw);
                 this._mem.node.getByteTimeDomainData(this._mem.data);
                 canvasCtx.fillRect(0, 0, w, h);
                 canvasCtx.beginPath();
@@ -113,7 +114,7 @@ class Oscilloscope extends WANode {
                     else canvasCtx.lineTo(x, y);
                 }
                 canvasCtx.stroke();
-                requestAnimationFrame(draw);
+                return requestAnimationFrame(draw);
             };
             draw();
         });
@@ -147,6 +148,7 @@ class Spectrogram extends WANode {
             let h = canvas.get(0).height;
             let l = this._mem.node.frequencyBinCount;
             let draw = () => {
+                if (this._patcher._audioCtx.state != "running") return requestAnimationFrame(draw);
                 this._mem.node.getByteFrequencyData(this._mem.data);
                 canvasCtx.fillStyle = "#000000";
                 canvasCtx.fillRect(0, 0, w, h);
@@ -156,7 +158,7 @@ class Spectrogram extends WANode {
                     let y = this._mem.data[i] / 128.0 * h;
                     canvasCtx.fillRect(x, h - y, w / l, y);
                 }
-                requestAnimationFrame(draw);
+                return requestAnimationFrame(draw);
             };
             draw();
         });

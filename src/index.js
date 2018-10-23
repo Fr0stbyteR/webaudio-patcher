@@ -68,7 +68,7 @@ $(document).ready(() => {
 			}
 		}).resizable({
 			handles: objUI.data("resizeVertical") ? "e, w, n, s, ne, se, sw, nw" : "e, w",
-			minHeight: 28,
+			minHeight: 22,
 			grid: patcher.state.showGrid ? patcher.grid : [1, 1],
 			resize: (event, ui) => {
 				updateLineByBox(ui.helper.attr("id"));
@@ -576,6 +576,7 @@ let updateLine = (id) => {
 	let handlerPos = findHandlerPosLine(id);
 	$("#" + id).find(".line-handler-dest").first().css("left", handlerPos[2]).css("top", handlerPos[3])
 		.siblings(".line-handler-src").first().css("left", handlerPos[0]).css("top", handlerPos[1]);
+	lineObj.positionHash = dest[0] * 65536 + dest[1];
 }
 
 let drawLine = (id, start, end) => {
@@ -737,7 +738,7 @@ let updateBoxResizable = (objUI, id) => {
 			if ($("#" + id).height() < resizeMinHeight) $("#" + id).height(resizeMinHeight);
 		}
 	} else {
-		$("#" + id).resizable("option", "minHeight", 28)
+		$("#" + id).resizable("option", "minHeight", 22)
 	}
 	$("#" + id).find(".ui-resizable-handle").css("display", "");
 }
