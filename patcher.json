@@ -11,7 +11,7 @@
             ],
             "id": "line-39",
             "disabled": false,
-            "positionHash": 58655240
+            "positionHash": 57671915
         },
         "line-40": {
             "src": [
@@ -24,7 +24,7 @@
             ],
             "id": "line-40",
             "disabled": false,
-            "positionHash": 74383880
+            "positionHash": 26214635
         },
         "line-41": {
             "src": [
@@ -37,7 +37,7 @@
             ],
             "id": "line-41",
             "disabled": false,
-            "positionHash": 656180
+            "positionHash": 655805
         },
         "line-46": {
             "src": [
@@ -50,23 +50,23 @@
             ],
             "id": "line-46",
             "disabled": false,
-            "positionHash": 57671720
+            "positionHash": 43057192
         }
     },
     "boxes": {
         "box-8": {
             "id": "box-8",
+            "text": "WA.Destination",
             "name": "box-8",
             "class": "WA.Destination",
             "inlets": 1,
             "outlets": 0,
             "patching_rect": [
                 0,
-                780,
+                405,
                 126,
-                28
+                22
             ],
-            "text": "WA.Destination",
             "args": [],
             "props": {},
             "prevData": {
@@ -75,17 +75,17 @@
         },
         "box-25": {
             "id": "box-25",
+            "text": "Faust.DSP  @bufferSize 1024",
             "name": "box-25",
             "class": "Faust.DSP",
             "inlets": 1,
             "outlets": 2,
             "patching_rect": [
                 0,
-                285,
+                0,
                 855,
-                364.469
+                379.469
             ],
-            "text": "Faust.DSP  @bufferSize 1024",
             "args": [],
             "props": {
                 "bufferSize": 1024
@@ -99,19 +99,19 @@
         },
         "box-26": {
             "id": "box-26",
+            "text": "WA.Oscilloscope 512",
             "name": "box-26",
             "class": "WA.Oscilloscope",
             "inlets": 1,
             "outlets": 0,
             "patching_rect": [
-                885,
-                480,
+                870,
+                195,
                 225,
                 180
             ],
-            "text": "WA.Oscilloscope 512",
             "args": [
-                "512"
+                512
             ],
             "props": {},
             "prevData": {
@@ -120,19 +120,19 @@
         },
         "box-27": {
             "id": "box-27",
+            "text": "WA.Spectrogram 512",
             "name": "box-27",
             "class": "WA.Spectrogram",
             "inlets": 1,
             "outlets": 0,
             "patching_rect": [
-                1125,
-                480,
+                1110,
+                195,
                 272,
                 180
             ],
-            "text": "WA.Spectrogram 512",
             "args": [
-                "512"
+                512
             ],
             "props": {},
             "prevData": {
@@ -141,6 +141,7 @@
         },
         "box-29": {
             "id": "box-29",
+            "text": "Faust.Diagram",
             "name": "box-29",
             "class": "Faust.Diagram",
             "inlets": 1,
@@ -148,38 +149,13 @@
             "patching_rect": [
                 870,
                 0,
-                733,
+                508,
                 178
             ],
-            "text": "Faust.Diagram",
             "args": [],
             "props": {},
             "prevData": {
                 "storage": {}
-            }
-        },
-        "box-28": {
-            "id": "box-28",
-            "name": "box-28",
-            "class": "Faust.DSP",
-            "inlets": 1,
-            "outlets": 2,
-            "patching_rect": [
-                0,
-                0,
-                854,
-                238.875
-            ],
-            "text": "Faust.DSP @bufferSize 1024",
-            "args": [],
-            "props": {
-                "bufferSize": 1024
-            },
-            "prevData": {
-                "storage": {
-                    "showEditor": true,
-                    "code": "import(\"stdfaust.lib\");\nt = checkbox(\"enable\");\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsigs(f) = par(i, 4, t * osc(f * (i + 1)));\nprocess = sigs(220);"
-                }
             }
         }
     },
@@ -216,20 +192,11 @@
                 "_boxes": "[\"box-29\"]",
                 "storage": {}
             }
-        },
-        "box-28": {
-            "Faust.DSP": {
-                "_boxes": "[\"box-28\"]",
-                "storage": {
-                    "showEditor": true,
-                    "code": "import(\"stdfaust.lib\");\nt = checkbox(\"enable\");\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsigs(f) = par(i, 4, t * osc(f * (i + 1)));\nprocess = sigs(220);"
-                }
-            }
         }
     },
-    "_log": "[[1,\"Faust.DSP\",\"Compilation of Factory failed FaustDSP : 5 : ERROR : undefined symbol : sigs\\n\"]]",
+    "_log": "[]",
     "state": {
-        "locked": true,
+        "locked": false,
         "presentation": false,
         "showGrid": true
     },
