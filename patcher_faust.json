@@ -10,8 +10,7 @@
                 0
             ],
             "id": "line-39",
-            "disabled": false,
-            "positionHash": 58655240
+            "disabled": false
         },
         "line-40": {
             "src": [
@@ -23,8 +22,7 @@
                 0
             ],
             "id": "line-40",
-            "disabled": false,
-            "positionHash": 74383880
+            "disabled": false
         },
         "line-41": {
             "src": [
@@ -36,8 +34,19 @@
                 0
             ],
             "id": "line-41",
-            "disabled": false,
-            "positionHash": 656180
+            "disabled": false
+        },
+        "line-45": {
+            "src": [
+                "box-28",
+                0
+            ],
+            "dest": [
+                "box-25",
+                0
+            ],
+            "id": "line-45",
+            "disabled": false
         },
         "line-46": {
             "src": [
@@ -49,8 +58,7 @@
                 0
             ],
             "id": "line-46",
-            "disabled": false,
-            "positionHash": 57671720
+            "disabled": false
         }
     },
     "boxes": {
@@ -81,9 +89,9 @@
             "outlets": 2,
             "patching_rect": [
                 0,
-                285,
+                195,
                 855,
-                364.469
+                514.469
             ],
             "text": "Faust.DSP  @bufferSize 1024",
             "args": [],
@@ -93,7 +101,7 @@
             "prevData": {
                 "storage": {
                     "showEditor": true,
-                    "code": "import(\"stdfaust.lib\");\nt = checkbox(\"enable\");\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsigs(f) = par(i, 4, t * osc(f * (i + 1)));\nselector(f, s) = s : par(i, ba.count(s), \n    sqrt(max(1 - abs(f - 1 - i), 0)) * _\n) :> _;\nprocess = selector(hslider(\"selector\", 0, 0, 5, 0.01) : si.smooth(0.999), sigs(220)), 0; "
+                    "code": "import(\"stdfaust.lib\");\nsig = ba.pulsen(1, 5000) : pm.djembe(60, 0.3, 0.4, 1);\necho(t, fb) = + ~ (@((t / 1000) * ma.SR) : *(fb));\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nsaw(f) = (phasor(f) - 0.5) * 2;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsquare(f) = (phasor(f) > 0.5) * 2 - 1;\npan(v) = @(*(lGain), rGain * delHead), @(*(rGain), lGain * delHead) with {\n    rGain = v : si.smooth(0.999) : min(1.) : max(0.) : sqrt;\n    lGain = (1 - rGain) : sqrt;\n\tdelHead = ma.SR * 0.2 / 340;\n};\n\nprocess(i1) = i1 : echo(delay, fb) <: pan(osc(f) * depth) with {\n  fb = hslider(\"fb\", 0.65, 0, 1, 0.01);\n  delay = hslider(\"delay\", 50, 20, 2000, 1);\n  f = hslider(\"freq\", 1, 0, 20, 0.1);\n  depth = hslider(\"depth\", 1, 0, 1, 0.01);\n}; "
                 }
             }
         },
@@ -139,6 +147,30 @@
                 "storage": {}
             }
         },
+        "box-28": {
+            "id": "box-28",
+            "name": "box-28",
+            "class": "Faust.DSP",
+            "inlets": 1,
+            "outlets": 2,
+            "patching_rect": [
+                0,
+                0,
+                854,
+                164.875
+            ],
+            "text": "Faust.DSP @bufferSize 1024",
+            "args": [],
+            "props": {
+                "bufferSize": 1024
+            },
+            "prevData": {
+                "storage": {
+                    "showEditor": true,
+                    "code": "import(\"stdfaust.lib\");\nprocess = checkbox(\"enable\") * (ba.pulsen(1, 10000) : pm.djembe(60, 0.3, 0.4, 1));  "
+                }
+            }
+        },
         "box-29": {
             "id": "box-29",
             "name": "box-29",
@@ -157,83 +189,52 @@
             "prevData": {
                 "storage": {}
             }
-        },
-        "box-28": {
-            "id": "box-28",
-            "name": "box-28",
-            "class": "Faust.DSP",
-            "inlets": 1,
-            "outlets": 2,
-            "patching_rect": [
-                0,
-                0,
-                854,
-                238.875
-            ],
-            "text": "Faust.DSP @bufferSize 1024",
-            "args": [],
-            "props": {
-                "bufferSize": 1024
-            },
-            "prevData": {
-                "storage": {
-                    "showEditor": true,
-                    "code": "import(\"stdfaust.lib\");\nt = checkbox(\"enable\");\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsigs(f) = par(i, 4, t * osc(f * (i + 1)));\nprocess = sigs(220);"
-                }
-            }
         }
     },
     "data": {
         "box-8": {
             "WA.Destination": {
-                "_boxes": "[\"box-8\"]",
                 "storage": {}
             }
         },
         "box-25": {
             "Faust.DSP": {
-                "_boxes": "[\"box-25\"]",
                 "storage": {
                     "showEditor": true,
-                    "code": "import(\"stdfaust.lib\");\nt = checkbox(\"enable\");\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsigs(f) = par(i, 4, t * osc(f * (i + 1)));\nselector(f, s) = s : par(i, ba.count(s), \n    sqrt(max(1 - abs(f - 1 - i), 0)) * _\n) :> _;\nprocess = selector(hslider(\"selector\", 0, 0, 5, 0.01) : si.smooth(0.999), sigs(220)), 0; "
+                    "code": "import(\"stdfaust.lib\");\nsig = ba.pulsen(1, 5000) : pm.djembe(60, 0.3, 0.4, 1);\necho(t, fb) = + ~ (@((t / 1000) * ma.SR) : *(fb));\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nsaw(f) = (phasor(f) - 0.5) * 2;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsquare(f) = (phasor(f) > 0.5) * 2 - 1;\npan(v) = @(*(lGain), rGain * delHead), @(*(rGain), lGain * delHead) with {\n    rGain = v : si.smooth(0.999) : min(1.) : max(0.) : sqrt;\n    lGain = (1 - rGain) : sqrt;\n\tdelHead = ma.SR * 0.2 / 340;\n};\n\nprocess(i1) = i1 : echo(delay, fb) <: pan(osc(f) * depth) with {\n  fb = hslider(\"fb\", 0.65, 0, 1, 0.01);\n  delay = hslider(\"delay\", 50, 20, 2000, 1);\n  f = hslider(\"freq\", 1, 0, 20, 0.1);\n  depth = hslider(\"depth\", 1, 0, 1, 0.01);\n}; "
                 }
             }
         },
         "box-26": {
             "WA.Oscilloscope": {
-                "_boxes": "[\"box-26\"]",
                 "storage": {}
             }
         },
         "box-27": {
             "WA.Spectrogram": {
-                "_boxes": "[\"box-27\"]",
-                "storage": {}
-            }
-        },
-        "box-29": {
-            "Faust.Diagram": {
-                "_boxes": "[\"box-29\"]",
                 "storage": {}
             }
         },
         "box-28": {
             "Faust.DSP": {
-                "_boxes": "[\"box-28\"]",
                 "storage": {
                     "showEditor": true,
-                    "code": "import(\"stdfaust.lib\");\nt = checkbox(\"enable\");\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsigs(f) = par(i, 4, t * osc(f * (i + 1)));\nprocess = sigs(220);"
+                    "code": "import(\"stdfaust.lib\");\nprocess = checkbox(\"enable\") * (ba.pulsen(1, 10000) : pm.djembe(60, 0.3, 0.4, 1));  "
                 }
+            }
+        },
+        "box-29": {
+            "Faust.Diagram": {
+                "storage": {}
             }
         }
     },
-    "_log": "[[1,\"Faust.DSP\",\"Compilation of Factory failed FaustDSP : 5 : ERROR : undefined symbol : sigs\\n\"]]",
     "state": {
-        "locked": true,
+        "locked": false,
         "presentation": false,
         "showGrid": true
     },
-    "boxIndexCount": 30,
+    "boxIndexCount": 29,
     "lineIndexCount": 46,
     "bgcolor": [
         61,

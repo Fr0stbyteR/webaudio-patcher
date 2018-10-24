@@ -1,20 +1,20 @@
-import {
-    EventEmitter
-} from "events";
-import Base from "./object/Base.js"
-import WA from "./object/WA.js"
-import JS from "./object/JS.js"
-import Max from "./object/max/Max.js"
-import Faust from "./object/faust/Faust.js"
+import { EventEmitter } from "events";
+import * as Util from "util";
+import Base from "./object/Base.js";
+import WA from "./object/WA.js";
+import JS from "./object/JS.js";
+import Max from "./object/max/Max.js";
+import Faust from "./object/faust/Faust.js";
+import AutoImporter from "./object/AutoImporter.js";
+import * as TF from "@tensorflow/tfjs";
 let Packages = {
     Base,
     WA,
     JS,
     Max,
-    Faust
+    Faust,
+    TF : AutoImporter.importer(TF, 2)
 };
-// TODO
-// patcher.imported = { alias : Object };
 
 export default class Patcher extends EventEmitter {
     constructor(patcher) {
@@ -152,6 +152,7 @@ export default class Patcher extends EventEmitter {
         if (!props.hasOwnProperty("id")) props.id = "box-" + ++this.boxIndexCount;
         let box = new Box(props, this);
         this.boxes[box.id] = box;
+        box.init();
         this.emit("createBox", box);
         return box;
     }
@@ -176,6 +177,7 @@ export default class Patcher extends EventEmitter {
         if (!props.hasOwnProperty("id")) props.id = "line-" + ++this.lineIndexCount;
         let line = new Line(props, this);
         this.lines[line.id] = line;
+        line.enable();
         this.emit("createLine", line);
         return line;
     }
@@ -543,17 +545,21 @@ class Box {
     constructor(props, patcher) {
         this._patcher = patcher;
         this.id = props.id;
-        this.name = props.name || props.id;
-        this.class = props.class || "Base.EmptyObject";
+        this.text = props.text || "";
+        let parsed = Box.parseObjText(this.text);
+        this.name = parsed.name || props.id;
+        this.class = parsed.class || "Base.EmptyObject";
         this.inlets = props.inlets;
         this.outlets = props.outlets;
         this.patching_rect = props.patching_rect;
-        this.text = props.text || "";
-        this.args = props.args;
-        this.props = props.props;
+        this.args = parsed.args;
+        this.props = parsed.props;
         this.prevData = null;
         if (this._patcher._prevData && this._patcher._prevData.hasOwnProperty(this.name) && this._patcher._prevData[this.name].hasOwnProperty(this.class)) 
             this.prevData = this._patcher._prevData[this.name][this.class];
+    }
+    
+    init() {
         if (!this._patcher.data.hasOwnProperty(this.name)) this._patcher.data[this.name] = {};
         if (!this._patcher.data[this.name].hasOwnProperty(this.class)) {
             this._patcher.data[this.name][this.class] = this._patcher.createObject(this);
@@ -565,16 +571,15 @@ class Box {
             this.outlets = this.object._outlets;
         }
     }
-
     changeText(textIn) {
         if (textIn == this.text) return this;
         this.text = textIn;
         
-        let props = Box.parseObjText(textIn);
+        let parsed = Box.parseObjText(textIn);
         // if same class and name
-        if (this.name == (props.props.name || this.id) && this.class == props.class) { 
-            this.props = props.props;
-            this.args = props.args;
+        if (this.name == (parsed.props.name || this.id) && this.class == parsed.class) { 
+            this.props = parsed.props;
+            this.args = parsed.args;
             this._patcher.data[this.name][this.class].update(this.args, this.props);
             if (this.isValid) {
                 this.inlets = this.object._inlets;
@@ -593,10 +598,10 @@ class Box {
         }
         this._patcher.data[this.name][this.class].removeBox(this.id);
 
-        this.class = props.class;
-        this.args = props.args;
-        this.props = props.props;
-        this.name = props.props.name || this.id;
+        this.class = parsed.class;
+        this.args = parsed.args;
+        this.props = parsed.props;
+        this.name = parsed.props.name || this.id;
 
         if (!this._patcher.data.hasOwnProperty(this.name)) this._patcher.data[this.name] = {};
         if (!this._patcher.data[this.name].hasOwnProperty(this.class)) {
@@ -663,17 +668,25 @@ class Box {
         let lastProp;
         if (strArray.length) objOut.class = strArray.shift();
         while (strArray.length) {
-            const e = strArray.shift();
-            if (typeof lastProp == "undefined" && e.charAt(0) != "@") {
-                objOut.args.push(e);
+            let el = strArray.shift();
+            if (typeof lastProp == "undefined" && el.charAt(0) != "@") {
+                try {
+                    objOut.args.push(JSON.parse(el));
+                } catch (e) {
+                    objOut.args.push(el);
+                }
                 continue;
             }
-            if (e.length > 1 && e.charAt(0) == "@") {
-                lastProp = e.substr(1);
+            if (el.length > 1 && el.charAt(0) == "@") {
+                lastProp = el.substr(1);
                 objOut.props[lastProp] = [];
                 continue;
             }
-            objOut.props[lastProp].push(e);
+            try {
+                objOut.props[lastProp].push(JSON.parse(el));
+            } catch (e) {
+                objOut.props[lastProp].push(el);
+            }
         }
         for (const key in objOut.props) {
             if (objOut.props[key].length == 0) objOut.props[key] = true;
@@ -692,7 +705,6 @@ class Line {
         this.id = props.id;
         this.disabled = true;
         this.positionHash = Line.calcPositionHash(this._patcher.boxes[this.dest[0]].patching_rect, this.dest[1], this._patcher.boxes[this.dest[0]].inlets);
-        this.enable();
     }
     emit(data) {
         this.destObj.emit(this.id, data);

@@ -65,11 +65,9 @@
         }
 
         #console {
-            position: absolute;
-            top: 0px;
-            right: 0px;
-            left: 0px;
-            bottom: 0px;
+            overflow: auto;
+            height: 100%;
+            width: 100%;
         }
 
         #log {
@@ -163,11 +161,11 @@
             stroke-width: 3;
         }
 
-        div.line:focus>svg.line-svg {
+        div.line.selected>svg.line-svg {
             filter: drop-shadow(rgb(0, 0, 237) 0px 0px 2px);
         }
 
-        div.line:focus>svg.line-svg>path.line-path {
+        div.line.selected>svg.line-svg>path.line-path {
             stroke-width: 3;
         }
 

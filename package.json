@@ -25,6 +25,7 @@
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "@simonwep/selection-js": "^0.1.3",
+    "@tensorflow/tfjs": "^0.13.2",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^9.0.0",
     "babel-loader": "^8.0.2",

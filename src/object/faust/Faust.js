@@ -338,6 +338,8 @@ class DSP extends FaustObject {
                     faustUI.append(_genFaustUI($, tab, group.items));
                 }
                 faustUI.append(faustUITabular);
+                let codeHeight = editor.find(".CodeMirror-sizer").height();
+                container.data("resizeMinHeight", 28 + faustUI.height() + (codeHeight > 120 ? 120 : codeHeight));
                 this.uiResize();
             }
         }

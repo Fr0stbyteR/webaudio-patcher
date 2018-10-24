@@ -37,6 +37,7 @@ $(document).ready(() => {
 		let objUI = obj.requestUI($, box);
 		dom.find(".box-ui").append(objUI);
 		$(".boxes").append(dom);
+		if (!objUI.data("resizeVertical")) dom.height("auto");
 		dom.draggable({
 			start: (event, ui) => {
 				ui.helper.addClass("dragged");
@@ -164,8 +165,8 @@ $(document).ready(() => {
 			.append($('<td>').addClass(["two", "wide"]).text(log[1]))
 			.append($('<td>').addClass(["fourteen", "wide"]).text(log[2]))
 		)
-		$("#log").animate({
-			scrollTop: $("#log").get(0).scrollHeight
+		$("#console").animate({
+			scrollTop: $("#console").get(0).scrollHeight
 		}, 100)
 	});
 
@@ -194,6 +195,7 @@ $(document).ready(() => {
 
 	//keys
 	$(document).on("keydown", (e) => {
+		if ($(".editing").attr("contenteditable")) return;
 		keysPressed[e.key] = true;
 		if (e.key == "Delete" || e.key == "Backspace") { // delete selection
 			$("#delete").click();
@@ -376,7 +378,7 @@ $(document).ready(() => {
 		//$(e.currentTarget).removeClass("selected");
 	});
 	//lines
-	$(document).on("focus", ".line", (e) => {
+	$(document).on("mousedown touchdown", ".line", (e) => {
 		if (patcher.state.locked) return;
 		if ($(e.currentTarget).hasClass("selected")) return;
 		$(".selected").removeClass("selected");

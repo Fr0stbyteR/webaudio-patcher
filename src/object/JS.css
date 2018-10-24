@@ -2,8 +2,8 @@
 div.package-js .box-ui-text-container {
     display: inline-flex;
     padding: 4px 5px;
-    line-height: 20px;
-    font-weight: normal;
+    line-height: 14px;
+    font-weight: bold;
     width: 100%;
     overflow-wrap: break-word;
     cursor: default;
@@ -17,8 +17,8 @@ div.package-js .box-ui-text-container>i.icon {
 div.package-js .box-ui-text-container span {
     word-break: break-all;
     width: 100%;
-    line-height: 20px;
-    font-weight: normal;
+    line-height: 14px;
+    font-weight: bold;
 }
 
 div.package-js .box-ui-text-container span.editing {

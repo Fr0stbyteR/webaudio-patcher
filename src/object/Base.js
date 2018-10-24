@@ -1,11 +1,9 @@
 /* eslint no-unused-vars: 0 */
 
-// TODO : 
-// this._alias = ["something"];
-
 import "./Base.css";
 import "./Default.css";
 import { EventEmitter } from "events";
+import * as Util from "util";
 class BaseObject extends EventEmitter {
     constructor(box, patcher) {
         super();
@@ -41,13 +39,13 @@ class BaseObject extends EventEmitter {
         this.outlet(0, data);
     }
     // called by index.js
-    requestUI($, box) {
-        if (!this._uiList.hasOwnProperty(box.id)) this._uiList[box.ui] = this.ui($, box);
-        return this._uiList[box.ui];
+    requestUI($, box) { //TODO not working well with some function in ui()
+        if (!this._uiList.hasOwnProperty(box.id)) this._uiList[box.id] = this.ui($, box);
+        return this._uiList[box.id];
     }
     newUI($, box) {
-        this._uiList[box.ui] = this.ui($, box);
-        return this._uiList[box.ui];
+        this._uiList[box.id] = this.ui($, box);
+        return this._uiList[box.id];
     }
     uiUpdate(props) {
         this.emit("uiUpdate", props);
@@ -77,8 +75,9 @@ class BaseObject extends EventEmitter {
     defaultUI($, box) {
         let packageName = "package-" + this._package;
         let className = "package-" + this._package + "-" + this.constructor.name.toLowerCase();
+        let container = $("<div>").addClass([packageName, className, "box-ui-container", "box-ui-default"]);
         let textContainer = $("<div>").addClass(["box-ui-text-container", "box-ui-default"]);
-        let icon = $("<i>").addClass(["mini", this._icon, "icon"]);
+        let icon = $("<i>").addClass(["small", this._icon, "icon"]);
         let span = $("<span>").attr({
                 "contenteditable": false,
             }).html(box.text)
@@ -103,17 +102,22 @@ class BaseObject extends EventEmitter {
                 }
             });
         textContainer.append(icon).append(span);
-        let container = $("<div>").addClass([packageName, className, "box-ui-container", "box-ui-default"]);
         container.append(textContainer);
         container.data("resizeVertical", false);
         return container.ready(() => {
-            if (!container.data("resizeVertical")) container.parents(".box").height("auto");
+            container.parents(".box").on("keydown", (e) => {
+                if (e.key == "Enter") {
+                    span.click();
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            })
         });
     }
     defaultDropdownUI($, box) {
         let container = this.defaultUI($, box);
         let dropdownContainer = $("<div>").addClass(["box-ui-dropdown-container", "box-ui-default"]);
-        let dropdownIcon = $("<i>").addClass(["mini", "dropdown", "icon", "box-ui-toggle"]).on("click", (e) => {
+        let dropdownIcon = $("<i>").addClass(["small", "dropdown", "icon", "box-ui-toggle"]).on("click", (e) => {
             let parent = container.parents(".box");
             if (dropdownContainer.children().is(":visible")) {
                 parent.data("prevHeight", parent.height()).height("auto");
@@ -145,7 +149,7 @@ class BaseObject extends EventEmitter {
     }
     // use this function to output data with ith outlet.
     outlet(i, data) {
-        if (i >= this._outlets) return;
+        if (i >= this._outlets) return this;
         let outletLines = this.outletLines[i].sort((id1, id2) => {
             return this._patcher.lines[id2].positionHash - this._patcher.lines[id1].positionHash;
         });
@@ -153,9 +157,11 @@ class BaseObject extends EventEmitter {
             const lineID = outletLines[j];
             this._patcher.lines[lineID].emit(data);
         }
+        return this;
     }
     destroy() {
         delete this._patcher.data[this._box.name][this._box.class]; //TODO doesnt work class package
+        return this;
     }
     addBox(id) {
         if (this._boxes.indexOf(id) == -1) this._boxes.push(id);
@@ -277,7 +283,7 @@ class Button extends BaseObject {
     ui($, box) {
         return $("<div>")
         .addClass(["package-" + this._package, "package-" + this._package + "-" + this.constructor.name.toLowerCase()])
-        .addClass(["ui", "mini", "button"])
+        .addClass(["ui", "small", "button"])
         .text(this._mem.text).on("click", (e) => {
             this.outlet(0, new Bang());
         });
@@ -294,8 +300,8 @@ class Print extends BaseObject {
         this._outlets = 0;
     }
     fn(data, inlet) {
-        if (typeof data == "object") this.post("print", data.constructor.name + JSON.stringify(data));
-        else this.post("print", JSON.stringify(data));
+        if (typeof data == "object") this.post("print", data.constructor.name + Util.inspect(data));
+        else this.post("print", Util.inspect(data));
     }
 }
 
@@ -307,16 +313,18 @@ class Message extends BaseObject {
         this._mem.buffer = null;
         if (!this.storage.hasOwnProperty("text")) {
             this.storage.text = box.args && box.args[0] ? box.args[0] : "";
+            if (typeof this.storage.text !== "string") this.storage.text = Util.inspect(this.storage.text);
         }
         this.update([this.storage.text]);
     }
     fn(data, inlet) {
         if (inlet == 0) {
             this.outlet(0, this._mem.buffer);
-            return;
+            return this;
         }
         if (inlet == 1) {
-            this.update([JSON.stringify(data)]);
+            this.update([Util.inspect(data)]);
+            return this;
         }
     }
     ui($, box) {
@@ -325,7 +333,7 @@ class Message extends BaseObject {
         let container = $("<div>").addClass([packageName, className, "box-ui-container"]);
         let textContainer = $("<div>").addClass(["box-ui-text-container", "ui", "mini", "button"]).attr({
                 "contenteditable": false,
-            }).html(box.text)
+            }).html(this.storage.text)
             .on("click", (e) => {
                 if (this._patcher.state.locked) {
                     this.outlet(0, this._mem.buffer);
@@ -342,7 +350,7 @@ class Message extends BaseObject {
             }).on("blur", (e) => {
                 $(e.currentTarget).attr("contenteditable", false).removeClass("editing").parents(".ui-draggable").draggable("enable");
                 window.getSelection().removeAllRanges();
-                if ($(e.currentTarget).text() != box.text) this.update([$(e.currentTarget).text()]);
+                if ($(e.currentTarget).text() != this.storage.text) this.update([$(e.currentTarget).text()]);
             }).on("keydown", (e) => {
                 if ($(e.currentTarget).hasClass("editing")) {
                     if (e.key == "Enter") $(e.currentTarget).blur().parents(".box").focus();
@@ -361,6 +369,7 @@ class Message extends BaseObject {
     update(args, props) {
         if (args && typeof args[0] === "string") {
             this.storage.text = args[0];
+            this._box.args = args;
             this.uiUpdate({text : args[0]});
             try {
                 this._mem.buffer = JSON.parse(args[0]);
