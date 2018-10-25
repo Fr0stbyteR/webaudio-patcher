@@ -7,7 +7,7 @@ import "jquery-ui/themes/base/draggable.css";
 import "jquery-ui/themes/base/resizable.css";
 import "jquery-ui-touch-punch";
 import "../semantic/dist/semantic.min.js";
-import Selection from "@simonwep/selection-js"
+import Selection from "./selection-js/src/selection.js"
 window.$ = $, window.jQuery = $;
 
 
@@ -16,10 +16,34 @@ window.patcher = patcher;
 
 let keysPressed = {
 	_check(key) {
-		return this.hasOwnProperty(key) && this[key];
+		if (typeof key === "string") return this.hasOwnProperty(key) && this[key];
+		if (Array.isArray(key)) {
+			let res = true;
+			key.forEach(k => res = res && this._check(k));
+			return res;
+		}
+		if (typeof key === "object") {
+			let res = true;
+			for (const k in key) {
+				if (key.hasOwnProperty(k)) res = res && (key[k] == this._check(k))
+			}
+			return res;
+		}
+		return false;
+	},
+	_funcKeys: ["Ctrl", "Shift", "Alt", "AltGrqph", "Meta"],
+	_hasFuncKeys() {
+		return this._check(this._funcKeys);
+	},
+	_onlyFuncKeys(keys) {
+		if (typeof keys == "string") keys = [keys];
+		let map = {};
+		this._funcKeys.forEach(key => map[key] = false);
+		keys.forEach(key => map[key] = true);
+		return this._check(map);
 	}
 };
-
+let mouseOffset = [0, 0];
 let clipboard = {boxes : [], lines : []};
 
 $(document).ready(() => {
@@ -196,76 +220,117 @@ $(document).ready(() => {
 	//keys
 	$(document).on("keydown", (e) => {
 		if ($(".editing").attr("contenteditable")) return;
-		keysPressed[e.key] = true;
+		keysPressed[(e.key == "Control" || e.key == "Command") ? "Ctrl" : e.key] = true;
 		if (e.key == "Delete" || e.key == "Backspace") { // delete selection
 			$("#delete").click();
 			return;
 		}
-		if (e.key == "n") { // Ctrl + Shift + N
-			if ((keysPressed._check("Control") || keysPressed._check("Command")) && keysPressed._check("Shift")) {
+		if (e.key == "ArrowLeft" || e.key == "ArrowRight" || e.key == "ArrowUp" || e.key == "ArrowDown"
+				&& !patcher.state.locked) { // move object
+			$('.box.selected').each((i) => {
+				let box = $('.box.selected').eq(i);
+				let animation = {};
+				if (e.key == "ArrowLeft") animation = {left : "-=" + (patcher.state.showGrid ? patcher.grid[0] : 1)};
+				if (e.key == "ArrowRight") animation = {left : "+=" + (patcher.state.showGrid ? patcher.grid[0] : 1)};
+				if (e.key == "ArrowUp") animation = {top : "-=" + (patcher.state.showGrid ? patcher.grid[1] : 1)};
+				if (e.key == "ArrowDown") animation = {top : "+=" + (patcher.state.showGrid ? patcher.grid[1] : 1)};
+				box.animate(animation, 0, () => {
+					patcher.newTimestamp();
+					updateLineByBox(box.attr("id"));
+					updateBoxRect(box.attr("id"));
+				});
+			})
+			e.preventDefault();
+			return;
+		}
+		if (e.key == "n") { // Ctrl + Shift + N, N : new object
+			if (keysPressed._onlyFuncKeys(["Ctrl", "Shift"])) {
 				$("#new_patcher").click();
+				e.preventDefault();
+				return;
+			}
+			if (!keysPressed._hasFuncKeys()) {
+				let box = {
+					patching_rect: [mouseOffset[0], mouseOffset[1], 100, 22]
+				}
+				patcher.newTimestamp();
+				box = patcher.createBox(box);
+				$("#" + box.id).width("auto").mousedown().find("span").click();
+				e.preventDefault();
+			}
+			return;
+		}
+		if (e.key == "m") { // M : new message
+			if (!keysPressed._hasFuncKeys()) {
+				let box = {
+					patching_rect : [mouseOffset[0], mouseOffset[1], 100, 22],
+					text : "Message"
+				}
+				patcher.newTimestamp();
+				box = patcher.createBox(box);
+				$("#" + box.id).width("auto").mousedown().find(".box-ui-text-container").click();
 				e.preventDefault();
 			}
 			return;
 		}
 		if (e.key == "o") { // Ctrl + O
-			if (keysPressed._check("Control") || keysPressed._check("Command")) {
+			if (keysPressed._onlyFuncKeys(["Ctrl"])) {
 				$("#open").click();
 				e.preventDefault();
 			}
 			return;
 		}
 		if (e.key == "z") { // Ctrl + Z
-			if ((keysPressed._check("Control") || keysPressed._check("Command")) && !patcher.state.locked) {
+			if (keysPressed._onlyFuncKeys(["Ctrl"]) && !patcher.state.locked) {
 				$("#undo").click();
 				e.preventDefault();
 			}
 			return;
 		}
 		if (e.key == "y") { // Ctrl + Y
-			if ((keysPressed._check("Control") || keysPressed._check("Command")) && !patcher.state.locked) {
+			if (keysPressed._onlyFuncKeys(["Ctrl"]) && !patcher.state.locked) {
 				$("#redo").click();
 				e.preventDefault();
 			}
 			return;
 		}
 		if (e.key == "c") { // Ctrl + C
-			if ((keysPressed._check("Control") || keysPressed._check("Command")) && !patcher.state.locked) {
+			if (keysPressed._onlyFuncKeys(["Ctrl"]) && !patcher.state.locked) {
 				$("#copy").click();
 				e.preventDefault();
 			}
 			return;
 		}
 		if (e.key == "v") { // Ctrl + V
-			if ((keysPressed._check("Control") || keysPressed._check("Command")) && !patcher.state.locked) {
+			if (keysPressed._onlyFuncKeys(["Ctrl"]) && !patcher.state.locked) {
 				$("#paste").click();
 				e.preventDefault();
 			}
 			return;
 		}
 		if (e.key == "x") { // Ctrl + X
-			if ((keysPressed._check("Control") || keysPressed._check("Command")) && !patcher.state.locked) {
+			if (keysPressed._onlyFuncKeys(["Ctrl"]) && !patcher.state.locked) {
 				$("#cut").click();
 				e.preventDefault();
 			}
 			return;
 		}
 		if (e.key == "a") { // Ctrl + A
-			if ((keysPressed._check("Control") || keysPressed._check("Command")) && !patcher.state.locked) {
+			if (keysPressed._onlyFuncKeys(["Ctrl"]) && !patcher.state.locked) {
 				$("#select_all").click();
 				e.preventDefault();
 			}
 			return;
 		}
 		if (e.key == "d") { // Ctrl + D
-			if ((keysPressed._check("Control") || keysPressed._check("Command")) && !patcher.state.locked) {
+			if (keysPressed._onlyFuncKeys(["Ctrl"]) && !patcher.state.locked) {
 				$("#duplicate").click();
 				e.preventDefault();
 			}
 			return;
 		}
 	}).on("keyup", (e) => {
-		keysPressed[e.key] = false;
+		keysPressed[(e.key == "Control" || e.key == "Command") ? "Ctrl" : e.key] = false;
 	});
 	$(window).on("blur", (e) => {
 		for (const key in keysPressed) {
@@ -275,29 +340,31 @@ $(document).ready(() => {
 
 	$(document).on("dblclick", ".boxes", (e) => {
 		if (patcher.state.locked) return;
-		if (keysPressed._check("Control") || keysPressed._check("Command")) return;
+		if (keysPressed._hasFuncKeys()) return;
 		let box = {
-			patching_rect: [e.offsetX, e.offsetY, 100, 22],
+			patching_rect: [e.offsetX, e.offsetY, 100, 22]
 		}
         patcher.newTimestamp();
 		box = patcher.createBox(box);
-		$("#" + box.id).mousedown().find("span").click();
+		$("#" + box.id).width("auto").mousedown().find("span").click();
 	}).on("dblclick", ".boxes div", (e) => {
 		e.stopPropagation();
 	}).on("mousedown touchstart", ".boxes", (e) => {
 		$(".editing").blur();
-		if (keysPressed._check("Control") || keysPressed._check("Command")) return;
+		if (keysPressed._hasFuncKeys()) return;
 		$(".box.selected, .line.selected").removeClass("selected");
 	}).on("mousedown touchstart", ".box, .line", (e) => {
 		e.stopPropagation();
 	}).on("mouseup touchend", ".boxes", (e) => {
-		if (keysPressed._check("Control") || keysPressed._check("Command")) {
+		if (keysPressed._check("Ctrl")) {
 			if ($(e.target).hasClass("boxes")) {
 				if (patcher.state.locked) unlockPatcher();
 				else lockPatcher();
 				e.stopPropagation();
 			}
 		}
+	}).on("mousemove touchmove", ".boxes", (e) => {
+		mouseOffset = [e.offsetX, e.offsetY];
 	});
 
 	//ui
@@ -308,10 +375,11 @@ $(document).ready(() => {
 	const selection = Selection.create({
 		class: "selection",
 		startThreshold: 2,
+		targetDOM: "#patcher>.boxes",
 		boundaries: ["#patcher.unlocked"],
 		selectables: [".box"],
 		validateStart(e) {
-			if (!e.target.classList.contains('boxes')) return false;
+			if (patcher.state.locked) return false;
 			return true;
 		},
 		onStart(e) {
@@ -338,10 +406,10 @@ $(document).ready(() => {
 			const t = $("#patcher").get(0);
 			const x = e.originalEvent.clientX - t.offsetLeft;
 			const y = e.originalEvent.clientY - t.offsetTop;
-			if (x < 0) t.scrollLeft += x;
-			if (x > t.offsetWidth) t.scrollLeft += x - t.offsetWidth;
-			if (y < 0) t.scrollTop += y;
-			if (y > t.offsetHeight) t.scrollTop += y - t.offsetHeight;
+			if (x < 10) t.scrollLeft += x - 10;
+			if (x > t.offsetWidth - 10) t.scrollLeft += x + 10 - t.offsetWidth;
+			if (y < 10) t.scrollTop += y - 10;
+			if (y > t.offsetHeight - 10) t.scrollTop += y + 10 - t.offsetHeight;
 		},
 		onStop() {
 			this.keepSelection();
@@ -361,7 +429,7 @@ $(document).ready(() => {
 		if (patcher.state.locked) return;
 		$(e.currentTarget).removeClass("dragged");
 		
-		if (keysPressed._check("Control") || keysPressed._check("Command")) {
+		if (keysPressed._onlyFuncKeys(["Ctrl"])) {
 			if ($(e.currentTarget).hasClass("selected")) {
 				$(e.currentTarget).removeClass("selected");
 			} else {

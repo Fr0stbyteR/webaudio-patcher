@@ -98,7 +98,7 @@ class BaseObject extends EventEmitter {
             }).on("keydown", (e) => {
                 if ($(e.currentTarget).hasClass("editing")) {
                     if (e.key == "Enter") $(e.currentTarget).blur().parents(".box").focus();
-                    if (e.key == "Delete" || e.key == "Backspace") e.stopPropagation();
+                    e.stopPropagation();
                 }
             });
         textContainer.append(icon).append(span);

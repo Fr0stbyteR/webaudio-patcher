@@ -371,7 +371,7 @@ class DSP extends FaustObject {
                     .parents(".ui-draggable").draggable("enable");
             });
             cm.on("keydown", (cm, e) => {
-                if (e.key == "Delete" || e.key == "Backspace") e.stopPropagation();
+                e.stopPropagation();
             });
             let uiUpdateHandler = (props, $box) => {
                 if (props.hasOwnProperty("code") && props.code) {
