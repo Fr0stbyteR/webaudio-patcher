@@ -24,7 +24,7 @@
             ],
             "id": "line-40",
             "disabled": false,
-            "positionHash": 26214635
+            "positionHash": 73400555
         },
         "line-41": {
             "src": [
@@ -50,7 +50,7 @@
             ],
             "id": "line-46",
             "disabled": false,
-            "positionHash": 43057192
+            "positionHash": 57671720
         }
     },
     "boxes": {
@@ -93,7 +93,7 @@
             "prevData": {
                 "storage": {
                     "showEditor": true,
-                    "code": "import(\"stdfaust.lib\");\nt = checkbox(\"enable\");\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsigs(f) = par(i, 4, t * osc(f * (i + 1)));\nselector(f, s) = s : par(i, ba.count(s), \n    sqrt(max(1 - abs(f - 1 - i), 0)) * _\n) :> _;\nprocess = selector(hslider(\"selector\", 0, 0, 5, 0.01) : si.smooth(0.999), sigs(220)), 0; "
+                    "code": "import(\"stdfaust.lib\");\nt = checkbox(\"enable\");\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsigs(f) = par(i, 4, t * osc(f * (i + 1)));\nselector(f, s) = s : par(i, ba.count(s), \n    sqrt(max(1 - abs(f - 1 - i), 0)) * _\n) :> _;\nmean(n) = _ <: _ - @(_, n) : + ~ _ : _ / n;\nrms(n) = sqrt(mean(n, ^(_, 2)));\nvumeter = _ <: _, (rms(400) : hbargraph(\"rms\", 0, 2)) : attach;\nsig = selector(hslider(\"selector\", 0, 0, 5, 0.01) : si.smooth(0.999), sigs(220)); \njb = ba.pulsen(1, 10000) : pm.djembe(60, 0.3, 0.4, 1);\nprocess = t * jb : rms(400) : vumeter : *(osc(400));"
                 }
             }
         },
@@ -171,7 +171,7 @@
                 "_boxes": "[\"box-25\"]",
                 "storage": {
                     "showEditor": true,
-                    "code": "import(\"stdfaust.lib\");\nt = checkbox(\"enable\");\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsigs(f) = par(i, 4, t * osc(f * (i + 1)));\nselector(f, s) = s : par(i, ba.count(s), \n    sqrt(max(1 - abs(f - 1 - i), 0)) * _\n) :> _;\nprocess = selector(hslider(\"selector\", 0, 0, 5, 0.01) : si.smooth(0.999), sigs(220)), 0; "
+                    "code": "import(\"stdfaust.lib\");\nt = checkbox(\"enable\");\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsigs(f) = par(i, 4, t * osc(f * (i + 1)));\nselector(f, s) = s : par(i, ba.count(s), \n    sqrt(max(1 - abs(f - 1 - i), 0)) * _\n) :> _;\nmean(n) = _ <: _ - @(_, n) : + ~ _ : _ / n;\nrms(n) = sqrt(mean(n, ^(_, 2)));\nvumeter = _ <: _, (rms(400) : hbargraph(\"rms\", 0, 2)) : attach;\nsig = selector(hslider(\"selector\", 0, 0, 5, 0.01) : si.smooth(0.999), sigs(220)); \njb = ba.pulsen(1, 10000) : pm.djembe(60, 0.3, 0.4, 1);\nprocess = t * jb : rms(400) : vumeter : *(osc(400));"
                 }
             }
         },
@@ -196,7 +196,7 @@
     },
     "_log": "[]",
     "state": {
-        "locked": false,
+        "locked": true,
         "presentation": false,
         "showGrid": true
     },

@@ -16,7 +16,8 @@ class WANode extends Base.BaseObject {
     fn(data, inlet) {
     }
     connectedInlet(inlet, srcObj, srcOutlet, lineID) {
-        if (srcObj._mem.hasOwnProperty("node") 
+        if (this._mem.node instanceof AudioNode 
+                && srcObj._mem.hasOwnProperty("node") 
                 && srcObj._mem.node instanceof AudioNode) {
             if (inlet >= this._mem.node.numberOfInputs 
                     || srcOutlet >= srcObj._mem.node.numberOfOutputs) return this;
@@ -25,7 +26,8 @@ class WANode extends Base.BaseObject {
         return this;
     }
     disconnectedInlet(inlet, srcObj, srcOutlet, lineID) {
-        if (srcObj._mem.hasOwnProperty("node") 
+        if (this._mem.node instanceof AudioNode 
+                && srcObj._mem.hasOwnProperty("node") 
                 && srcObj._mem.node instanceof AudioNode) {
             if (inlet >= this._mem.node.numberOfInputs 
                     || srcOutlet >= srcObj._mem.node.numberOfOutputs) return this;

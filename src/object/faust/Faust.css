@@ -67,6 +67,37 @@ div.package-faust-dsp.box-ui-container .faust-ui .faust-ui-item .ui-slider-horiz
     margin-top: 2rem;
 }
 
+.faust-ui-hbargraph, 
+.faust-ui-vbargraph {
+    grid-column: span 2;
+    padding-right: 10px;
+}
+
+.faust-ui-hbargraph>.ui.progress, 
+.faust-ui-vbargraph>.ui.progress {
+    width: 100%;
+    margin: auto !important;
+}
+
+.faust-ui-hbargraph>.ui.progress>.bar, 
+.faust-ui-vbargraph>.ui.progress>.bar {
+    background-image: linear-gradient(to right, rgb(0, 255, 0) 0%, rgb(255, 255, 0) 60%, rgb(255, 255, 0) 80%, rgb(255, 0, 0));
+    background-color: rgba(0, 0, 0, 0);
+    min-width: auto;
+    width: 100%;
+    padding-right: 100%;
+    background-origin: padding-box;
+    background-repeat: no-repeat;
+    background-clip: content-box;
+}
+
+.faust-ui-hbargraph>.ui.progress>.bar>.progress, 
+.faust-ui-vbargraph>.ui.progress>.bar>.progress {left: 0.5em;
+    right: auto;
+    color: #00000080;
+    text-shadow: 0px 0px 2px #808080;
+}
+
 /* Component containers
 ----------------------------------*/
 .ui-widget {

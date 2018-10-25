@@ -380,6 +380,7 @@ $(document).ready(() => {
 		selectables: [".box"],
 		validateStart(e) {
 			if (patcher.state.locked) return false;
+			if (!e.target.classList.contains("boxes")) return false;
 			return true;
 		},
 		onStart(e) {
