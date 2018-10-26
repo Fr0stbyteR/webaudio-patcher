@@ -35,6 +35,68 @@ class WANode extends Base.BaseObject {
         }
         return this;
     }
+    connectAll() {
+        let inletLines = this.inletLines;
+        for (let inlet = 0; inlet < this._inlets; inlet++) {
+            for (let j = 0; j < inletLines[inlet].length; j++) {
+                const line = this._patcher.lines[inletLines[inlet][j]];
+                let srcObj = line.srcObj;
+                let srcOutlet = line.srcOutlet;
+                if (srcObj._mem.hasOwnProperty("node") 
+                        && srcObj._mem.node instanceof AudioNode) {
+                    if (inlet >= this._mem.node.numberOfInputs 
+                            || srcOutlet >= srcObj._mem.node.numberOfOutputs) return this;
+                    srcObj._mem.node.connect(this._mem.node, srcOutlet, inlet);
+                }
+            }
+        }
+        let outletLines = this.outletLines;
+        for (let outlet = 0; outlet < this._outlets; outlet++) {
+            for (let j = 0; j < outletLines[outlet].length; j++) {
+                const line = this._patcher.lines[outletLines[outlet][j]];
+                let destObj = line.destObj;
+                let destInlet = line.destInlet;
+                if (destObj._mem.hasOwnProperty("node") 
+                        && destObj._mem.node instanceof AudioNode) {
+                    if (outlet >= this._mem.node.numberOfOutputs 
+                            || destInlet >= destObj._mem.node.numberOfInputs) return this;
+                    this._mem.node.connect(destObj._mem.node, outlet, destInlet);
+                }
+            }
+        }
+        return this;
+    }
+    disconnectAll() {
+        let inletLines = this.inletLines;
+        for (let inlet = 0; inlet < this._inlets; inlet++) {
+            for (let j = 0; j < inletLines[inlet].length; j++) {
+                const line = this._patcher.lines[inletLines[inlet][j]];
+                let srcObj = line.srcObj;
+                let srcOutlet = line.srcOutlet;
+                if (srcObj._mem.hasOwnProperty("node") 
+                        && srcObj._mem.node instanceof AudioNode) {
+                    if (inlet >= this._mem.node.numberOfInputs 
+                            || srcOutlet >= srcObj._mem.node.numberOfOutputs) return this;
+                    srcObj._mem.node.disconnect(this._mem.node, srcOutlet, inlet);
+                }
+            }
+        }
+        let outletLines = this.outletLines;
+        for (let outlet = 0; outlet < this._outlets; outlet++) {
+            for (let j = 0; j < outletLines[outlet].length; j++) {
+                const line = this._patcher.lines[outletLines[outlet][j]];
+                let destObj = line.destObj;
+                let destInlet = line.destInlet;
+                if (destObj._mem.hasOwnProperty("node") 
+                        && destObj._mem.node instanceof AudioNode) {
+                    if (outlet >= this._mem.node.numberOfOutputs 
+                            || destInlet >= destObj._mem.node.numberOfInputs) return this;
+                    this._mem.node.disconnect(destObj._mem.node, outlet, destInlet);
+                }
+            }
+        }
+        return this;
+    }
 }
 
 class Oscillator extends WANode {
@@ -63,6 +125,20 @@ class Oscillator extends WANode {
     }
     set type(t) {
         this._mem.node.type = t || "sine"; //TODO
+    }
+}
+
+class StreamSource extends WANode {
+    constructor(box, patcher) {
+        super(box, patcher);
+        this._inlets = 0;
+        this._outlets = 1;
+        navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+        .then((stream) => {
+            this._mem.node = this._patcher._audioCtx.createMediaStreamSource(stream);
+            this._mem.node.channelInterpretation = "discrete";
+            this.connectAll()
+        });
     }
 }
 
@@ -171,5 +247,8 @@ export default {
     Oscillator,
     Destination,
     Oscilloscope,
-    Spectrogram
+    Spectrogram,
+    StreamSource,
+    "dac~" : Destination,
+    "adc~" : StreamSource
 }

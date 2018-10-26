@@ -223,6 +223,7 @@ $(document).ready(() => {
 		keysPressed[(e.key == "Control" || e.key == "Command") ? "Ctrl" : e.key] = true;
 		if (e.key == "Delete" || e.key == "Backspace") { // delete selection
 			$("#delete").click();
+			e.preventDefault();
 			return;
 		}
 		if (e.key == "ArrowLeft" || e.key == "ArrowRight" || e.key == "ArrowUp" || e.key == "ArrowDown"

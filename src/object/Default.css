@@ -5,6 +5,7 @@ div.box-ui-default.box-ui-container {
     display: flex;
     flex-direction: column;
     height: 100%;
+    overflow: auto;
 }
 
 div.box-ui-default.box-ui-container .box-ui-dropdown-container {
@@ -15,6 +16,7 @@ div.box-ui-default.box-ui-container .box-ui-dropdown-container {
     border: rgb(125, 126, 132) solid;
     padding: 0px;
     border-width: 0px 0px 4px 0px;
+    overflow: auto;
 }
 
 div.box-ui-default.box-ui-container .box-ui-toggle {

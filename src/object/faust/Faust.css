@@ -3,6 +3,7 @@ div.package-faust-dsp.box-ui-container .dsp-editor {
     display: flex;
     width: 100%;
     padding: 0px;
+    overflow: auto;
 }
 
 div.package-faust-dsp.box-ui-container .dsp-editor .CodeMirror {

@@ -71,11 +71,11 @@ class DSP extends FaustObject {
                 this.error("Faust.DSP", "Compilation of Node failed " + Faust.getErrorMessage());
                 return;
             }
-            if (this._mem.node && this._mem.node instanceof AudioNode) this._disconnectAll();
+            if (this._mem.node && this._mem.node instanceof AudioNode) this.disconnectAll();
             this._mem.node = node;
             this._mem.params = node.getJSON();
             this.outlet(1, {code : this.storage.code, params : this._mem.params, node : this._mem.node});
-            this._connectAll();
+            this.connectAll();
             this._mem.compiled = true;
             this.uiUpdate(this.storage);
             this.uiUpdate(this._mem);
@@ -149,7 +149,7 @@ class DSP extends FaustObject {
         }
         return this;
     }
-    _connectAll() {
+    connectAll() {
         let inletLines = this.inletLines;
         for (let inlet = 0; inlet < this._inlets; inlet++) {
             for (let j = 0; j < inletLines[inlet].length; j++) {
@@ -180,7 +180,7 @@ class DSP extends FaustObject {
         }
         return this;
     }
-    _disconnectAll() {
+    disconnectAll() {
         let inletLines = this.inletLines;
         for (let inlet = 0; inlet < this._inlets; inlet++) {
             for (let j = 0; j < inletLines[inlet].length; j++) {
@@ -220,7 +220,7 @@ class DSP extends FaustObject {
                 let uiItem = $("<div>").addClass("faust-ui-item");
                 switch (item.type) {
                     case "button":
-                        uiItem.attr("data-address", item.address).addClass("faust-ui-button").append(
+                        uiItem.attr("data-address", item.address).data("faustUIItem", item).addClass("faust-ui-button").append(
                             $("<button>").addClass(["ui", "basic", "mini", "button", "faust-button"])
                             .html(item.label)
                             .on("mousedown", () => {
@@ -231,7 +231,7 @@ class DSP extends FaustObject {
                         )
                         break;
                     case "checkbox":
-                        uiItem.attr("data-address", item.address).addClass(["ui", "toggle", "checkbox", "faust-ui-checkbox"])
+                        uiItem.attr("data-address", item.address).data("faustUIItem", item).addClass(["ui", "toggle", "checkbox", "faust-ui-checkbox"])
                         .append($("<div>").addClass(["ui", "horizontal", "label", "faust-ui-label"]).html(item.label))
                         .append($("<input>").attr("type", "checkbox").attr("name", item.label))
                         .checkbox({
@@ -244,7 +244,7 @@ class DSP extends FaustObject {
                         });
                         break;
                     case "hslider":
-                        uiItem.attr("data-address", item.address).addClass("faust-ui-hslider").append(
+                        uiItem.attr("data-address", item.address).data("faustUIItem", item).addClass("faust-ui-hslider").append(
                             $("<div>").addClass(["ui", "horizontal", "label", "faust-ui-label"]).html(item.label)
                         ).append($("<div>")
                             .slider({
@@ -260,7 +260,7 @@ class DSP extends FaustObject {
                         ).find(".ui-slider-handle").attr("data-tooltip", +item.init).attr("data-inverted", "");
                         break;
                     case "vslider":
-                        uiItem.attr("data-address", item.address).addClass("faust-ui-vslider").append(
+                        uiItem.attr("data-address", item.address).data("faustUIItem", item).addClass("faust-ui-vslider").append(
                             $("<div>").addClass(["ui", "horizontal", "label", "faust-ui-label"]).html(item.label)
                         ).append($("<div>")
                             .slider({
@@ -277,7 +277,7 @@ class DSP extends FaustObject {
                         ).find(".ui-slider-handle").attr("data-tooltip", +item.init).attr("data-inverted", "").attr("data-position", "left center");
                         break;
                     case "nentry":
-                        uiItem.attr("data-address", item.address).addClass("faust-ui-nentry").append(
+                        uiItem.attr("data-address", item.address).data("faustUIItem", item).addClass("faust-ui-nentry").append(
                             $("<div>").addClass(["ui", "horizontal", "label", "faust-ui-label"]).html(item.label)
                         ).append($("<div>")
                             .slider({
@@ -293,7 +293,7 @@ class DSP extends FaustObject {
                         ).find(".ui-slider-handle").attr("data-tooltip", +item.init).attr("data-inverted", "");
                         break;
                     case "hbargraph":
-                        uiItem.attr("data-address", item.address).data("faustUIItem", [item.min, item.max]).addClass("faust-ui-hbargraph").append(
+                        uiItem.attr("data-address", item.address).data("faustUIItem", item).addClass("faust-ui-hbargraph").append(
                             $("<div>").addClass(["ui", "horizontal", "label", "faust-ui-label"]).html(item.label)
                         ).append(
                             $("<div>").addClass(["ui", "progress"]).append(
@@ -319,19 +319,19 @@ class DSP extends FaustObject {
                         );
                         break;
                     case "vgroup":
-                        uiItem.addClass(["ui", "segment", "faust-ui-group", "faust-ui-vgroup"]).append(
+                        uiItem.addClass(["ui", "segment", "faust-ui-group", "faust-ui-vgroup"]).data("faustUIItem", item).append(
                             $("<div>").addClass(["ui", "left", "top", "attached", "label", "faust-ui-label"]).html(item.label)
                         );
                         _genFaustUI($, uiItem, item.items);
                         break;
                     case "hgroup":
-                        uiItem.addClass(["ui", "segment", "faust-ui-group", "faust-ui-hgroup"]).append(
+                        uiItem.addClass(["ui", "segment", "faust-ui-group", "faust-ui-hgroup"]).data("faustUIItem", item).append(
                             $("<div>").addClass(["ui", "left", "top", "attached", "label", "faust-ui-label"]).html(item.label)
                         );
                         _genFaustUI($, uiItem, item.items);
                     break;
                     case "tgroup":
-                        uiItem.addClass(["ui", "segment", "faust-ui-group", "faust-ui-tgroup"]).append(
+                        uiItem.addClass(["ui", "segment", "faust-ui-group", "faust-ui-tgroup"]).data("faustUIItem", item).append(
                             $("<div>").addClass(["ui", "left", "top", "attached", "label", "faust-ui-label"]).html(item.label)
                         );
                         _genFaustUI($, uiItem, item.items);
@@ -371,13 +371,19 @@ class DSP extends FaustObject {
                     if (isNaN(value)) value = 0;
                     let uiItem = _faustUIList[address];
                     if (uiItem.hasClass("faust-ui-checkbox")) {
+                        if (uiItem.data("faustUIValue") == value || Math.abs(uiItem.data("faustUIValue") - value) <= 0.01) return;
+                        uiItem.data("faustUIValue", value);
                         uiItem.find("input").checkbox(value ? "set checked" : "set unchecked");
                     }
                     if (uiItem.hasClass("faust-ui-hslider") || uiItem.hasClass("faust-ui-vslider") || uiItem.hasClass("faust-ui-nentry")) {
+                        if (uiItem.data("faustUIValue") == value || Math.abs(uiItem.data("faustUIValue") - value) <= 0.01) return;
+                        uiItem.data("faustUIValue", value);
                         uiItem.find(".ui-slider").slider("option", value);
                     }
                     if (uiItem.hasClass("faust-ui-hbargraph") || uiItem.hasClass("faust-ui-vbargraph")) {
-                        let range = uiItem.data("faustUIItem");
+                        if (uiItem.data("faustUIValue") == value || Math.abs(uiItem.data("faustUIValue") - value) <= 0.01) return;
+                        uiItem.data("faustUIValue", value);
+                        let range = [uiItem.data("faustUIItem").min, uiItem.data("faustUIItem").max];
                         let percentage = (1 - value / (range[1] - range[0])) * 100 + "%";
                         uiItem.find(".ui.progress .bar").css("padding-right", percentage).find(".progress").html(Number.parseFloat(value).toFixed(2));
                     }
