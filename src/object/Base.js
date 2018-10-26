@@ -100,6 +100,9 @@ class BaseObject extends EventEmitter {
                     if (e.key == "Enter") $(e.currentTarget).blur().parents(".box").focus();
                     e.stopPropagation();
                 }
+            }).on("paste", (e) => {
+                e.preventDefault();
+                document.execCommand("insertHTML", false, e.originalEvent.clipboardData.getData("text/plain"));
             });
         textContainer.append(icon).append(span);
         container.append(textContainer);
@@ -356,6 +359,9 @@ class Message extends BaseObject {
                     if (e.key == "Enter") $(e.currentTarget).blur().parents(".box").focus();
                     if (e.key == "Delete" || e.key == "Backspace") e.stopPropagation();
                 }
+            }).on("paste", (e) => {
+                e.preventDefault();
+                document.execCommand("insertHTML", false, e.originalEvent.clipboardData.getData("text/plain"));
             });
         container.append(textContainer);
         container.data("resizeVertical", false);
