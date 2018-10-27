@@ -5,14 +5,32 @@ import "./Default.css";
 import { EventEmitter } from "events";
 import * as Util from "util";
 class BaseObject extends EventEmitter {
+    static get _meta() {
+        return {
+            package : "Base", // div will have class "package-name" "package-name-objectname"
+            name : this.name,
+            icon : "code", // semantic icon to display in UI
+            author : "",
+            version : "0.0.0",
+            description : "",
+            inlets : [{
+                isHot : true,
+                type : "anything",
+                description : ""
+            }],
+            outlets : [{
+                type : "anything",
+                description : ""
+            }],
+            args : [],
+            props : []
+        };
+    }
     constructor(box, patcher) {
         super();
-        // define name of package of this prototype object class, usage in UI object, see below 
-        // div will have class "package-name" "package-name-objectname"
-        this._package = "base";
-        // semantic icon to display in UI
-        this._icon = "code";
-        // patcher object outside, use _ for prevent recursive stringify
+        // copy meta from static
+        this._meta = this.constructor._meta;
+        // patcher object outside, use _ for pre`vent recursive stringify
         this._patcher = patcher;
         // the box which create this instance, use _ for prevent recursive stringify
         this._box = box;
@@ -21,8 +39,8 @@ class BaseObject extends EventEmitter {
         // all ui jQuery object, box.id : $ui
         this._uiList = {};
         // inlets and outlets count
-        this._inlets = 1;
-        this._outlets = 1;
+        this._inlets = 0;
+        this._outlets = 0;
         // data for store and stringify in patch
         this.storage = box.hasOwnProperty("prevData") && box.prevData && box.prevData.hasOwnProperty("storage") ? box.prevData.storage : {};
         // should save all temporary variables here
@@ -36,7 +54,7 @@ class BaseObject extends EventEmitter {
     }
     // main function when receive data from a inlet (base 0)
     fn(data, inlet) {
-        this.outlet(0, data);
+        return this;
     }
     // called by index.js
     requestUI($, box) { //TODO not working well with some function in ui()
@@ -73,11 +91,11 @@ class BaseObject extends EventEmitter {
     //      </div>
     //  </div>
     defaultUI($, box) {
-        let packageName = "package-" + this._package;
-        let className = "package-" + this._package + "-" + this.constructor.name.toLowerCase();
+        let packageName = "package-" + this._meta.package.toLowerCase();
+        let className = packageName + "-" + this._meta.name.toLowerCase();
         let container = $("<div>").addClass([packageName, className, "box-ui-container", "box-ui-default"]);
         let textContainer = $("<div>").addClass(["box-ui-text-container", "box-ui-default"]);
-        let icon = $("<i>").addClass(["small", this._icon, "icon"]);
+        let icon = $("<i>").addClass(["small", this._meta.icon, "icon"]);
         let span = $("<span>").attr({
                 "contenteditable": false,
             }).html(box.text)
@@ -253,27 +271,74 @@ class BaseObject extends EventEmitter {
 }
 
 class EmptyObject extends BaseObject {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            author : "Fr0stbyteR",
+            version : "1.0.0",
+            description : "Bypass input",
+            inlets : [{
+                isHot : true,
+                type : "anything",
+                description : "output same thing"
+            }],
+            outlets : [{
+                type : "anything",
+                description : "output same thing"
+            }]
+        });
+    }
     constructor(box, patcher) {
         super(box, patcher);
+        this._inlets = 1;
+        this._outlets = 1;
+    }
+    fn(data, inlet) {
+        this.outlet(0, data);
+        return this;
     }
 }
 
 class InvalidObject extends BaseObject {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            description : "invaled object",
+            inlets : [{
+                isHot : false,
+                type : "anything",
+                description : "nothing"
+            }],
+            outlets : [{
+                type : "anything",
+                description : "nothing"
+            }]
+        });
+    }
     constructor(box, patcher) {
         super(box, patcher);
         this._mem.class = box.class;
-        // this.ui = UIObj.InvalidBox;
         this._inlets = box._inlets;
         this._outlets = box._outlets;
     }
-    fn(data, inlet) {}
     get class() {
         return this._mem.class;
     }
 }
 
-
-class Button extends BaseObject {
+class Button extends EmptyObject {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            description : "click to output a new Bang",
+            inlets : [{
+                isHot : false,
+                type : "anything",
+                description : "output a new Bang"
+            }],
+            outlets : [{
+                type : "object",
+                description : "new Bang"
+            }]
+        });
+    }
     constructor(box, patcher) {
         super(box, patcher);
         this._inlets = 1;
@@ -284,19 +349,31 @@ class Button extends BaseObject {
         this.outlet(0, new Bang());
     }
     ui($, box) {
+        let pkgName = this._meta.package.toLowerCase();
+        let clsName = this._meta.name.toLowerCase();
         return $("<div>")
-        .addClass(["package-" + this._package, "package-" + this._package + "-" + this.constructor.name.toLowerCase()])
-        .addClass(["ui", "small", "button"])
-        .text(this._mem.text).on("click", (e) => {
-            this.outlet(0, new Bang());
-        });
+            .addClass(["package-" + pkgName, "package-" + pkgName + "-" + clsName])
+            .addClass(["ui", "small", "button"])
+            .text(this._mem.text).on("click", (e) => {
+                this.outlet(0, new Bang());
+            });
     }
     update(args, props) {
         if (props.hasOwnProperty("text")) this._mem.text = props.text;
     }
 }
 
-class Print extends BaseObject {
+class Print extends EmptyObject {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            description : "JSON.stringify anything and print it in console",
+            inlets : [{
+                isHot : true,
+                type : "anything",
+                description : "output stored data"
+            }]
+        });
+    }
     constructor(box, patcher) {
         super(box, patcher);
         this._inlets = 1;
@@ -308,7 +385,25 @@ class Print extends BaseObject {
     }
 }
 
-class Message extends BaseObject {
+class Message extends EmptyObject {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            description : "JSON.parse a message and store it, click to output, second input to set it",
+            inlets : [{
+                isHot : true,
+                type : "anything",
+                description : "output stored data"
+            }, {
+                isHot : false,
+                type : "anything",
+                description : "store and display data incoming"
+            }],
+            outlets : [{
+                type : "anything",
+                description : "output stored data"
+            }]
+        });
+    }
     constructor(box, patcher) {
         super(box, patcher);
         this._inlets = 2;
@@ -331,8 +426,8 @@ class Message extends BaseObject {
         }
     }
     ui($, box) {
-        let packageName = "package-" + this._package;
-        let className = "package-" + this._package + "-" + this.constructor.name.toLowerCase();
+        let packageName = "package-" + this._meta.package.toLowerCase();
+        let className = packageName + "-" + this._meta.name.toLowerCase();
         let container = $("<div>").addClass([packageName, className, "box-ui-container"]);
         let textContainer = $("<div>").addClass(["box-ui-text-container", "ui", "mini", "button"]).attr({
                 "contenteditable": false,
@@ -357,7 +452,7 @@ class Message extends BaseObject {
             }).on("keydown", (e) => {
                 if ($(e.currentTarget).hasClass("editing")) {
                     if (e.key == "Enter") $(e.currentTarget).blur().parents(".box").focus();
-                    if (e.key == "Delete" || e.key == "Backspace") e.stopPropagation();
+                    e.stopPropagation();
                 }
             }).on("paste", (e) => {
                 e.preventDefault();
@@ -370,7 +465,15 @@ class Message extends BaseObject {
         }
         uiUpdateHandler(this.storage);
         this.onUIUpdate(uiUpdateHandler);
-        return container;
+        return container.ready(() => {
+            container.parents(".box").on("keydown", (e) => {
+                if (e.key == "Enter") {
+                    textContainer.click();
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            })
+        });
     }
     update(args, props) {
         if (args && typeof args[0] === "string") {

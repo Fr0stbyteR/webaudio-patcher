@@ -1,15 +1,36 @@
 import Base from "../Base.js";
 
 class MaxObject extends Base.BaseObject {
-    constructor(box, patcher) {
-        super(box, patcher);
-        this._package = "max";
-        this._icon = "microchip"
+    static get _meta() {
+        return Object.assign(super._meta, {
+            package : "Max",
+            icon : "microchip", 
+            author : "Fr0stbyteR",
+            version : "1.0.0"
+        });
     }
 }
 
 import RNG from "seedrandom";
 class random extends MaxObject {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            description : "Generate a random number",
+            inlets : [{
+                isHot : true,
+                type : "anything",
+                description : "Causes Random Number Output"
+            }, {
+                isHot : false,
+                type : "anything",
+                description : "Set the Random Number Range"
+            }],
+            outlets : [{
+                type : "number",
+                description : "Random Number Output"
+            }]
+        });
+    }
     constructor(box, patcher) {
         super(box, patcher);
         this._inlets = 2;
@@ -43,6 +64,24 @@ class random extends MaxObject {
     }
 }
 class metro extends MaxObject {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            description : "Output a bang message at regular intervals",
+            inlets : [{
+                isHot : true,
+                type : "boolean",
+                description : "Start/Stop Metronome"
+            }, {
+                isHot : false,
+                type : "anything",
+                description : "Set Metronome Time Interval"
+            }],
+            outlets : [{
+                type : "object",
+                description : "Output Ticks of Metronome"
+            }]
+        });
+    }
     constructor(box, patcher) {
         super(box, patcher);
         this._inlets = 2;

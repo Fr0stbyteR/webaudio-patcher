@@ -25,10 +25,16 @@ class FaustLoader extends EventEmitter {
 let faustLoader = new FaustLoader();
 
 class FaustObject extends Base.BaseObject {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            package : "Faust",
+            icon : "terminal", 
+            author : "Fr0stbyteR",
+            version : "1.0.0"
+        });
+    }
     constructor(box, patcher) {
         super(box, patcher);
-        this._package = "faust";
-        this._icon = "terminal";
         this._mem.faust = Faust;
         faustLoader.load();
         if (!this._patcher.hasOwnProperty("_audioCtx") || !this._patcher._audioCtx) {
@@ -41,6 +47,23 @@ class FaustObject extends Base.BaseObject {
 }
 
 class DSP extends FaustObject {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            description : "Edit and compile a faust dsp file using WebAudio API",
+            inlets : [{
+                isHot : true,
+                type : "signal",
+                description : "WebAudio Node input"
+            }],
+            outlets : [{
+                type : "signal",
+                description : "WebAudio Node output"
+            }, {
+                type : "object",
+                description : "dumpout with { code: string, params: object, node: object }"
+            }]
+        });
+    }
     constructor(box, patcher) {
         super(box, patcher);
         this._inlets = 1;
@@ -443,6 +466,17 @@ class DSP extends FaustObject {
 }
 
 class Diagram extends FaustObject {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            description : "Show faust diagram in iframe",
+            inlets : [{
+                isHot : true,
+                type : "object",
+                description : "Parse inlet code property { code: string }"
+            }],
+            outlets : []
+        });
+    }
     constructor(box, patcher) {
         super(box, patcher);
         this._inlets = 1;

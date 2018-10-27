@@ -57,7 +57,7 @@ $(document).ready(() => {
 	})
 	patcher.on("createBox", (box) => {
 		let obj = patcher.getObjByID(box.id);
-		let dom = UIObj.box($, box);
+		let dom = UIObj.box($, box, obj._meta);
 		let objUI = obj.requestUI($, box);
 		dom.find(".box-ui").append(objUI);
 		$(".boxes").append(dom);
@@ -795,8 +795,8 @@ let updateBoxUI = (box) => {
 	let obj = patcher.getObjByID(box.id);
 	let objUI = obj.newUI($, box);
 	$("#" + box.id).find(".box-ui").empty().append(objUI);
-	$("#" + box.id).find(".box-inlets").replaceWith(UIObj.inlets($, box.inlets))
-	$("#" + box.id).find(".box-outlets").replaceWith(UIObj.outlets($, box.outlets));
+	$("#" + box.id).find(".box-inlets").replaceWith(UIObj.inlets($, box.inlets, obj._meta.inlets))
+	$("#" + box.id).find(".box-outlets").replaceWith(UIObj.outlets($, box.outlets, obj._meta.outlets));
 	updateBoxResizable(objUI, box.id);
 }
 

@@ -13,7 +13,7 @@ let Packages = {
     JS,
     Max,
     Faust,
-    TF : AutoImporter.importer(TF, 2)
+    TF : AutoImporter.importer("TF", TF, 2)
 };
 
 export default class Patcher extends EventEmitter {

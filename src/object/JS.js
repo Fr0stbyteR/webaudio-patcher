@@ -2,9 +2,36 @@ import Base from "./Base.js";
 import "./JS.css"
 
 class JSBaseObject extends Base.BaseObject {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            package : "JS",
+            icon : "node js", 
+            author : "Fr0stbyteR",
+            version : "1.0.0",
+            inlets : [{
+                isHot : true,
+                type : "anything",
+                description : "convert data, store it and output, bang to output stored data"
+            }, {
+                isHot : false,
+                type : "anything",
+                description : "convert data, store it without output"
+            }, {
+                isHot : true,
+                type : "function",
+                description : "lambda call a incoming function with data stored, output at second outlet"
+            }],
+            outlets : [{
+                type : "anything",
+                description : "Output stored data"
+            }, {
+                type : "anything",
+                description : "output returned value of lambda function called with third inlet"
+            }]
+        });
+    }
     constructor(box, patcher) {
         super(box, patcher);
-        this._package = "js";
         this._inlets = 3;
         this._outlets = 2;
         this._mem.data = null;
@@ -39,13 +66,21 @@ class JSBaseObject extends Base.BaseObject {
 }
 
 class JSBoolean extends JSBaseObject {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            outlets : [{
+                type : "boolean",
+                description : "Output stored boolean"
+            }]
+        });
+    }
     constructor(box, patcher) {
         super(box, patcher);
         this.update(box.args);
     }
     _convert(data) {
         try {
-            this._mem.data = data == true;
+            this._mem.data = data ? true : false;
         } catch (e) {
             this.error("boolean", e);
         }
@@ -58,6 +93,14 @@ class JSBoolean extends JSBaseObject {
 }
 
 class JSNumber extends JSBaseObject {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            outlets : [{
+                type : "number",
+                description : "Output stored number"
+            }]
+        });
+    }
     constructor(box, patcher) {
         super(box, patcher);
         this.update(box.args);
@@ -79,6 +122,14 @@ class JSString extends JSBaseObject {
     }
 }
 class JSArray extends JSBaseObject {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            outlets : [{
+                type : "object",
+                description : "Output stored array"
+            }]
+        });
+    }
     constructor(box, patcher) {
         super(box, patcher);
         this.update(box.args);
@@ -103,18 +154,28 @@ class JSObject extends JSBaseObject {
         this.update(box.args);
     }
     _convert(data) {
-        if (typeof data == "object") this._mem.data = data;
-        else {
-            try {
-                this._mem.data = JSON.parse(data);
-            } catch (e) {
-                this.error("object", e);
-            }
-        }
+        this._mem.data = data;
     }
 }
 
 class JSFunction extends JSBaseObject {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            inlets : [{
+                isHot : true,
+                type : "anything",
+                description : "function or array with [args: string[], body: string] convert data, store it and output, bang to output stored data"
+            }, {
+                isHot : false,
+                type : "anything",
+                description : "function or array with [args: string[], body: string] convert data, store it without output"
+            }],
+            outlets : [{
+                type : "function",
+                description : "Output stored function"
+            }]
+        });
+    }
     constructor(box, patcher) {
         super(box, patcher);
         this._inlets = 2;
@@ -150,8 +211,30 @@ class JSFunction extends JSBaseObject {
     }
 }
 class JSCall extends JSBaseObject { //TODO Call with function name
+    static get _meta() {
+        return Object.assign(super._meta, {
+            inlets : [{
+                isHot : true,
+                type : "anything",
+                description : "Call stored function with inlet as args then output"
+            }, {
+                isHot : false,
+                type : "anything",
+                description : "Call stored function with inlet as args without output"
+            }, {
+                isHot : false,
+                type : "anything",
+                description : "Input function or parse string as name to recognize function, store it"
+            }],
+            outlets : [{
+                type : "function",
+                description : "Output returned value"
+            }]
+        });
+    }
     constructor(box, patcher) {
         super(box, patcher);
+        this._outlets = 1
         this._mem.fn = () => {};
         this._mem.args = [];
         this._mem.result;

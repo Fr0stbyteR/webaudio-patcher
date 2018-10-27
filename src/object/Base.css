@@ -13,6 +13,7 @@ div.package-base-message .box-ui-text-container {
     width: 100%;
     line-height: 14px !important;
     font-weight: bold !important;
+    margin-right: 0px;
 }
 
 div.package-base-message .box-ui-text-container:empty::before {
@@ -21,6 +22,7 @@ div.package-base-message .box-ui-text-container:empty::before {
 
 #patcher.unlocked div.package-base-message .box-ui-text-container {
     cursor: default;
+    margin-right: 0px;
 }
 
 #patcher.unlocked div.package-base-message .box-ui-text-container.editing {

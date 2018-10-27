@@ -1,10 +1,16 @@
 import Base from "./Base.js";
 
 class WANode extends Base.BaseObject {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            package : "WA",
+            icon : "volume up", 
+            author : "Fr0stbyteR",
+            version : "1.0.0"
+        });
+    }
     constructor(box, patcher) {
         super(box, patcher);
-        this._package = "wa";
-        this._icon = "volume up"
         if (!this._patcher.hasOwnProperty("_audioCtx") || !this._patcher._audioCtx) {
             this._patcher._audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             this._patcher._audioCtx.onstatechange = () => {
@@ -12,8 +18,6 @@ class WANode extends Base.BaseObject {
             }
         }
         this._mem.node = null;
-    }
-    fn(data, inlet) {
     }
     connectedInlet(inlet, srcObj, srcOutlet, lineID) {
         if (this._mem.node instanceof AudioNode 
@@ -100,9 +104,23 @@ class WANode extends Base.BaseObject {
 }
 
 class Oscillator extends WANode {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            description : "WebAudio Oscillator",
+            inlets : [{
+                isHot : true,
+                type : "object",
+                description : "Set oscillator props { type: string, frequency: number }"
+            }],
+            outlets : [{
+                type : "signal",
+                description : "WebAudio Node output"
+            }]
+        });
+    }
     constructor(box, patcher) {
         super(box, patcher);
-        this._inlets = 2;
+        this._inlets = 1;
         this._outlets = 1;
         this._mem.node = this._patcher._audioCtx.createOscillator();
         this.update(box.args, box.props);
@@ -129,6 +147,15 @@ class Oscillator extends WANode {
 }
 
 class StreamSource extends WANode {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            description : "WebAudio Stream Source",
+            outlets : [{
+                type : "signal",
+                description : "WebAudio Node output"
+            }]
+        });
+    }
     constructor(box, patcher) {
         super(box, patcher);
         this._inlets = 0;
@@ -143,6 +170,16 @@ class StreamSource extends WANode {
 }
 
 class Destination extends WANode {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            description : "WebAudio Destination",
+            inlets : [{
+                isHot : true,
+                type : "signal",
+                description : "WebAudio Node input"
+            }]
+        });
+    }
     constructor(box, patcher) {
         super(box, patcher);
         this._mem.node = this._patcher._audioCtx.destination;
@@ -154,6 +191,16 @@ class Destination extends WANode {
 }
 
 class Oscilloscope extends WANode {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            description : "Draw waveform of a WebAudio Node signal in canvas",
+            inlets : [{
+                isHot : true,
+                type : "signal",
+                description : "WebAudio Node input"
+            }]
+        });
+    }
     constructor(box, patcher) {
         super(box, patcher);
         this._mem.node = this._patcher._audioCtx.createAnalyser();
@@ -200,6 +247,16 @@ class Oscilloscope extends WANode {
 }
 
 class Spectrogram extends WANode {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            description : "Draw spectrum of a WebAudio Node signal in canvas",
+            inlets : [{
+                isHot : true,
+                type : "signal",
+                description : "WebAudio Node input"
+            }]
+        });
+    }
     constructor(box, patcher) {
         super(box, patcher);
         this._mem.node = this._patcher._audioCtx.createAnalyser();
