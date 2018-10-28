@@ -165,7 +165,7 @@ class StreamSource extends WANode {
             this._mem.node = this._patcher._audioCtx.createMediaStreamSource(stream);
             this._mem.node.channelInterpretation = "discrete";
             this.connectAll()
-        });
+        }, (reason) => this.error(reason));
     }
 }
 

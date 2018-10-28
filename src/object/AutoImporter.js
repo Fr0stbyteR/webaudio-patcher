@@ -91,7 +91,7 @@ export default class AutoImporter {
                             this._mem.result = this._mem.fn(...args);
                         }
                     } catch (e) {
-                        this.error(this._mem.name, e);
+                        this.error(e);
                     }
                     if (this._mem.result instanceof Promise) {
                         this._mem.result.then(r => {

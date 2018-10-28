@@ -6,7 +6,6 @@ import "codemirror/theme/darcula.css";
 import "codemirror/lib/codemirror.css";
 import "./codemirror/mode/faust/faust.js";
 import "jquery-ui/ui/widgets/slider.js";
-import "jquery-ui/themes/base/slider.css";
 import "jquery-ui-touch-punch";
 import { EventEmitter } from "events";
 
@@ -91,7 +90,7 @@ class DSP extends FaustObject {
     update(args, props) {
         let nodeReady = (node) => {
             if (!node) {
-                this.error("Faust.DSP", "Compilation of Node failed " + Faust.getErrorMessage());
+                this.error("Compilation of Node failed " + Faust.getErrorMessage());
                 return;
             }
             if (this._mem.node && this._mem.node instanceof AudioNode) this.disconnectAll();
@@ -106,7 +105,7 @@ class DSP extends FaustObject {
         let updateCode = (code) => {
             if (this._mem.compiled && (code == this.storage.code)) return;
             if (!code) {
-                this.error("Faust.DSP", "Don't understand" + args[0]);
+                this.error("Don't understand" + args[0]);
                 return;
             } 
             this.storage.code = code;
@@ -115,7 +114,7 @@ class DSP extends FaustObject {
             if (args.isPoly) {
                 Faust.createPolyDSPFactory(code, argv, (factory) => {
                     if (!factory) {
-                        this.error("Faust.DSP", "Compilation of Factory failed " + Faust.getErrorMessage());
+                        this.error("Compilation of Factory failed " + Faust.getErrorMessage());
                         return;
                     }
                     if (args.useWorklet) {
@@ -127,7 +126,7 @@ class DSP extends FaustObject {
             } else {
                 Faust.createDSPFactory(code, argv, (factory) => {
                     if (!factory) {
-                        this.error("Faust.DSP", "Compilation of Factory failed " + Faust.getErrorMessage());
+                        this.error("Compilation of Factory failed " + Faust.getErrorMessage());
                         return;
                     }
                     if (args.useWorklet) {
@@ -141,7 +140,7 @@ class DSP extends FaustObject {
         if (props && props.hasOwnProperty("bufferSize")) {
             let bufferSize = Base.Utils.toNumber(props.bufferSize);
             if (bufferSize === null) {
-                this.error("Faust.DSP", "Don't understand" + args[0]);
+                this.error("Don't understand" + args[0]);
             } else {
                 this._mem.bufferSize = bufferSize < 256 ? 256 : bufferSize;
             }
@@ -241,6 +240,7 @@ class DSP extends FaustObject {
             for (let j = 0; j < items.length; j++) {
                 const item = items[j];
                 let uiItem = $("<div>").addClass("faust-ui-item");
+                let $ui;
                 switch (item.type) {
                     case "button":
                         uiItem.attr("data-address", item.address).data("faustUIItem", item).addClass("faust-ui-button").append(
@@ -267,53 +267,65 @@ class DSP extends FaustObject {
                         });
                         break;
                     case "hslider":
+                        $ui = $("<div>");
+                        $ui.attr({
+                            "data-tooltip" : +item.init,
+                            "data-inverted" : "",
+                            "data-position" : "left center"
+                        }).slider({
+                            value : +item.init,
+                            min : +item.min,
+                            max : +item.max,
+                            step : +item.step,
+                            slide : (e, ui) => {
+                                this._mem.node.setParamValue(item.address, ui.value);
+                                $ui.attr("data-tooltip", ui.value);
+                            }
+                        });
                         uiItem.attr("data-address", item.address).data("faustUIItem", item).addClass("faust-ui-hslider").append(
                             $("<div>").addClass(["ui", "horizontal", "label", "faust-ui-label"]).html(item.label)
-                        ).append($("<div>")
-                            .slider({
-                                value : +item.init,
-                                min : +item.min,
-                                max : +item.max,
-                                step : +item.step,
-                                slide : (e, ui) => {
-                                    this._mem.node.setParamValue(item.address, ui.value);
-                                    $(ui.handle).attr("data-tooltip", ui.value);
-                                }
-                            })
-                        ).find(".ui-slider-handle").attr("data-tooltip", +item.init).attr("data-inverted", "");
+                        ).append($ui);
                         break;
                     case "vslider":
+                        $ui = $("<div>");
+                        $ui.attr({
+                            "data-tooltip" : +item.init,
+                            "data-inverted" : "",
+                            "data-position" : "right center"
+                        }).slider({
+                            orientation : "vertical",
+                            value : +item.init,
+                            min : +item.min,
+                            max : +item.max,
+                            step : +item.step,
+                            slide : (e, ui) => {
+                                this._mem.node.setParamValue(item.address, ui.value);
+                                $ui.attr("data-tooltip", ui.value);
+                            }
+                        });
                         uiItem.attr("data-address", item.address).data("faustUIItem", item).addClass("faust-ui-vslider").append(
                             $("<div>").addClass(["ui", "horizontal", "label", "faust-ui-label"]).html(item.label)
-                        ).append($("<div>")
-                            .slider({
-                                orientation : "vertical",
-                                value : +item.init,
-                                min : +item.min,
-                                max : +item.max,
-                                step : +item.step,
-                                slide : (e, ui) => {
-                                    this._mem.node.setParamValue(item.address, ui.value);
-                                    $(ui.handle).attr("data-tooltip", ui.value);
-                                }
-                            })
-                        ).find(".ui-slider-handle").attr("data-tooltip", +item.init).attr("data-inverted", "").attr("data-position", "left center");
+                        ).append($ui);
                         break;
                     case "nentry":
-                        uiItem.attr("data-address", item.address).data("faustUIItem", item).addClass("faust-ui-nentry").append(
+                        $ui = $("<div>");
+                        $ui.attr({
+                            "data-tooltip" : +item.init,
+                            "data-inverted" : "",
+                            "data-position" : "left center"
+                        }).slider({
+                            value : +item.init,
+                            min : +item.min,
+                            max : +item.max,
+                            step : +item.step,
+                            slide : (e, ui) => {
+                                this._mem.node.setParamValue(item.address, ui.value);
+                                $ui.attr("data-tooltip", ui.value);
+                            }
+                        });
+                        uiItem.attr("data-address", item.address).data("faustUIItem", item).addClass("faust-ui-hslider").append(
                             $("<div>").addClass(["ui", "horizontal", "label", "faust-ui-label"]).html(item.label)
-                        ).append($("<div>")
-                            .slider({
-                                value : +item.init,
-                                min : +item.min,
-                                max : +item.max,
-                                step : +item.step,
-                                slide : (e, ui) => {
-                                    this._mem.node.setParamValue(item.address, ui.value);
-                                    $(ui.handle).attr("data-tooltip", ui.value);
-                                }
-                            })
-                        ).find(".ui-slider-handle").attr("data-tooltip", +item.init).attr("data-inverted", "");
+                        ).append($ui);
                         break;
                     case "hbargraph":
                         uiItem.attr("data-address", item.address).data("faustUIItem", item).addClass("faust-ui-hbargraph").append(
@@ -511,7 +523,7 @@ class Diagram extends FaustObject {
                         this.uiResize();
                     },
                     error : (jqXHR, textStatus, errorThrown) => {
-                        this.error("Faust.Diagram", errorThrown);
+                        this.error(errorThrown);
                     }
                 })
             }

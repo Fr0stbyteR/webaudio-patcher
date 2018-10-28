@@ -16,6 +16,7 @@
             background-color: black;
             display: flex;
             flex-direction: row;
+            overflow: hidden;
         }
 
         #left {
@@ -25,12 +26,17 @@
         }
 
         #sidebar {
-            box-shadow: 0px 0px 2px black;
+            box-shadow: 0px 0px 5px #0008;
             overflow-y: auto;
             position: relative;
             flex: 0 0 auto;
             width: 300px;
             z-index: 100;
+        }
+        
+        #sidebar .header{
+            width: 100%;
+            background-color: #222c;
         }
 
         #menu {
@@ -68,17 +74,23 @@
             overflow: auto;
             height: 100%;
             width: 100%;
+            background: #222;
         }
 
         #log {
             display: table;
             overflow-y: auto;
-            padding-top: 42px;
+            padding-top: 40px;
+            margin-top: 0px;
             font-size: .8em;
         }
 
         #log tbody td:first-child {
             vertical-align: top;
+        }
+
+        #log tr td {
+            border-width: 0px;
         }
 
         .hidden {
@@ -432,7 +444,7 @@
             <div class="lines"></div>
             <div class="boxes"></div>
         </div>
-        <div id="toolbar" class="ui bottom fixed inverted tiny borderless icon menu">
+        <div id="toolbar" class="ui bottom sticky fixed inverted tiny borderless icon menu">
             <a id="lock" class="item"><i class="lock icon"></i></a>
             <a id="presentation" class="item"><i class="slideshare icon"></i></a>
             <a id="grid" class="item"><i class="th icon"></i></a>
@@ -441,16 +453,16 @@
     </div>
     <div id="sidebar" class="ui inverted">
         <div id="console">
-            <table id="log" class="ui selectable inverted striped very compact small unstackable table">
-                <thead class="ui sticky fixed top">
-                    <tr>
-                        <th class="two wide">Title</th>
-                        <th class="fourteen wide">Message</th>
-                    </tr>
-                </thead>
+            <div class="ui sticky fixed top attached grey inverted header">
+                Console
+            </div>
+            <table id="log" class="ui inverted striped very compact small unstackable table">
                 <tbody>
                 </tbody>
             </table>
+            <div class="ui bottom sticky fixed inverted tiny borderless icon menu">
+                <a id="console_clear" class="item"><i class="close icon"></i></a>
+            </div>
         </div>
     </div>
 </body>

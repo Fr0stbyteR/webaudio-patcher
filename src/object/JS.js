@@ -47,7 +47,7 @@ class JSBaseObject extends Base.BaseObject {
             try {
                 if (typeof data == "function") this.outlet(1, data(this._mem.data));
             } catch (e) {
-                this.error("jsObject", e);
+                this.error(e);
             }
         }
     }
@@ -68,6 +68,7 @@ class JSBaseObject extends Base.BaseObject {
 class JSBoolean extends JSBaseObject {
     static get _meta() {
         return Object.assign(super._meta, {
+            description : "Convert anything to JS boolean",
             outlets : [{
                 type : "boolean",
                 description : "Output stored boolean"
@@ -82,7 +83,7 @@ class JSBoolean extends JSBaseObject {
         try {
             this._mem.data = data ? true : false;
         } catch (e) {
-            this.error("boolean", e);
+            this.error(e);
         }
     }
     update(args, props) {
@@ -95,6 +96,7 @@ class JSBoolean extends JSBaseObject {
 class JSNumber extends JSBaseObject {
     static get _meta() {
         return Object.assign(super._meta, {
+            description : "Convert anything to JS number",
             outlets : [{
                 type : "number",
                 description : "Output stored number"
@@ -112,6 +114,15 @@ class JSNumber extends JSBaseObject {
 }
 
 class JSString extends JSBaseObject {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            description : "Convert anything to JS string",
+            outlets : [{
+                type : "string",
+                description : "Output stored string"
+            }]
+        });
+    }
     constructor(box, patcher) {
         super(box, patcher);
         this.update(box.args);
@@ -124,6 +135,7 @@ class JSString extends JSBaseObject {
 class JSArray extends JSBaseObject {
     static get _meta() {
         return Object.assign(super._meta, {
+            description : "Convert anything to JS array",
             outlets : [{
                 type : "object",
                 description : "Output stored array"
@@ -149,6 +161,15 @@ class JSArray extends JSBaseObject {
 }
 
 class JSObject extends JSBaseObject {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            description : "Store anything as JS Object",
+            outlets : [{
+                type : "object",
+                description : "Output stored object"
+            }]
+        });
+    }
     constructor(box, patcher) {
         super(box, patcher);
         this.update(box.args);
@@ -161,6 +182,7 @@ class JSObject extends JSBaseObject {
 class JSFunction extends JSBaseObject {
     static get _meta() {
         return Object.assign(super._meta, {
+            description : "build JS Function and call it",
             inlets : [{
                 isHot : true,
                 type : "anything",
@@ -204,7 +226,7 @@ class JSFunction extends JSBaseObject {
                 try {
                     this._mem.data = new Function(JSON.parse(data[0]), data[1]);
                 } catch (e) {
-                    this.error("function", e);
+                    this.error(e);
                 }
             }
         }
@@ -213,6 +235,7 @@ class JSFunction extends JSBaseObject {
 class JSCall extends JSBaseObject { //TODO Call with function name
     static get _meta() {
         return Object.assign(super._meta, {
+            description : "Call static JS Function by name",
             inlets : [{
                 isHot : true,
                 type : "anything",
@@ -268,7 +291,7 @@ class JSCall extends JSBaseObject { //TODO Call with function name
             }
             if (typeof this._mem.fn != "function") throw this._mem.fn + "not a function";
         } catch (e) {
-            this.error("function", e);
+            this.error(e);
         }
         return this;
     }

@@ -4,6 +4,7 @@ import "./Base.css";
 import "./Default.css";
 import { EventEmitter } from "events";
 import * as Util from "util";
+import "jquery-ui/ui/widgets/autocomplete.js";
 class BaseObject extends EventEmitter {
     static get _meta() {
         return {
@@ -121,7 +122,7 @@ class BaseObject extends EventEmitter {
             }).on("paste", (e) => {
                 e.preventDefault();
                 document.execCommand("insertHTML", false, e.originalEvent.clipboardData.getData("text/plain"));
-            });
+            })
         textContainer.append(icon).append(span);
         container.append(textContainer);
         container.data("resizeVertical", false);
@@ -133,6 +134,49 @@ class BaseObject extends EventEmitter {
                     e.stopPropagation();
                 }
             })
+            span.autocomplete({
+                source : (request, response) => {
+                    let results = $.ui.autocomplete.filter(Object.keys(this._patcher._lib), request.term);
+                    response(results.slice(0, 32));
+                },
+                focus: (event, ui) => {
+                    span.html(ui.item.label);
+                    let range = document.createRange();
+                    let selection = window.getSelection();
+                    range.selectNodeContents(span[0]);
+                    range.collapse(false);
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                    return false;
+                },
+                select: function( event, ui ) {
+                    span.html(ui.item.label);
+                    let range = document.createRange();
+                    let selection = window.getSelection();
+                    range.selectNodeContents(span[0]);
+                    range.collapse(false);
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                    return false;
+                  }
+            });
+            span.autocomplete("instance")._renderItem = (ul, item) => {
+                let key = item.label;
+                let meta = this._patcher._lib[key]._meta;
+                let icon = meta.icon;
+                let description = meta.description
+                return $("<li>")
+                    .append($("<i>").addClass(["small", icon, "icon"]))
+                    .append($("<span>").text(key))
+                    .append($("<span>").text(description))
+                    .appendTo(ul);
+            };
+            span.autocomplete("instance")._renderMenu = (ul, items) => {
+                $(ul).addClass(["ui", "inverted", "striped", "very", "compact", "small", "table"]);
+                $.each(items, (index, item) => {
+                    span.autocomplete("instance")._renderItemData(ul, item);
+                } );
+            };
         });
     }
     defaultDropdownUI($, box) {
@@ -209,20 +253,20 @@ class BaseObject extends EventEmitter {
         return this;
     }
     // output to console
-    post(title, data) {
-        this._patcher.newLog(0, title, data);
+    post(data) {
+        this._patcher.newLog(0, this._meta.name, data);
         return this;
     }
-    error(title, data) {
-        this._patcher.newLog(1, title, data);
+    error(data) {
+        this._patcher.newLog(1, this._meta.name, data);
         return this;
     }
-    info(title, data) {
-        this._patcher.newLog(-2, title, data);
+    info(data) {
+        this._patcher.newLog(-2, this._meta.name, data);
         return this;
     }
-    warn(title, data) {
-        this._patcher.newLog(-1, title, data);
+    warn(data) {
+        this._patcher.newLog(-1, this._meta.name, data);
         return this;
     }
     get outletLines() {
@@ -301,7 +345,7 @@ class EmptyObject extends BaseObject {
 class InvalidObject extends BaseObject {
     static get _meta() {
         return Object.assign(super._meta, {
-            description : "invaled object",
+            description : "invalid object",
             inlets : [{
                 isHot : false,
                 type : "anything",
@@ -380,8 +424,8 @@ class Print extends EmptyObject {
         this._outlets = 0;
     }
     fn(data, inlet) {
-        if (typeof data == "object") this.post("print", data.constructor.name + Util.inspect(data));
-        else this.post("print", Util.inspect(data));
+        if (typeof data == "object") this.post(data.constructor.name + Util.inspect(data));
+        else this.post(Util.inspect(data));
     }
 }
 

@@ -1,10 +1,9 @@
 import $ from 'jquery';
 import Patcher from "./Patcher.js";
 import UIObj from "./UIObj.js";
+import "jquery-ui/themes/base/all.css";
 import "jquery-ui/ui/widgets/draggable.js";
 import "jquery-ui/ui/widgets/resizable.js";
-import "jquery-ui/themes/base/draggable.css";
-import "jquery-ui/themes/base/resizable.css";
 import "jquery-ui-touch-punch";
 import "../semantic/dist/semantic.min.js";
 import Selection from "./selection-js/src/selection.js"
@@ -84,9 +83,9 @@ $(document).ready(() => {
 				})
 			},
 			stop: (event, ui) => {
+				patcher.newTimestamp();
 				$('.box.selected').each((i) => {
 					let box = $('.box.selected').eq(i);
-					patcher.newTimestamp();
 					updateLineByBox(box.attr("id"));
 					updateBoxRect(box.attr("id"));
 				})
@@ -228,6 +227,7 @@ $(document).ready(() => {
 		}
 		if (e.key == "ArrowLeft" || e.key == "ArrowRight" || e.key == "ArrowUp" || e.key == "ArrowDown"
 				&& !patcher.state.locked) { // move object
+			patcher.newTimestamp();
 			$('.box.selected').each((i) => {
 				let box = $('.box.selected').eq(i);
 				let animation = {};
@@ -236,7 +236,6 @@ $(document).ready(() => {
 				if (e.key == "ArrowUp") animation = {top : "-=" + (patcher.state.showGrid ? patcher.grid[1] : 1)};
 				if (e.key == "ArrowDown") animation = {top : "+=" + (patcher.state.showGrid ? patcher.grid[1] : 1)};
 				box.animate(animation, 0, () => {
-					patcher.newTimestamp();
 					updateLineByBox(box.attr("id"));
 					updateBoxRect(box.attr("id"));
 				});
@@ -542,6 +541,8 @@ $(document).ready(() => {
 			if (patcher._audioCtx.state == "suspended") patcher._audioCtx.resume();
 			if (patcher._audioCtx.state == "running") patcher._audioCtx.suspend();
 		}
+	}).on("click", "#console_clear", (e) => {
+		$("#log tbody").empty();
 	});
 	if (patcher._audioCtx.state == "running") $("#audio_on").addClass("enabled");
 
