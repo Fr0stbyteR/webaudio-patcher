@@ -257,7 +257,7 @@ class JSCall extends JSBaseObject { //TODO Call with function name
     }
     constructor(box, patcher) {
         super(box, patcher);
-        this._outlets = 1
+        this._outlets = 1;
         this._mem.fn = () => {};
         this._mem.args = [];
         this._mem.result;
@@ -308,6 +308,63 @@ class JSCall extends JSBaseObject { //TODO Call with function name
         }
     }
 }
+class Get extends JSObject {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            description : "Get Property of Object",
+            inlets : [{
+                isHot : true,
+                type : "object",
+                description : "The object for retriving property"
+            }, {
+                isHot : false,
+                type : "anything",
+                description : "Property name or array index"
+            }],
+            outlets : [{
+                type : "anythong",
+                description : "Output data of property"
+            }],
+            args : [{
+                type : "anything",
+                optional : true,
+                default : 0,
+                description : "Property name or array index"
+            }, {
+                type : "object",
+                optional : true,
+                description : "The object for retriving property"
+            }]
+        });
+    }
+    constructor(box, patcher) {
+        super(box, patcher);
+        this._inlets = 2;
+        this._outlets = 1;
+        this._mem.key = 0;
+        this._mem.result;
+        this.update(box.args);
+    }
+    update(args, props) {
+        if (args.length == 0) return this;
+        if (args[0]) this._mem.key = args[0];
+        if (args[1]) this._mem.result = args[1][this._mem.key];
+    }
+    fn(data, inlet) {
+        if (inlet == 0 && data instanceof Base.Bang) {
+            this.outlet(0, this._mem.result);
+            return this;
+        }
+        if (inlet == 1) {
+            this._mem.key = data;
+        }
+        if (inlet == 0) {
+            this._mem.result = data[this._mem.key];
+            this.outlet(0, this._mem.result);
+        }
+        return this;
+    }
+}
 //TODO expression
 export default {
     JSBoolean,
@@ -316,5 +373,6 @@ export default {
     JSArray,
     JSObject,
     JSFunction,
-    JSCall
+    JSCall,
+    Get
 }

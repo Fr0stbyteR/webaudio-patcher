@@ -387,7 +387,7 @@ class DSP extends FaustObject {
         container.find(".box-ui-toggle").on("click", (e) => {
             this.storage.showEditor = !this.storage.showEditor;
         });
-        let uiUpdateHandler = (props, $box) => {
+        let uiUpdateHandlerUI = (props, $box) => {
             if (props.params && props.params.hasOwnProperty("ui") && props.params.ui.length) {
                 faustUI.empty();
                 let faustUITabular = $("<div>").addClass(["ui", "bottom", "attached", "tabular", "mini", "menu"]);
@@ -429,8 +429,6 @@ class DSP extends FaustObject {
                 this.uiResize();
             }
         }
-        uiUpdateHandler(this._mem);
-        this.onUIUpdate(uiUpdateHandler);
         container.ready(() => {
             let cm = CodeMirror.fromTextArea(textarea.get(0), {
                 lineNumbers: true,
@@ -459,7 +457,9 @@ class DSP extends FaustObject {
             cm.on("keydown", (cm, e) => {
                 e.stopPropagation();
             });
-            let uiUpdateHandler = (props, $box) => {
+            uiUpdateHandlerUI(this._mem);
+            this.onUIUpdate(uiUpdateHandlerUI);
+            let uiUpdateHandlerCode = (props, $box) => {
                 if (props.hasOwnProperty("code") && props.code) {
                     cm.setValue(props.code);
                     let codeHeight = editor.find(".CodeMirror-sizer").height();
@@ -467,8 +467,8 @@ class DSP extends FaustObject {
                     this.uiResize();
                 }
             }
-            uiUpdateHandler(this.storage);
-            this.onUIUpdate(uiUpdateHandler);
+            uiUpdateHandlerCode(this.storage);
+            this.onUIUpdate(uiUpdateHandlerCode);
             if (!this.storage.showEditor) {
                 container.find(".box-ui-toggle").click();
             }
@@ -528,9 +528,10 @@ class Diagram extends FaustObject {
                 })
             }
         }
-        uiUpdateHandler(this._mem);
-        this.onUIUpdate(uiUpdateHandler);
-        return container;
+        return container.ready(() => {
+            uiUpdateHandler(this._mem);
+            this.onUIUpdate(uiUpdateHandler);
+        });
     }
 }
 export default {

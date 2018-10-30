@@ -5,15 +5,19 @@ import WA from "./object/WA.js";
 import JS from "./object/JS.js";
 import Max from "./object/max/Max.js";
 import Faust from "./object/faust/Faust.js";
+import Xebra from "./object/Xebra.js";
 import AutoImporter from "./object/AutoImporter.js";
 import * as TF from "@tensorflow/tfjs";
+import * as MM from '@magenta/music';
 let Packages = {
     Base,
     WA,
     JS,
     Max,
     Faust,
-    TF : AutoImporter.importer("TF", TF, 2)
+    Xebra,
+    TF : AutoImporter.importer("TF", TF, 2),
+    MM : AutoImporter.importer("MM", MM, 2)
 };
 
 export default class Patcher extends EventEmitter {
@@ -62,7 +66,7 @@ export default class Patcher extends EventEmitter {
                 this.createLine(patcher.lines[id]);
             }
         }
-        this.emit("loadPatcher", this);
+        this.emit("patcherLoaded", this);
         return this;
         
     }
@@ -183,6 +187,8 @@ export default class Patcher extends EventEmitter {
     }
     
     canCreateLine(props) {
+        if (props.src[1] >= this.boxes[props.src[0]].outlets) return false;
+        if (props.dest[1] >= this.boxes[props.dest[0]].inlets) return false;
         if (this.getLinesByIO(props.src[0], props.dest[0], props.src[1], props.dest[1]).length > 0) return false;
         return true;
     }
@@ -333,7 +339,7 @@ export default class Patcher extends EventEmitter {
     toString() {
         return JSON.stringify(this, (k, v) => {
             if (k.charAt(0) !== "_") return v;
-            if (v instanceof Array) return JSON.stringify(v);
+            //if (v instanceof Array) return JSON.stringify(v);
 		}, 4)
     }
 

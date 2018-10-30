@@ -24,7 +24,7 @@
             ],
             "id": "line-54",
             "disabled": false,
-            "positionHash": 15728890
+            "positionHash": 15794351
         },
         "line-56": {
             "src": [
@@ -50,7 +50,7 @@
             ],
             "id": "line-52",
             "disabled": false,
-            "positionHash": 15728845
+            "positionHash": 10879121
         },
         "line-61": {
             "src": [
@@ -63,7 +63,7 @@
             ],
             "id": "line-61",
             "disabled": false,
-            "positionHash": 3604685
+            "positionHash": 3670161
         },
         "line-68": {
             "src": [
@@ -89,7 +89,7 @@
             ],
             "id": "line-69",
             "disabled": false,
-            "positionHash": 3604730
+            "positionHash": 3670191
         },
         "line-70": {
             "src": [
@@ -115,7 +115,7 @@
             ],
             "id": "line-71",
             "disabled": false,
-            "positionHash": 3604910
+            "positionHash": 3670281
         },
         "line-72": {
             "src": [
@@ -128,7 +128,7 @@
             ],
             "id": "line-72",
             "disabled": false,
-            "positionHash": 7317934
+            "positionHash": 7383305
         },
         "line-73": {
             "src": [
@@ -141,7 +141,7 @@
             ],
             "id": "line-73",
             "disabled": false,
-            "positionHash": 11030958
+            "positionHash": 11096329
         },
         "line-74": {
             "src": [
@@ -154,7 +154,7 @@
             ],
             "id": "line-74",
             "disabled": false,
-            "positionHash": 5570945
+            "positionHash": 6619341
         },
         "line-75": {
             "src": [
@@ -167,7 +167,7 @@
             ],
             "id": "line-75",
             "disabled": false,
-            "positionHash": 22610325
+            "positionHash": 10551531
         },
         "line-77": {
             "src": [
@@ -180,7 +180,7 @@
             ],
             "id": "line-77",
             "disabled": false,
-            "positionHash": 3605000
+            "positionHash": 3670341
         },
         "line-78": {
             "src": [
@@ -193,7 +193,7 @@
             ],
             "id": "line-78",
             "disabled": false,
-            "positionHash": 9667080
+            "positionHash": 9732421
         },
         "line-79": {
             "src": [
@@ -206,7 +206,7 @@
             ],
             "id": "line-79",
             "disabled": false,
-            "positionHash": 10486235
+            "positionHash": 10551591
         },
         "line-82": {
             "src": [
@@ -219,7 +219,7 @@
             ],
             "id": "line-82",
             "disabled": false,
-            "positionHash": 3605030
+            "positionHash": 3670371
         },
         "line-83": {
             "src": [
@@ -232,7 +232,72 @@
             ],
             "id": "line-83",
             "disabled": false,
-            "positionHash": 3605060
+            "positionHash": 3670401
+        },
+        "line-84": {
+            "src": [
+                "box-62",
+                0
+            ],
+            "dest": [
+                "box-61",
+                0
+            ],
+            "id": "line-84",
+            "disabled": false,
+            "positionHash": 27197660
+        },
+        "line-85": {
+            "src": [
+                "box-61",
+                0
+            ],
+            "dest": [
+                "box-63",
+                0
+            ],
+            "id": "line-85",
+            "disabled": false,
+            "positionHash": 27197705
+        },
+        "line-86": {
+            "src": [
+                "box-63",
+                1
+            ],
+            "dest": [
+                "box-64",
+                0
+            ],
+            "id": "line-86",
+            "disabled": false,
+            "positionHash": 27263286
+        },
+        "line-87": {
+            "src": [
+                "box-65",
+                0
+            ],
+            "dest": [
+                "box-61",
+                0
+            ],
+            "id": "line-87",
+            "disabled": false,
+            "positionHash": 27263196
+        },
+        "line-88": {
+            "src": [
+                "box-68",
+                0
+            ],
+            "dest": [
+                "box-67",
+                1
+            ],
+            "id": "line-88",
+            "disabled": false,
+            "positionHash": 46854619
         }
     },
     "boxes": {
@@ -331,7 +396,7 @@
             "outlets": 3,
             "patching_rect": [
                 45,
-                210,
+                135,
                 205,
                 22
             ],
@@ -368,9 +433,9 @@
             "inlets": 3,
             "outlets": 2,
             "patching_rect": [
-                75,
-                345,
-                235,
+                90,
+                165,
+                175,
                 22
             ],
             "args": [
@@ -399,8 +464,8 @@
             "outlets": 3,
             "patching_rect": [
                 45,
-                165,
-                205,
+                105,
+                130,
                 22
             ],
             "args": [],
@@ -417,9 +482,9 @@
             "inlets": 3,
             "outlets": 2,
             "patching_rect": [
-                335,
-                365,
-                235,
+                150,
+                195,
+                175,
                 22
             ],
             "args": [
@@ -448,7 +513,7 @@
             "outlets": 3,
             "patching_rect": [
                 45,
-                390,
+                225,
                 190,
                 22
             ],
@@ -467,7 +532,7 @@
             "outlets": 3,
             "patching_rect": [
                 45,
-                480,
+                285,
                 205,
                 22
             ],
@@ -486,8 +551,8 @@
             "outlets": 2,
             "patching_rect": [
                 150,
-                435,
-                235,
+                255,
+                145,
                 22
             ],
             "args": [
@@ -513,8 +578,8 @@
             "outlets": 3,
             "patching_rect": [
                 45,
-                510,
-                160,
+                315,
+                130,
                 22
             ],
             "args": [],
@@ -532,11 +597,167 @@
             "outlets": 0,
             "patching_rect": [
                 45,
-                540,
-                100,
+                345,
+                55,
                 22
             ],
             "args": [],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-61": {
+            "id": "box-61",
+            "text": "MM.MusicVAE",
+            "name": "box-61",
+            "class": "MM.MusicVAE",
+            "inlets": 2,
+            "outlets": 2,
+            "patching_rect": [
+                405,
+                180,
+                106.344,
+                22
+            ],
+            "args": [],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-62": {
+            "id": "box-62",
+            "text": "Message",
+            "name": "box-62",
+            "class": "Message",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                405,
+                150,
+                444.094,
+                22
+            ],
+            "args": [
+                "https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/trio_4bar"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {
+                    "text": "https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/trio_4bar"
+                }
+            }
+        },
+        "box-63": {
+            "id": "box-63",
+            "text": "MM.MusicVAE.sample 1",
+            "name": "box-63",
+            "class": "MM.MusicVAE.sample",
+            "inlets": 5,
+            "outlets": 3,
+            "patching_rect": [
+                405,
+                225,
+                155.313,
+                22
+            ],
+            "args": [
+                1
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-64": {
+            "id": "box-64",
+            "text": "Print",
+            "name": "box-64",
+            "class": "Print",
+            "inlets": 1,
+            "outlets": 0,
+            "patching_rect": [
+                405,
+                270,
+                54.0469,
+                22
+            ],
+            "args": [],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-65": {
+            "id": "box-65",
+            "text": "Button",
+            "name": "box-65",
+            "class": "Button",
+            "inlets": 1,
+            "outlets": 1,
+            "patching_rect": [
+                330,
+                150,
+                45,
+                22
+            ],
+            "args": [],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-66": {
+            "id": "box-66",
+            "text": "MM.Player",
+            "name": "box-66",
+            "class": "MM.Player",
+            "inlets": 0,
+            "outlets": 2,
+            "patching_rect": [
+                645,
+                225,
+                85.7031,
+                22
+            ],
+            "args": [],
+            "props": {},
+            "prevData": null
+        },
+        "box-67": {
+            "id": "box-67",
+            "text": "MM.BasePlayer.start",
+            "name": "box-67",
+            "class": "MM.BasePlayer.start",
+            "inlets": 3,
+            "outlets": 3,
+            "patching_rect": [
+                645,
+                435,
+                137.875,
+                22
+            ],
+            "args": [],
+            "props": {},
+            "prevData": null
+        },
+        "box-68": {
+            "id": "box-68",
+            "text": "Message",
+            "name": "box-68",
+            "class": "Message",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                707,
+                391,
+                45,
+                22
+            ],
+            "args": [
+                "80"
+            ],
             "props": {},
             "prevData": null
         }
@@ -629,16 +850,68 @@
                 "_boxes": "[\"box-60\"]",
                 "storage": {}
             }
+        },
+        "box-61": {
+            "MM.MusicVAE": {
+                "_boxes": "[\"box-61\"]",
+                "storage": {}
+            }
+        },
+        "box-62": {
+            "Message": {
+                "_boxes": "[\"box-62\"]",
+                "storage": {
+                    "text": "https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/trio_4bar"
+                }
+            }
+        },
+        "box-63": {
+            "MM.MusicVAE.sample": {
+                "_boxes": "[\"box-63\"]",
+                "storage": {}
+            }
+        },
+        "box-64": {
+            "Print": {
+                "_boxes": "[\"box-64\"]",
+                "storage": {}
+            }
+        },
+        "box-65": {
+            "Button": {
+                "_boxes": "[\"box-65\"]",
+                "storage": {}
+            }
+        },
+        "box-66": {
+            "MM.Player": {
+                "_boxes": "[\"box-66\"]",
+                "storage": {}
+            }
+        },
+        "box-67": {
+            "MM.BasePlayer.start": {
+                "_boxes": "[\"box-67\"]",
+                "storage": {}
+            }
+        },
+        "box-68": {
+            "Message": {
+                "_boxes": "[\"box-68\"]",
+                "storage": {
+                    "text": "80"
+                }
+            }
         }
     },
-    "_log": "[[1,\"print\",{}],[0,\"print\",\"'Tensor\\\\n     [[7.9074726],]'\"],[0,\"print\",\"'Tensor\\\\n     [[-1.437565],]'\"],[0,\"print\",\"'Tensor\\\\n     [[0.9539649],]'\"],[0,\"print\",\"'Tensor\\\\n     [[0.12679],]'\"],[0,\"print\",\"'Tensor\\\\n     [[0.1108358],]'\"],[0,\"print\",\"'Tensor\\\\n     [[0.5588403],]'\"],[0,\"print\",\"'Tensor\\\\n     [[2.0319929],]'\"]]",
+    "_log": "[[0,\"Print\",\"MusicVAE{ initialized: false, checkpointURL: undefined, spec: undefined }\"],[0,\"Print\",\"MusicVAE{ initialized: false,\\n  checkpointURL: 'https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/trio_4bar',\\n  spec: undefined }\"],[0,\"Print\",\"MusicVAE{ initialized: true,\\n  checkpointURL: 'https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/trio_4bar',\\n  spec: \\n   { type: 'MusicVAE',\\n     dataConverter: { type: 'TrioConverter', args: [Object] } },\\n  encoder: \\n   { baseEncoders: [ [Object], [Object] ],\\n     numSteps: [ 4, 1 ],\\n     muVars: { kernel: [Object], bias: [Object] },\\n     zDims: 256 },\\n  decoder: \\n   { coreDecoders: [ [Object], [Object], [Object] ],\\n     lstmCellVars: [ [Object], [Object] ],\\n     zToInitStateVars: { kernel: [Object], bias: [Object] },\\n     numSteps: 4,\\n     zDims: 256,\\n     outputDims: 692 },\\n  dataConverter: \\n   { numSteps: 64,\\n     numSegments: 4,\\n     NUM_SPLITS: 3,\\n     SEGMENTED_BY_TRACK: false,\\n     MEL_PROG_RANGE: [ 0, 31 ],\\n     BASS_PROG_RANGE: [ 32, 39 ],\\n     melConverter: \\n      { numSteps: 64,\\n        numSegments: undefined,\\n        NUM_SPLITS: 0,\\n        SEGMENTED_BY_TRACK: false,\\n        NOTE_OFF: 1,\\n        FIRST_PITCH: 2,\\n        minPitch: 21,\\n        maxPitch: 108,\\n        ignorePolyphony: true,\\n        depth: 90 },\\n     bassConverter: \\n      { numSteps: 64,\\n        numSegments: undefined,\\n        NUM_SPLITS: 0,\\n        SEGMENTED_BY_TRACK: false,\\n        NOTE_OFF: 1,\\n        FIRST_PITCH: 2,\\n        minPitch: 21,\\n        maxPitch: 108,\\n        ignorePolyphony: true,\\n        depth: 90 },\\n     drumsConverter: \\n      { numSteps: 64,\\n        numSegments: undefined,\\n        NUM_SPLITS: 0,\\n        SEGMENTED_BY_TRACK: false,\\n        pitchClasses: [Object],\\n        pitchToClass: {},\\n        depth: 512 },\\n     depth: 692 },\\n  chordEncoder: undefined,\\n  rawVars: \\n   { 'encoder/sigma/bias': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 256,\\n        strides: [],\\n        dataId: {},\\n        id: 0,\\n        rankType: '1' },\\n     'encoder/hierarchical_level_1/cell_0/bidirectional_rnn/fw/multi_rnn_cell/cell_0/lstm_cell/kernel': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 3145728,\\n        strides: [Object],\\n        dataId: {},\\n        id: 1,\\n        rankType: '2' },\\n     'encoder/hierarchical_level_1/cell_0/bidirectional_rnn/fw/multi_rnn_cell/cell_0/lstm_cell/bias': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 2048,\\n        strides: [],\\n        dataId: {},\\n        id: 2,\\n        rankType: '1' },\\n     'encoder/hierarchical_level_1/cell_0/bidirectional_rnn/bw/multi_rnn_cell/cell_0/lstm_cell/kernel': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 3145728,\\n        strides: [Object],\\n        dataId: {},\\n        id: 3,\\n        rankType: '2' },\\n     'encoder/hierarchical_level_0/cell_0/bidirectional_rnn/fw/multi_rnn_cell/cell_0/lstm_cell/kernel': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 2465792,\\n        strides: [Object],\\n        dataId: {},\\n        id: 4,\\n        rankType: '2' },\\n     'encoder/hierarchical_level_0/cell_0/bidirectional_rnn/bw/multi_rnn_cell/cell_0/lstm_cell/bias': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 2048,\\n        strides: [],\\n        dataId: {},\\n        id: 5,\\n        rankType: '1' },\\n     'decoder/hierarchical_level_0/cell_1/lstm_cell/kernel': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 524288,\\n        strides: [Object],\\n        dataId: {},\\n        id: 6,\\n        rankType: '2' },\\n     'decoder/hierarchical_level_0/cell_0/lstm_cell/bias': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 1024,\\n        strides: [],\\n        dataId: {},\\n        id: 7,\\n        rankType: '1' },\\n     'core_decoder/core_decoder_2/decoder/multi_rnn_cell/cell_1/lstm_cell/bias': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 1024,\\n        strides: [],\\n        dataId: {},\\n        id: 8,\\n        rankType: '1' },\\n     'encoder/hierarchical_level_0/cell_0/bidirectional_rnn/fw/multi_rnn_cell/cell_0/lstm_cell/bias': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 2048,\\n        strides: [],\\n        dataId: {},\\n        id: 9,\\n        rankType: '1' },\\n     'core_decoder/core_decoder_2/decoder/z_to_initial_state/bias': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 1024,\\n        strides: [],\\n        dataId: {},\\n        id: 10,\\n        rankType: '1' },\\n     'core_decoder/core_decoder_1/decoder/z_to_initial_state/bias': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 1024,\\n        strides: [],\\n        dataId: {},\\n        id: 11,\\n        rankType: '1' },\\n     'core_decoder/core_decoder_0/decoder/multi_rnn_cell/cell_0/lstm_cell/kernel': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 616448,\\n        strides: [Object],\\n        dataId: {},\\n        id: 12,\\n        rankType: '2' },\\n     'core_decoder/core_decoder_2/decoder/multi_rnn_cell/cell_1/lstm_cell/kernel': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 524288,\\n        strides: [Object],\\n        dataId: {},\\n        id: 13,\\n        rankType: '2' },\\n     'encoder/mu/kernel': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 262144,\\n        strides: [Object],\\n        dataId: {},\\n        id: 14,\\n        rankType: '2' },\\n     'core_decoder/core_decoder_1/decoder/output_projection/bias': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 90,\\n        strides: [],\\n        dataId: {},\\n        id: 15,\\n        rankType: '1' },\\n     'core_decoder/core_decoder_1/decoder/output_projection/kernel': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 23040,\\n        strides: [Object],\\n        dataId: {},\\n        id: 16,\\n        rankType: '2' },\\n     'core_decoder/core_decoder_2/decoder/multi_rnn_cell/cell_0/lstm_cell/kernel': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 1048576,\\n        strides: [Object],\\n        dataId: {},\\n        id: 17,\\n        rankType: '2' },\\n     'encoder/hierarchical_level_1/cell_0/bidirectional_rnn/bw/multi_rnn_cell/cell_0/lstm_cell/bias': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 2048,\\n        strides: [],\\n        dataId: {},\\n        id: 18,\\n        rankType: '1' },\\n     'core_decoder/core_decoder_1/decoder/multi_rnn_cell/cell_1/lstm_cell/kernel': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 524288,\\n        strides: [Object],\\n        dataId: {},\\n        id: 19,\\n        rankType: '2' },\\n     'core_decoder/core_decoder_1/decoder/multi_rnn_cell/cell_0/lstm_cell/kernel': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 616448,\\n        strides: [Object],\\n        dataId: {},\\n        id: 20,\\n        rankType: '2' },\\n     'decoder/hierarchical_level_0/initial_state/bias': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 1024,\\n        strides: [],\\n        dataId: {},\\n        id: 21,\\n        rankType: '1' },\\n     'core_decoder/core_decoder_1/decoder/multi_rnn_cell/cell_0/lstm_cell/bias': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 1024,\\n        strides: [],\\n        dataId: {},\\n        id: 22,\\n        rankType: '1' },\\n     'core_decoder/core_decoder_1/decoder/z_to_initial_state/kernel': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 262144,\\n        strides: [Object],\\n        dataId: {},\\n        id: 23,\\n        rankType: '2' },\\n     'encoder/sigma/kernel': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 262144,\\n        strides: [Object],\\n        dataId: {},\\n        id: 24,\\n        rankType: '2' },\\n     'encoder/mu/bias': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 256,\\n        strides: [],\\n        dataId: {},\\n        id: 25,\\n        rankType: '1' },\\n     'core_decoder/core_decoder_0/decoder/z_to_initial_state/kernel': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 262144,\\n        strides: [Object],\\n        dataId: {},\\n        id: 26,\\n        rankType: '2' },\\n     'decoder/hierarchical_level_0/cell_1/lstm_cell/bias': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 1024,\\n        strides: [],\\n        dataId: {},\\n        id: 27,\\n        rankType: '1' },\\n     'core_decoder/core_decoder_0/decoder/z_to_initial_state/bias': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 1024,\\n        strides: [],\\n        dataId: {},\\n        id: 28,\\n        rankType: '1' },\\n     'core_decoder/core_decoder_2/decoder/output_projection/kernel': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 131072,\\n        strides: [Object],\\n        dataId: {},\\n        id: 29,\\n        rankType: '2' },\\n     'core_decoder/core_decoder_0/decoder/multi_rnn_cell/cell_1/lstm_cell/bias': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 1024,\\n        strides: [],\\n        dataId: {},\\n        id: 30,\\n        rankType: '1' },\\n     'core_decoder/core_decoder_2/decoder/output_projection/bias': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 512,\\n        strides: [],\\n        dataId: {},\\n        id: 31,\\n        rankType: '1' },\\n     'encoder/hierarchical_level_0/cell_0/bidirectional_rnn/bw/multi_rnn_cell/cell_0/lstm_cell/kernel': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 2465792,\\n        strides: [Object],\\n        dataId: {},\\n        id: 32,\\n        rankType: '2' },\\n     'decoder/hierarchical_level_0/initial_state/kernel': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 262144,\\n        strides: [Object],\\n        dataId: {},\\n        id: 33,\\n        rankType: '2' },\\n     'core_decoder/core_decoder_0/decoder/output_projection/bias': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 90,\\n        strides: [],\\n        dataId: {},\\n        id: 34,\\n        rankType: '1' },\\n     'core_decoder/core_decoder_0/decoder/output_projection/kernel': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 23040,\\n        strides: [Object],\\n        dataId: {},\\n        id: 35,\\n        rankType: '2' },\\n     'core_decoder/core_decoder_0/decoder/multi_rnn_cell/cell_1/lstm_cell/kernel': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 524288,\\n        strides: [Object],\\n        dataId: {},\\n        id: 36,\\n        rankType: '2' },\\n     'core_decoder/core_decoder_2/decoder/z_to_initial_state/kernel': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 262144,\\n        strides: [Object],\\n        dataId: {},\\n        id: 37,\\n        rankType: '2' },\\n     'core_decoder/core_decoder_1/decoder/multi_rnn_cell/cell_1/lstm_cell/bias': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 1024,\\n        strides: [],\\n        dataId: {},\\n        id: 38,\\n        rankType: '1' },\\n     'core_decoder/core_decoder_2/decoder/multi_rnn_cell/cell_0/lstm_cell/bias': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 1024,\\n        strides: [],\\n        dataId: {},\\n        id: 39,\\n        rankType: '1' },\\n     'decoder/hierarchical_level_0/cell_0/lstm_cell/kernel': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 263168,\\n        strides: [Object],\\n        dataId: {},\\n        id: 40,\\n        rankType: '2' },\\n     'core_decoder/core_decoder_0/decoder/multi_rnn_cell/cell_0/lstm_cell/bias': \\n      { isDisposedInternal: false,\\n        shape: [Object],\\n        dtype: 'float32',\\n        size: 1024,\\n        strides: [],\\n        dataId: {},\\n        id: 41,\\n        rankType: '1' } } }\"],[0,\"Print\",\"Array[ { timeSignatures: [],\\n    keySignatures: [],\\n    tempos: [],\\n    notes: \\n     [ [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object] ],\\n    pitchBends: [],\\n    controlChanges: [],\\n    partInfos: [],\\n    textAnnotations: [],\\n    sectionAnnotations: [],\\n    sectionGroups: [],\\n    quantizationInfo: { stepsPerQuarter: 4 },\\n    totalQuantizedSteps: 64 } ]\"],[0,\"Print\",\"Array[ { timeSignatures: [],\\n    keySignatures: [],\\n    tempos: [],\\n    notes: \\n     [ [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object] ],\\n    pitchBends: [],\\n    controlChanges: [],\\n    partInfos: [],\\n    textAnnotations: [],\\n    sectionAnnotations: [],\\n    sectionGroups: [],\\n    quantizationInfo: { stepsPerQuarter: 4 },\\n    totalQuantizedSteps: 64 } ]\"],[0,\"Print\",\"Array[ { timeSignatures: [],\\n    keySignatures: [],\\n    tempos: [],\\n    notes: \\n     [ [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object],\\n       [Object] ],\\n    pitchBends: [],\\n    controlChanges: [],\\n    partInfos: [],\\n    textAnnotations: [],\\n    sectionAnnotations: [],\\n    sectionGroups: [],\\n    quantizationInfo: { stepsPerQuarter: 4 },\\n    totalQuantizedSteps: 64 } ]\"]]",
     "state": {
-        "locked": true,
+        "locked": false,
         "presentation": false,
         "showGrid": true
     },
-    "boxIndexCount": 60,
-    "lineIndexCount": 83,
+    "boxIndexCount": 68,
+    "lineIndexCount": 88,
     "bgcolor": [
         61,
         65,

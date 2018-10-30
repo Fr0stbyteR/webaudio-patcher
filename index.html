@@ -4,6 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>JSPatcher</title>
+    <link rel="stylesheet" type="text/css" href="./dist/font_Lato.css">
     <script type="text/javascript" src="./dist/bundle.js?v=0.181024"></script>
     <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
     <style type="text/css">
@@ -37,6 +38,14 @@
         #sidebar .header{
             width: 100%;
             background-color: #222c;
+            position: absolute;
+        }
+
+        #sidebar .ui.bottom.menu{
+            width: 100%;
+            background-color: #222c;
+            height: 35px;
+            position: absolute;
         }
 
         #menu {
@@ -74,19 +83,24 @@
             overflow: auto;
             height: 100%;
             width: 100%;
-            background: #222;
+            background: #333;
         }
 
         #log {
             display: table;
             overflow-y: auto;
-            padding-top: 40px;
-            margin-top: 0px;
+            padding: 40px 0px 35px 0px;
+            margin: 0px;
             font-size: .8em;
+            background: none;
         }
 
         #log tbody td:first-child {
             vertical-align: top;
+        }
+
+        #log tbody td:last-child {
+            word-break: break-word;
         }
 
         #log tr td {

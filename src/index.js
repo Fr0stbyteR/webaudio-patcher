@@ -50,7 +50,9 @@ $(document).ready(() => {
 		$(".box").remove();
 		$(".line").remove();
 	})
-	patcher.on("loadPatcher", (patcher) => {
+	patcher.on("patcherLoaded", (patcher) => {
+		// TODO hack
+		setTimeout(() => $(".line").each((idx, el) => updateLine($(el).attr("id"))), 1000);
 		if (patcher.hasOwnProperty("bgcolor")) $("#patcher").css("background-color", "rgba(" + patcher.bgcolor.join(",") + ")");
 		lockPatcher();
 	})

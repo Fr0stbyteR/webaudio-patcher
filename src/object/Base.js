@@ -14,15 +14,8 @@ class BaseObject extends EventEmitter {
             author : "",
             version : "0.0.0",
             description : "",
-            inlets : [{
-                isHot : true,
-                type : "anything",
-                description : ""
-            }],
-            outlets : [{
-                type : "anything",
-                description : ""
-            }],
+            inlets : [],
+            outlets : [],
             args : [],
             props : []
         };
@@ -505,11 +498,14 @@ class Message extends EmptyObject {
         container.append(textContainer);
         container.data("resizeVertical", false);
         let uiUpdateHandler = (props, $box) => {
-            if (props.hasOwnProperty("text")) textContainer.html(props.text);
+            if (props.hasOwnProperty("text")) {
+                textContainer.html(props.text);
+                this.uiResize();
+            }
         }
-        uiUpdateHandler(this.storage);
-        this.onUIUpdate(uiUpdateHandler);
         return container.ready(() => {
+            uiUpdateHandler(this.storage);
+            this.onUIUpdate(uiUpdateHandler);
             container.parents(".box").on("keydown", (e) => {
                 if (e.key == "Enter") {
                     textContainer.click();
@@ -607,5 +603,6 @@ export default {
     Button,
     Message,
     Print,
+    "print" : Print,
     Utils
 }
