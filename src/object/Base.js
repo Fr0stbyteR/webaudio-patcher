@@ -90,7 +90,7 @@ class BaseObject extends EventEmitter {
         let container = $("<div>").addClass([packageName, className, "box-ui-container", "box-ui-default"]);
         let textContainer = $("<div>").addClass(["box-ui-text-container", "box-ui-default"]);
         let icon = $("<i>").addClass(["small", this._meta.icon, "icon"]);
-        let span = $("<span>").attr({
+        let span = $("<span>").addClass("editable").attr({
                 "contenteditable": false,
             }).html(box.text)
             .on("click", (e) => {
@@ -466,7 +466,7 @@ class Message extends EmptyObject {
         let packageName = "package-" + this._meta.package.toLowerCase();
         let className = packageName + "-" + this._meta.name.toLowerCase();
         let container = $("<div>").addClass([packageName, className, "box-ui-container"]);
-        let textContainer = $("<div>").addClass(["box-ui-text-container", "ui", "mini", "button"]).attr({
+        let textContainer = $("<div>").addClass(["box-ui-text-container", "editable", "ui", "mini", "button"]).attr({
                 "contenteditable": false,
             }).html(this.storage.text)
             .on("click", (e) => {
@@ -519,6 +519,7 @@ class Message extends EmptyObject {
         if (args && typeof args[0] === "string") {
             this.storage.text = args[0];
             this._box.args = args;
+            this._box.prevData = { storage : this.storage };
             this.uiUpdate({text : args[0]});
             try {
                 this._mem.buffer = JSON.parse(args[0]);

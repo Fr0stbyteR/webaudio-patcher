@@ -232,6 +232,13 @@ $(document).ready(() => {
 			e.preventDefault();
 			return;
 		}
+		if (e.key == "Enter" && !keysPressed._hasFuncKeys()) { // edit selected box
+			if ($(".box.selected").length == 1) {
+				$(".box.selected").find(".editable").click();
+				e.preventDefault();
+				return;
+			}
+		}
 		if (e.key == "ArrowLeft" || e.key == "ArrowRight" || e.key == "ArrowUp" || e.key == "ArrowDown"
 				&& !patcher.state.locked) { // move object
 			patcher.newTimestamp();
@@ -473,10 +480,10 @@ $(document).ready(() => {
 	});
 	$(document).on("click", "#new_patcher", (e) => {
 		patcher.load();
-	}).on("click", "#save", (e) => {
+	}).on("mousedown", "#save", (e) => {
 		let p = patcher.toString();
 		let url = "data:text/plain;charset=utf-8," + encodeURIComponent(p);
-		$("#save a").attr("download", "patcher.json").attr("href", url);
+		$("#save").attr("download", "patcher.json").attr("href", url);
 	}).on("click", "#open", (e) => {
 		$("#open input").click(e => e.stopPropagation()).click();
 	}).on("change", "#open input", (e) => {

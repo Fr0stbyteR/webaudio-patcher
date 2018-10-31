@@ -10,7 +10,8 @@
                 0
             ],
             "id": "line-1",
-            "disabled": false
+            "disabled": false,
+            "positionHash": 79102307
         },
         "line-2": {
             "src": [
@@ -22,7 +23,8 @@
                 0
             ],
             "id": "line-2",
-            "disabled": false
+            "disabled": false,
+            "positionHash": 59441462
         },
         "line-3": {
             "src": [
@@ -34,7 +36,8 @@
                 0
             ],
             "id": "line-3",
-            "disabled": false
+            "disabled": false,
+            "positionHash": 73400420
         },
         "line-8": {
             "src": [
@@ -46,7 +49,8 @@
                 0
             ],
             "id": "line-8",
-            "disabled": false
+            "disabled": false,
+            "positionHash": 64356553
         },
         "line-9": {
             "src": [
@@ -58,7 +62,8 @@
                 2
             ],
             "id": "line-9",
-            "disabled": false
+            "disabled": false,
+            "positionHash": 67961142
         },
         "line-11": {
             "src": [
@@ -70,7 +75,8 @@
                 0
             ],
             "id": "line-11",
-            "disabled": false
+            "disabled": false,
+            "positionHash": 79102307
         },
         "line-12": {
             "src": [
@@ -82,7 +88,8 @@
                 0
             ],
             "id": "line-12",
-            "disabled": false
+            "disabled": false,
+            "positionHash": 79102307
         },
         "line-13": {
             "src": [
@@ -94,7 +101,8 @@
                 0
             ],
             "id": "line-13",
-            "disabled": false
+            "disabled": false,
+            "positionHash": 64356482
         },
         "line-14": {
             "src": [
@@ -106,7 +114,8 @@
                 0
             ],
             "id": "line-14",
-            "disabled": false
+            "disabled": false,
+            "positionHash": 79102307
         },
         "line-15": {
             "src": [
@@ -118,19 +127,8 @@
                 0
             ],
             "id": "line-15",
-            "disabled": false
-        },
-        "line-16": {
-            "src": [
-                "box-18",
-                1
-            ],
-            "dest": [
-                "box-1",
-                0
-            ],
-            "id": "line-16",
-            "disabled": false
+            "disabled": false,
+            "positionHash": 32112740
         },
         "line-17": {
             "src": [
@@ -142,7 +140,8 @@
                 2
             ],
             "id": "line-17",
-            "disabled": false
+            "disabled": false,
+            "positionHash": 41353361
         },
         "line-18": {
             "src": [
@@ -154,7 +153,8 @@
                 1
             ],
             "id": "line-18",
-            "disabled": false
+            "disabled": false,
+            "positionHash": 33521989
         },
         "line-19": {
             "src": [
@@ -166,7 +166,8 @@
                 1
             ],
             "id": "line-19",
-            "disabled": false
+            "disabled": false,
+            "positionHash": 33521989
         },
         "line-20": {
             "src": [
@@ -178,7 +179,8 @@
                 0
             ],
             "id": "line-20",
-            "disabled": false
+            "disabled": false,
+            "positionHash": 49807460
         },
         "line-21": {
             "src": [
@@ -190,7 +192,8 @@
                 2
             ],
             "id": "line-21",
-            "disabled": false
+            "disabled": false,
+            "positionHash": 36110661
         },
         "line-25": {
             "src": [
@@ -202,19 +205,8 @@
                 0
             ],
             "id": "line-25",
-            "disabled": false
-        },
-        "line-26": {
-            "src": [
-                "box-20",
-                1
-            ],
-            "dest": [
-                "box-1",
-                0
-            ],
-            "id": "line-26",
-            "disabled": false
+            "disabled": false,
+            "positionHash": -6422113
         },
         "line-28": {
             "src": [
@@ -226,83 +218,128 @@
                 0
             ],
             "id": "line-28",
-            "disabled": false
+            "disabled": false,
+            "positionHash": 79102307
         },
-        "line-39": {
+        "line-47": {
             "src": [
-                "box-25",
+                "box-30",
                 0
             ],
             "dest": [
-                "box-26",
+                "box-31",
                 0
             ],
-            "id": "line-39",
-            "disabled": false
+            "id": "line-47",
+            "disabled": false,
+            "positionHash": 2621540
         },
-        "line-40": {
+        "line-48": {
             "src": [
-                "box-25",
+                "box-7",
                 0
             ],
             "dest": [
-                "box-27",
+                "box-32",
                 0
             ],
-            "id": "line-40",
-            "disabled": false
+            "id": "line-48",
+            "disabled": false,
+            "positionHash": 7537085
         },
-        "line-41": {
+        "line-49": {
             "src": [
-                "box-25",
+                "box-33",
                 0
             ],
             "dest": [
-                "box-8",
+                "box-22",
                 0
             ],
-            "id": "line-41",
-            "disabled": false
+            "id": "line-49",
+            "disabled": false,
+            "positionHash": 48824825
         },
-        "line-45": {
+        "line-50": {
             "src": [
-                "box-28",
+                "box-34",
                 0
             ],
             "dest": [
-                "box-25",
+                "box-22",
                 0
             ],
-            "id": "line-45",
-            "disabled": false
+            "id": "line-50",
+            "disabled": false,
+            "positionHash": 48824825
         },
-        "line-46": {
+        "line-51": {
             "src": [
-                "box-28",
+                "box-22",
+                0
+            ],
+            "dest": [
+                "box-1",
+                0
+            ],
+            "id": "line-51",
+            "disabled": false,
+            "positionHash": 79102307
+        },
+        "line-52": {
+            "src": [
+                "box-20",
                 1
             ],
             "dest": [
-                "box-29",
-                0
+                "box-35",
+                1
             ],
-            "id": "line-46",
-            "disabled": false
+            "id": "line-52",
+            "disabled": false,
+            "positionHash": 36357505
+        },
+        "line-53": {
+            "src": [
+                "box-18",
+                1
+            ],
+            "dest": [
+                "box-36",
+                1
+            ],
+            "id": "line-53",
+            "disabled": false,
+            "positionHash": 28639422
+        },
+        "line-54": {
+            "src": [
+                "box-9",
+                1
+            ],
+            "dest": [
+                "box-37",
+                1
+            ],
+            "id": "line-54",
+            "disabled": false,
+            "positionHash": 67961187
         }
     },
     "boxes": {
         "box-6": {
             "id": "box-6",
+            "text": "Base.Button",
             "name": "box-6",
             "class": "Base.Button",
             "inlets": 1,
             "outlets": 1,
             "patching_rect": [
-                1035,
-                495,
+                1335,
+                225,
                 100,
-                30.8438
+                22
             ],
-            "text": "Base.Button",
             "args": [],
             "props": {},
             "prevData": {
@@ -311,17 +348,17 @@
         },
         "box-1": {
             "id": "box-1",
+            "text": "Base.Print",
             "name": "box-1",
             "class": "Base.Print",
             "inlets": 1,
             "outlets": 0,
             "patching_rect": [
-                1035,
-                540,
-                196,
-                28
+                1335,
+                315,
+                91,
+                22
             ],
-            "text": "Base.Print",
             "args": [],
             "props": {},
             "prevData": {
@@ -330,17 +367,17 @@
         },
         "box-7": {
             "id": "box-7",
+            "text": "WA.Oscillator @frequency 220 @type sine",
             "name": "box-7",
             "class": "WA.Oscillator",
-            "inlets": 2,
+            "inlets": 1,
             "outlets": 1,
             "patching_rect": [
-                795,
-                75,
+                30,
+                375,
                 270,
-                28
+                22
             ],
-            "text": "WA.Oscillator @frequency 220 @type sine",
             "args": [],
             "props": {
                 "frequency": 220,
@@ -352,17 +389,17 @@
         },
         "box-8": {
             "id": "box-8",
+            "text": "dac~",
             "name": "box-8",
-            "class": "WA.Destination",
+            "class": "dac~",
             "inlets": 1,
             "outlets": 0,
             "patching_rect": [
-                0,
-                780,
+                30,
+                585,
                 126,
-                28
+                22
             ],
-            "text": "WA.Destination",
             "args": [],
             "props": {},
             "prevData": {
@@ -371,19 +408,19 @@
         },
         "box-9": {
             "id": "box-9",
+            "text": "JS.JSNumber 440",
             "name": "box-9",
             "class": "JS.JSNumber",
             "inlets": 3,
             "outlets": 2,
             "patching_rect": [
-                1215,
-                465,
+                1035,
+                270,
                 150,
-                28
+                22
             ],
-            "text": "JS.JSNumber 440",
             "args": [
-                "440"
+                440
             ],
             "props": {},
             "prevData": {
@@ -392,19 +429,22 @@
         },
         "box-10": {
             "id": "box-10",
+            "text": "JS.JSArray [300,2]",
             "name": "box-10",
             "class": "JS.JSArray",
             "inlets": 3,
             "outlets": 2,
             "patching_rect": [
-                1140,
-                225,
+                1110,
+                60,
                 146,
-                28
+                22
             ],
-            "text": "JS.JSArray [300,2]",
             "args": [
-                "[300,2]"
+                [
+                    300,
+                    2
+                ]
             ],
             "props": {},
             "prevData": {
@@ -413,17 +453,17 @@
         },
         "box-11": {
             "id": "box-11",
+            "text": "Base.Button",
             "name": "box-11",
             "class": "Base.Button",
             "inlets": 1,
             "outlets": 1,
             "patching_rect": [
-                1215,
-                420,
+                1035,
+                15,
                 60,
-                30.8438
+                22
             ],
-            "text": "Base.Button",
             "args": [],
             "props": {},
             "prevData": {
@@ -432,17 +472,17 @@
         },
         "box-12": {
             "id": "box-12",
+            "text": "Base.Button",
             "name": "box-12",
             "class": "Base.Button",
             "inlets": 1,
             "outlets": 1,
             "patching_rect": [
-                1140,
-                180,
+                1110,
+                15,
                 60,
-                30.8438
+                22
             ],
-            "text": "Base.Button",
             "args": [],
             "props": {},
             "prevData": {
@@ -451,19 +491,21 @@
         },
         "box-13": {
             "id": "box-13",
+            "text": "JS.JSFunction [\"x\"] \"return x/2\" ",
             "name": "box-13",
             "class": "JS.JSFunction",
             "inlets": 2,
             "outlets": 1,
             "patching_rect": [
-                1320,
-                420,
-                265,
-                28
+                1110,
+                210,
+                205,
+                22
             ],
-            "text": "JS.JSFunction [\"x\"] \"return x/2\" ",
             "args": [
-                "[\"x\"]",
+                [
+                    "x"
+                ],
                 "return x/2"
             ],
             "props": {},
@@ -473,17 +515,17 @@
         },
         "box-14": {
             "id": "box-14",
+            "text": "JS.JSCall Math.pow",
             "name": "box-14",
             "class": "JS.JSCall",
             "inlets": 3,
-            "outlets": 2,
+            "outlets": 1,
             "patching_rect": [
-                1320,
-                330,
+                1110,
+                90,
                 162,
-                28
+                22
             ],
-            "text": "JS.JSCall Math.pow",
             "args": [
                 "Math.pow"
             ],
@@ -494,17 +536,17 @@
         },
         "box-15": {
             "id": "box-15",
+            "text": "Base.Button",
             "name": "box-15",
             "class": "Base.Button",
             "inlets": 1,
             "outlets": 1,
             "patching_rect": [
-                1320,
-                375,
+                1110,
+                165,
                 60,
-                30.8438
+                22
             ],
-            "text": "Base.Button",
             "args": [],
             "props": {},
             "prevData": {
@@ -513,41 +555,41 @@
         },
         "box-16": {
             "id": "box-16",
-            "name": "Half",
+            "text": "JS.JSFunction [\"x\"] \"return x/2\" @name Half",
+            "name": "box-16",
             "class": "JS.JSFunction",
             "inlets": 2,
             "outlets": 1,
             "patching_rect": [
-                1140,
-                90,
+                480,
+                60,
                 261,
-                28
+                22
             ],
-            "text": "JS.JSFunction [\"x\"] \"return x/2\" @name Half",
             "args": [
-                "[\"x\"]",
+                [
+                    "x"
+                ],
                 "return x/2"
             ],
             "props": {
                 "name": "Half"
             },
-            "prevData": {
-                "storage": {}
-            }
+            "prevData": null
         },
         "box-17": {
             "id": "box-17",
+            "text": "Base.Button",
             "name": "box-17",
             "class": "Base.Button",
             "inlets": 1,
             "outlets": 1,
             "patching_rect": [
-                1140,
-                45,
+                480,
+                15,
                 60,
-                30.8438
+                22
             ],
-            "text": "Base.Button",
             "args": [],
             "props": {},
             "prevData": {
@@ -556,19 +598,19 @@
         },
         "box-18": {
             "id": "box-18",
+            "text": "JS.JSNumber 880",
             "name": "box-18",
             "class": "JS.JSNumber",
             "inlets": 3,
             "outlets": 2,
             "patching_rect": [
-                1140,
-                135,
+                480,
+                105,
                 161,
-                28
+                22
             ],
-            "text": "JS.JSNumber 880",
             "args": [
-                "880"
+                880
             ],
             "props": {},
             "prevData": {
@@ -577,19 +619,21 @@
         },
         "box-19": {
             "id": "box-19",
+            "text": "JS.JSFunction [\"x\"] \"return {frequency: x}\"",
             "name": "box-19",
             "class": "JS.JSFunction",
             "inlets": 2,
             "outlets": 1,
             "patching_rect": [
-                1035,
-                330,
+                750,
+                60,
                 273,
-                28
+                22
             ],
-            "text": "JS.JSFunction [\"x\"] \"return {frequency: x}\"",
             "args": [
-                "[\"x\"]",
+                [
+                    "x"
+                ],
                 "return {frequency: x}"
             ],
             "props": {},
@@ -599,17 +643,17 @@
         },
         "box-20": {
             "id": "box-20",
+            "text": "JS.JSNumber",
             "name": "box-20",
             "class": "JS.JSNumber",
             "inlets": 3,
             "outlets": 2,
             "patching_rect": [
-                1035,
-                375,
+                600,
+                285,
                 99,
-                28
+                22
             ],
-            "text": "JS.JSNumber",
             "args": [],
             "props": {},
             "prevData": {
@@ -618,17 +662,17 @@
         },
         "box-21": {
             "id": "box-21",
+            "text": "Base.Button",
             "name": "box-21",
             "class": "Base.Button",
             "inlets": 1,
             "outlets": 1,
             "patching_rect": [
-                1035,
-                285,
+                750,
+                15,
                 60,
-                30.8438
+                22
             ],
-            "text": "Base.Button",
             "args": [],
             "props": {},
             "prevData": {
@@ -637,133 +681,170 @@
         },
         "box-22": {
             "id": "box-22",
+            "text": "Max.metro 1000",
             "name": "box-22",
             "class": "Max.metro",
             "inlets": 2,
             "outlets": 1,
             "patching_rect": [
-                795,
-                120,
-                260,
-                28
+                735,
+                465,
+                125,
+                22
             ],
-            "text": "Max.metro 1000 @active 1",
             "args": [
-                "1000"
+                1000
             ],
-            "props": {
-                "active": 1
-            },
+            "props": {},
             "prevData": {
                 "storage": {
                     "a": 1
                 }
             }
         },
-        "box-25": {
-            "id": "box-25",
-            "name": "box-25",
-            "class": "Faust.DSP",
-            "inlets": 1,
-            "outlets": 2,
+        "box-30": {
+            "id": "box-30",
+            "text": "adc~",
+            "name": "box-30",
+            "class": "adc~",
+            "inlets": 0,
+            "outlets": 1,
             "patching_rect": [
-                0,
-                195,
-                731,
-                514.469
+                30,
+                30,
+                53.0156,
+                22
             ],
-            "text": "Faust.DSP  @bufferSize 1024",
             "args": [],
-            "props": {
-                "bufferSize": 1024
-            },
-            "prevData": {
-                "storage": {
-                    "showEditor": true,
-                    "code": "import(\"stdfaust.lib\");\nsig = ba.pulsen(1, 5000) : pm.djembe(60, 0.3, 0.4, 1);\necho(t, fb) = + ~ (@((t / 1000) * ma.SR) : *(fb));\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nsaw(f) = (phasor(f) - 0.5) * 2;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsquare(f) = (phasor(f) > 0.5) * 2 - 1;\npan(v) = @(*(lGain), rGain * delHead), @(*(rGain), lGain * delHead) with {\n    rGain = v : si.smooth(0.999) : min(1.) : max(0.) : sqrt;\n    lGain = (1 - rGain) : sqrt;\n\tdelHead = ma.SR * 0.2 / 340;\n};\n\nprocess(i1) = i1 : echo(delay, fb) <: pan(osc(f) * depth) with {\n  fb = hslider(\"fb\", 0.65, 0, 1, 0.01);\n  delay = hslider(\"delay\", 50, 20, 2000, 1);\n  f = hslider(\"freq\", 1, 0, 20, 0.1);\n  depth = hslider(\"depth\", 1, 0, 1, 0.01);\n}; "
-                }
-            }
+            "props": {},
+            "prevData": null
         },
-        "box-26": {
-            "id": "box-26",
-            "name": "box-26",
+        "box-31": {
+            "id": "box-31",
+            "text": "WA.Oscilloscope",
+            "name": "box-31",
             "class": "WA.Oscilloscope",
             "inlets": 1,
             "outlets": 0,
             "patching_rect": [
+                50,
+                80,
+                300,
+                172
+            ],
+            "args": [],
+            "props": {},
+            "prevData": null
+        },
+        "box-32": {
+            "id": "box-32",
+            "text": "WA.Oscilloscope",
+            "name": "box-32",
+            "class": "WA.Oscilloscope",
+            "inlets": 1,
+            "outlets": 0,
+            "patching_rect": [
+                105,
+                405,
+                165,
+                127
+            ],
+            "args": [],
+            "props": {},
+            "prevData": null
+        },
+        "box-33": {
+            "id": "box-33",
+            "text": "Message",
+            "name": "box-33",
+            "class": "Message",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
                 735,
+                435,
+                45,
+                22
+            ],
+            "args": [
+                "1"
+            ],
+            "props": {},
+            "prevData": null
+        },
+        "box-34": {
+            "id": "box-34",
+            "text": "Message",
+            "name": "box-34",
+            "class": "Message",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                815,
+                455,
+                45,
+                22
+            ],
+            "args": [
+                "0"
+            ],
+            "props": {},
+            "prevData": null
+        },
+        "box-35": {
+            "id": "box-35",
+            "text": "Message",
+            "name": "box-35",
+            "class": "Message",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                600,
                 345,
-                256,
-                228
+                102.766,
+                22
             ],
-            "text": "WA.Oscilloscope 512",
             "args": [
-                "512"
+                "{ frequency: 440 }"
             ],
             "props": {},
-            "prevData": {
-                "storage": {}
-            }
+            "prevData": null
         },
-        "box-27": {
-            "id": "box-27",
-            "name": "box-27",
-            "class": "WA.Spectrogram",
-            "inlets": 1,
-            "outlets": 0,
+        "box-36": {
+            "id": "box-36",
+            "text": "Message",
+            "name": "box-36",
+            "class": "Message",
+            "inlets": 2,
+            "outlets": 1,
             "patching_rect": [
-                735,
-                585,
-                256,
-                228
+                480,
+                150,
+                105,
+                22
             ],
-            "text": "WA.Spectrogram 512",
             "args": [
-                "512"
+                "440"
             ],
             "props": {},
-            "prevData": {
-                "storage": {}
-            }
+            "prevData": null
         },
-        "box-28": {
-            "id": "box-28",
-            "name": "box-28",
-            "class": "Faust.DSP",
-            "inlets": 1,
-            "outlets": 2,
+        "box-37": {
+            "id": "box-37",
+            "text": "Message",
+            "name": "box-37",
+            "class": "Message",
+            "inlets": 2,
+            "outlets": 1,
             "patching_rect": [
-                0,
-                0,
-                730,
-                164.875
+                1110,
+                315,
+                75,
+                22
             ],
-            "text": "Faust.DSP @bufferSize 1024",
-            "args": [],
-            "props": {
-                "bufferSize": 1024
-            },
-            "prevData": {
-                "storage": {
-                    "showEditor": true,
-                    "code": "import(\"stdfaust.lib\");\nprocess = checkbox(\"enable\") * (ba.pulsen(1, 10000) : pm.djembe(60, 0.3, 0.4, 1)); "
-                }
-            }
-        },
-        "box-29": {
-            "id": "box-29",
-            "name": "box-29",
-            "class": "Faust.Diagram",
-            "inlets": 1,
-            "outlets": 0,
-            "patching_rect": [
-                751,
-                207,
-                177,
-                28
+            "args": [
+                "220"
             ],
-            "text": "Faust.Diagram",
-            "args": [],
             "props": {},
             "prevData": null
         }
@@ -785,7 +866,7 @@
             }
         },
         "box-8": {
-            "WA.Destination": {
+            "dac~": {
                 "storage": {}
             }
         },
@@ -824,7 +905,7 @@
                 "storage": {}
             }
         },
-        "Half": {
+        "box-16": {
             "JS.JSFunction": {
                 "storage": {}
             }
@@ -861,45 +942,64 @@
                 }
             }
         },
-        "box-25": {
-            "Faust.DSP": {
-                "storage": {
-                    "showEditor": true,
-                    "code": "import(\"stdfaust.lib\");\nsig = ba.pulsen(1, 5000) : pm.djembe(60, 0.3, 0.4, 1);\necho(t, fb) = + ~ (@((t / 1000) * ma.SR) : *(fb));\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nsaw(f) = (phasor(f) - 0.5) * 2;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsquare(f) = (phasor(f) > 0.5) * 2 - 1;\npan(v) = @(*(lGain), rGain * delHead), @(*(rGain), lGain * delHead) with {\n    rGain = v : si.smooth(0.999) : min(1.) : max(0.) : sqrt;\n    lGain = (1 - rGain) : sqrt;\n\tdelHead = ma.SR * 0.2 / 340;\n};\n\nprocess(i1) = i1 : echo(delay, fb) <: pan(osc(f) * depth) with {\n  fb = hslider(\"fb\", 0.65, 0, 1, 0.01);\n  delay = hslider(\"delay\", 50, 20, 2000, 1);\n  f = hslider(\"freq\", 1, 0, 20, 0.1);\n  depth = hslider(\"depth\", 1, 0, 1, 0.01);\n}; "
-                }
+        "box-30": {
+            "adc~": {
+                "storage": {}
             }
         },
-        "box-26": {
+        "box-31": {
             "WA.Oscilloscope": {
                 "storage": {}
             }
         },
-        "box-27": {
-            "WA.Spectrogram": {
+        "box-32": {
+            "WA.Oscilloscope": {
                 "storage": {}
             }
         },
-        "box-28": {
-            "Faust.DSP": {
+        "box-33": {
+            "Message": {
                 "storage": {
-                    "showEditor": true,
-                    "code": "import(\"stdfaust.lib\");\nprocess = checkbox(\"enable\") * (ba.pulsen(1, 10000) : pm.djembe(60, 0.3, 0.4, 1)); "
+                    "text": "1"
                 }
             }
         },
-        "box-29": {
-            "Faust.Diagram": {
-                "storage": {}
+        "box-34": {
+            "Message": {
+                "storage": {
+                    "text": "0"
+                }
+            }
+        },
+        "box-35": {
+            "Message": {
+                "storage": {
+                    "text": "{ frequency: 440 }"
+                }
+            }
+        },
+        "box-36": {
+            "Message": {
+                "storage": {
+                    "text": "440"
+                }
+            }
+        },
+        "box-37": {
+            "Message": {
+                "storage": {
+                    "text": "220"
+                }
             }
         }
     },
     "state": {
-        "locked": true,
+        "locked": false,
         "presentation": false,
         "showGrid": true
     },
-    "boxIndexCount": 29,
-    "lineIndexCount": 46,
+    "boxIndexCount": 37,
+    "lineIndexCount": 54,
     "bgcolor": [
         61,
         65,

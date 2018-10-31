@@ -16,7 +16,6 @@ class State extends Base.BaseObject {
         this._mem.hostname = null;
         this._mem.port = null;
         this._mem.channel = null;
-        this.update(box.args, box.props);
     }
 
     update(args, props) {
@@ -36,14 +35,14 @@ class State extends Base.BaseObject {
             }
             const split = args[0].split(":");
             if (split.length == 2) {
+                this._mem.hostname = split[0];
+                this._mem.port = split[1];
                 if (states[args[0]]) count[args[0]]++;
                 else try {
                     let state = new Xebra.State({ hostname : split[0], port : split[1] });
                     state.connect();
                     states[args[0]] = state;
                     count[args[0]] = 1;
-                    this._mem.hostname = split[0];
-                    this._mem.port = split[1];
                 } catch (e) {
                     this.error(e);
                 }
@@ -93,6 +92,10 @@ class Receive extends State {
         super(box, patcher);
         this._inlets = 0;
         this._outlets = 2;
+        this._mem.callback = (chan, data) => {
+            if (!this._mem.channel || chan == this._mem.channel) return this.outlet(1, chan).outlet(0, data);
+        };
+        this.update(box.args, box.props);
     }
 
     update(args, props) {
@@ -142,9 +145,7 @@ class Send extends State {
         super(box, patcher);
         this._inlets = 1;
         this._outlets = 0;
-        this._mem.callback = (chan, data) => {
-            if (!this._mem.channel || chan == this._mem.channel) return this.outlet(0, data);
-        };
+        this.update(box.args, box.props);
     }
 
     update(args, props) {

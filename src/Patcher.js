@@ -402,13 +402,13 @@ export default class Patcher extends EventEmitter {
         return pasted;
     }
     
-    getLinesByBoxes(boxes) {
+    getLinesByBoxes(boxes) { 
         let ids = [], lineIDs = [];
         for (const box of boxes) {
             ids.push(box.id);
         }
         for (const pair of Patcher.arrangement2(ids)) {
-            lineIDs = this.getLinesByIO(pair[0], pair[1]).concat(this.getLinesByIO(pair[1], pair[0]));
+            lineIDs = lineIDs.concat(this.getLinesByIO(pair[0], pair[1]).concat(this.getLinesByIO(pair[1], pair[0])));
         }
         return lineIDs.map(id => this.lines[id]);
     }
@@ -560,7 +560,7 @@ class Box {
         this.patching_rect = props.patching_rect;
         this.args = parsed.args;
         this.props = parsed.props;
-        this.prevData = null;
+        this.prevData = props.prevData;
         if (this._patcher._prevData && this._patcher._prevData.hasOwnProperty(this.name) && this._patcher._prevData[this.name].hasOwnProperty(this.class)) 
             this.prevData = this._patcher._prevData[this.name][this.class];
     }
