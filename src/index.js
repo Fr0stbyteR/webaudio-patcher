@@ -13,6 +13,11 @@ window.$ = $, window.jQuery = $;
 let patcher = new Patcher();
 window.patcher = patcher;
 
+let project = [{
+	name : "demo",
+	items : ["faust.json", "tf.json", "js.json", "com.json"]
+}];
+
 let keysPressed = {
 	_check(key) {
 		if (typeof key === "string") return this.hasOwnProperty(key) && this[key];
@@ -51,7 +56,7 @@ $(document).ready(() => {
 		$(".line").remove();
 	})
 	patcher.on("patcherLoaded", (patcher) => {
-		// TODO hack
+		// TODO below is hack
 		setTimeout(() => $(".line").each((idx, el) => updateLine($(el).attr("id"))), 1000);
 		if (patcher.hasOwnProperty("bgcolor")) $("#patcher").css("background-color", "rgba(" + patcher.bgcolor.join(",") + ")");
 		lockPatcher();
@@ -462,6 +467,7 @@ $(document).ready(() => {
 	});
 
 	//Menu
+	$("#folder").append(loadProjectFile(project, $("<div>").addClass("menu")));
 	$("#menu .dropdown").dropdown({
 		action: "hide"
 	});
@@ -816,4 +822,39 @@ let updateBoxResizable = (objUI, id) => {
 		$("#" + id).resizable("option", "minHeight", 22)
 	}
 	$("#" + id).find(".ui-resizable-handle").css("display", "");
+}
+
+let loadProjectFile = (folder, $parent) => {
+	for (const el of folder) {
+		if (typeof el === "string") {
+			$parent.append(
+				$("<div>").addClass("item").attr("path", el).append(
+					$("<i>").addClass(["file", "icon"])
+				).append(
+					$("<span>").text(el)
+				).on("click", (e) => {	
+					fetch("./patchers/" + el).then(response => {
+						return response.json();
+					}).then(content => patcher.load(content));
+				})
+			);
+			continue;
+		}
+		if (typeof el === "object") {
+			$parent.append(
+				$("<div>").addClass("item").attr("path", el.name).append(
+					$("<i>").addClass(["folder", "icon"])
+				).append(
+					$("<span>").text(el.name)
+				).append(loadProjectFile(el.items, 
+						$("<div>").addClass("menu")
+					)
+				).append(
+					$("<i>").addClass(["dropdown", "icon"])
+				)
+			);
+			continue;
+		}
+	}
+	return $parent;
 }

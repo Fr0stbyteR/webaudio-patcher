@@ -1,0 +1,259 @@
+{
+    "lines": {
+        "line-39": {
+            "src": [
+                "box-25",
+                0
+            ],
+            "dest": [
+                "box-26",
+                0
+            ],
+            "id": "line-39",
+            "disabled": false,
+            "positionHash": 57671915
+        },
+        "line-40": {
+            "src": [
+                "box-25",
+                0
+            ],
+            "dest": [
+                "box-27",
+                0
+            ],
+            "id": "line-40",
+            "disabled": false,
+            "positionHash": 73400555
+        },
+        "line-41": {
+            "src": [
+                "box-25",
+                0
+            ],
+            "dest": [
+                "box-8",
+                0
+            ],
+            "id": "line-41",
+            "disabled": false,
+            "positionHash": 655895
+        },
+        "line-46": {
+            "src": [
+                "box-25",
+                1
+            ],
+            "dest": [
+                "box-29",
+                0
+            ],
+            "id": "line-46",
+            "disabled": false,
+            "positionHash": 57671720
+        },
+        "line-47": {
+            "src": [
+                "box-31",
+                0
+            ],
+            "dest": [
+                "box-25",
+                0
+            ],
+            "id": "line-47",
+            "disabled": false,
+            "positionHash": 655430
+        }
+    },
+    "boxes": {
+        "box-8": {
+            "id": "box-8",
+            "text": "WA.Destination",
+            "name": "box-8",
+            "class": "WA.Destination",
+            "inlets": 1,
+            "outlets": 0,
+            "patching_rect": [
+                0,
+                495,
+                126,
+                22
+            ],
+            "args": [],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-25": {
+            "id": "box-25",
+            "text": "Faust.DSP  @bufferSize 1024",
+            "name": "box-25",
+            "class": "Faust.DSP",
+            "inlets": 1,
+            "outlets": 2,
+            "patching_rect": [
+                0,
+                30,
+                855,
+                379.469
+            ],
+            "args": [],
+            "props": {
+                "bufferSize": 1024
+            },
+            "prevData": {
+                "storage": {
+                    "showEditor": true,
+                    "code": "import(\"stdfaust.lib\");\nt = checkbox(\"enable\");\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsigs(f) = par(i, 4, t * osc(f * (i + 1)));\nselector(f, s) = s : par(i, ba.count(s), \n    sqrt(max(1 - abs(f - 1 - i), 0)) * _\n) :> _;\nmean(n) = _ <: _ - @(_, n) : + ~ _ : _ / n;\nrms(n) = sqrt(mean(n, ^(_, 2)));\nvumeter = _ <: _, (rms(400) : hbargraph(\"rms\", 0, 2)) : attach;\nsig = selector(hslider(\"selector\", 0, 0, 5, 0.01) : si.smooth(0.999), sigs(220)); \njb = ba.pulsen(1, 10000) : pm.djembe(60, 0.3, 0.4, 1);\nprocess = rms(400) : vumeter : _ * 0.0001;"
+                }
+            }
+        },
+        "box-26": {
+            "id": "box-26",
+            "text": "WA.Oscilloscope 512",
+            "name": "box-26",
+            "class": "WA.Oscilloscope",
+            "inlets": 1,
+            "outlets": 0,
+            "patching_rect": [
+                870,
+                195,
+                225,
+                180
+            ],
+            "args": [
+                512
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-27": {
+            "id": "box-27",
+            "text": "WA.Spectrogram 512",
+            "name": "box-27",
+            "class": "WA.Spectrogram",
+            "inlets": 1,
+            "outlets": 0,
+            "patching_rect": [
+                1110,
+                195,
+                272,
+                180
+            ],
+            "args": [
+                512
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-29": {
+            "id": "box-29",
+            "text": "Faust.Diagram",
+            "name": "box-29",
+            "class": "Faust.Diagram",
+            "inlets": 1,
+            "outlets": 0,
+            "patching_rect": [
+                870,
+                0,
+                508,
+                178
+            ],
+            "args": [],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-31": {
+            "id": "box-31",
+            "text": "adc~",
+            "name": "box-31",
+            "class": "adc~",
+            "inlets": 0,
+            "outlets": 1,
+            "patching_rect": [
+                0,
+                0,
+                53,
+                22
+            ],
+            "args": [],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        }
+    },
+    "data": {
+        "box-8": {
+            "WA.Destination": {
+                "_boxes": "[\"box-8\"]",
+                "storage": {}
+            }
+        },
+        "box-25": {
+            "Faust.DSP": {
+                "_boxes": "[\"box-25\"]",
+                "storage": {
+                    "showEditor": true,
+                    "code": "import(\"stdfaust.lib\");\nt = checkbox(\"enable\");\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsigs(f) = par(i, 4, t * osc(f * (i + 1)));\nselector(f, s) = s : par(i, ba.count(s), \n    sqrt(max(1 - abs(f - 1 - i), 0)) * _\n) :> _;\nmean(n) = _ <: _ - @(_, n) : + ~ _ : _ / n;\nrms(n) = sqrt(mean(n, ^(_, 2)));\nvumeter = _ <: _, (rms(400) : hbargraph(\"rms\", 0, 2)) : attach;\nsig = selector(hslider(\"selector\", 0, 0, 5, 0.01) : si.smooth(0.999), sigs(220)); \njb = ba.pulsen(1, 10000) : pm.djembe(60, 0.3, 0.4, 1);\nprocess = rms(400) : vumeter : _ * 0.0001;"
+                }
+            }
+        },
+        "box-26": {
+            "WA.Oscilloscope": {
+                "_boxes": "[\"box-26\"]",
+                "storage": {}
+            }
+        },
+        "box-27": {
+            "WA.Spectrogram": {
+                "_boxes": "[\"box-27\"]",
+                "storage": {}
+            }
+        },
+        "box-29": {
+            "Faust.Diagram": {
+                "_boxes": "[\"box-29\"]",
+                "storage": {}
+            }
+        },
+        "box-31": {
+            "adc~": {
+                "_boxes": "[\"box-31\"]",
+                "storage": {}
+            }
+        }
+    },
+    "_log": "[]",
+    "state": {
+        "locked": false,
+        "presentation": false,
+        "showGrid": true
+    },
+    "boxIndexCount": 32,
+    "lineIndexCount": 48,
+    "bgcolor": [
+        61,
+        65,
+        70,
+        1
+    ],
+    "editing_bgcolor": [
+        82,
+        87,
+        94,
+        1
+    ],
+    "grid": [
+        15,
+        15
+    ]
+}
