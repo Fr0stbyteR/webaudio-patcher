@@ -10,7 +10,7 @@ class MaxObject extends Base.BaseObject {
         });
     }
 }
-
+// class Message (?<=^|\s)(\$\d)
 import RNG from "seedrandom";
 class random extends MaxObject {
     static get _meta() {

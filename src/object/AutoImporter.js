@@ -103,18 +103,36 @@ export default class AutoImporter {
                 }
                 output() {
                     let callback = () => {
-                        if (this._mem.fromProto) this.outlet(2, this._mem.inputs.slice(1)).outlet(1, this._mem.result).outlet(0, this._mem.inputs[0]);
+                        if (this._mem.fromProto) this.outlet(2, this._mem.inputs).outlet(1, this._mem.result).outlet(0, this._mem.instance);
                         else this.outlet(1, this._mem.inputs).outlet(0, this._mem.result);
                     }
                     if (this._mem.result instanceof Promise) {
-                        this._mem.result.then(r => {
+                        this.loading(true);
+                        this._mem.result.then((r) => {
+                            this.loading(false);
                             this._mem.result = r;
                             callback();
+                        }, (r) => {
+                            this.loading(false);
+                            this.error(r);
                         });
                     } else {
                         callback();
                     }
                 }
+                
+                loading(bool) {
+                    if (bool) {
+                        for (const id in this._uiList) {
+                            this._uiList[id].find(".icon").removeClass("code").addClass(["spinner", "loading"]);
+                        }
+                    } else {
+                        for (const id in this._uiList) {
+                            this._uiList[id].find(".icon").removeClass(["spinner", "loading"]).addClass("code");
+                        }
+                    }
+                }
+
                 execute() {
                     try {
                         if (this._mem.fromProto) {
@@ -126,7 +144,14 @@ export default class AutoImporter {
                             this._mem.result = this._mem.fn(...this._mem.inputs);
                         }
                         if (this._mem.result instanceof Promise) {
-                            this._mem.result.then(r => this._mem.result = r);
+                            this.loading(true);
+                            this._mem.result.then((r) => {
+                                this.loading(false);
+                                this._mem.result = r;
+                            }, (r) => {
+                                this.loading(false);
+                                this.error(r);
+                            });
                         }
                         return true;
                     } catch (e) {
