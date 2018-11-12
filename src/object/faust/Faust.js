@@ -70,12 +70,14 @@ class DSP extends FaustObject {
         if (!this.storage.hasOwnProperty("showEditor")) this.storage.showEditor = true;
         if (!this.storage.hasOwnProperty("code")) this.storage.code = "";
         this._mem.compileArgs = {
-            isPoly : false,
+            poly : false,
             ftz : 2,
-            polyVoices : 16,
+            voices : 16,
             useWorklet : false,
-            libraries : "https://faust.grame.fr/editor/libraries/"
+            libraries : "https://faust.grame.fr/editor/libraries/",
+            bufferSize : 256
         }
+        this._mem.argsChanged = true;
         this._mem.bufferSize = 256;
         this._mem.node = null;
         this._mem.params = null;
@@ -99,11 +101,12 @@ class DSP extends FaustObject {
             this.outlet(1, {code : this.storage.code, params : this._mem.params, node : this._mem.node});
             this.connectAll();
             this._mem.compiled = true;
+            this._mem.argsChanged = false;
             this.uiUpdate(this.storage);
             this.uiUpdate(this._mem);
         }
         let updateCode = (code) => {
-            if (this._mem.compiled && (code == this.storage.code)) return;
+            if (this._mem.compiled && (code == this.storage.code) && !this._mem.argsChanged) return;
             if (!code) {
                 this.error("Don't understand" + args[0]);
                 return;
@@ -111,16 +114,16 @@ class DSP extends FaustObject {
             this.storage.code = code;
             let args = this._mem.compileArgs;
             let argv = ["-ftz", args.ftz, "-I", args.libraries];
-            if (args.isPoly) {
+            if (args.poly) {
                 Faust.createPolyDSPFactory(code, argv, (factory) => {
                     if (!factory) {
                         this.error("Compilation of Factory failed " + Faust.getErrorMessage());
                         return;
                     }
                     if (args.useWorklet) {
-                        Faust.createPolyDSPWorkletInstance(factory, this._patcher._audioCtx, this._mem.bufferSize, nodeReady);
+                        Faust.createPolyDSPWorkletInstance(factory, this._patcher._audioCtx, args.voices, nodeReady);
                     } else {
-                        Faust.createPolyDSPInstance(factory, this._patcher._audioCtx, args.polyVoices, nodeReady);
+                        Faust.createPolyDSPInstance(factory, this._patcher._audioCtx, args.bufferSize, args.voices, nodeReady);
                     }
                 });
             } else {
@@ -130,9 +133,9 @@ class DSP extends FaustObject {
                         return;
                     }
                     if (args.useWorklet) {
-                        Faust.createDSPWorkletInstance(factory, this._patcher._audioCtx, this._mem.bufferSize, nodeReady);
+                        Faust.createDSPWorkletInstance(factory, this._patcher._audioCtx, nodeReady);
                     } else {
-                        Faust.createDSPInstance(factory, this._patcher._audioCtx, this._mem.bufferSize, nodeReady);
+                        Faust.createDSPInstance(factory, this._patcher._audioCtx, args.bufferSize, nodeReady);
                     }
                 });
             }
@@ -142,7 +145,24 @@ class DSP extends FaustObject {
             if (bufferSize === null) {
                 this.error("Don't understand" + args[0]);
             } else {
-                this._mem.bufferSize = bufferSize < 256 ? 256 : bufferSize;
+                this._mem.compileArgs.bufferSize = bufferSize < 256 ? 256 : bufferSize;
+                this._mem.argsChanged = true;
+            }
+        }
+        if (props && props.hasOwnProperty("poly")) {
+            let poly = props.poly ? true : false;
+            if (poly !== this._mem.compileArgs.poly) {
+                this._mem.compileArgs.poly = poly;
+                this._mem.argsChanged = true;
+            }
+        }
+        if (props && props.hasOwnProperty("voices")) {
+            let voices = Base.Utils.toNumber(parseInt(props.voices));
+            if (voices === null) {
+                this.error("Don't understand" + args[0]);
+            } else {
+                this._mem.compileArgs.voices = voices < 1 ? 1 : voices;
+                this._mem.argsChanged = true;
             }
         }
         if (args && args[0]) {
@@ -232,6 +252,16 @@ class DSP extends FaustObject {
             }
         }
         return this;
+    }
+    fn(data, inlet) {
+        if (data && typeof data === "object" && inlet == 0) {
+            for (const k in data) {
+                if (data.hasOwnProperty(k)) {
+                    const v = data[k];
+                    this._mem.node.setParamValue(k, v);
+                }
+            }
+        }
     }
     ui($, box) {
         let _faustUIList = {};

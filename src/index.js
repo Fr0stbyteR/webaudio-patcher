@@ -9,14 +9,17 @@ import "../semantic/dist/semantic.min.js";
 import Selection from "./selection-js/src/selection.js"
 window.$ = $, window.jQuery = $;
 
-
+let fileName = window.location.hash.substr(1);
 let patcher = new Patcher();
 window.patcher = patcher;
 
-let project = [{
-	name : "demo",
-	items : ["faust.json", "tf.json", "js.json", "com.json"]
-}];
+let project = [
+	"patcher.json",
+	{
+		name : "demo",
+		items : ["faust.json", "tf.json", "js.json", "com.json"]
+	}
+];
 
 let keysPressed = {
 	_check(key) {
@@ -219,9 +222,9 @@ $(document).ready(() => {
 		}
 	});
 
-	fetch("patcher.json").then(response => {
-		return response.json();
-	}).then(content => patcher.load(content));
+	fetch("patchers/" + (fileName.length ? fileName : "patcher.json"))
+		.then(response => response.json())
+		.then(content => patcher.load(content));
 
 	//keys
 	$(document).on("keydown", (e) => {
@@ -839,10 +842,9 @@ let loadProjectFile = (folder, $parent) => {
 					$("<i>").addClass(["file", "icon"])
 				).append(
 					$("<span>").text(el)
-				).on("click", (e) => {	
-					fetch("./patchers/" + el).then(response => {
-						return response.json();
-					}).then(content => patcher.load(content));
+				).on("click", (e) => {
+					window.location.hash = "#" + el;
+					fetch("patchers/" + el).then(response => response.json()).then(content => patcher.load(content));
 				})
 			);
 			continue;

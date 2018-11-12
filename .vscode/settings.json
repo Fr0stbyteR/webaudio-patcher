@@ -3,5 +3,6 @@
     "./src"
 ],
 "eslint.autoFixOnSave": true,
-"eslint.nodePath": "./node_modules"
+"eslint.nodePath": "./node_modules",
+"cSpell.enabled": false
 }

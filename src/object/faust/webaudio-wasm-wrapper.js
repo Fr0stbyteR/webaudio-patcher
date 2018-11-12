@@ -688,7 +688,7 @@ faust.readDSPFactoryFromMachineAux = function (factory_name1,
                   //eval(helpers_code2);
                   //factory.getJSONeffect = eval("getJSON" + factory_name2);
                   //factory.getBase64Codeeffect = eval("getBase64Code" + factory_name2);
-
+                
                   try {
                     factory.effect_json_object = JSON.parse(helpers_code2.match(/getJSON.+?return\s"(\{.+?)";}function/)[1].replace(/\\/g, ""));
                     factory.effect_base64Code = helpers_code2.match(/([A-Za-z0-9+/=]+)";\s\}/)[1];
@@ -698,7 +698,7 @@ faust.readDSPFactoryFromMachineAux = function (factory_name1,
                     callback(null);
                     throw true;
                   }
-                  factory.getJSONeffect = () => { return factory.effect_json_object; };
+                  factory.getJSONeffect = () => { return JSON.stringify(factory.effect_json_object); };
                   factory.getBase64Codeeffect = () => { return factory.effect_base64Code; }
                   factory.name_effect = factory_name2;
                   callback(factory);
@@ -2340,7 +2340,7 @@ faust.createPolyDSPInstanceAux = function (factory, time1, mixer_instance, dsp_i
     sp.instanceConstants = function (sample_rate)
     {
         for (var i = 0; i < polyphony; i++) {
-            fsp.actory.instanceConstants(sp.dsp_voices[i], sample_rate);
+            sp.factory.instanceConstants(sp.dsp_voices[i], sample_rate);
         }
     }
 
@@ -2672,7 +2672,7 @@ faust.createPolyDSPInstance = function (factory, context, buffer_size, polyphony
         }
     };
 
-    fetch('mixer32.wasm')
+    fetch('./dist/mixer32.wasm')
     .then(mixer_res => mixer_res.arrayBuffer())
     .then(mixer_bytes => WebAssembly.instantiate(mixer_bytes, mixerObject))
     .then(mixer_module =>
@@ -2691,14 +2691,14 @@ faust.createPolyDSPInstance = function (factory, context, buffer_size, polyphony
                                                                       buffer_size,
                                                                       polyphony,
                                                                       callback))
-              .catch(function(error) { /* console.log(error); */ faust.error_msg = "Faust DSP cannot be instantiated"; callback(null); });
+              .catch(function(error) { console.log(error);  faust.error_msg = "Faust DSP cannot be instantiated"; callback(null); });
             } else {
               faust.createPolyDSPInstanceAux(factory, time1, mixer_module.instance, dsp_instance, null, memory, context, buffer_size, polyphony, callback);
             }
         })
-        .catch(function(error) { /* console.log(error); */ faust.error_msg = "Faust DSP cannot be instantiated"; callback(null); });
+        .catch(function(error) { console.log(error); faust.error_msg = "Faust DSP cannot be instantiated"; callback(null); });
     })
-    .catch(function(error) { /* console.log(error); */ faust.error_msg = "Faust DSP cannot be instantiated"; callback(null); });
+    .catch(function(error) { console.log(error); faust.error_msg = "Faust DSP cannot be instantiated"; callback(null); });
 }
 
 faust.deletePolyDSPInstance = function (dsp) {}

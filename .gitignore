@@ -92,3 +92,6 @@ semantic/gulpfile.js
 app.js
 cycle-dac.maxpat
 maxpat.js
+
+# Local files
+local/
