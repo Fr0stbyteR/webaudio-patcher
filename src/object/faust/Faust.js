@@ -97,7 +97,7 @@ class DSP extends FaustObject {
             }
             if (this._mem.node && this._mem.node instanceof AudioNode) this.disconnectAll();
             this._mem.node = node;
-            this._mem.params = node.getJSON();
+            this._mem.params = JSON.parse(node.getJSON());
             this.outlet(1, {code : this.storage.code, params : this._mem.params, node : this._mem.node});
             this.connectAll();
             this._mem.compiled = true;
@@ -148,6 +148,9 @@ class DSP extends FaustObject {
                 this._mem.compileArgs.bufferSize = bufferSize < 256 ? 256 : bufferSize;
                 this._mem.argsChanged = true;
             }
+        } else {
+            this._mem.compileArgs.bufferSize = 256;
+            this._mem.argsChanged = true;
         }
         if (props && props.hasOwnProperty("poly")) {
             let poly = props.poly ? true : false;
@@ -155,6 +158,9 @@ class DSP extends FaustObject {
                 this._mem.compileArgs.poly = poly;
                 this._mem.argsChanged = true;
             }
+        } else {
+            this._mem.compileArgs.poly = false;
+            this._mem.argsChanged = true;
         }
         if (props && props.hasOwnProperty("voices")) {
             let voices = Base.Utils.toNumber(parseInt(props.voices));
@@ -164,6 +170,9 @@ class DSP extends FaustObject {
                 this._mem.compileArgs.voices = voices < 1 ? 1 : voices;
                 this._mem.argsChanged = true;
             }
+        } else {
+            this._mem.compileArgs.voices = 4;
+            this._mem.argsChanged = true;
         }
         if (args && args[0]) {
             let code = Base.Utils.toString(args[0]);

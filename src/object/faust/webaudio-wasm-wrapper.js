@@ -667,7 +667,7 @@ faust.readDSPFactoryFromMachineAux = function (factory_name1,
             callback(null);
             throw true;
         }
-        factory.getJSON = () => { return factory.json_object; };
+        factory.getJSON = () => { return JSON.stringify(factory.json_object); };
         factory.getBase64Code = () => { return factory.base64Code; }
 
         factory.name = factory_name1;
@@ -2568,7 +2568,7 @@ faust.createPolyDSPInstanceAux = function (factory, time1, mixer_instance, dsp_i
             res = res.concat("\"ui\":[{\"type\":\"tgroup\",\"label\":\"Polyphonic\",\"items\":[");
             res = res.concat("{\"type\": \"vgroup\",\"label\":\"Voices\",\"items\":");
             res = res.concat(JSON.stringify(factory.json_object.ui));
-            res = res.concat("},");
+            res = res.concat("}");
             res = res.concat("]}]}");
             return res;
         }
@@ -3464,7 +3464,7 @@ faust.createPolyDSPWorkletInstanceAux = function (factory, context, polyphony, c
             res = res.concat("\"ui\":[{\"type\":\"tgroup\",\"label\":\"Polyphonic\",\"items\":[");
             res = res.concat("{\"type\": \"vgroup\",\"label\":\"Voices\",\"items\":");
             res = res.concat(JSON.stringify(factory.json_object.ui));
-            res = res.concat("},");
+            res = res.concat("}");
             res = res.concat("]}]}");
             return res;
         }

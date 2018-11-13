@@ -1,0 +1,253 @@
+{
+    "lines": {
+        "line-39": {
+            "src": [
+                "box-25",
+                0
+            ],
+            "dest": [
+                "box-26",
+                0
+            ],
+            "id": "line-39",
+            "disabled": false,
+            "positionHash": 57671907
+        },
+        "line-40": {
+            "src": [
+                "box-25",
+                0
+            ],
+            "dest": [
+                "box-27",
+                0
+            ],
+            "id": "line-40",
+            "disabled": false,
+            "positionHash": 73400547
+        },
+        "line-41": {
+            "src": [
+                "box-25",
+                0
+            ],
+            "dest": [
+                "box-8",
+                0
+            ],
+            "id": "line-41",
+            "disabled": false,
+            "positionHash": 655887
+        },
+        "line-46": {
+            "src": [
+                "box-25",
+                1
+            ],
+            "dest": [
+                "box-29",
+                0
+            ],
+            "id": "line-46",
+            "disabled": false,
+            "positionHash": 57671712
+        },
+        "line-47": {
+            "src": [
+                "box-31",
+                0
+            ],
+            "dest": [
+                "box-25",
+                0
+            ],
+            "id": "line-47",
+            "disabled": false,
+            "positionHash": 655422
+        }
+    },
+    "boxes": {
+        "box-8": {
+            "id": "box-8",
+            "text": "WA.Destination",
+            "name": "box-8",
+            "class": "WA.Destination",
+            "inlets": 1,
+            "outlets": 0,
+            "patching_rect": [
+                0,
+                495,
+                126,
+                22
+            ],
+            "args": [],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-25": {
+            "id": "box-25",
+            "text": "Faust.DSP  @bufferSize 1024 @poly true",
+            "name": "box-25",
+            "class": "Faust.DSP",
+            "inlets": 1,
+            "outlets": 2,
+            "patching_rect": [
+                0,
+                30,
+                855,
+                878.891
+            ],
+            "args": [],
+            "props": {
+                "bufferSize": 1024,
+                "poly": true
+            },
+            "prevData": {
+                "storage": {
+                    "showEditor": true,
+                    "code": "import(\"stdfaust.lib\");\nprocess = os.osc(freq) * gain * gate with {\n  freq = hslider(\"freq\", 440, 40, 8000, 1);\n  gain = hslider(\"gain\", 0.5, 0, 1, 0.01);\n  gate = button(\"gate\") : en.adsr(0.01, 0.1, 0.9, 0.5);\n};\neffect = dm.freeverb_demo;"
+                }
+            }
+        },
+        "box-26": {
+            "id": "box-26",
+            "text": "WA.Oscilloscope 512",
+            "name": "box-26",
+            "class": "WA.Oscilloscope",
+            "inlets": 1,
+            "outlets": 0,
+            "patching_rect": [
+                870,
+                195,
+                225,
+                180
+            ],
+            "args": [
+                512
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-27": {
+            "id": "box-27",
+            "text": "WA.Spectrogram 512",
+            "name": "box-27",
+            "class": "WA.Spectrogram",
+            "inlets": 1,
+            "outlets": 0,
+            "patching_rect": [
+                1110,
+                195,
+                272,
+                180
+            ],
+            "args": [
+                512
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-29": {
+            "id": "box-29",
+            "text": "Faust.Diagram",
+            "name": "box-29",
+            "class": "Faust.Diagram",
+            "inlets": 1,
+            "outlets": 0,
+            "patching_rect": [
+                870,
+                0,
+                508,
+                178
+            ],
+            "args": [],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-31": {
+            "id": "box-31",
+            "text": "adc~",
+            "name": "box-31",
+            "class": "adc~",
+            "inlets": 0,
+            "outlets": 1,
+            "patching_rect": [
+                0,
+                0,
+                53,
+                22
+            ],
+            "args": [],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        }
+    },
+    "data": {
+        "box-8": {
+            "WA.Destination": {
+                "storage": {}
+            }
+        },
+        "box-25": {
+            "Faust.DSP": {
+                "storage": {
+                    "showEditor": true,
+                    "code": "import(\"stdfaust.lib\");\nprocess = os.osc(freq) * gain * gate with {\n  freq = hslider(\"freq\", 440, 40, 8000, 1);\n  gain = hslider(\"gain\", 0.5, 0, 1, 0.01);\n  gate = button(\"gate\") : en.adsr(0.01, 0.1, 0.9, 0.5);\n};\neffect = dm.freeverb_demo;"
+                }
+            }
+        },
+        "box-26": {
+            "WA.Oscilloscope": {
+                "storage": {}
+            }
+        },
+        "box-27": {
+            "WA.Spectrogram": {
+                "storage": {}
+            }
+        },
+        "box-29": {
+            "Faust.Diagram": {
+                "storage": {}
+            }
+        },
+        "box-31": {
+            "adc~": {
+                "storage": {}
+            }
+        }
+    },
+    "state": {
+        "locked": true,
+        "presentation": false,
+        "showGrid": true
+    },
+    "boxIndexCount": 34,
+    "lineIndexCount": 50,
+    "bgcolor": [
+        61,
+        65,
+        70,
+        1
+    ],
+    "editing_bgcolor": [
+        82,
+        87,
+        94,
+        1
+    ],
+    "grid": [
+        15,
+        15
+    ]
+}
