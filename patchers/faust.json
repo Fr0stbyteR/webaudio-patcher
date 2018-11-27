@@ -106,7 +106,7 @@
             "prevData": {
                 "storage": {
                     "showEditor": true,
-                    "code": "import(\"stdfaust.lib\");\nt = checkbox(\"enable\");\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsigs(f) = par(i, 4, t * osc(f * (i + 1)));\nselector(f, s) = s : par(i, ba.count(s), \n    sqrt(max(1 - abs(f - 1 - i), 0)) * _\n) :> _;\nmean(n) = _ <: _ - @(_, n) : + ~ _ : _ / n;\nrms(n) = sqrt(mean(n, ^(_, 2)));\nvumeter = _ <: _, (rms(400) : hbargraph(\"rms\", 0, 2)) : attach;\nsig = selector(hslider(\"selector\", 0, 0, 5, 0.01) : si.smooth(0.999), sigs(220)); \njb = ba.pulsen(1, 10000) : pm.djembe(60, 0.3, 0.4, 1);\nprocess = rms(400) : vumeter : _ * 0.0001;"
+                    "code": "import(\"stdfaust.lib\");\nt = checkbox(\"enable\");\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsigs(f) = par(i, 4, t * osc(f * (i + 1)));\nselector(f, s) = s : par(i, ba.count(s), \n    max(1 - abs(f - 1 - i), 0) * _\n) :> _;\nprocess = selector(hslider(\"selector\", 0, 0, 5, 0.01) : si.smooth(0.999), sigs(220));"
                 }
             }
         },
@@ -194,47 +194,40 @@
     "data": {
         "box-8": {
             "WA.Destination": {
-                "_boxes": "[\"box-8\"]",
                 "storage": {}
             }
         },
         "box-25": {
             "Faust.DSP": {
-                "_boxes": "[\"box-25\"]",
                 "storage": {
                     "showEditor": true,
-                    "code": "import(\"stdfaust.lib\");\nt = checkbox(\"enable\");\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsigs(f) = par(i, 4, t * osc(f * (i + 1)));\nselector(f, s) = s : par(i, ba.count(s), \n    sqrt(max(1 - abs(f - 1 - i), 0)) * _\n) :> _;\nmean(n) = _ <: _ - @(_, n) : + ~ _ : _ / n;\nrms(n) = sqrt(mean(n, ^(_, 2)));\nvumeter = _ <: _, (rms(400) : hbargraph(\"rms\", 0, 2)) : attach;\nsig = selector(hslider(\"selector\", 0, 0, 5, 0.01) : si.smooth(0.999), sigs(220)); \njb = ba.pulsen(1, 10000) : pm.djembe(60, 0.3, 0.4, 1);\nprocess = rms(400) : vumeter : _ * 0.0001;"
+                    "code": "import(\"stdfaust.lib\");\nt = checkbox(\"enable\");\nphasor(f)=f/ma.SR:(+,1:fmod)~_;\nosc(f) = sin(phasor(f) * 2 * ma.PI);\nsigs(f) = par(i, 4, t * osc(f * (i + 1)));\nselector(f, s) = s : par(i, ba.count(s), \n    max(1 - abs(f - 1 - i), 0) * _\n) :> _;\nprocess = selector(hslider(\"selector\", 0, 0, 5, 0.01) : si.smooth(0.999), sigs(220));"
                 }
             }
         },
         "box-26": {
             "WA.Oscilloscope": {
-                "_boxes": "[\"box-26\"]",
                 "storage": {}
             }
         },
         "box-27": {
             "WA.Spectrogram": {
-                "_boxes": "[\"box-27\"]",
                 "storage": {}
             }
         },
         "box-29": {
             "Faust.Diagram": {
-                "_boxes": "[\"box-29\"]",
                 "storage": {}
             }
         },
         "box-31": {
             "adc~": {
-                "_boxes": "[\"box-31\"]",
                 "storage": {}
             }
         }
     },
-    "_log": "[]",
     "state": {
-        "locked": false,
+        "locked": true,
         "presentation": false,
         "showGrid": true
     },
