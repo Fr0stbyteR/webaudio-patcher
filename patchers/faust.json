@@ -11,7 +11,7 @@
             ],
             "id": "line-39",
             "disabled": false,
-            "positionHash": 57671915
+            "positionHash": 57737451
         },
         "line-40": {
             "src": [
@@ -24,7 +24,7 @@
             ],
             "id": "line-40",
             "disabled": false,
-            "positionHash": 73400555
+            "positionHash": 73466091
         },
         "line-41": {
             "src": [
@@ -37,7 +37,7 @@
             ],
             "id": "line-41",
             "disabled": false,
-            "positionHash": 655895
+            "positionHash": 721431
         },
         "line-46": {
             "src": [
@@ -50,7 +50,7 @@
             ],
             "id": "line-46",
             "disabled": false,
-            "positionHash": 57671720
+            "positionHash": 57737256
         },
         "line-47": {
             "src": [
@@ -63,7 +63,7 @@
             ],
             "id": "line-47",
             "disabled": false,
-            "positionHash": 655430
+            "positionHash": 720966
         },
         "line-49": {
             "src": [
@@ -76,7 +76,7 @@
             ],
             "id": "line-49",
             "disabled": false,
-            "positionHash": 57672110
+            "positionHash": 57737646
         },
         "line-50": {
             "src": [
@@ -89,7 +89,7 @@
             ],
             "id": "line-50",
             "disabled": false,
-            "positionHash": 85852620
+            "positionHash": 85918156
         },
         "line-51": {
             "src": [
@@ -102,7 +102,7 @@
             ],
             "id": "line-51",
             "disabled": false,
-            "positionHash": 655430
+            "positionHash": 720966
         },
         "line-52": {
             "src": [
@@ -115,7 +115,7 @@
             ],
             "id": "line-52",
             "disabled": false,
-            "positionHash": 655430
+            "positionHash": 720966
         }
     },
     "boxes": {
@@ -130,7 +130,7 @@
                 0,
                 495,
                 126,
-                22
+                39
             ],
             "args": [],
             "props": {},
@@ -234,7 +234,7 @@
                 0,
                 0,
                 53,
-                22
+                39
             ],
             "args": [],
             "props": {},
@@ -276,7 +276,7 @@
                 870,
                 390,
                 85.4844,
-                22
+                53
             ],
             "args": [
                 "params"
@@ -296,7 +296,7 @@
             "patching_rect": [
                 135,
                 0,
-                274.234,
+                274.219,
                 22
             ],
             "args": [
@@ -305,7 +305,7 @@
             "props": {},
             "prevData": {
                 "storage": {
-                    "text": "{\"/FaustDSP/enable\": 0, \"/FaustDSP/selector\": 0}"
+                    "text": "{\"/FaustDSP/enable\": 1, \"/FaustDSP/selector\": 1.5}"
                 }
             }
         },
@@ -320,7 +320,7 @@
                 480,
                 0,
                 284.344,
-                22
+                53
             ],
             "args": [
                 "{\"/FaustDSP/enable\": 0, \"/FaustDSP/selector\": 0}"
@@ -382,7 +382,7 @@
         "box-35": {
             "Message": {
                 "storage": {
-                    "text": "{\"/FaustDSP/enable\": 0, \"/FaustDSP/selector\": 0}"
+                    "text": "{\"/FaustDSP/enable\": 1, \"/FaustDSP/selector\": 1.5}"
                 }
             }
         },
@@ -395,7 +395,7 @@
         }
     },
     "state": {
-        "locked": true,
+        "locked": false,
         "presentation": false,
         "showGrid": true
     },
