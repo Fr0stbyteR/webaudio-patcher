@@ -90,6 +90,32 @@
             "id": "line-50",
             "disabled": false,
             "positionHash": 85852620
+        },
+        "line-51": {
+            "src": [
+                "box-35",
+                0
+            ],
+            "dest": [
+                "box-25",
+                0
+            ],
+            "id": "line-51",
+            "disabled": false,
+            "positionHash": 655430
+        },
+        "line-52": {
+            "src": [
+                "box-36",
+                0
+            ],
+            "dest": [
+                "box-25",
+                0
+            ],
+            "id": "line-52",
+            "disabled": false,
+            "positionHash": 655430
         }
     },
     "boxes": {
@@ -255,7 +281,56 @@
             "args": [
                 "params"
             ],
-            "props": {}
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-35": {
+            "id": "box-35",
+            "text": "Message",
+            "name": "box-35",
+            "class": "Message",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                135,
+                0,
+                274.234,
+                22
+            ],
+            "args": [
+                "{\"/FaustDSP/enable\": 1, \"/FaustDSP/selector\": 1.5}"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {
+                    "text": "{\"/FaustDSP/enable\": 0, \"/FaustDSP/selector\": 0}"
+                }
+            }
+        },
+        "box-36": {
+            "id": "box-36",
+            "text": "Message",
+            "name": "box-36",
+            "class": "Message",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                480,
+                0,
+                284.344,
+                22
+            ],
+            "args": [
+                "{\"/FaustDSP/enable\": 0, \"/FaustDSP/selector\": 0}"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {
+                    "text": "{\"/FaustDSP/enable\": 0, \"/FaustDSP/selector\": 0}"
+                }
+            }
         }
     },
     "data": {
@@ -303,15 +378,29 @@
             "Get": {
                 "storage": {}
             }
+        },
+        "box-35": {
+            "Message": {
+                "storage": {
+                    "text": "{\"/FaustDSP/enable\": 0, \"/FaustDSP/selector\": 0}"
+                }
+            }
+        },
+        "box-36": {
+            "Message": {
+                "storage": {
+                    "text": "{\"/FaustDSP/enable\": 0, \"/FaustDSP/selector\": 0}"
+                }
+            }
         }
     },
     "state": {
-        "locked": false,
+        "locked": true,
         "presentation": false,
         "showGrid": true
     },
-    "boxIndexCount": 34,
-    "lineIndexCount": 50,
+    "boxIndexCount": 37,
+    "lineIndexCount": 52,
     "bgcolor": [
         61,
         65,

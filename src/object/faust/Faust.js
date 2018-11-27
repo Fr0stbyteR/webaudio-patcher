@@ -267,6 +267,7 @@ class DSP extends FaustObject {
                 if (data.hasOwnProperty(k)) {
                     const v = data[k];
                     this._mem.node.setParamValue(k, v);
+                    this._mem.node.output_handler(k, v);
                 }
             }
         }
@@ -446,12 +447,12 @@ class DSP extends FaustObject {
                     if (uiItem.hasClass("faust-ui-checkbox")) {
                         if (uiItem.data("faustUIValue") == value || Math.abs(uiItem.data("faustUIValue") - value) <= 0.01) return;
                         uiItem.data("faustUIValue", value);
-                        uiItem.find("input").checkbox(value ? "set checked" : "set unchecked");
+                        uiItem.checkbox(value ? "set checked" : "set unchecked");
                     }
                     if (uiItem.hasClass("faust-ui-hslider") || uiItem.hasClass("faust-ui-vslider") || uiItem.hasClass("faust-ui-nentry")) {
                         if (uiItem.data("faustUIValue") == value || Math.abs(uiItem.data("faustUIValue") - value) <= 0.01) return;
                         uiItem.data("faustUIValue", value);
-                        uiItem.find(".ui-slider").slider("option", value);
+                        uiItem.find(".ui-slider").slider("value", value);
                     }
                     if (uiItem.hasClass("faust-ui-hbargraph") || uiItem.hasClass("faust-ui-vbargraph")) {
                         if (uiItem.data("faustUIValue") == value || Math.abs(uiItem.data("faustUIValue") - value) <= 0.01) return;
@@ -536,6 +537,7 @@ class Diagram extends FaustObject {
     }
     fn(data, inlet) {
         if (data && data.hasOwnProperty("code") && data.code) {
+            if (data.code == this._mem.code) return;
             this._mem.code = data.code;
             this.uiUpdate(this._mem);
         }
@@ -561,7 +563,7 @@ class Diagram extends FaustObject {
                         this.uiResize();
                     },
                     error : (jqXHR, textStatus, errorThrown) => {
-                        this.error(errorThrown);
+                        this.error(textStatus);
                     }
                 })
             }
