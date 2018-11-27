@@ -78,7 +78,6 @@ class DSP extends FaustObject {
             bufferSize : 256
         }
         this._mem.argsChanged = true;
-        this._mem.bufferSize = 256;
         this._mem.node = null;
         this._mem.params = null;
         this._mem.compiled = false;
@@ -488,7 +487,7 @@ class DSP extends FaustObject {
                     .parents(".ui-draggable").draggable("disable");
             });
             cm.on("blur", (cm, e) => {
-                this.update([cm.getValue()]);
+                this.update([cm.getValue()], this._mem.compileArgs);
                 if (this._patcher.state.locked) return;
                 editor.removeClass("editing")
                     .parents(".ui-draggable").draggable("enable");

@@ -64,6 +64,32 @@
             "id": "line-47",
             "disabled": false,
             "positionHash": 655430
+        },
+        "line-49": {
+            "src": [
+                "box-25",
+                1
+            ],
+            "dest": [
+                "box-34",
+                0
+            ],
+            "id": "line-49",
+            "disabled": false,
+            "positionHash": 57672110
+        },
+        "line-50": {
+            "src": [
+                "box-34",
+                0
+            ],
+            "dest": [
+                "box-33",
+                1
+            ],
+            "id": "line-50",
+            "disabled": false,
+            "positionHash": 85852620
         }
     },
     "boxes": {
@@ -189,6 +215,47 @@
             "prevData": {
                 "storage": {}
             }
+        },
+        "box-33": {
+            "id": "box-33",
+            "text": "Message",
+            "name": "box-33",
+            "class": "Message",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                870,
+                420,
+                450,
+                176
+            ],
+            "args": [
+                "{ name: 'FaustDSP',\n  filename: 'FaustDSP',\n  version: '2.8.4',\n  options: 'wasm-ib, -scal -ftz 0',\n  size: '72',\n  inputs: '0',\n  outputs: '1',\n  meta: \n   [ { filename: 'FaustDSP' },\n     { 'https://faust.grame.fr/editor/libraries/basics.lib/name': 'Faust Basic Element Library' },\n     { 'https://faust.grame.fr/editor/libraries/basics.lib/version': '0.0' },\n     { 'https://faust.grame.fr/editor/libraries/maths.lib/author': 'GRAME' },\n     { 'https://faust.grame.fr/editor/libraries/maths.lib/copyright': 'GRAME' },\n     { 'https://faust.grame.fr/editor/libraries/maths.lib/license': 'LGPL with exception' },\n     { 'https://faust.grame.fr/editor/libraries/maths.lib/name': 'Faust Math Library' },\n     { 'https://faust.grame.fr/editor/libraries/maths.lib/version': '2.1' },\n     { 'https://faust.grame.fr/editor/libraries/signals.lib/name': 'Faust Signal Routing Library' },\n     { 'https://faust.grame.fr/editor/libraries/signals.lib/version': '0.0' },\n     { name: 'FaustDSP' } ],\n  ui: [ { type: 'vgroup', label: 'FaustDSP', items: [Object] } ] }"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {
+                    "text": "{ name: 'FaustDSP',\n  filename: 'FaustDSP',\n  version: '2.8.4',\n  options: 'wasm-ib, -scal -ftz 0',\n  size: '72',\n  inputs: '0',\n  outputs: '1',\n  meta: \n   [ { filename: 'FaustDSP' },\n     { 'https://faust.grame.fr/editor/libraries/basics.lib/name': 'Faust Basic Element Library' },\n     { 'https://faust.grame.fr/editor/libraries/basics.lib/version': '0.0' },\n     { 'https://faust.grame.fr/editor/libraries/maths.lib/author': 'GRAME' },\n     { 'https://faust.grame.fr/editor/libraries/maths.lib/copyright': 'GRAME' },\n     { 'https://faust.grame.fr/editor/libraries/maths.lib/license': 'LGPL with exception' },\n     { 'https://faust.grame.fr/editor/libraries/maths.lib/name': 'Faust Math Library' },\n     { 'https://faust.grame.fr/editor/libraries/maths.lib/version': '2.1' },\n     { 'https://faust.grame.fr/editor/libraries/signals.lib/name': 'Faust Signal Routing Library' },\n     { 'https://faust.grame.fr/editor/libraries/signals.lib/version': '0.0' },\n     { name: 'FaustDSP' } ],\n  ui: [ { type: 'vgroup', label: 'FaustDSP', items: [Object] } ] }"
+                }
+            }
+        },
+        "box-34": {
+            "id": "box-34",
+            "text": "Get params",
+            "name": "box-34",
+            "class": "Get",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                870,
+                390,
+                85.4844,
+                22
+            ],
+            "args": [
+                "params"
+            ],
+            "props": {}
         }
     },
     "data": {
@@ -224,15 +291,27 @@
             "adc~": {
                 "storage": {}
             }
+        },
+        "box-33": {
+            "Message": {
+                "storage": {
+                    "text": "{ name: 'FaustDSP',\n  filename: 'FaustDSP',\n  version: '2.8.4',\n  options: 'wasm-ib, -scal -ftz 0',\n  size: '72',\n  inputs: '0',\n  outputs: '1',\n  meta: \n   [ { filename: 'FaustDSP' },\n     { 'https://faust.grame.fr/editor/libraries/basics.lib/name': 'Faust Basic Element Library' },\n     { 'https://faust.grame.fr/editor/libraries/basics.lib/version': '0.0' },\n     { 'https://faust.grame.fr/editor/libraries/maths.lib/author': 'GRAME' },\n     { 'https://faust.grame.fr/editor/libraries/maths.lib/copyright': 'GRAME' },\n     { 'https://faust.grame.fr/editor/libraries/maths.lib/license': 'LGPL with exception' },\n     { 'https://faust.grame.fr/editor/libraries/maths.lib/name': 'Faust Math Library' },\n     { 'https://faust.grame.fr/editor/libraries/maths.lib/version': '2.1' },\n     { 'https://faust.grame.fr/editor/libraries/signals.lib/name': 'Faust Signal Routing Library' },\n     { 'https://faust.grame.fr/editor/libraries/signals.lib/version': '0.0' },\n     { name: 'FaustDSP' } ],\n  ui: [ { type: 'vgroup', label: 'FaustDSP', items: [Object] } ] }"
+                }
+            }
+        },
+        "box-34": {
+            "Get": {
+                "storage": {}
+            }
         }
     },
     "state": {
-        "locked": true,
+        "locked": false,
         "presentation": false,
         "showGrid": true
     },
-    "boxIndexCount": 32,
-    "lineIndexCount": 48,
+    "boxIndexCount": 34,
+    "lineIndexCount": 50,
     "bgcolor": [
         61,
         65,
