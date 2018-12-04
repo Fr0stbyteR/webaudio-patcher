@@ -10,8 +10,12 @@ import Selection from "./selection-js/src/selection.js"
 window.$ = $, window.jQuery = $;
 
 let fileName = window.location.hash.substr(1);
-let patcher = new Patcher();
+let patcher;
+let injected = window.injected || false;
+if (injected) patcher = injected;
+else patcher = new Patcher();
 window.patcher = patcher;
+window.Patcher = Patcher;
 
 let project = [
 	"patcher.json",
@@ -67,7 +71,7 @@ $(document).ready(() => {
 	patcher.on("createBox", (box) => {
 		let obj = patcher.getObjByID(box.id);
 		let dom = UIObj.box($, box, obj._meta);
-		let objUI = obj.requestUI($, box);
+		let objUI = obj.newUI($, box);
 		dom.find(".box-ui").append(objUI);
 		$(".boxes").append(dom);
 		if (!objUI.data("resizeVertical")) dom.height("auto");
@@ -114,7 +118,7 @@ $(document).ready(() => {
 		});
 		updateBoxResizable(objUI, box.id);
 		updateBoxIO(box.id);
-		updateBoxRect(box.id);
+		//updateBoxRect(box.id);
 	});
 	patcher.on("redrawBox", (box) => {
 		updateBoxUI(box);
@@ -221,11 +225,6 @@ $(document).ready(() => {
 				break;
 		}
 	});
-
-	fetch("patchers/" + (fileName.length ? fileName : "patcher.json"))
-		.then(response => response.json())
-		.then(content => patcher.load(content));
-
 	//keys
 	$(document).on("keydown", (e) => {
 		if ($(".editing").attr("contenteditable")) return;
@@ -564,74 +563,81 @@ $(document).ready(() => {
 	});
 	if (patcher._audioCtx.state == "running") $("#audio_on").addClass("enabled");
 
-	
-	let lockPatcher = () => {
-		$(".selected").removeClass("selected");
-		$(".box").blur();
-		$(".line").blur();
-		$(".box.ui-draggable").draggable("disable");
-		$(".box-port.ui-draggable").draggable("disable");
-		patcher.state.locked = true;
-		$("#lock i").removeClass("open");
-		$("#patcher").removeClass("unlocked").addClass("locked");
-		hideGrid();
-		$("#grid i").addClass("disabled");
-		$("#undo, #redo").addClass("disabled");
-	}
-
-	let unlockPatcher = () => {
-		$(".selected").removeClass("selected");
-		$(".box").blur();
-		$(".line").blur();
-		$(".box.ui-draggable").draggable("enable");
-		$(".box-port.ui-draggable").draggable("enable");
-		patcher.state.locked = false;
-		$("#lock i").addClass("open");
-		$("#patcher").removeClass("locked").addClass("unlocked");
-		if (patcher.state.showGrid) showGrid();
-		$("#grid i").removeClass("disabled");
-		$("#undo, #redo").removeClass("disabled");
-	}
-
-	//background-image: repeating-linear-gradient(0deg,transparent,transparent 70px,#CCC 70px,#CCC 71px)
-	//	,repeating-linear-gradient(-90deg,transparent,transparent 70px,#CCC 70px,#CCC 71px);
-	//background-size: 71px 71px;
-	let showGrid = () => {
-		let grid = patcher.grid;
-		let bgcolor = patcher.bgcolor;
-		let isWhite = bgcolor[0] + bgcolor[1] + bgcolor[2] < 128 * 3;
-		let gridColor = isWhite ? "#FFFFFF1A" : "#0000001A";
-		let pxx = grid[0] + "px";
-		let pxx1 = (grid[0] - 1) + "px";
-		let pxy = grid[1] + "px";
-		let pxy1 = (grid[1] - 1) + "px";
-		let sBGImageX = "repeating-linear-gradient(" + ["0deg, transparent, transparent " + pxx1, gridColor + " " + pxx1, gridColor + " " + pxx].join(", ") + ")";
-		let sBGImageY = "repeating-linear-gradient(" + ["-90deg, transparent, transparent " + pxy1, gridColor + " " + pxy1, gridColor + " " + pxy].join(", ") + ")";
-		$("#patcher").addClass("grid").css("background-image", sBGImageX + ", " + sBGImageY).css("background-size", pxx + " " + pxy);
-		
-		patcher.state.showGrid = true;
-		$("#grid i").addClass("enabled");
-		$(".box").resizable("option", "grid", grid);
-	}
-
-	let hideGrid = () => {
-		$("#patcher").removeClass("grid").css("background-image", "").css("background-size", "");
-		if (!patcher.state.locked) patcher.state.showGrid = false;
-		$("#grid i").removeClass("enabled");
-		$(".box").resizable("option", "grid", [1, 1]);
+	if (injected) patcher = injected.render();
+	else {
+		fetch("patchers/" + (fileName.length ? fileName : "patcher.json"))
+			.then(response => response.json())
+			.then(content => patcher.load(content));
 	}
 	
-	let hideSidebar = () => {
-		$("#sidebar").hide(100);
-		$("#show_sidebar i").removeClass("enabled");
-	}
-
-	let showSidebar = () => {
-		if ($("#sidebar").width() < 100) $("#sidebar").width(300);
-		$("#sidebar").show(100);
-		$("#show_sidebar i").addClass("enabled");
-	}
 });
+
+let lockPatcher = () => {
+	$(".selected").removeClass("selected");
+	$(".box").blur();
+	$(".line").blur();
+	$(".box.ui-draggable").draggable("disable");
+	$(".box-port.ui-draggable").draggable("disable");
+	patcher.state.locked = true;
+	$("#lock i").removeClass("open");
+	$("#patcher").removeClass("unlocked").addClass("locked");
+	hideGrid();
+	$("#grid i").addClass("disabled");
+	$("#undo, #redo").addClass("disabled");
+}
+
+let unlockPatcher = () => {
+	$(".selected").removeClass("selected");
+	$(".box").blur();
+	$(".line").blur();
+	$(".box.ui-draggable").draggable("enable");
+	$(".box-port.ui-draggable").draggable("enable");
+	patcher.state.locked = false;
+	$("#lock i").addClass("open");
+	$("#patcher").removeClass("locked").addClass("unlocked");
+	if (patcher.state.showGrid) showGrid();
+	$("#grid i").removeClass("disabled");
+	$("#undo, #redo").removeClass("disabled");
+}
+
+//background-image: repeating-linear-gradient(0deg,transparent,transparent 70px,#CCC 70px,#CCC 71px)
+//	,repeating-linear-gradient(-90deg,transparent,transparent 70px,#CCC 70px,#CCC 71px);
+//background-size: 71px 71px;
+let showGrid = () => {
+	let grid = patcher.grid;
+	let bgcolor = patcher.bgcolor;
+	let isWhite = bgcolor[0] + bgcolor[1] + bgcolor[2] < 128 * 3;
+	let gridColor = isWhite ? "#FFFFFF1A" : "#0000001A";
+	let pxx = grid[0] + "px";
+	let pxx1 = (grid[0] - 1) + "px";
+	let pxy = grid[1] + "px";
+	let pxy1 = (grid[1] - 1) + "px";
+	let sBGImageX = "repeating-linear-gradient(" + ["0deg, transparent, transparent " + pxx1, gridColor + " " + pxx1, gridColor + " " + pxx].join(", ") + ")";
+	let sBGImageY = "repeating-linear-gradient(" + ["-90deg, transparent, transparent " + pxy1, gridColor + " " + pxy1, gridColor + " " + pxy].join(", ") + ")";
+	$("#patcher").addClass("grid").css("background-image", sBGImageX + ", " + sBGImageY).css("background-size", pxx + " " + pxy);
+	
+	patcher.state.showGrid = true;
+	$("#grid i").addClass("enabled");
+	$(".box").resizable("option", "grid", grid);
+}
+
+let hideGrid = () => {
+	$("#patcher").removeClass("grid").css("background-image", "").css("background-size", "");
+	if (!patcher.state.locked) patcher.state.showGrid = false;
+	$("#grid i").removeClass("enabled");
+	$(".box").resizable("option", "grid", [1, 1]);
+}
+
+let hideSidebar = () => {
+	$("#sidebar").hide(100);
+	$("#show_sidebar i").removeClass("enabled");
+}
+
+let showSidebar = () => {
+	if ($("#sidebar").width() < 100) $("#sidebar").width(300);
+	$("#sidebar").show(100);
+	$("#show_sidebar i").addClass("enabled");
+}
 
 let loadPatcher = (file) => {
 	let reader = new FileReader();

@@ -72,7 +72,18 @@ export default class Patcher extends EventEmitter {
         }
         this.emit("patcherLoaded", this);
         return this;
-        
+    }
+
+    render() {
+        this.emit("resetPatcher", this);
+        for (const id in this.boxes) {
+            this.emit("createBox", this.boxes[id]);
+        }
+        for (const id in this.lines) {
+            this.emit("createLine", this.lines[id]);
+        }
+        this.emit("patcherLoaded", this);
+        return this;
     }
 
     static fromMaxPatcher(maxPatcher) {
