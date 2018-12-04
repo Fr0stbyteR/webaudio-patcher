@@ -30,39 +30,39 @@ export default class AutoImporter {
                     return Object.assign(super._meta, {
                         package : pkgName,
                         name : name,
-                        description : fromProto ? "auto-imported OOP method" : "auto-imported static function",
+                        description : fromProto ? "Auto-imported OOP method" : "Auto-imported static function",
                         inlets : fromProto ? [{
                             isHot : true,
                             type : "anything",
-                            description : fromProto ? "instance of this prototype" : "function argument"
+                            description : fromProto ? "Instance of this prototype" : "Function argument"
                         }, {
                             isHot : false,
                             type : "anything",
-                            description : "method argument"
+                            description : "Method argument"
                         }] : [{
                             isHot : true,
                             type : "anything",
-                            description : "method argument"
+                            description : "Method argument"
                         }, {
                             isHot : false,
                             type : "anything",
-                            description : "method argument"
+                            description : "Method argument"
                         }],
                         outlets : fromProto ? [{
                             type : "anything",
-                            description : "instance with method called"
+                            description : "Instance with method called"
                         }, {
                             type : "anything",
-                            description : "return value of method called"
+                            description : "Return value of method called"
                         },{
                             type : "anything",
-                            description : "arguments with method called as list"
+                            description : "Arguments with method called as list"
                         }] : [{
                             type : "anything",
-                            description : "return value of method called"
+                            description : "Return value of method called"
                         },{
                             type : "anything",
-                            description : "arguments with method called as list"
+                            description : "Arguments with method called as list"
                         }]
                     });
                 }
@@ -166,15 +166,15 @@ export default class AutoImporter {
                     return Object.assign(super._meta, {
                         package : pkgName,
                         name : name,
-                        description : "auto-imported static value",
+                        description : "Auto-imported " + fromProto ? "Property getter" : "Static value",
                         inlets : [{
                             isHot : true,
                             type : "anything",
-                            description : "output value"
+                            description : fromProto ? "Instance of this prototype" : "Anything to output value"
                         }],
                         outlets : [{
                             type : "anything",
-                            description : "static value imported"
+                            description : fromProto ? "Property got" : "Static value imported"
                         }]
                     });
                 }
@@ -184,7 +184,7 @@ export default class AutoImporter {
                     this._outlets = 1;
                 }
                 fn(data, inlet) {
-                    this.outlet(0, el);
+                    this.outlet(0, fromProto ? data[name] : el);
                     return this;
                 }
             }

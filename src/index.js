@@ -265,7 +265,7 @@ $(document).ready(() => {
 				e.preventDefault();
 				return;
 			}
-			if (!keysPressed._hasFuncKeys()) {
+			if (!keysPressed._hasFuncKeys() && !patcher.state.locked) {
 				let box = {
 					patching_rect: [mouseOffset[0], mouseOffset[1], 100, 22]
 				}
@@ -277,7 +277,7 @@ $(document).ready(() => {
 			return;
 		}
 		if (e.key == "m") { // M : new message
-			if (!keysPressed._hasFuncKeys()) {
+			if (!keysPressed._hasFuncKeys() && !patcher.state.locked) {
 				let box = {
 					patching_rect : [mouseOffset[0], mouseOffset[1], 100, 22],
 					text : "Message"
@@ -485,7 +485,7 @@ $(document).ready(() => {
 	}).on("mousedown", "#save", (e) => {
 		let p = patcher.toString();
 		let url = "data:text/plain;charset=utf-8," + encodeURIComponent(p);
-		$("#save").attr("download", "patcher.json").attr("href", url);
+		$("#save").attr("download", fileName.length ? fileName : "patcher.json").attr("href", url);
 	}).on("click", "#open", (e) => {
 		$("#open input").click(e => e.stopPropagation()).click();
 	}).on("change", "#open input", (e) => {

@@ -7,7 +7,20 @@ class JSBaseObject extends Base.BaseObject {
             package : "JS",
             icon : "node js", 
             author : "Fr0stbyteR",
-            version : "1.0.0",
+            version : "1.0.0"
+        });
+    }
+    ui($, box) {
+        let container = super.defaultUI($, box);
+        container.find(".box-ui-default").removeClass("box-ui-default");
+        container.find(".box-ui-text-container").addClass(["ui", "label"]);
+        return container;
+    }
+}
+
+class JSConvertObject extends JSBaseObject {
+    static get _meta() {
+        return Object.assign(super._meta, {
             inlets : [{
                 isHot : true,
                 type : "anything",
@@ -27,6 +40,11 @@ class JSBaseObject extends Base.BaseObject {
             }, {
                 type : "anything",
                 description : "output returned value of lambda function called with third inlet"
+            }],
+            args : [{
+                type : "anything",
+                optional : true,
+                description : "initial"
             }]
         });
     }
@@ -65,14 +83,10 @@ class JSBaseObject extends Base.BaseObject {
     }
 }
 
-class JSBoolean extends JSBaseObject {
+class JSBoolean extends JSConvertObject {
     static get _meta() {
         return Object.assign(super._meta, {
-            description : "Convert anything to JS boolean",
-            outlets : [{
-                type : "boolean",
-                description : "Output stored boolean"
-            }]
+            description : "Convert anything to JS boolean"
         });
     }
     constructor(box, patcher) {
@@ -86,21 +100,12 @@ class JSBoolean extends JSBaseObject {
             this.error(e);
         }
     }
-    update(args, props) {
-        if (args.length == 0) return this;
-        this._convert(args[0] == "true");
-        return this;
-    }
 }
 
-class JSNumber extends JSBaseObject {
+class JSNumber extends JSConvertObject {
     static get _meta() {
         return Object.assign(super._meta, {
-            description : "Convert anything to JS number",
-            outlets : [{
-                type : "number",
-                description : "Output stored number"
-            }]
+            description : "Convert anything to JS number"
         });
     }
     constructor(box, patcher) {
@@ -113,14 +118,10 @@ class JSNumber extends JSBaseObject {
     }
 }
 
-class JSString extends JSBaseObject {
+class JSString extends JSConvertObject {
     static get _meta() {
         return Object.assign(super._meta, {
             description : "Convert anything to JS string",
-            outlets : [{
-                type : "string",
-                description : "Output stored string"
-            }]
         });
     }
     constructor(box, patcher) {
@@ -132,14 +133,10 @@ class JSString extends JSBaseObject {
         else this.error("Cannot convert " + data + " as a String");
     }
 }
-class JSArray extends JSBaseObject {
+class JSArray extends JSConvertObject {
     static get _meta() {
         return Object.assign(super._meta, {
-            description : "Convert anything to JS array",
-            outlets : [{
-                type : "object",
-                description : "Output stored array"
-            }]
+            description : "Convert anything to JS array"
         });
     }
     constructor(box, patcher) {
@@ -160,14 +157,10 @@ class JSArray extends JSBaseObject {
     }
 }
 
-class JSObject extends JSBaseObject {
+class JSObject extends JSConvertObject {
     static get _meta() {
         return Object.assign(super._meta, {
-            description : "Store anything as JS Object",
-            outlets : [{
-                type : "object",
-                description : "Output stored object"
-            }]
+            description : "Store anything as JS Object"
         });
     }
     constructor(box, patcher) {
@@ -179,7 +172,7 @@ class JSObject extends JSBaseObject {
     }
 }
 
-class JSFunction extends JSBaseObject {
+class JSFunction extends JSConvertObject {
     static get _meta() {
         return Object.assign(super._meta, {
             description : "build JS Function and call it",
@@ -232,7 +225,7 @@ class JSFunction extends JSBaseObject {
         }
     }
 }
-class JSCall extends JSBaseObject { //TODO Call with function name
+class JSCall extends JSConvertObject { //TODO Call with function name
     static get _meta() {
         return Object.assign(super._meta, {
             description : "Call static JS Function by name",
@@ -306,6 +299,58 @@ class JSCall extends JSBaseObject { //TODO Call with function name
             }
             this._mem.fn = ctx[fn];
         }
+    }
+}
+
+class V extends JSConvertObject {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            description : "Store anything as named sharable variable",
+            args : [{
+                type : "string",
+                optional : true,
+                description : "Variable name"
+            },{
+                type : "anything",
+                optional : true,
+                default : undefined,
+                description : "Initial"
+            }]
+        });
+    }
+    constructor(box, patcher) {
+        super(box, patcher);
+        this._mem.name = box.id;
+        this.update(box.args);
+    }
+    update(args, props) {
+        let id = this._box.id;
+        let newName = id;
+        if (args[0]) newName = args[0];
+        if (this._mem.name !== newName) {
+            this._patcher._sharedMemory.off(this._mem.name, id).on(newName, id);
+            this._mem.name = newName;
+        }
+        if (args[1]) return this._patcher._sharedMemory.set(this._mem.name, args[1]);
+    }
+    fn(data, inlet) {
+        if (inlet == 0 && data instanceof Base.Bang) {
+            this.outlet(0, this._patcher._sharedMemory.get(this._mem.name));
+            return;
+        }
+        if (inlet <= 1) this._patcher._sharedMemory.set(this._mem.name, data);
+        if (inlet == 0) this.outlet(0, data);
+        if (inlet == 2) { // call function on data as first arg
+            try {
+                if (typeof data == "function") this.outlet(1, data(this._patcher._sharedMemory.get(this._mem.name)));
+            } catch (e) {
+                this.error(e);
+            }
+        }
+    }
+    destroy() {
+        this._patcher._sharedMemory.off(this._mem.name, this._box.id);
+        return super.destroy()
     }
 }
 
@@ -471,8 +516,12 @@ class JSCallback extends JSBaseObject {
             description : "Generate anonymous function, output args when called",
             inlets : [{
                 isHot : true,
-                type : "object",
+                type : "anything",
                 description : "Output anonymous function"
+            }, {
+                isHot : false,
+                type : "anything",
+                description : "return value for called function"
             }],
             outlets : [{
                 type : "function",
@@ -494,8 +543,9 @@ class JSCallback extends JSBaseObject {
     }
     constructor(box, patcher) {
         super(box, patcher);
-        this._inlets = 1;
+        this._inlets = 2;
         this._outlets = 2;
+        this._mem.stack = [];
         this.update(box.args);
     }
     update(args, props) {
@@ -503,13 +553,18 @@ class JSCallback extends JSBaseObject {
     }
     fn(data, inlet) {
         if (inlet == 0 && data instanceof Base.Bang) {
+            this._mem.stack = [];
             this.outlet(0, (...args) => {
                 for (let i = args.length - 1; i >= 0; i--) {
                     this.outlet(i + 2, args[i]);
                 }
                 this.outlet(1, new Base.Bang());
+                return this._mem.stack.pop();
             });
             return this;
+        }
+        if (inlet == 1) {
+            this._mem.stack.push(data);
         }
     }
 }
@@ -568,7 +623,7 @@ class For extends JSBaseObject {
     }
 }
 
-class ForEach extends JSBaseObject {
+class ForEach extends JSConvertObject {
     static get _meta() {
         return Object.assign(super._meta, {
             description : "Output key and values for loop",
@@ -622,6 +677,7 @@ export default {
     JSFunction,
     JSCall,
     JSCallback,
+    V,
     Get,
     Set,
     For,

@@ -364,123 +364,6 @@
             "disabled": false,
             "positionHash": 60621290
         },
-        "line-140": {
-            "src": [
-                "box-104",
-                0
-            ],
-            "dest": [
-                "box-107",
-                2
-            ],
-            "id": "line-140",
-            "disabled": false,
-            "positionHash": 47532552
-        },
-        "line-141": {
-            "src": [
-                "box-108",
-                0
-            ],
-            "dest": [
-                "box-107",
-                0
-            ],
-            "id": "line-141",
-            "disabled": false,
-            "positionHash": 44892680
-        },
-        "line-142": {
-            "src": [
-                "box-105",
-                0
-            ],
-            "dest": [
-                "box-109",
-                2
-            ],
-            "id": "line-142",
-            "disabled": false,
-            "positionHash": 53430792
-        },
-        "line-143": {
-            "src": [
-                "box-106",
-                0
-            ],
-            "dest": [
-                "box-110",
-                2
-            ],
-            "id": "line-143",
-            "disabled": false,
-            "positionHash": 59329032
-        },
-        "line-145": {
-            "src": [
-                "box-108",
-                0
-            ],
-            "dest": [
-                "box-109",
-                0
-            ],
-            "id": "line-145",
-            "disabled": false,
-            "positionHash": 50790920
-        },
-        "line-146": {
-            "src": [
-                "box-108",
-                0
-            ],
-            "dest": [
-                "box-110",
-                0
-            ],
-            "id": "line-146",
-            "disabled": false,
-            "positionHash": 56689160
-        },
-        "line-147": {
-            "src": [
-                "box-107",
-                0
-            ],
-            "dest": [
-                "box-77",
-                0
-            ],
-            "id": "line-147",
-            "disabled": false,
-            "positionHash": 44892830
-        },
-        "line-151": {
-            "src": [
-                "box-95",
-                0
-            ],
-            "dest": [
-                "box-108",
-                0
-            ],
-            "id": "line-151",
-            "disabled": false,
-            "positionHash": 44892650
-        },
-        "line-153": {
-            "src": [
-                "box-112",
-                0
-            ],
-            "dest": [
-                "box-113",
-                0
-            ],
-            "id": "line-153",
-            "disabled": false,
-            "positionHash": 71434775
-        },
         "line-154": {
             "src": [
                 "box-114",
@@ -492,7 +375,7 @@
             ],
             "id": "line-154",
             "disabled": false,
-            "positionHash": 75145781
+            "positionHash": 63349391
         },
         "line-155": {
             "src": [
@@ -505,33 +388,7 @@
             ],
             "id": "line-155",
             "disabled": false,
-            "positionHash": 71434805
-        },
-        "line-156": {
-            "src": [
-                "box-112",
-                0
-            ],
-            "dest": [
-                "box-114",
-                0
-            ],
-            "id": "line-156",
-            "disabled": false,
-            "positionHash": 75366935
-        },
-        "line-157": {
-            "src": [
-                "box-115",
-                0
-            ],
-            "dest": [
-                "box-116",
-                0
-            ],
-            "id": "line-157",
-            "disabled": false,
-            "positionHash": 58655315
+            "positionHash": 59638415
         },
         "line-160": {
             "src": [
@@ -856,7 +713,7 @@
             ],
             "id": "line-184",
             "disabled": false,
-            "positionHash": 3605210
+            "positionHash": 3605090
         },
         "line-185": {
             "src": [
@@ -869,7 +726,7 @@
             ],
             "id": "line-185",
             "disabled": false,
-            "positionHash": 3605105
+            "positionHash": 3605060
         },
         "line-186": {
             "src": [
@@ -882,7 +739,7 @@
             ],
             "id": "line-186",
             "disabled": false,
-            "positionHash": 72068691
+            "positionHash": 69119676
         },
         "line-187": {
             "src": [
@@ -895,33 +752,7 @@
             ],
             "id": "line-187",
             "disabled": false,
-            "positionHash": 66519635
-        },
-        "line-188": {
-            "src": [
-                "box-107",
-                0
-            ],
-            "dest": [
-                "box-131",
-                0
-            ],
-            "id": "line-188",
-            "disabled": false,
-            "positionHash": 66519605
-        },
-        "line-192": {
-            "src": [
-                "box-130",
-                0
-            ],
-            "dest": [
-                "box-132",
-                0
-            ],
-            "id": "line-192",
-            "disabled": false,
-            "positionHash": 66519665
+            "positionHash": 66519740
         },
         "line-193": {
             "src": [
@@ -1038,7 +869,7 @@
             ],
             "id": "line-201",
             "disabled": false,
-            "positionHash": 30802530
+            "positionHash": 41615970
         },
         "line-202": {
             "src": [
@@ -1077,7 +908,7 @@
             ],
             "id": "line-204",
             "disabled": false,
-            "positionHash": 22991518
+            "positionHash": 31838923
         },
         "line-205": {
             "src": [
@@ -1090,46 +921,7 @@
             ],
             "id": "line-205",
             "disabled": false,
-            "positionHash": 15401540
-        },
-        "line-206": {
-            "src": [
-                "box-146",
-                0
-            ],
-            "dest": [
-                "box-145",
-                0
-            ],
-            "id": "line-206",
-            "disabled": false,
-            "positionHash": 15401570
-        },
-        "line-208": {
-            "src": [
-                "box-145",
-                0
-            ],
-            "dest": [
-                "box-147",
-                0
-            ],
-            "id": "line-208",
-            "disabled": false,
-            "positionHash": 15401600
-        },
-        "line-209": {
-            "src": [
-                "box-147",
-                0
-            ],
-            "dest": [
-                "box-133",
-                0
-            ],
-            "id": "line-209",
-            "disabled": false,
-            "positionHash": 15401630
+            "positionHash": 24248945
         },
         "line-210": {
             "src": [
@@ -1142,33 +934,462 @@
             ],
             "id": "line-210",
             "disabled": false,
-            "positionHash": 15401660
+            "positionHash": 24249065
         },
-        "line-211": {
+        "line-213": {
             "src": [
-                "box-150",
-                0
-            ],
-            "dest": [
-                "box-149",
-                0
-            ],
-            "id": "line-211",
-            "disabled": false,
-            "positionHash": 51839603
-        },
-        "line-212": {
-            "src": [
-                "box-149",
+                "box-130",
                 0
             ],
             "dest": [
                 "box-77",
                 0
             ],
-            "id": "line-212",
+            "id": "line-213",
             "disabled": false,
-            "positionHash": 44892830
+            "positionHash": 59638535
+        },
+        "line-214": {
+            "src": [
+                "box-146",
+                0
+            ],
+            "dest": [
+                "box-152",
+                0
+            ],
+            "id": "line-214",
+            "disabled": false,
+            "positionHash": 24248975
+        },
+        "line-215": {
+            "src": [
+                "box-152",
+                0
+            ],
+            "dest": [
+                "box-147",
+                0
+            ],
+            "id": "line-215",
+            "disabled": false,
+            "positionHash": 24249005
+        },
+        "line-216": {
+            "src": [
+                "box-130",
+                0
+            ],
+            "dest": [
+                "box-153",
+                0
+            ],
+            "id": "line-216",
+            "disabled": false,
+            "positionHash": 66519770
+        },
+        "line-217": {
+            "src": [
+                "box-140",
+                0
+            ],
+            "dest": [
+                "box-154",
+                0
+            ],
+            "id": "line-217",
+            "disabled": false,
+            "positionHash": 29164130
+        },
+        "line-218": {
+            "src": [
+                "box-131",
+                0
+            ],
+            "dest": [
+                "box-113",
+                0
+            ],
+            "id": "line-218",
+            "disabled": false,
+            "positionHash": 59638385
+        },
+        "line-227": {
+            "src": [
+                "box-95",
+                0
+            ],
+            "dest": [
+                "box-157",
+                0
+            ],
+            "id": "line-227",
+            "disabled": false,
+            "positionHash": 30867946
+        },
+        "line-228": {
+            "src": [
+                "box-100",
+                0
+            ],
+            "dest": [
+                "box-158",
+                0
+            ],
+            "id": "line-228",
+            "disabled": false,
+            "positionHash": 36766186
+        },
+        "line-229": {
+            "src": [
+                "box-102",
+                0
+            ],
+            "dest": [
+                "box-159",
+                0
+            ],
+            "id": "line-229",
+            "disabled": false,
+            "positionHash": 42664426
+        },
+        "line-231": {
+            "src": [
+                "box-185",
+                0
+            ],
+            "dest": [
+                "box-77",
+                0
+            ],
+            "id": "line-231",
+            "disabled": false,
+            "positionHash": 23986951
+        },
+        "line-232": {
+            "src": [
+                "box-131",
+                0
+            ],
+            "dest": [
+                "box-114",
+                0
+            ],
+            "id": "line-232",
+            "disabled": false,
+            "positionHash": 63570545
+        },
+        "line-234": {
+            "src": [
+                "box-165",
+                0
+            ],
+            "dest": [
+                "box-166",
+                0
+            ],
+            "id": "line-234",
+            "disabled": false,
+            "positionHash": 14418620
+        },
+        "line-235": {
+            "src": [
+                "box-167",
+                0
+            ],
+            "dest": [
+                "box-165",
+                0
+            ],
+            "id": "line-235",
+            "disabled": false,
+            "positionHash": 14418590
+        },
+        "line-236": {
+            "src": [
+                "box-128",
+                1
+            ],
+            "dest": [
+                "box-168",
+                0
+            ],
+            "id": "line-236",
+            "disabled": false,
+            "positionHash": 14418530
+        },
+        "line-237": {
+            "src": [
+                "box-168",
+                0
+            ],
+            "dest": [
+                "box-167",
+                0
+            ],
+            "id": "line-237",
+            "disabled": false,
+            "positionHash": 14418560
+        },
+        "line-239": {
+            "src": [
+                "box-148",
+                1
+            ],
+            "dest": [
+                "box-77",
+                0
+            ],
+            "id": "line-239",
+            "disabled": false,
+            "positionHash": 59638535
+        },
+        "line-241": {
+            "src": [
+                "box-147",
+                1
+            ],
+            "dest": [
+                "box-133",
+                0
+            ],
+            "id": "line-241",
+            "disabled": false,
+            "positionHash": 24249035
+        },
+        "line-242": {
+            "src": [
+                "box-148",
+                1
+            ],
+            "dest": [
+                "box-171",
+                1
+            ],
+            "id": "line-242",
+            "disabled": false,
+            "positionHash": 26849031
+        },
+        "line-244": {
+            "src": [
+                "box-172",
+                0
+            ],
+            "dest": [
+                "box-174",
+                0
+            ],
+            "id": "line-244",
+            "disabled": false,
+            "positionHash": 97976570
+        },
+        "line-245": {
+            "src": [
+                "box-175",
+                0
+            ],
+            "dest": [
+                "box-176",
+                0
+            ],
+            "id": "line-245",
+            "disabled": false,
+            "positionHash": 97976420
+        },
+        "line-246": {
+            "src": [
+                "box-176",
+                0
+            ],
+            "dest": [
+                "box-177",
+                0
+            ],
+            "id": "line-246",
+            "disabled": false,
+            "positionHash": 97976450
+        },
+        "line-247": {
+            "src": [
+                "box-177",
+                0
+            ],
+            "dest": [
+                "box-179",
+                0
+            ],
+            "id": "line-247",
+            "disabled": false,
+            "positionHash": 97976480
+        },
+        "line-248": {
+            "src": [
+                "box-179",
+                0
+            ],
+            "dest": [
+                "box-178",
+                0
+            ],
+            "id": "line-248",
+            "disabled": false,
+            "positionHash": 97976510
+        },
+        "line-250": {
+            "src": [
+                "box-178",
+                0
+            ],
+            "dest": [
+                "box-172",
+                0
+            ],
+            "id": "line-250",
+            "disabled": false,
+            "positionHash": 97976540
+        },
+        "line-251": {
+            "src": [
+                "box-181",
+                0
+            ],
+            "dest": [
+                "box-172",
+                1
+            ],
+            "id": "line-251",
+            "disabled": false,
+            "positionHash": 105566428
+        },
+        "line-252": {
+            "src": [
+                "box-175",
+                0
+            ],
+            "dest": [
+                "box-181",
+                0
+            ],
+            "id": "line-252",
+            "disabled": false,
+            "positionHash": 105840830
+        },
+        "line-253": {
+            "src": [
+                "box-174",
+                0
+            ],
+            "dest": [
+                "box-182",
+                0
+            ],
+            "id": "line-253",
+            "disabled": false,
+            "positionHash": 97976600
+        },
+        "line-255": {
+            "src": [
+                "box-104",
+                0
+            ],
+            "dest": [
+                "box-185",
+                0
+            ],
+            "id": "line-255",
+            "disabled": false,
+            "positionHash": 13173256
+        },
+        "line-256": {
+            "src": [
+                "box-105",
+                0
+            ],
+            "dest": [
+                "box-185",
+                1
+            ],
+            "id": "line-256",
+            "disabled": false,
+            "positionHash": 18990600
+        },
+        "line-257": {
+            "src": [
+                "box-106",
+                0
+            ],
+            "dest": [
+                "box-185",
+                2
+            ],
+            "id": "line-257",
+            "disabled": false,
+            "positionHash": 24807944
+        },
+        "line-259": {
+            "src": [
+                "box-185",
+                0
+            ],
+            "dest": [
+                "box-155",
+                0
+            ],
+            "id": "line-259",
+            "disabled": false,
+            "positionHash": 13173286
+        },
+        "line-260": {
+            "src": [
+                "box-157",
+                0
+            ],
+            "dest": [
+                "box-186",
+                0
+            ],
+            "id": "line-260",
+            "disabled": false,
+            "positionHash": 30867976
+        },
+        "line-261": {
+            "src": [
+                "box-158",
+                0
+            ],
+            "dest": [
+                "box-186",
+                1
+            ],
+            "id": "line-261",
+            "disabled": false,
+            "positionHash": 36685320
+        },
+        "line-262": {
+            "src": [
+                "box-159",
+                0
+            ],
+            "dest": [
+                "box-186",
+                2
+            ],
+            "id": "line-262",
+            "disabled": false,
+            "positionHash": 42502664
+        },
+        "line-263": {
+            "src": [
+                "box-186",
+                0
+            ],
+            "dest": [
+                "box-156",
+                0
+            ],
+            "id": "line-263",
+            "disabled": false,
+            "positionHash": 30868006
         }
     },
     "boxes": {
@@ -1220,8 +1441,8 @@
             "inlets": 1,
             "outlets": 0,
             "patching_rect": [
-                675,
-                630,
+                900,
+                735,
                 54.0469,
                 22
             ],
@@ -1742,92 +1963,6 @@
                 "storage": {}
             }
         },
-        "box-107": {
-            "id": "box-107",
-            "text": "Set 0 {}",
-            "name": "box-107",
-            "class": "Set",
-            "inlets": 3,
-            "outlets": 1,
-            "patching_rect": [
-                675,
-                480,
-                60.2969,
-                22
-            ],
-            "args": [
-                0
-            ],
-            "props": {},
-            "prevData": {
-                "storage": {}
-            }
-        },
-        "box-108": {
-            "id": "box-108",
-            "text": "Message",
-            "name": "box-108",
-            "class": "Message",
-            "inlets": 2,
-            "outlets": 1,
-            "patching_rect": [
-                675,
-                450,
-                45,
-                22
-            ],
-            "args": [
-                "[]"
-            ],
-            "props": {},
-            "prevData": {
-                "storage": {
-                    "text": "[]"
-                }
-            }
-        },
-        "box-109": {
-            "id": "box-109",
-            "text": "Set 1 {}",
-            "name": "box-109",
-            "class": "Set",
-            "inlets": 3,
-            "outlets": 1,
-            "patching_rect": [
-                765,
-                480,
-                60.2969,
-                22
-            ],
-            "args": [
-                1
-            ],
-            "props": {},
-            "prevData": {
-                "storage": {}
-            }
-        },
-        "box-110": {
-            "id": "box-110",
-            "text": "Set 2 {}",
-            "name": "box-110",
-            "class": "Set",
-            "inlets": 3,
-            "outlets": 1,
-            "patching_rect": [
-                855,
-                480,
-                60.2969,
-                22
-            ],
-            "args": [
-                2
-            ],
-            "props": {},
-            "prevData": {
-                "storage": {}
-            }
-        },
         "box-111": {
             "id": "box-111",
             "text": "DL.scalar",
@@ -1836,28 +1971,9 @@
             "inlets": 2,
             "outlets": 2,
             "patching_rect": [
-                1080,
-                525,
+                900,
+                615,
                 76.625,
-                22
-            ],
-            "args": [],
-            "props": {},
-            "prevData": {
-                "storage": {}
-            }
-        },
-        "box-112": {
-            "id": "box-112",
-            "text": "Button",
-            "name": "box-112",
-            "class": "Button",
-            "inlets": 1,
-            "outlets": 1,
-            "patching_rect": [
-                1080,
-                465,
-                45,
                 22
             ],
             "args": [],
@@ -1874,18 +1990,18 @@
             "inlets": 2,
             "outlets": 1,
             "patching_rect": [
-                1080,
-                495,
+                900,
+                585,
                 45,
                 22
             ],
             "args": [
-                "int32"
+                "355"
             ],
             "props": {},
             "prevData": {
                 "storage": {
-                    "text": "int32"
+                    "text": "355"
                 }
             }
         },
@@ -1897,8 +2013,8 @@
             "inlets": 2,
             "outlets": 1,
             "patching_rect": [
-                1140,
-                495,
+                960,
+                585,
                 45,
                 22
             ],
@@ -1912,54 +2028,12 @@
                 }
             }
         },
-        "box-115": {
-            "id": "box-115",
-            "text": "Message",
-            "name": "box-115",
-            "class": "Message",
-            "inlets": 2,
-            "outlets": 1,
-            "patching_rect": [
-                885,
-                525,
-                45,
-                22
-            ],
-            "args": [
-                "4"
-            ],
-            "props": {},
-            "prevData": {
-                "storage": {
-                    "text": "4"
-                }
-            }
-        },
-        "box-116": {
-            "id": "box-116",
-            "text": "++",
-            "name": "box-116",
-            "class": "++",
-            "inlets": 1,
-            "outlets": 1,
-            "patching_rect": [
-                885,
-                555,
-                45,
-                22
-            ],
-            "args": [],
-            "props": {},
-            "prevData": {
-                "storage": {}
-            }
-        },
         "box-117": {
             "id": "box-117",
             "text": "JS.JSCallback 3",
             "name": "box-117",
             "class": "JS.JSCallback",
-            "inlets": 1,
+            "inlets": 2,
             "outlets": 5,
             "patching_rect": [
                 30,
@@ -2022,7 +2096,7 @@
             "text": "JS.JSCallback 3",
             "name": "box-120",
             "class": "JS.JSCallback",
-            "inlets": 1,
+            "inlets": 2,
             "outlets": 5,
             "patching_rect": [
                 240,
@@ -2085,7 +2159,7 @@
             "text": "JS.JSCallback 3",
             "name": "box-123",
             "class": "JS.JSCallback",
-            "inlets": 1,
+            "inlets": 2,
             "outlets": 5,
             "patching_rect": [
                 450,
@@ -2148,11 +2222,11 @@
             "text": "JS.JSCallback 0",
             "name": "box-126",
             "class": "JS.JSCallback",
-            "inlets": 1,
+            "inlets": 2,
             "outlets": 2,
             "patching_rect": [
                 45,
-                585,
+                540,
                 105.641,
                 22
             ],
@@ -2173,7 +2247,7 @@
             "outlets": 2,
             "patching_rect": [
                 45,
-                690,
+                570,
                 66.125,
                 22
             ],
@@ -2191,8 +2265,8 @@
             "inlets": 2,
             "outlets": 2,
             "patching_rect": [
-                135,
-                510,
+                210,
+                540,
                 58.3125,
                 22
             ],
@@ -2206,21 +2280,21 @@
         },
         "box-130": {
             "id": "box-130",
-            "text": "JS.JSObject @name lastSample",
-            "name": "lastSample",
-            "class": "JS.JSObject",
+            "text": "V lastSample",
+            "name": "box-130",
+            "class": "V",
             "inlets": 3,
             "outlets": 2,
             "patching_rect": [
                 1005,
-                555,
-                189.344,
+                660,
+                99.3438,
                 22
             ],
-            "args": [],
-            "props": {
-                "name": "lastSample"
-            },
+            "args": [
+                "lastSample"
+            ],
+            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -2234,27 +2308,8 @@
             "outlets": 1,
             "patching_rect": [
                 1005,
-                525,
+                540,
                 45,
-                22
-            ],
-            "args": [],
-            "props": {},
-            "prevData": {
-                "storage": {}
-            }
-        },
-        "box-132": {
-            "id": "box-132",
-            "text": "DL.Tensor.dispose",
-            "name": "box-132",
-            "class": "DL.Tensor.dispose",
-            "inlets": 2,
-            "outlets": 3,
-            "patching_rect": [
-                1005,
-                585,
-                121.688,
                 22
             ],
             "args": [],
@@ -2271,8 +2326,8 @@
             "inlets": 2,
             "outlets": 2,
             "patching_rect": [
-                225,
-                630,
+                360,
+                675,
                 135.813,
                 22
             ],
@@ -2435,7 +2490,7 @@
             "inlets": 2,
             "outlets": 1,
             "patching_rect": [
-                435,
+                600,
                 570,
                 45,
                 22
@@ -2473,27 +2528,6 @@
                 }
             }
         },
-        "box-145": {
-            "id": "box-145",
-            "text": "JS.JSObject @name lastSample",
-            "name": "lastSample",
-            "class": "JS.JSObject",
-            "inlets": 3,
-            "outlets": 2,
-            "patching_rect": [
-                225,
-                570,
-                189.344,
-                22
-            ],
-            "args": [],
-            "props": {
-                "name": "lastSample"
-            },
-            "prevData": {
-                "storage": {}
-            }
-        },
         "box-146": {
             "id": "box-146",
             "text": "Button",
@@ -2502,8 +2536,8 @@
             "inlets": 1,
             "outlets": 1,
             "patching_rect": [
-                225,
-                540,
+                360,
+                585,
                 45,
                 22
             ],
@@ -2521,8 +2555,8 @@
             "inlets": 2,
             "outlets": 3,
             "patching_rect": [
-                225,
-                600,
+                360,
+                645,
                 109.188,
                 22
             ],
@@ -2540,8 +2574,8 @@
             "inlets": 2,
             "outlets": 3,
             "patching_rect": [
-                225,
-                660,
+                360,
+                705,
                 109.188,
                 22
             ],
@@ -2551,16 +2585,244 @@
                 "storage": {}
             }
         },
-        "box-149": {
-            "id": "box-149",
+        "box-152": {
+            "id": "box-152",
+            "text": "V lastSample",
+            "name": "box-152",
+            "class": "V",
+            "inlets": 3,
+            "outlets": 2,
+            "patching_rect": [
+                360,
+                615,
+                99.3438,
+                22
+            ],
+            "args": [
+                "lastSample"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-153": {
+            "id": "box-153",
+            "text": "DL.Tensor.dispose",
+            "name": "box-153",
+            "class": "DL.Tensor.dispose",
+            "inlets": 2,
+            "outlets": 3,
+            "patching_rect": [
+                1005,
+                690,
+                121.688,
+                22
+            ],
+            "args": [],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-154": {
+            "id": "box-154",
+            "text": "V EVENT_SIZE",
+            "name": "box-154",
+            "class": "V",
+            "inlets": 3,
+            "outlets": 2,
+            "patching_rect": [
+                435,
+                570,
+                102.531,
+                22
+            ],
+            "args": [
+                "EVENT_SIZE"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-155": {
+            "id": "box-155",
+            "text": "V c",
+            "name": "box-155",
+            "class": "V",
+            "inlets": 3,
+            "outlets": 2,
+            "patching_rect": [
+                735,
+                510,
+                45,
+                22
+            ],
+            "args": [
+                "c"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-156": {
+            "id": "box-156",
+            "text": "V h",
+            "name": "box-156",
+            "class": "V",
+            "inlets": 3,
+            "outlets": 2,
+            "patching_rect": [
+                1005,
+                510,
+                45,
+                22
+            ],
+            "args": [
+                "h"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-157": {
+            "id": "box-157",
+            "text": "DL.zeros []",
+            "name": "box-157",
+            "class": "DL.zeros",
+            "inlets": 1,
+            "outlets": 2,
+            "patching_rect": [
+                1005,
+                450,
+                83.7969,
+                22
+            ],
+            "args": [
+                []
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-158": {
+            "id": "box-158",
+            "text": "DL.zeros []",
+            "name": "box-158",
+            "class": "DL.zeros",
+            "inlets": 1,
+            "outlets": 2,
+            "patching_rect": [
+                1095,
+                450,
+                83.7969,
+                22
+            ],
+            "args": [
+                []
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-159": {
+            "id": "box-159",
+            "text": "DL.zeros []",
+            "name": "box-159",
+            "class": "DL.zeros",
+            "inlets": 1,
+            "outlets": 2,
+            "patching_rect": [
+                1185,
+                450,
+                83.7969,
+                22
+            ],
+            "args": [
+                []
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-164": {
+            "id": "box-164",
+            "text": "V innerOuts []",
+            "name": "box-164",
+            "class": "V",
+            "inlets": 3,
+            "outlets": 2,
+            "patching_rect": [
+                120,
+                765,
+                99.3438,
+                22
+            ],
+            "args": [
+                "innerOuts",
+                []
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-165": {
+            "id": "box-165",
+            "text": "V lastSample",
+            "name": "box-165",
+            "class": "V",
+            "inlets": 3,
+            "outlets": 2,
+            "patching_rect": [
+                210,
+                630,
+                99.3438,
+                22
+            ],
+            "args": [
+                "lastSample"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-166": {
+            "id": "box-166",
+            "text": "DL.Tensor.dispose",
+            "name": "box-166",
+            "class": "DL.Tensor.dispose",
+            "inlets": 2,
+            "outlets": 3,
+            "patching_rect": [
+                210,
+                660,
+                121.688,
+                22
+            ],
+            "args": [],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-167": {
+            "id": "box-167",
             "text": "Button",
-            "name": "box-149",
+            "name": "box-167",
             "class": "Button",
             "inlets": 1,
             "outlets": 1,
             "patching_rect": [
-                781,
-                587,
+                210,
+                600,
                 45,
                 22
             ],
@@ -2570,27 +2832,269 @@
                 "storage": {}
             }
         },
-        "box-150": {
-            "id": "box-150",
+        "box-168": {
+            "id": "box-168",
+            "text": "== 0",
+            "name": "box-168",
+            "class": "==",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                210,
+                570,
+                47.2031,
+                22
+            ],
+            "args": [
+                0
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-171": {
+            "id": "box-171",
+            "text": "V eventInput",
+            "name": "box-171",
+            "class": "V",
+            "inlets": 3,
+            "outlets": 2,
+            "patching_rect": [
+                360,
+                735,
+                99.3438,
+                22
+            ],
+            "args": [
+                "eventInput"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-172": {
+            "id": "box-172",
+            "text": "DL.oneHot @inlets 2",
+            "name": "box-172",
+            "class": "DL.oneHot",
+            "inlets": 2,
+            "outlets": 2,
+            "patching_rect": [
+                1485,
+                180,
+                135.813,
+                22
+            ],
+            "args": [],
+            "props": {
+                "inlets": 2
+            },
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-174": {
+            "id": "box-174",
+            "text": "DL.Tensor.as1D",
+            "name": "box-174",
+            "class": "DL.Tensor.as1D",
+            "inlets": 2,
+            "outlets": 3,
+            "patching_rect": [
+                1485,
+                210,
+                109.188,
+                22
+            ],
+            "args": [],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-175": {
+            "id": "box-175",
             "text": "Message",
-            "name": "box-150",
+            "name": "box-175",
             "class": "Message",
             "inlets": 2,
             "outlets": 1,
             "patching_rect": [
-                780,
-                540,
+                1485,
+                30,
                 45,
                 22
             ],
             "args": [
-                "false"
+                "2"
             ],
             "props": {},
             "prevData": {
                 "storage": {
-                    "text": "false"
+                    "text": "2"
                 }
+            }
+        },
+        "box-176": {
+            "id": "box-176",
+            "text": "V noteDensityIdx",
+            "name": "box-176",
+            "class": "V",
+            "inlets": 3,
+            "outlets": 2,
+            "patching_rect": [
+                1485,
+                60,
+                118.375,
+                22
+            ],
+            "args": [
+                "noteDensityIdx"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-177": {
+            "id": "box-177",
+            "text": "+ 1",
+            "name": "box-177",
+            "class": "+",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                1485,
+                90,
+                45,
+                22
+            ],
+            "args": [
+                1
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-178": {
+            "id": "box-178",
+            "text": "DL.tensor1d",
+            "name": "box-178",
+            "class": "DL.tensor1d",
+            "inlets": 2,
+            "outlets": 2,
+            "patching_rect": [
+                1485,
+                150,
+                93.5625,
+                22
+            ],
+            "args": [],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-179": {
+            "id": "box-179",
+            "text": "JSArray",
+            "name": "box-179",
+            "class": "JSArray",
+            "inlets": 3,
+            "outlets": 2,
+            "patching_rect": [
+                1485,
+                120,
+                66.3125,
+                22
+            ],
+            "args": [],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-181": {
+            "id": "box-181",
+            "text": "Message",
+            "name": "box-181",
+            "class": "Message",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                1605,
+                150,
+                45,
+                22
+            ],
+            "args": [
+                "8"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {
+                    "text": "8"
+                }
+            }
+        },
+        "box-182": {
+            "id": "box-182",
+            "text": "V noteDensityEncoding",
+            "name": "box-182",
+            "class": "V",
+            "inlets": 3,
+            "outlets": 2,
+            "patching_rect": [
+                1485,
+                240,
+                150.656,
+                22
+            ],
+            "args": [
+                "noteDensityEncoding"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-185": {
+            "id": "box-185",
+            "text": "Array @inlets 3",
+            "name": "box-185",
+            "class": "Array",
+            "inlets": 3,
+            "outlets": 2,
+            "patching_rect": [
+                735,
+                480,
+                197.547,
+                22
+            ],
+            "args": [],
+            "props": {
+                "inlets": 3
+            }
+        },
+        "box-186": {
+            "id": "box-186",
+            "text": "Array @inlets 3",
+            "name": "box-186",
+            "class": "Array",
+            "inlets": 3,
+            "outlets": 2,
+            "patching_rect": [
+                1005,
+                480,
+                197.547,
+                22
+            ],
+            "args": [],
+            "props": {
+                "inlets": 3
             }
         }
     },
@@ -2736,42 +3240,15 @@
                 "storage": {}
             }
         },
-        "box-107": {
-            "Set": {
-                "storage": {}
-            }
-        },
-        "box-108": {
-            "Message": {
-                "storage": {
-                    "text": "[]"
-                }
-            }
-        },
-        "box-109": {
-            "Set": {
-                "storage": {}
-            }
-        },
-        "box-110": {
-            "Set": {
-                "storage": {}
-            }
-        },
         "box-111": {
             "DL.scalar": {
-                "storage": {}
-            }
-        },
-        "box-112": {
-            "Button": {
                 "storage": {}
             }
         },
         "box-113": {
             "Message": {
                 "storage": {
-                    "text": "int32"
+                    "text": "355"
                 }
             }
         },
@@ -2780,18 +3257,6 @@
                 "storage": {
                     "text": "int32"
                 }
-            }
-        },
-        "box-115": {
-            "Message": {
-                "storage": {
-                    "text": "4"
-                }
-            }
-        },
-        "box-116": {
-            "++": {
-                "storage": {}
             }
         },
         "box-117": {
@@ -2854,18 +3319,13 @@
                 "storage": {}
             }
         },
-        "lastSample": {
-            "JS.JSObject": {
+        "box-130": {
+            "V": {
                 "storage": {}
             }
         },
         "box-131": {
             "Button": {
-                "storage": {}
-            }
-        },
-        "box-132": {
-            "DL.Tensor.dispose": {
                 "storage": {}
             }
         },
@@ -2940,26 +3400,143 @@
                 "storage": {}
             }
         },
-        "box-149": {
+        "box-152": {
+            "V": {
+                "storage": {}
+            }
+        },
+        "box-153": {
+            "DL.Tensor.dispose": {
+                "storage": {}
+            }
+        },
+        "box-154": {
+            "V": {
+                "storage": {}
+            }
+        },
+        "box-155": {
+            "V": {
+                "storage": {}
+            }
+        },
+        "box-156": {
+            "V": {
+                "storage": {}
+            }
+        },
+        "box-157": {
+            "DL.zeros": {
+                "storage": {}
+            }
+        },
+        "box-158": {
+            "DL.zeros": {
+                "storage": {}
+            }
+        },
+        "box-159": {
+            "DL.zeros": {
+                "storage": {}
+            }
+        },
+        "box-164": {
+            "V": {
+                "storage": {}
+            }
+        },
+        "box-165": {
+            "V": {
+                "storage": {}
+            }
+        },
+        "box-166": {
+            "DL.Tensor.dispose": {
+                "storage": {}
+            }
+        },
+        "box-167": {
             "Button": {
                 "storage": {}
             }
         },
-        "box-150": {
+        "box-168": {
+            "==": {
+                "storage": {}
+            }
+        },
+        "box-171": {
+            "V": {
+                "storage": {}
+            }
+        },
+        "box-172": {
+            "DL.oneHot": {
+                "storage": {}
+            }
+        },
+        "box-174": {
+            "DL.Tensor.as1D": {
+                "storage": {}
+            }
+        },
+        "box-175": {
             "Message": {
                 "storage": {
-                    "text": "false"
+                    "text": "2"
                 }
+            }
+        },
+        "box-176": {
+            "V": {
+                "storage": {}
+            }
+        },
+        "box-177": {
+            "+": {
+                "storage": {}
+            }
+        },
+        "box-178": {
+            "DL.tensor1d": {
+                "storage": {}
+            }
+        },
+        "box-179": {
+            "JSArray": {
+                "storage": {}
+            }
+        },
+        "box-181": {
+            "Message": {
+                "storage": {
+                    "text": "8"
+                }
+            }
+        },
+        "box-182": {
+            "V": {
+                "storage": {}
+            }
+        },
+        "box-185": {
+            "Array": {
+                "storage": {}
+            }
+        },
+        "box-186": {
+            "Array": {
+                "storage": {}
             }
         }
     },
     "state": {
-        "locked": false,
+        "locked": true,
         "presentation": false,
         "showGrid": true
     },
-    "boxIndexCount": 150,
-    "lineIndexCount": 212,
+    "boxIndexCount": 186,
+    "lineIndexCount": 263,
     "bgcolor": [
         61,
         65,

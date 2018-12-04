@@ -4,6 +4,7 @@ import Base from "./object/Base.js";
 import WA from "./object/WA.js";
 import JS from "./object/JS.js";
 import JSOp from "./object/JSOp.js";
+import JSArray from "./object/JSArray.js";
 import Max from "./object/max/Max.js";
 import Faust from "./object/faust/Faust.js";
 import Xebra from "./object/Xebra.js";
@@ -19,6 +20,7 @@ let Packages = {
     Max,
     Faust,
     Xebra,
+    Array : JSArray,
     TF : AutoImporter.importer("TF", TF, 2),
     MM : AutoImporter.importer("MM", MM, 2),
     DL : AutoImporter.importer("DL", DL, 2)
@@ -39,6 +41,7 @@ export default class Patcher extends EventEmitter {
         this._history = new History(this);
         this._lib = {};
         this._packages = Packages;
+        this._sharedMemory = new SharedMemory();
         this.packageRegister(Packages);
         if (this.hasOwnProperty("_audioCtx") && this._audioCtx) this._audioCtx.close();
         this._audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -799,5 +802,34 @@ class Line {
     }
     get destObj() {
         return this._patcher.getObjByID(this.dest[0]);
+    }
+}
+
+class SharedMemory {
+    constructor() {
+        this.dataSet = {};
+    }
+    
+    set(key, value) {
+        if (this.dataSet.hasOwnProperty(key)) this.dataSet[key].value = value;
+        else this.dataSet[key] = { value : undefined, inspectors : [] };
+        return this.dataSet;
+    }
+    get(key) {
+        if (this.dataSet.hasOwnProperty(key)) return this.dataSet[key].value;
+        else return undefined;
+    }
+    // bind a variable with object id
+    on(key, id) {
+        if (!this.dataSet.hasOwnProperty(key)) this.dataSet[key] = { value : undefined, inspectors : [] };
+        this.dataSet[key].inspectors.push(id);
+        return this;
+    }
+    // unbind a variable with object id
+    off(key, id) {
+        if (!this.dataSet.hasOwnProperty(key)) return this;
+        else if (this.dataSet[key].inspectors.includes(id)) this.dataSet[key].inspectors.splice(this.dataSet[key].inspectors.indexOf(id), 1);
+        if (this.dataSet[key].inspectors.length == 0) delete this.dataSet[key];
+        return this;
     }
 }
