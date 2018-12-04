@@ -383,7 +383,7 @@ class Button extends EmptyObject {
         this._mem.text = box.props.text || "Bang";
     }
     fn(data, inlet) {
-        this.outlet(0, new Bang());
+        if (data !== false) this.outlet(0, new Bang());
     }
     ui($, box) {
         let pkgName = this._meta.package.toLowerCase();

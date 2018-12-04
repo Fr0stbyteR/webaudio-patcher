@@ -308,7 +308,8 @@ class JSCall extends JSBaseObject { //TODO Call with function name
         }
     }
 }
-class Get extends JSObject {
+
+class Get extends JSBaseObject {
     static get _meta() {
         return Object.assign(super._meta, {
             description : "Get Property of Object",
@@ -318,11 +319,11 @@ class Get extends JSObject {
                 description : "The object for retriving property"
             }, {
                 isHot : false,
-                type : "anything",
-                description : "Property name or array index"
+                type : "object",
+                description : "Array of property name or array index"
             }],
             outlets : [{
-                type : "anythong",
+                type : "anything",
                 description : "Output data of property"
             }],
             args : [{
@@ -331,9 +332,9 @@ class Get extends JSObject {
                 default : 0,
                 description : "Property name or array index"
             }, {
-                type : "object",
+                type : "...",
                 optional : true,
-                description : "The object for retriving property"
+                description : "Child property name or array index"
             }]
         });
     }
@@ -341,14 +342,15 @@ class Get extends JSObject {
         super(box, patcher);
         this._inlets = 2;
         this._outlets = 1;
-        this._mem.key = 0;
+        this._mem.keys = [0];
         this._mem.result;
         this.update(box.args);
     }
     update(args, props) {
+        this._mem.keys = [0];
+        this._mem.result = undefined;
         if (args.length == 0) return this;
-        if (args[0]) this._mem.key = args[0];
-        if (args[1]) this._mem.result = args[1][this._mem.key];
+        this._mem.keys = args;
     }
     fn(data, inlet) {
         if (inlet == 0 && data instanceof Base.Bang) {
@@ -356,17 +358,262 @@ class Get extends JSObject {
             return this;
         }
         if (inlet == 1) {
-            this._mem.key = data;
+            if (Array.isArray(data)) this._mem.keys = data;
+            if (typeof data !== "object") this._mem.keys = [data];
         }
         if (inlet == 0) {
-            this._mem.result = data[this._mem.key];
-            this.outlet(0, this._mem.result);
+            this._mem.result = data;
+            try {
+                for (const key of this._mem.keys) {
+                    this._mem.result = this._mem.result[key];
+                }
+                this.outlet(0, this._mem.result);
+            } catch (e) {
+                this.error(e);
+            }
         }
         return this;
     }
 }
-//TODO expression
+
+class Set extends JSBaseObject {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            description : "Set Property of Object",
+            inlets : [{
+                isHot : true,
+                type : "object",
+                description : "The object for retriving property"
+            }, {
+                isHot : false,
+                type : "object",
+                description : "Array of property name or array index"
+            }, {
+                isHot : false,
+                type : "anything",
+                description : "Value to set"
+            }],
+            outlets : [{
+                type : "anything",
+                description : "Output object"
+            }],
+            args : [{
+                type : "anything",
+                optional : true,
+                default : 0,
+                description : "Property name or array index"
+            }, {
+                type : "...",
+                optional : true,
+                description : "Child property name or array index"
+            }, {
+                type : "angthing",
+                optional : true,
+                default : undefined,
+                description : "Value to set"
+            }]
+        });
+    }
+    constructor(box, patcher) {
+        super(box, patcher);
+        this._inlets = 3;
+        this._outlets = 1;
+        this._mem.keys = [0];
+        this._mem.value;
+        this._mem.result;
+        this.update(box.args);
+    }
+    update(args, props) {
+        this._mem.keys = [0];
+        this._mem.value = undefined;
+        this._mem.result = undefined;
+        if (args.length == 0) return this;
+        this._mem.value = args.pop();
+        if (args.length == 0) return this;
+        this._mem.keys = args;
+    }
+    fn(data, inlet) {
+        if (inlet == 0 && data instanceof Base.Bang) {
+            this.outlet(0, this._mem.result);
+            return this;
+        }
+        if (inlet == 1) {
+            if (Array.isArray(data)) this._mem.keys = data;
+            if (typeof data !== "object") this._mem.keys = [data];
+        }
+        if (inlet == 2) {
+            this._mem.value = data;
+        }
+        if (inlet == 0) {
+            let curKey = data;
+            try {
+                for (let i = 0; i < this._mem.keys.length; i++) {
+                    const key = this._mem.keys[i];
+                    if (i == this._mem.keys.length - 1) {
+                        curKey[key] = this._mem.value;
+                        break;
+                    }
+                    if (!curKey.hasOwnProperty(key)) curKey[key] = {};
+                    curKey = curKey[key];
+                }
+                this.outlet(0, data);
+            } catch (e) {
+                this.error(e);
+            }
+        }
+        return this;
+    }
+}
+
+class JSCallback extends JSBaseObject {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            description : "Generate anonymous function, output args when called",
+            inlets : [{
+                isHot : true,
+                type : "object",
+                description : "Output anonymous function"
+            }],
+            outlets : [{
+                type : "function",
+                description : "Anonymous function"
+            }, {
+                type : "object",
+                description : "Bang when called"
+            }, {
+                type : "anything",
+                description : "argument when called"
+            }],
+            args : [{
+                type : "number",
+                optional : true,
+                default : 0,
+                description : "arguments count"
+            }]
+        });
+    }
+    constructor(box, patcher) {
+        super(box, patcher);
+        this._inlets = 1;
+        this._outlets = 2;
+        this.update(box.args);
+    }
+    update(args, props) {
+        if (typeof args[0] == "number") this._outlets = 2 + parseInt(args[0]);
+    }
+    fn(data, inlet) {
+        if (inlet == 0 && data instanceof Base.Bang) {
+            this.outlet(0, (...args) => {
+                for (let i = args.length - 1; i >= 0; i--) {
+                    this.outlet(i + 2, args[i]);
+                }
+                this.outlet(1, new Base.Bang());
+            });
+            return this;
+        }
+    }
+}
+
+class For extends JSBaseObject {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            description : "Output numbers for loop",
+            inlets : [{
+                isHot : true,
+                type : "object",
+                description : "Output index"
+            }, {
+                isHot : false,
+                type : "number",
+                description : "Maximum index"
+            }],
+            outlets : [{
+                type : "object",
+                description : "Bang when finished"
+            }, {
+                type : "number",
+                description : "index"
+            }],
+            args : [{
+                type : "number",
+                optional : true,
+                default : 0,
+                description : "Maximum index"
+            }]
+        });
+    }
+    constructor(box, patcher) {
+        super(box, patcher);
+        this._inlets = 2;
+        this._outlets = 2;
+        this._mem.max = 0;
+        this.update(box.args);
+    }
+    update(args, props) {
+        this._mem.max = 0;
+        if (typeof args[0] == "number") this._mem.max = parseInt(args[0]);
+    }
+    fn(data, inlet) {
+        if (inlet == 0) {
+            for (let i = 0; i < this._mem.max; i++) {
+                this.outlet(1, i);
+            }
+            this.outlet(0, new Base.Bang());
+            return this;
+        }
+        if (inlet == 1) {
+            if (typeof data == "number") this._mem.max = parseInt(data);
+            return this;
+        }
+    }
+}
+
+class ForEach extends JSBaseObject {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            description : "Output key and values for loop",
+            inlets : [{
+                isHot : true,
+                type : "object",
+                description : "Object to iterate"
+            }],
+            outlets : [{
+                type : "object",
+                description : "Bang when finished"
+            }, {
+                type : "object",
+                description : "key"
+            }, {
+                type : "anything",
+                description : "value"
+            }]
+        });
+    }
+    constructor(box, patcher) {
+        super(box, patcher);
+        this._inlets = 1;
+        this._outlets = 3;
+        this.update(box.args);
+    }
+    fn(data, inlet) {
+        if (inlet == 0) {
+            if (typeof data !== "object") {
+                this.error("Cannot iterate.")
+            }
+            for (const key in data) {
+                if (data.hasOwnProperty(key)) {
+                    this.outlet(2, data[key]);
+                    this.outlet(1, key);
+                }
+            }
+            this.outlet(0, new Base.Bang());
+            return this;
+        }
+    }
+}
+
 export default {
+    JSBaseObject,
     JSBoolean,
     JSNumber,
     JSString,
@@ -374,5 +621,9 @@ export default {
     JSObject,
     JSFunction,
     JSCall,
-    Get
+    JSCallback,
+    Get,
+    Set,
+    For,
+    ForEach
 }

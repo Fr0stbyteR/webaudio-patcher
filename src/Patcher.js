@@ -3,21 +3,25 @@ import * as Util from "util";
 import Base from "./object/Base.js";
 import WA from "./object/WA.js";
 import JS from "./object/JS.js";
+import JSOp from "./object/JSOp.js";
 import Max from "./object/max/Max.js";
 import Faust from "./object/faust/Faust.js";
 import Xebra from "./object/Xebra.js";
 import AutoImporter from "./object/AutoImporter.js";
 import * as TF from "@tensorflow/tfjs";
-import * as MM from '@magenta/music';
+import * as MM from "@magenta/music";
+import * as DL from "deeplearn";
 let Packages = {
     Base,
     WA,
     JS,
+    JSOp,
     Max,
     Faust,
     Xebra,
     TF : AutoImporter.importer("TF", TF, 2),
-    MM : AutoImporter.importer("MM", MM, 2)
+    MM : AutoImporter.importer("MM", MM, 2),
+    DL : AutoImporter.importer("DL", DL, 2)
 };
 
 export default class Patcher extends EventEmitter {
@@ -379,8 +383,8 @@ export default class Patcher extends EventEmitter {
             if (this.boxes.hasOwnProperty(box.id)) {
                 box = new Box(box, this);
                 idMap[box.id] = "box-" + ++this.boxIndexCount;
+                if (box.name == box.id) box.name = idMap[box.id];
                 box.id = idMap[box.id];
-                box.name = idMap[box.id];
             } else {
                 idMap[box.id] = box.id;
             }
@@ -553,7 +557,7 @@ class Box {
         this.id = props.id;
         this.text = props.text || "";
         let parsed = Box.parseObjText(this.text);
-        this.name = parsed.name || props.id;
+        this.name = parsed.props.name || props.id;
         this.class = parsed.class || "Base.EmptyObject";
         this.inlets = props.inlets;
         this.outlets = props.outlets;

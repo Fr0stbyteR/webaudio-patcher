@@ -84,12 +84,12 @@ export default class AutoImporter {
                     }
                     if (!args) return this;
                     this._mem.inputs = args;
-                    if (!this._mem.fromProto) this.execute();
+                    //if (!this._mem.fromProto) this.execute();
                     return this;
                 }
                 fn(data, inlet) {
                     if (inlet == 0 && data instanceof Base.Bang) {
-                        this.output();
+                        if (this.execute()) this.output();
                         return this;
                     }
                     if (this._mem.fromProto) {

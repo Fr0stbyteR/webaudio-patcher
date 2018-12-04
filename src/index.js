@@ -17,7 +17,7 @@ let project = [
 	"patcher.json",
 	{
 		name : "demo",
-		items : ["faust.json", "faust_poly.json", "tf.json", "js.json", "com.json"]
+		items : ["faust.json", "faust_poly.json", "tf.json", "js.json", "com.json", "prnn.json"]
 	}
 ];
 
@@ -229,7 +229,7 @@ $(document).ready(() => {
 	//keys
 	$(document).on("keydown", (e) => {
 		if ($(".editing").attr("contenteditable")) return;
-		keysPressed[(e.key == "Control" || e.key == "Command") ? "Ctrl" : e.key] = true;
+		keysPressed[(e.key == "Control" || e.key == "Meta") ? "Ctrl" : e.key] = true;
 		if (e.key == "Delete" || e.key == "Backspace") { // delete selection
 			$("#delete").click();
 			e.preventDefault();
@@ -347,7 +347,7 @@ $(document).ready(() => {
 			return;
 		}
 	}).on("keyup", (e) => {
-		keysPressed[(e.key == "Control" || e.key == "Command") ? "Ctrl" : e.key] = false;
+		keysPressed[(e.key == "Control" || e.key == "Meta") ? "Ctrl" : e.key] = false;
 	});
 	$(window).on("blur", (e) => {
 		for (const key in keysPressed) {

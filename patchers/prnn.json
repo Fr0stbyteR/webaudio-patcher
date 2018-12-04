@@ -1,0 +1,2979 @@
+{
+    "lines": {
+        "line-98": {
+            "src": [
+                "box-75",
+                0
+            ],
+            "dest": [
+                "box-76",
+                0
+            ],
+            "id": "line-98",
+            "disabled": false,
+            "positionHash": 44892320
+        },
+        "line-102": {
+            "src": [
+                "box-76",
+                1
+            ],
+            "dest": [
+                "box-79",
+                0
+            ],
+            "id": "line-102",
+            "disabled": false,
+            "positionHash": 46858430
+        },
+        "line-104": {
+            "src": [
+                "box-76",
+                1
+            ],
+            "dest": [
+                "box-80",
+                0
+            ],
+            "id": "line-104",
+            "disabled": false,
+            "positionHash": 48824540
+        },
+        "line-105": {
+            "src": [
+                "box-76",
+                1
+            ],
+            "dest": [
+                "box-81",
+                0
+            ],
+            "id": "line-105",
+            "disabled": false,
+            "positionHash": 52756730
+        },
+        "line-106": {
+            "src": [
+                "box-76",
+                1
+            ],
+            "dest": [
+                "box-82",
+                0
+            ],
+            "id": "line-106",
+            "disabled": false,
+            "positionHash": 54722840
+        },
+        "line-107": {
+            "src": [
+                "box-76",
+                1
+            ],
+            "dest": [
+                "box-83",
+                0
+            ],
+            "id": "line-107",
+            "disabled": false,
+            "positionHash": 58655030
+        },
+        "line-108": {
+            "src": [
+                "box-76",
+                1
+            ],
+            "dest": [
+                "box-84",
+                0
+            ],
+            "id": "line-108",
+            "disabled": false,
+            "positionHash": 60621140
+        },
+        "line-109": {
+            "src": [
+                "box-76",
+                1
+            ],
+            "dest": [
+                "box-85",
+                0
+            ],
+            "id": "line-109",
+            "disabled": false,
+            "positionHash": 70451390
+        },
+        "line-111": {
+            "src": [
+                "box-76",
+                1
+            ],
+            "dest": [
+                "box-86",
+                0
+            ],
+            "id": "line-111",
+            "disabled": false,
+            "positionHash": 72417500
+        },
+        "line-112": {
+            "src": [
+                "box-87",
+                0
+            ],
+            "dest": [
+                "box-75",
+                0
+            ],
+            "id": "line-112",
+            "disabled": false,
+            "positionHash": 44892290
+        },
+        "line-113": {
+            "src": [
+                "box-80",
+                0
+            ],
+            "dest": [
+                "box-88",
+                0
+            ],
+            "id": "line-113",
+            "disabled": false,
+            "positionHash": 48824690
+        },
+        "line-114": {
+            "src": [
+                "box-82",
+                0
+            ],
+            "dest": [
+                "box-89",
+                0
+            ],
+            "id": "line-114",
+            "disabled": false,
+            "positionHash": 54722930
+        },
+        "line-115": {
+            "src": [
+                "box-84",
+                0
+            ],
+            "dest": [
+                "box-90",
+                0
+            ],
+            "id": "line-115",
+            "disabled": false,
+            "positionHash": 60621170
+        },
+        "line-116": {
+            "src": [
+                "box-88",
+                0
+            ],
+            "dest": [
+                "box-91",
+                0
+            ],
+            "id": "line-116",
+            "disabled": false,
+            "positionHash": 48824720
+        },
+        "line-117": {
+            "src": [
+                "box-89",
+                0
+            ],
+            "dest": [
+                "box-92",
+                0
+            ],
+            "id": "line-117",
+            "disabled": false,
+            "positionHash": 54722960
+        },
+        "line-118": {
+            "src": [
+                "box-90",
+                0
+            ],
+            "dest": [
+                "box-93",
+                0
+            ],
+            "id": "line-118",
+            "disabled": false,
+            "positionHash": 60621200
+        },
+        "line-128": {
+            "src": [
+                "box-99",
+                0
+            ],
+            "dest": [
+                "box-95",
+                0
+            ],
+            "id": "line-128",
+            "disabled": false,
+            "positionHash": 48824780
+        },
+        "line-129": {
+            "src": [
+                "box-91",
+                0
+            ],
+            "dest": [
+                "box-95",
+                2
+            ],
+            "id": "line-129",
+            "disabled": false,
+            "positionHash": 52224460
+        },
+        "line-130": {
+            "src": [
+                "box-91",
+                0
+            ],
+            "dest": [
+                "box-99",
+                0
+            ],
+            "id": "line-130",
+            "disabled": false,
+            "positionHash": 48824750
+        },
+        "line-131": {
+            "src": [
+                "box-101",
+                0
+            ],
+            "dest": [
+                "box-100",
+                0
+            ],
+            "id": "line-131",
+            "disabled": false,
+            "positionHash": 54723020
+        },
+        "line-132": {
+            "src": [
+                "box-92",
+                0
+            ],
+            "dest": [
+                "box-101",
+                0
+            ],
+            "id": "line-132",
+            "disabled": false,
+            "positionHash": 54722990
+        },
+        "line-133": {
+            "src": [
+                "box-103",
+                0
+            ],
+            "dest": [
+                "box-102",
+                0
+            ],
+            "id": "line-133",
+            "disabled": false,
+            "positionHash": 60621260
+        },
+        "line-134": {
+            "src": [
+                "box-92",
+                0
+            ],
+            "dest": [
+                "box-100",
+                2
+            ],
+            "id": "line-134",
+            "disabled": false,
+            "positionHash": 58122700
+        },
+        "line-135": {
+            "src": [
+                "box-93",
+                0
+            ],
+            "dest": [
+                "box-103",
+                0
+            ],
+            "id": "line-135",
+            "disabled": false,
+            "positionHash": 60621230
+        },
+        "line-136": {
+            "src": [
+                "box-93",
+                0
+            ],
+            "dest": [
+                "box-102",
+                2
+            ],
+            "id": "line-136",
+            "disabled": false,
+            "positionHash": 64020940
+        },
+        "line-137": {
+            "src": [
+                "box-95",
+                0
+            ],
+            "dest": [
+                "box-104",
+                0
+            ],
+            "id": "line-137",
+            "disabled": false,
+            "positionHash": 48824810
+        },
+        "line-138": {
+            "src": [
+                "box-100",
+                0
+            ],
+            "dest": [
+                "box-105",
+                0
+            ],
+            "id": "line-138",
+            "disabled": false,
+            "positionHash": 54723050
+        },
+        "line-139": {
+            "src": [
+                "box-102",
+                0
+            ],
+            "dest": [
+                "box-106",
+                0
+            ],
+            "id": "line-139",
+            "disabled": false,
+            "positionHash": 60621290
+        },
+        "line-140": {
+            "src": [
+                "box-104",
+                0
+            ],
+            "dest": [
+                "box-107",
+                2
+            ],
+            "id": "line-140",
+            "disabled": false,
+            "positionHash": 47532552
+        },
+        "line-141": {
+            "src": [
+                "box-108",
+                0
+            ],
+            "dest": [
+                "box-107",
+                0
+            ],
+            "id": "line-141",
+            "disabled": false,
+            "positionHash": 44892680
+        },
+        "line-142": {
+            "src": [
+                "box-105",
+                0
+            ],
+            "dest": [
+                "box-109",
+                2
+            ],
+            "id": "line-142",
+            "disabled": false,
+            "positionHash": 53430792
+        },
+        "line-143": {
+            "src": [
+                "box-106",
+                0
+            ],
+            "dest": [
+                "box-110",
+                2
+            ],
+            "id": "line-143",
+            "disabled": false,
+            "positionHash": 59329032
+        },
+        "line-145": {
+            "src": [
+                "box-108",
+                0
+            ],
+            "dest": [
+                "box-109",
+                0
+            ],
+            "id": "line-145",
+            "disabled": false,
+            "positionHash": 50790920
+        },
+        "line-146": {
+            "src": [
+                "box-108",
+                0
+            ],
+            "dest": [
+                "box-110",
+                0
+            ],
+            "id": "line-146",
+            "disabled": false,
+            "positionHash": 56689160
+        },
+        "line-147": {
+            "src": [
+                "box-107",
+                0
+            ],
+            "dest": [
+                "box-77",
+                0
+            ],
+            "id": "line-147",
+            "disabled": false,
+            "positionHash": 44892830
+        },
+        "line-151": {
+            "src": [
+                "box-95",
+                0
+            ],
+            "dest": [
+                "box-108",
+                0
+            ],
+            "id": "line-151",
+            "disabled": false,
+            "positionHash": 44892650
+        },
+        "line-153": {
+            "src": [
+                "box-112",
+                0
+            ],
+            "dest": [
+                "box-113",
+                0
+            ],
+            "id": "line-153",
+            "disabled": false,
+            "positionHash": 71434775
+        },
+        "line-154": {
+            "src": [
+                "box-114",
+                0
+            ],
+            "dest": [
+                "box-111",
+                1
+            ],
+            "id": "line-154",
+            "disabled": false,
+            "positionHash": 75145781
+        },
+        "line-155": {
+            "src": [
+                "box-113",
+                0
+            ],
+            "dest": [
+                "box-111",
+                0
+            ],
+            "id": "line-155",
+            "disabled": false,
+            "positionHash": 71434805
+        },
+        "line-156": {
+            "src": [
+                "box-112",
+                0
+            ],
+            "dest": [
+                "box-114",
+                0
+            ],
+            "id": "line-156",
+            "disabled": false,
+            "positionHash": 75366935
+        },
+        "line-157": {
+            "src": [
+                "box-115",
+                0
+            ],
+            "dest": [
+                "box-116",
+                0
+            ],
+            "id": "line-157",
+            "disabled": false,
+            "positionHash": 58655315
+        },
+        "line-160": {
+            "src": [
+                "box-118",
+                0
+            ],
+            "dest": [
+                "box-119",
+                0
+            ],
+            "id": "line-160",
+            "disabled": false,
+            "positionHash": 4587740
+        },
+        "line-161": {
+            "src": [
+                "box-79",
+                0
+            ],
+            "dest": [
+                "box-119",
+                1
+            ],
+            "id": "line-161",
+            "disabled": false,
+            "positionHash": 6605020
+        },
+        "line-162": {
+            "src": [
+                "box-80",
+                0
+            ],
+            "dest": [
+                "box-119",
+                2
+            ],
+            "id": "line-162",
+            "disabled": false,
+            "positionHash": 8622300
+        },
+        "line-163": {
+            "src": [
+                "box-117",
+                2
+            ],
+            "dest": [
+                "box-119",
+                3
+            ],
+            "id": "line-163",
+            "disabled": false,
+            "positionHash": 10639580
+        },
+        "line-164": {
+            "src": [
+                "box-117",
+                3
+            ],
+            "dest": [
+                "box-119",
+                4
+            ],
+            "id": "line-164",
+            "disabled": false,
+            "positionHash": 12656860
+        },
+        "line-165": {
+            "src": [
+                "box-117",
+                4
+            ],
+            "dest": [
+                "box-119",
+                5
+            ],
+            "id": "line-165",
+            "disabled": false,
+            "positionHash": 14674140
+        },
+        "line-166": {
+            "src": [
+                "box-117",
+                1
+            ],
+            "dest": [
+                "box-118",
+                0
+            ],
+            "id": "line-166",
+            "disabled": false,
+            "positionHash": 4587710
+        },
+        "line-167": {
+            "src": [
+                "box-87",
+                0
+            ],
+            "dest": [
+                "box-117",
+                0
+            ],
+            "id": "line-167",
+            "disabled": false,
+            "positionHash": 2621600
+        },
+        "line-168": {
+            "src": [
+                "box-120",
+                1
+            ],
+            "dest": [
+                "box-121",
+                0
+            ],
+            "id": "line-168",
+            "disabled": false,
+            "positionHash": 18350330
+        },
+        "line-169": {
+            "src": [
+                "box-120",
+                2
+            ],
+            "dest": [
+                "box-122",
+                3
+            ],
+            "id": "line-169",
+            "disabled": false,
+            "positionHash": 24402200
+        },
+        "line-170": {
+            "src": [
+                "box-120",
+                3
+            ],
+            "dest": [
+                "box-122",
+                4
+            ],
+            "id": "line-170",
+            "disabled": false,
+            "positionHash": 26419480
+        },
+        "line-171": {
+            "src": [
+                "box-120",
+                4
+            ],
+            "dest": [
+                "box-122",
+                5
+            ],
+            "id": "line-171",
+            "disabled": false,
+            "positionHash": 28436760
+        },
+        "line-172": {
+            "src": [
+                "box-121",
+                0
+            ],
+            "dest": [
+                "box-122",
+                0
+            ],
+            "id": "line-172",
+            "disabled": false,
+            "positionHash": 18350360
+        },
+        "line-173": {
+            "src": [
+                "box-87",
+                0
+            ],
+            "dest": [
+                "box-120",
+                0
+            ],
+            "id": "line-173",
+            "disabled": false,
+            "positionHash": 16384220
+        },
+        "line-174": {
+            "src": [
+                "box-81",
+                0
+            ],
+            "dest": [
+                "box-122",
+                1
+            ],
+            "id": "line-174",
+            "disabled": false,
+            "positionHash": 20367640
+        },
+        "line-175": {
+            "src": [
+                "box-82",
+                0
+            ],
+            "dest": [
+                "box-122",
+                2
+            ],
+            "id": "line-175",
+            "disabled": false,
+            "positionHash": 22384920
+        },
+        "line-176": {
+            "src": [
+                "box-123",
+                1
+            ],
+            "dest": [
+                "box-124",
+                0
+            ],
+            "id": "line-176",
+            "disabled": false,
+            "positionHash": 32112950
+        },
+        "line-177": {
+            "src": [
+                "box-123",
+                2
+            ],
+            "dest": [
+                "box-125",
+                3
+            ],
+            "id": "line-177",
+            "disabled": false,
+            "positionHash": 38164820
+        },
+        "line-178": {
+            "src": [
+                "box-123",
+                3
+            ],
+            "dest": [
+                "box-125",
+                4
+            ],
+            "id": "line-178",
+            "disabled": false,
+            "positionHash": 40182100
+        },
+        "line-179": {
+            "src": [
+                "box-123",
+                4
+            ],
+            "dest": [
+                "box-125",
+                5
+            ],
+            "id": "line-179",
+            "disabled": false,
+            "positionHash": 42199380
+        },
+        "line-180": {
+            "src": [
+                "box-124",
+                0
+            ],
+            "dest": [
+                "box-125",
+                0
+            ],
+            "id": "line-180",
+            "disabled": false,
+            "positionHash": 32112980
+        },
+        "line-181": {
+            "src": [
+                "box-83",
+                0
+            ],
+            "dest": [
+                "box-125",
+                1
+            ],
+            "id": "line-181",
+            "disabled": false,
+            "positionHash": 34130260
+        },
+        "line-182": {
+            "src": [
+                "box-84",
+                0
+            ],
+            "dest": [
+                "box-125",
+                2
+            ],
+            "id": "line-182",
+            "disabled": false,
+            "positionHash": 36147540
+        },
+        "line-183": {
+            "src": [
+                "box-87",
+                0
+            ],
+            "dest": [
+                "box-123",
+                0
+            ],
+            "id": "line-183",
+            "disabled": false,
+            "positionHash": 30146840
+        },
+        "line-184": {
+            "src": [
+                "box-126",
+                0
+            ],
+            "dest": [
+                "box-127",
+                0
+            ],
+            "id": "line-184",
+            "disabled": false,
+            "positionHash": 3605210
+        },
+        "line-185": {
+            "src": [
+                "box-87",
+                0
+            ],
+            "dest": [
+                "box-126",
+                0
+            ],
+            "id": "line-185",
+            "disabled": false,
+            "positionHash": 3605105
+        },
+        "line-186": {
+            "src": [
+                "box-111",
+                0
+            ],
+            "dest": [
+                "box-130",
+                1
+            ],
+            "id": "line-186",
+            "disabled": false,
+            "positionHash": 72068691
+        },
+        "line-187": {
+            "src": [
+                "box-131",
+                0
+            ],
+            "dest": [
+                "box-130",
+                0
+            ],
+            "id": "line-187",
+            "disabled": false,
+            "positionHash": 66519635
+        },
+        "line-188": {
+            "src": [
+                "box-107",
+                0
+            ],
+            "dest": [
+                "box-131",
+                0
+            ],
+            "id": "line-188",
+            "disabled": false,
+            "positionHash": 66519605
+        },
+        "line-192": {
+            "src": [
+                "box-130",
+                0
+            ],
+            "dest": [
+                "box-132",
+                0
+            ],
+            "id": "line-192",
+            "disabled": false,
+            "positionHash": 66519665
+        },
+        "line-193": {
+            "src": [
+                "box-135",
+                0
+            ],
+            "dest": [
+                "box-134",
+                0
+            ],
+            "id": "line-193",
+            "disabled": false,
+            "positionHash": 26214860
+        },
+        "line-194": {
+            "src": [
+                "box-134",
+                2
+            ],
+            "dest": [
+                "box-136",
+                0
+            ],
+            "id": "line-194",
+            "disabled": false,
+            "positionHash": 29164010
+        },
+        "line-195": {
+            "src": [
+                "box-134",
+                2
+            ],
+            "dest": [
+                "box-137",
+                0
+            ],
+            "id": "line-195",
+            "disabled": false,
+            "positionHash": 33096170
+        },
+        "line-196": {
+            "src": [
+                "box-137",
+                0
+            ],
+            "dest": [
+                "box-138",
+                1
+            ],
+            "id": "line-196",
+            "disabled": false,
+            "positionHash": 30802440
+        },
+        "line-197": {
+            "src": [
+                "box-136",
+                0
+            ],
+            "dest": [
+                "box-138",
+                0
+            ],
+            "id": "line-197",
+            "disabled": false,
+            "positionHash": 29164040
+        },
+        "line-198": {
+            "src": [
+                "box-138",
+                0
+            ],
+            "dest": [
+                "box-139",
+                0
+            ],
+            "id": "line-198",
+            "disabled": false,
+            "positionHash": 29164070
+        },
+        "line-199": {
+            "src": [
+                "box-139",
+                0
+            ],
+            "dest": [
+                "box-140",
+                0
+            ],
+            "id": "line-199",
+            "disabled": false,
+            "positionHash": 29164100
+        },
+        "line-200": {
+            "src": [
+                "box-140",
+                0
+            ],
+            "dest": [
+                "box-140",
+                1
+            ],
+            "id": "line-200",
+            "disabled": false,
+            "positionHash": 30802500
+        },
+        "line-201": {
+            "src": [
+                "box-140",
+                0
+            ],
+            "dest": [
+                "box-143",
+                1
+            ],
+            "id": "line-201",
+            "disabled": false,
+            "positionHash": 30802530
+        },
+        "line-202": {
+            "src": [
+                "box-135",
+                0
+            ],
+            "dest": [
+                "box-144",
+                0
+            ],
+            "id": "line-202",
+            "disabled": false,
+            "positionHash": 37028300
+        },
+        "line-203": {
+            "src": [
+                "box-144",
+                0
+            ],
+            "dest": [
+                "box-140",
+                1
+            ],
+            "id": "line-203",
+            "disabled": false,
+            "positionHash": 30802500
+        },
+        "line-204": {
+            "src": [
+                "box-140",
+                0
+            ],
+            "dest": [
+                "box-133",
+                1
+            ],
+            "id": "line-204",
+            "disabled": false,
+            "positionHash": 22991518
+        },
+        "line-205": {
+            "src": [
+                "box-128",
+                1
+            ],
+            "dest": [
+                "box-146",
+                0
+            ],
+            "id": "line-205",
+            "disabled": false,
+            "positionHash": 15401540
+        },
+        "line-206": {
+            "src": [
+                "box-146",
+                0
+            ],
+            "dest": [
+                "box-145",
+                0
+            ],
+            "id": "line-206",
+            "disabled": false,
+            "positionHash": 15401570
+        },
+        "line-208": {
+            "src": [
+                "box-145",
+                0
+            ],
+            "dest": [
+                "box-147",
+                0
+            ],
+            "id": "line-208",
+            "disabled": false,
+            "positionHash": 15401600
+        },
+        "line-209": {
+            "src": [
+                "box-147",
+                0
+            ],
+            "dest": [
+                "box-133",
+                0
+            ],
+            "id": "line-209",
+            "disabled": false,
+            "positionHash": 15401630
+        },
+        "line-210": {
+            "src": [
+                "box-133",
+                0
+            ],
+            "dest": [
+                "box-148",
+                0
+            ],
+            "id": "line-210",
+            "disabled": false,
+            "positionHash": 15401660
+        },
+        "line-211": {
+            "src": [
+                "box-150",
+                0
+            ],
+            "dest": [
+                "box-149",
+                0
+            ],
+            "id": "line-211",
+            "disabled": false,
+            "positionHash": 51839603
+        },
+        "line-212": {
+            "src": [
+                "box-149",
+                0
+            ],
+            "dest": [
+                "box-77",
+                0
+            ],
+            "id": "line-212",
+            "disabled": false,
+            "positionHash": 44892830
+        }
+    },
+    "boxes": {
+        "box-75": {
+            "id": "box-75",
+            "text": "DL.CheckpointLoader https://storage.googleapis.com/download.magenta.tensorflow.org/models/performance_rnn/dljs",
+            "name": "box-75",
+            "class": "DL.CheckpointLoader",
+            "inlets": 1,
+            "outlets": 2,
+            "patching_rect": [
+                675,
+                90,
+                652.516,
+                22
+            ],
+            "args": [
+                "https://storage.googleapis.com/download.magenta.tensorflow.org/models/performance_rnn/dljs"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-76": {
+            "id": "box-76",
+            "text": "DL.CheckpointLoader.getAllVariables",
+            "name": "box-76",
+            "class": "DL.CheckpointLoader.getAllVariables",
+            "inlets": 2,
+            "outlets": 3,
+            "patching_rect": [
+                675,
+                120,
+                224.297,
+                22
+            ],
+            "args": [],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-77": {
+            "id": "box-77",
+            "text": "Print",
+            "name": "box-77",
+            "class": "Print",
+            "inlets": 1,
+            "outlets": 0,
+            "patching_rect": [
+                675,
+                630,
+                54.0469,
+                22
+            ],
+            "args": [],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-79": {
+            "id": "box-79",
+            "text": "Get rnn/multi_rnn_cell/cell_0/basic_lstm_cell/kernel",
+            "name": "box-79",
+            "class": "Get",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                705,
+                150,
+                299.641,
+                22
+            ],
+            "args": [
+                "rnn/multi_rnn_cell/cell_0/basic_lstm_cell/kernel"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-80": {
+            "id": "box-80",
+            "text": "Get rnn/multi_rnn_cell/cell_0/basic_lstm_cell/bias",
+            "name": "box-80",
+            "class": "Get",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                735,
+                180,
+                287.188,
+                22
+            ],
+            "args": [
+                "rnn/multi_rnn_cell/cell_0/basic_lstm_cell/bias"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-81": {
+            "id": "box-81",
+            "text": "Get rnn/multi_rnn_cell/cell_1/basic_lstm_cell/kernel",
+            "name": "box-81",
+            "class": "Get",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                795,
+                210,
+                299.641,
+                22
+            ],
+            "args": [
+                "rnn/multi_rnn_cell/cell_1/basic_lstm_cell/kernel"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-82": {
+            "id": "box-82",
+            "text": "Get rnn/multi_rnn_cell/cell_1/basic_lstm_cell/bias",
+            "name": "box-82",
+            "class": "Get",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                825,
+                240,
+                287.188,
+                22
+            ],
+            "args": [
+                "rnn/multi_rnn_cell/cell_1/basic_lstm_cell/bias"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-83": {
+            "id": "box-83",
+            "text": "Get rnn/multi_rnn_cell/cell_2/basic_lstm_cell/kernel",
+            "name": "box-83",
+            "class": "Get",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                885,
+                270,
+                299.641,
+                22
+            ],
+            "args": [
+                "rnn/multi_rnn_cell/cell_2/basic_lstm_cell/kernel"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-84": {
+            "id": "box-84",
+            "text": "Get rnn/multi_rnn_cell/cell_2/basic_lstm_cell/bias",
+            "name": "box-84",
+            "class": "Get",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                915,
+                300,
+                287.188,
+                22
+            ],
+            "args": [
+                "rnn/multi_rnn_cell/cell_2/basic_lstm_cell/bias"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-85": {
+            "id": "box-85",
+            "text": "Get fully_connected/biases",
+            "name": "box-85",
+            "class": "Get",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                1065,
+                150,
+                168.844,
+                22
+            ],
+            "args": [
+                "fully_connected/biases"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-86": {
+            "id": "box-86",
+            "text": "Get fully_connected/weights",
+            "name": "box-86",
+            "class": "Get",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                1095,
+                180,
+                177.672,
+                22
+            ],
+            "args": [
+                "fully_connected/weights"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-87": {
+            "id": "box-87",
+            "text": "Button",
+            "name": "box-87",
+            "class": "Button",
+            "inlets": 1,
+            "outlets": 1,
+            "patching_rect": [
+                675,
+                60,
+                45,
+                22
+            ],
+            "args": [],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-88": {
+            "id": "box-88",
+            "text": "Get shape 0",
+            "name": "box-88",
+            "class": "Get",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                735,
+                330,
+                86.875,
+                22
+            ],
+            "args": [
+                "shape",
+                0
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-89": {
+            "id": "box-89",
+            "text": "Get shape 0",
+            "name": "box-89",
+            "class": "Get",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                825,
+                330,
+                86.875,
+                22
+            ],
+            "args": [
+                "shape",
+                0
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-90": {
+            "id": "box-90",
+            "text": "Get shape 0",
+            "name": "box-90",
+            "class": "Get",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                915,
+                330,
+                86.875,
+                22
+            ],
+            "args": [
+                "shape",
+                0
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-91": {
+            "id": "box-91",
+            "text": "/ 4",
+            "name": "box-91",
+            "class": "/",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                735,
+                360,
+                45,
+                22
+            ],
+            "args": [
+                4
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-92": {
+            "id": "box-92",
+            "text": "/ 4",
+            "name": "box-92",
+            "class": "/",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                825,
+                360,
+                45,
+                22
+            ],
+            "args": [
+                4
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-93": {
+            "id": "box-93",
+            "text": "/ 4",
+            "name": "box-93",
+            "class": "/",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                915,
+                360,
+                45,
+                22
+            ],
+            "args": [
+                4
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-95": {
+            "id": "box-95",
+            "text": "Set 1 0",
+            "name": "box-95",
+            "class": "Set",
+            "inlets": 3,
+            "outlets": 1,
+            "patching_rect": [
+                735,
+                420,
+                71.875,
+                22
+            ],
+            "args": [
+                1
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-99": {
+            "id": "box-99",
+            "text": "Message",
+            "name": "box-99",
+            "class": "Message",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                735,
+                390,
+                45,
+                22
+            ],
+            "args": [
+                "[1, 0]"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {
+                    "text": "[1, 0]"
+                }
+            }
+        },
+        "box-100": {
+            "id": "box-100",
+            "text": "Set 1 0",
+            "name": "box-100",
+            "class": "Set",
+            "inlets": 3,
+            "outlets": 1,
+            "patching_rect": [
+                825,
+                420,
+                71.875,
+                22
+            ],
+            "args": [
+                1
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-101": {
+            "id": "box-101",
+            "text": "Message",
+            "name": "box-101",
+            "class": "Message",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                825,
+                390,
+                45,
+                22
+            ],
+            "args": [
+                "[1, 0]"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {
+                    "text": "[1, 0]"
+                }
+            }
+        },
+        "box-102": {
+            "id": "box-102",
+            "text": "Set 1 0",
+            "name": "box-102",
+            "class": "Set",
+            "inlets": 3,
+            "outlets": 1,
+            "patching_rect": [
+                915,
+                420,
+                71.875,
+                22
+            ],
+            "args": [
+                1
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-103": {
+            "id": "box-103",
+            "text": "Message",
+            "name": "box-103",
+            "class": "Message",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                915,
+                390,
+                45,
+                22
+            ],
+            "args": [
+                "[1, 0]"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {
+                    "text": "[1, 0]"
+                }
+            }
+        },
+        "box-104": {
+            "id": "box-104",
+            "text": "DL.zeros []",
+            "name": "box-104",
+            "class": "DL.zeros",
+            "inlets": 1,
+            "outlets": 2,
+            "patching_rect": [
+                735,
+                450,
+                83.7969,
+                22
+            ],
+            "args": [
+                []
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-105": {
+            "id": "box-105",
+            "text": "DL.zeros []",
+            "name": "box-105",
+            "class": "DL.zeros",
+            "inlets": 1,
+            "outlets": 2,
+            "patching_rect": [
+                825,
+                450,
+                83.7969,
+                22
+            ],
+            "args": [
+                []
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-106": {
+            "id": "box-106",
+            "text": "DL.zeros []",
+            "name": "box-106",
+            "class": "DL.zeros",
+            "inlets": 1,
+            "outlets": 2,
+            "patching_rect": [
+                915,
+                450,
+                83.7969,
+                22
+            ],
+            "args": [
+                []
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-107": {
+            "id": "box-107",
+            "text": "Set 0 {}",
+            "name": "box-107",
+            "class": "Set",
+            "inlets": 3,
+            "outlets": 1,
+            "patching_rect": [
+                675,
+                480,
+                60.2969,
+                22
+            ],
+            "args": [
+                0
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-108": {
+            "id": "box-108",
+            "text": "Message",
+            "name": "box-108",
+            "class": "Message",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                675,
+                450,
+                45,
+                22
+            ],
+            "args": [
+                "[]"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {
+                    "text": "[]"
+                }
+            }
+        },
+        "box-109": {
+            "id": "box-109",
+            "text": "Set 1 {}",
+            "name": "box-109",
+            "class": "Set",
+            "inlets": 3,
+            "outlets": 1,
+            "patching_rect": [
+                765,
+                480,
+                60.2969,
+                22
+            ],
+            "args": [
+                1
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-110": {
+            "id": "box-110",
+            "text": "Set 2 {}",
+            "name": "box-110",
+            "class": "Set",
+            "inlets": 3,
+            "outlets": 1,
+            "patching_rect": [
+                855,
+                480,
+                60.2969,
+                22
+            ],
+            "args": [
+                2
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-111": {
+            "id": "box-111",
+            "text": "DL.scalar",
+            "name": "box-111",
+            "class": "DL.scalar",
+            "inlets": 2,
+            "outlets": 2,
+            "patching_rect": [
+                1080,
+                525,
+                76.625,
+                22
+            ],
+            "args": [],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-112": {
+            "id": "box-112",
+            "text": "Button",
+            "name": "box-112",
+            "class": "Button",
+            "inlets": 1,
+            "outlets": 1,
+            "patching_rect": [
+                1080,
+                465,
+                45,
+                22
+            ],
+            "args": [],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-113": {
+            "id": "box-113",
+            "text": "Message",
+            "name": "box-113",
+            "class": "Message",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                1080,
+                495,
+                45,
+                22
+            ],
+            "args": [
+                "int32"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {
+                    "text": "int32"
+                }
+            }
+        },
+        "box-114": {
+            "id": "box-114",
+            "text": "Message",
+            "name": "box-114",
+            "class": "Message",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                1140,
+                495,
+                45,
+                22
+            ],
+            "args": [
+                "int32"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {
+                    "text": "int32"
+                }
+            }
+        },
+        "box-115": {
+            "id": "box-115",
+            "text": "Message",
+            "name": "box-115",
+            "class": "Message",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                885,
+                525,
+                45,
+                22
+            ],
+            "args": [
+                "4"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {
+                    "text": "4"
+                }
+            }
+        },
+        "box-116": {
+            "id": "box-116",
+            "text": "++",
+            "name": "box-116",
+            "class": "++",
+            "inlets": 1,
+            "outlets": 1,
+            "patching_rect": [
+                885,
+                555,
+                45,
+                22
+            ],
+            "args": [],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-117": {
+            "id": "box-117",
+            "text": "JS.JSCallback 3",
+            "name": "box-117",
+            "class": "JS.JSCallback",
+            "inlets": 1,
+            "outlets": 5,
+            "patching_rect": [
+                30,
+                120,
+                150.641,
+                22
+            ],
+            "args": [
+                3
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-118": {
+            "id": "box-118",
+            "text": "DL.scalar 1.0",
+            "name": "box-118",
+            "class": "DL.scalar",
+            "inlets": 2,
+            "outlets": 2,
+            "patching_rect": [
+                60,
+                150,
+                95.4063,
+                22
+            ],
+            "args": [
+                1
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-119": {
+            "id": "box-119",
+            "text": "DL.basicLSTMCell @inlets 6",
+            "name": "box-119",
+            "class": "DL.basicLSTMCell",
+            "inlets": 6,
+            "outlets": 2,
+            "patching_rect": [
+                60,
+                180,
+                173.938,
+                22
+            ],
+            "args": [],
+            "props": {
+                "inlets": 6
+            },
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-120": {
+            "id": "box-120",
+            "text": "JS.JSCallback 3",
+            "name": "box-120",
+            "class": "JS.JSCallback",
+            "inlets": 1,
+            "outlets": 5,
+            "patching_rect": [
+                240,
+                180,
+                150.641,
+                22
+            ],
+            "args": [
+                3
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-121": {
+            "id": "box-121",
+            "text": "DL.scalar 1.0",
+            "name": "box-121",
+            "class": "DL.scalar",
+            "inlets": 2,
+            "outlets": 2,
+            "patching_rect": [
+                270,
+                210,
+                95.4063,
+                22
+            ],
+            "args": [
+                1
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-122": {
+            "id": "box-122",
+            "text": "DL.basicLSTMCell @inlets 6",
+            "name": "box-122",
+            "class": "DL.basicLSTMCell",
+            "inlets": 6,
+            "outlets": 2,
+            "patching_rect": [
+                270,
+                240,
+                173.938,
+                22
+            ],
+            "args": [],
+            "props": {
+                "inlets": 6
+            },
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-123": {
+            "id": "box-123",
+            "text": "JS.JSCallback 3",
+            "name": "box-123",
+            "class": "JS.JSCallback",
+            "inlets": 1,
+            "outlets": 5,
+            "patching_rect": [
+                450,
+                240,
+                150.641,
+                22
+            ],
+            "args": [
+                3
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-124": {
+            "id": "box-124",
+            "text": "DL.scalar 1.0",
+            "name": "box-124",
+            "class": "DL.scalar",
+            "inlets": 2,
+            "outlets": 2,
+            "patching_rect": [
+                480,
+                270,
+                95.4063,
+                22
+            ],
+            "args": [
+                1
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-125": {
+            "id": "box-125",
+            "text": "DL.basicLSTMCell @inlets 6",
+            "name": "box-125",
+            "class": "DL.basicLSTMCell",
+            "inlets": 6,
+            "outlets": 2,
+            "patching_rect": [
+                480,
+                300,
+                173.938,
+                22
+            ],
+            "args": [],
+            "props": {
+                "inlets": 6
+            },
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-126": {
+            "id": "box-126",
+            "text": "JS.JSCallback 0",
+            "name": "box-126",
+            "class": "JS.JSCallback",
+            "inlets": 1,
+            "outlets": 2,
+            "patching_rect": [
+                45,
+                585,
+                105.641,
+                22
+            ],
+            "args": [
+                0
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-127": {
+            "id": "box-127",
+            "text": "DL.tidy",
+            "name": "box-127",
+            "class": "DL.tidy",
+            "inlets": 3,
+            "outlets": 2,
+            "patching_rect": [
+                45,
+                690,
+                66.125,
+                22
+            ],
+            "args": [],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-128": {
+            "id": "box-128",
+            "text": "For 10",
+            "name": "box-128",
+            "class": "For",
+            "inlets": 2,
+            "outlets": 2,
+            "patching_rect": [
+                135,
+                510,
+                58.3125,
+                22
+            ],
+            "args": [
+                10
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-130": {
+            "id": "box-130",
+            "text": "JS.JSObject @name lastSample",
+            "name": "lastSample",
+            "class": "JS.JSObject",
+            "inlets": 3,
+            "outlets": 2,
+            "patching_rect": [
+                1005,
+                555,
+                189.344,
+                22
+            ],
+            "args": [],
+            "props": {
+                "name": "lastSample"
+            },
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-131": {
+            "id": "box-131",
+            "text": "Button",
+            "name": "box-131",
+            "class": "Button",
+            "inlets": 1,
+            "outlets": 1,
+            "patching_rect": [
+                1005,
+                525,
+                45,
+                22
+            ],
+            "args": [],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-132": {
+            "id": "box-132",
+            "text": "DL.Tensor.dispose",
+            "name": "box-132",
+            "class": "DL.Tensor.dispose",
+            "inlets": 2,
+            "outlets": 3,
+            "patching_rect": [
+                1005,
+                585,
+                121.688,
+                22
+            ],
+            "args": [],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-133": {
+            "id": "box-133",
+            "text": "DL.oneHot @inlets 2",
+            "name": "box-133",
+            "class": "DL.oneHot",
+            "inlets": 2,
+            "outlets": 2,
+            "patching_rect": [
+                225,
+                630,
+                135.813,
+                22
+            ],
+            "args": [],
+            "props": {
+                "inlets": 2
+            },
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-134": {
+            "id": "box-134",
+            "text": "ForEach",
+            "name": "box-134",
+            "class": "ForEach",
+            "inlets": 1,
+            "outlets": 3,
+            "patching_rect": [
+                390,
+                420,
+                67.7813,
+                22
+            ],
+            "args": [],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-135": {
+            "id": "box-135",
+            "text": "Message",
+            "name": "box-135",
+            "class": "Message",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                390,
+                375,
+                242.094,
+                36
+            ],
+            "args": [
+                "[[\"note_on\", 0, 127], [\"note_off\", 0, 127], [\"time_shift\", 1, 100], [\"velocity_change\", 1, 32]]"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {
+                    "text": "[[\"note_on\", 0, 127], [\"note_off\", 0, 127], [\"time_shift\", 1, 100], [\"velocity_change\", 1, 32]]"
+                }
+            }
+        },
+        "box-136": {
+            "id": "box-136",
+            "text": "Get 2",
+            "name": "box-136",
+            "class": "Get",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                435,
+                450,
+                53,
+                22
+            ],
+            "args": [
+                2
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-137": {
+            "id": "box-137",
+            "text": "Get 1",
+            "name": "box-137",
+            "class": "Get",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                495,
+                450,
+                53,
+                22
+            ],
+            "args": [
+                1
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-138": {
+            "id": "box-138",
+            "text": "-",
+            "name": "box-138",
+            "class": "-",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                435,
+                480,
+                45,
+                22
+            ],
+            "args": [],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-139": {
+            "id": "box-139",
+            "text": "+ 1",
+            "name": "box-139",
+            "class": "+",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                435,
+                510,
+                45,
+                22
+            ],
+            "args": [
+                1
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-140": {
+            "id": "box-140",
+            "text": "+",
+            "name": "box-140",
+            "class": "+",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                435,
+                540,
+                45,
+                22
+            ],
+            "args": [],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-143": {
+            "id": "box-143",
+            "text": "Message",
+            "name": "box-143",
+            "class": "Message",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                435,
+                570,
+                45,
+                22
+            ],
+            "args": [
+                "388"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {
+                    "text": "388"
+                }
+            }
+        },
+        "box-144": {
+            "id": "box-144",
+            "text": "Message",
+            "name": "box-144",
+            "class": "Message",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                555,
+                420,
+                45,
+                22
+            ],
+            "args": [
+                "0"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {
+                    "text": "0"
+                }
+            }
+        },
+        "box-145": {
+            "id": "box-145",
+            "text": "JS.JSObject @name lastSample",
+            "name": "lastSample",
+            "class": "JS.JSObject",
+            "inlets": 3,
+            "outlets": 2,
+            "patching_rect": [
+                225,
+                570,
+                189.344,
+                22
+            ],
+            "args": [],
+            "props": {
+                "name": "lastSample"
+            },
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-146": {
+            "id": "box-146",
+            "text": "Button",
+            "name": "box-146",
+            "class": "Button",
+            "inlets": 1,
+            "outlets": 1,
+            "patching_rect": [
+                225,
+                540,
+                45,
+                22
+            ],
+            "args": [],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-147": {
+            "id": "box-147",
+            "text": "DL.Tensor.as1D",
+            "name": "box-147",
+            "class": "DL.Tensor.as1D",
+            "inlets": 2,
+            "outlets": 3,
+            "patching_rect": [
+                225,
+                600,
+                109.188,
+                22
+            ],
+            "args": [],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-148": {
+            "id": "box-148",
+            "text": "DL.Tensor.as1D",
+            "name": "box-148",
+            "class": "DL.Tensor.as1D",
+            "inlets": 2,
+            "outlets": 3,
+            "patching_rect": [
+                225,
+                660,
+                109.188,
+                22
+            ],
+            "args": [],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-149": {
+            "id": "box-149",
+            "text": "Button",
+            "name": "box-149",
+            "class": "Button",
+            "inlets": 1,
+            "outlets": 1,
+            "patching_rect": [
+                781,
+                587,
+                45,
+                22
+            ],
+            "args": [],
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-150": {
+            "id": "box-150",
+            "text": "Message",
+            "name": "box-150",
+            "class": "Message",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                780,
+                540,
+                45,
+                22
+            ],
+            "args": [
+                "false"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {
+                    "text": "false"
+                }
+            }
+        }
+    },
+    "data": {
+        "box-75": {
+            "DL.CheckpointLoader": {
+                "storage": {}
+            }
+        },
+        "box-76": {
+            "DL.CheckpointLoader.getAllVariables": {
+                "storage": {}
+            }
+        },
+        "box-77": {
+            "Print": {
+                "storage": {}
+            }
+        },
+        "box-79": {
+            "Get": {
+                "storage": {}
+            }
+        },
+        "box-80": {
+            "Get": {
+                "storage": {}
+            }
+        },
+        "box-81": {
+            "Get": {
+                "storage": {}
+            }
+        },
+        "box-82": {
+            "Get": {
+                "storage": {}
+            }
+        },
+        "box-83": {
+            "Get": {
+                "storage": {}
+            }
+        },
+        "box-84": {
+            "Get": {
+                "storage": {}
+            }
+        },
+        "box-85": {
+            "Get": {
+                "storage": {}
+            }
+        },
+        "box-86": {
+            "Get": {
+                "storage": {}
+            }
+        },
+        "box-87": {
+            "Button": {
+                "storage": {}
+            }
+        },
+        "box-88": {
+            "Get": {
+                "storage": {}
+            }
+        },
+        "box-89": {
+            "Get": {
+                "storage": {}
+            }
+        },
+        "box-90": {
+            "Get": {
+                "storage": {}
+            }
+        },
+        "box-91": {
+            "/": {
+                "storage": {}
+            }
+        },
+        "box-92": {
+            "/": {
+                "storage": {}
+            }
+        },
+        "box-93": {
+            "/": {
+                "storage": {}
+            }
+        },
+        "box-95": {
+            "Set": {
+                "storage": {}
+            }
+        },
+        "box-99": {
+            "Message": {
+                "storage": {
+                    "text": "[1, 0]"
+                }
+            }
+        },
+        "box-100": {
+            "Set": {
+                "storage": {}
+            }
+        },
+        "box-101": {
+            "Message": {
+                "storage": {
+                    "text": "[1, 0]"
+                }
+            }
+        },
+        "box-102": {
+            "Set": {
+                "storage": {}
+            }
+        },
+        "box-103": {
+            "Message": {
+                "storage": {
+                    "text": "[1, 0]"
+                }
+            }
+        },
+        "box-104": {
+            "DL.zeros": {
+                "storage": {}
+            }
+        },
+        "box-105": {
+            "DL.zeros": {
+                "storage": {}
+            }
+        },
+        "box-106": {
+            "DL.zeros": {
+                "storage": {}
+            }
+        },
+        "box-107": {
+            "Set": {
+                "storage": {}
+            }
+        },
+        "box-108": {
+            "Message": {
+                "storage": {
+                    "text": "[]"
+                }
+            }
+        },
+        "box-109": {
+            "Set": {
+                "storage": {}
+            }
+        },
+        "box-110": {
+            "Set": {
+                "storage": {}
+            }
+        },
+        "box-111": {
+            "DL.scalar": {
+                "storage": {}
+            }
+        },
+        "box-112": {
+            "Button": {
+                "storage": {}
+            }
+        },
+        "box-113": {
+            "Message": {
+                "storage": {
+                    "text": "int32"
+                }
+            }
+        },
+        "box-114": {
+            "Message": {
+                "storage": {
+                    "text": "int32"
+                }
+            }
+        },
+        "box-115": {
+            "Message": {
+                "storage": {
+                    "text": "4"
+                }
+            }
+        },
+        "box-116": {
+            "++": {
+                "storage": {}
+            }
+        },
+        "box-117": {
+            "JS.JSCallback": {
+                "storage": {}
+            }
+        },
+        "box-118": {
+            "DL.scalar": {
+                "storage": {}
+            }
+        },
+        "box-119": {
+            "DL.basicLSTMCell": {
+                "storage": {}
+            }
+        },
+        "box-120": {
+            "JS.JSCallback": {
+                "storage": {}
+            }
+        },
+        "box-121": {
+            "DL.scalar": {
+                "storage": {}
+            }
+        },
+        "box-122": {
+            "DL.basicLSTMCell": {
+                "storage": {}
+            }
+        },
+        "box-123": {
+            "JS.JSCallback": {
+                "storage": {}
+            }
+        },
+        "box-124": {
+            "DL.scalar": {
+                "storage": {}
+            }
+        },
+        "box-125": {
+            "DL.basicLSTMCell": {
+                "storage": {}
+            }
+        },
+        "box-126": {
+            "JS.JSCallback": {
+                "storage": {}
+            }
+        },
+        "box-127": {
+            "DL.tidy": {
+                "storage": {}
+            }
+        },
+        "box-128": {
+            "For": {
+                "storage": {}
+            }
+        },
+        "lastSample": {
+            "JS.JSObject": {
+                "storage": {}
+            }
+        },
+        "box-131": {
+            "Button": {
+                "storage": {}
+            }
+        },
+        "box-132": {
+            "DL.Tensor.dispose": {
+                "storage": {}
+            }
+        },
+        "box-133": {
+            "DL.oneHot": {
+                "storage": {}
+            }
+        },
+        "box-134": {
+            "ForEach": {
+                "storage": {}
+            }
+        },
+        "box-135": {
+            "Message": {
+                "storage": {
+                    "text": "[[\"note_on\", 0, 127], [\"note_off\", 0, 127], [\"time_shift\", 1, 100], [\"velocity_change\", 1, 32]]"
+                }
+            }
+        },
+        "box-136": {
+            "Get": {
+                "storage": {}
+            }
+        },
+        "box-137": {
+            "Get": {
+                "storage": {}
+            }
+        },
+        "box-138": {
+            "-": {
+                "storage": {}
+            }
+        },
+        "box-139": {
+            "+": {
+                "storage": {}
+            }
+        },
+        "box-140": {
+            "+": {
+                "storage": {}
+            }
+        },
+        "box-143": {
+            "Message": {
+                "storage": {
+                    "text": "388"
+                }
+            }
+        },
+        "box-144": {
+            "Message": {
+                "storage": {
+                    "text": "0"
+                }
+            }
+        },
+        "box-146": {
+            "Button": {
+                "storage": {}
+            }
+        },
+        "box-147": {
+            "DL.Tensor.as1D": {
+                "storage": {}
+            }
+        },
+        "box-148": {
+            "DL.Tensor.as1D": {
+                "storage": {}
+            }
+        },
+        "box-149": {
+            "Button": {
+                "storage": {}
+            }
+        },
+        "box-150": {
+            "Message": {
+                "storage": {
+                    "text": "false"
+                }
+            }
+        }
+    },
+    "state": {
+        "locked": false,
+        "presentation": false,
+        "showGrid": true
+    },
+    "boxIndexCount": 150,
+    "lineIndexCount": 212,
+    "bgcolor": [
+        61,
+        65,
+        70,
+        1
+    ],
+    "editing_bgcolor": [
+        82,
+        87,
+        94,
+        1
+    ],
+    "grid": [
+        15,
+        15
+    ]
+}

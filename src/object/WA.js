@@ -198,6 +198,12 @@ class Oscilloscope extends WANode {
                 isHot : true,
                 type : "signal",
                 description : "WebAudio Node input"
+            }],
+            args : [{
+                type : "number",
+                optional : true,
+                default : 512,
+                description : "fftSize"
             }]
         });
     }
@@ -207,7 +213,6 @@ class Oscilloscope extends WANode {
         this._mem.node.fftSize = 512;
         this._mem.data = new Uint8Array(this._mem.node.frequencyBinCount);
         this._mem.node.getByteTimeDomainData(this._mem.data);
-        this._mem.node.fftSize = 256;
         this._inlets = 1;
         this._outlets = 0;
         this.update(box.args, box.props);
@@ -254,6 +259,12 @@ class Spectrogram extends WANode {
                 isHot : true,
                 type : "signal",
                 description : "WebAudio Node input"
+            }],
+            args : [{
+                type : "number",
+                optional : true,
+                default : 512,
+                description : "fftSize"
             }]
         });
     }
@@ -263,7 +274,6 @@ class Spectrogram extends WANode {
         this._mem.node.fftSize = 512;
         this._mem.data = new Uint8Array(this._mem.node.frequencyBinCount);
         this._mem.node.getByteFrequencyData(this._mem.data);
-        this._mem.node.fftSize = 256;
         this._inlets = 1;
         this._outlets = 0;
         this.update(box.args, box.props);
