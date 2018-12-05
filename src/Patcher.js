@@ -402,8 +402,7 @@ export default class Patcher extends EventEmitter {
             } else {
                 idMap[box.id] = box.id;
             }
-            box.patching_rect[0] += 20;
-            box.patching_rect[1] += 20;
+            box.patching_rect = [box.patching_rect[0] + 20, box.patching_rect[1] + 20, box.patching_rect[2], box.patching_rect[3]];
             this.createBox(box);
             pasted.boxes.push(box);
         }
