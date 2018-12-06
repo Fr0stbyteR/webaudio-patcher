@@ -555,7 +555,7 @@ class JSCallback extends JSBaseObject {
         if (typeof args[0] == "number") this._outlets = 2 + parseInt(args[0]);
     }
     fn(data, inlet) {
-        if (inlet == 0 && data instanceof Base.Bang) {
+        if (inlet == 0) {
             this._mem.stack = [];
             this.outlet(0, (...args) => {
                 for (let i = args.length - 1; i >= 0; i--) {

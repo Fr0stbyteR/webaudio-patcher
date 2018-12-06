@@ -579,7 +579,7 @@ class Box {
         this._props = parsed.props;
         this.prevData = props.prevData; // useful when copy paste a box
         if (this._patcher._prevData && this._patcher._prevData.hasOwnProperty(this.name) && this._patcher._prevData[this.name].hasOwnProperty(this.class)) 
-            this.prevData = this._patcher._prevData[this.name][this.class];
+            this.prevData = this._patcher._prevData[this.name][this.class]; // Patcher load a patch and transfer data.storage to prevData
     }
     
     init() {

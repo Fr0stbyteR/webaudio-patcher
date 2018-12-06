@@ -277,7 +277,7 @@ $(document).ready(() => {
 			}
 			if (!keysPressed._hasFuncKeys() && !patcher.state.locked) {
 				let box = {
-					patching_rect: [mouseOffset[0], mouseOffset[1], 100, 22]
+					patching_rect: [mouseOffset[0] - mouseOffset[0] % patcher.grid[0], mouseOffset[1] - mouseOffset[1] % patcher.grid[1], 100, 22]
 				}
 				patcher.newTimestamp();
 				box = patcher.createBox(box);
@@ -289,7 +289,7 @@ $(document).ready(() => {
 		if (e.key == "m") { // M : new message
 			if (!keysPressed._hasFuncKeys() && !patcher.state.locked) {
 				let box = {
-					patching_rect : [mouseOffset[0], mouseOffset[1], 100, 22],
+					patching_rect: [mouseOffset[0] - mouseOffset[0] % patcher.grid[0], mouseOffset[1] - mouseOffset[1] % patcher.grid[1], 100, 22],
 					text : "Message"
 				}
 				patcher.newTimestamp();
@@ -302,7 +302,7 @@ $(document).ready(() => {
 		if (e.key == "b") { // B : new button
 			if (!keysPressed._hasFuncKeys() && !patcher.state.locked) {
 				let box = {
-					patching_rect : [mouseOffset[0], mouseOffset[1], 100, 22],
+					patching_rect: [mouseOffset[0] - mouseOffset[0] % patcher.grid[0], mouseOffset[1] - mouseOffset[1] % patcher.grid[1], 100, 22],
 					text : "Button"
 				}
 				patcher.newTimestamp();
@@ -381,7 +381,7 @@ $(document).ready(() => {
 		if (patcher.state.locked) return;
 		if (keysPressed._hasFuncKeys()) return;
 		let box = {
-			patching_rect: [e.offsetX, e.offsetY, 100, 22]
+			patching_rect: [e.offsetX - e.offsetX % patcher.grid[0], e.offsetY - e.offsetY % patcher.grid[1], 100, 22]
 		}
         patcher.newTimestamp();
 		box = patcher.createBox(box);
