@@ -49,7 +49,7 @@ class WANode extends Base.BaseObject {
                 if (srcObj._mem.hasOwnProperty("node") 
                         && srcObj._mem.node instanceof AudioNode) {
                     if (inlet >= this._mem.node.numberOfInputs 
-                            || srcOutlet >= srcObj._mem.node.numberOfOutputs) return this;
+                            || srcOutlet >= srcObj._mem.node.numberOfOutputs) continue;
                     srcObj._mem.node.connect(this._mem.node, srcOutlet, inlet);
                 }
             }
@@ -63,7 +63,7 @@ class WANode extends Base.BaseObject {
                 if (destObj._mem.hasOwnProperty("node") 
                         && destObj._mem.node instanceof AudioNode) {
                     if (outlet >= this._mem.node.numberOfOutputs 
-                            || destInlet >= destObj._mem.node.numberOfInputs) return this;
+                            || destInlet >= destObj._mem.node.numberOfInputs) continue;
                     this._mem.node.connect(destObj._mem.node, outlet, destInlet);
                 }
             }
@@ -80,7 +80,7 @@ class WANode extends Base.BaseObject {
                 if (srcObj._mem.hasOwnProperty("node") 
                         && srcObj._mem.node instanceof AudioNode) {
                     if (inlet >= this._mem.node.numberOfInputs 
-                            || srcOutlet >= srcObj._mem.node.numberOfOutputs) return this;
+                            || srcOutlet >= srcObj._mem.node.numberOfOutputs) continue;
                     srcObj._mem.node.disconnect(this._mem.node, srcOutlet, inlet);
                 }
             }
@@ -94,7 +94,7 @@ class WANode extends Base.BaseObject {
                 if (destObj._mem.hasOwnProperty("node") 
                         && destObj._mem.node instanceof AudioNode) {
                     if (outlet >= this._mem.node.numberOfOutputs 
-                            || destInlet >= destObj._mem.node.numberOfInputs) return this;
+                            || destInlet >= destObj._mem.node.numberOfInputs) continue;
                     this._mem.node.disconnect(destObj._mem.node, outlet, destInlet);
                 }
             }

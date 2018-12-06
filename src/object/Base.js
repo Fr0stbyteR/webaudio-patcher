@@ -15,9 +15,39 @@ class BaseObject extends EventEmitter {
             version : "0.0.0",
             description : "",
             inlets : [],
+            /**
+            {
+                isHot : boolean,
+                type : "anything" | "signal" | "object" | "number" | "boolean" ...,
+                varLength : boolean,
+                description : string
+            }[]
+             */
             outlets : [],
+            /**
+            {
+                type : "anything" | "signal" | "object" | "number" | "boolean" ...,
+                varLength : boolean,
+                description : string
+            }[]
+             */
             args : [],
+            /**
+            {
+                type : "anything" | "signal" | "object" | "number" | "boolean" ...,
+                optional : boolean,
+                varLength : boolean,
+                description : string
+            }[]
+             */
             props : []
+            /**
+            {
+                name : string
+                type : "anything" | "signal" | "object" | "number" | "boolean" ...,
+                description : string
+            }[]
+             */
         };
     }
     constructor(box, patcher) {
@@ -422,6 +452,132 @@ class Print extends EmptyObject {
     }
 }
 
+class Sel extends BaseObject {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            description : "Output Bang if match",
+            inlets : [{
+                isHot : true,
+                type : "anything",
+                description : "Tested object"
+            }, {
+                isHot : false,
+                type : "anything",
+                varLength : true,
+                description : "Matching test"
+            }],
+            outlets : [{
+                type : "object",
+                varLength : true,
+                description : "Bang if matched"
+            }, {
+                type : "anything",
+                description : "Repeat input if not matched"
+            }],
+            args : [{
+                type : "anything",
+                optional : true,
+                varLength : true,
+                description : "Initial matching test"
+            }]
+        });
+    }
+    constructor(box, patcher) {
+        super(box, patcher);
+        this._inlets = 1;
+        this._outlets = 1;
+        this._mem.tests = [];
+        this.update(box.args);
+    }
+    update(args, props) {
+        this._mem.tests = args;
+        this._inlets = 1 + this._mem.tests.length;
+        this._outlets = 1 + this._mem.tests.length;
+    }
+    fn(data, inlet) {
+        if (inlet == 0) {
+            let matched = false;
+            for (let i = 0; i < this._mem.tests.length; i++) {]
+                if (data == this._mem.tests[i]) {
+                    this.outlet(i, new Bang());
+                    matched = true;
+                }
+            }
+            if (!matched) this.outlet(this._inlets - 1, data);
+            return this;
+        } else {
+            this._mem.tests[inlet - 1] = data;
+        }
+        return this;
+    }
+}
+
+class Delay extends EmptyObject {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            description : "Output data with delay",
+            inlets : [{
+                isHot : true,
+                type : "anything",
+                description : "Data to delay"
+            }, {
+                isHot : false,
+                type : "number",
+                description : "Delay time in ms"
+            }],
+            outlets : [{
+                type : "anything",
+                description : "Delayed data"
+            }],
+            args : [{
+                type : "number",
+                optional : true,
+                default : 0,
+                description : "Delay time in ms"
+            }]
+        });
+    }
+    constructor(box, patcher) {
+        super(box, patcher);
+        this._inlets = 2;
+        this._outlets = 1;
+        this._mem.time = 0;
+        this._mem.queue = [];
+        this.update(box.args, box.props);
+    }
+    update(args, props) {
+        this._mem.time = 0;
+        if (typeof args[0] === "number") this._mem.time = args[0];
+        return this;
+    }
+    fn(data, inlet) {
+        if (inlet == 0) {
+            const id = window.setTimeout(() => {
+                const idx = this._mem.queue.indexOf(id);
+                if (idx >= 0) this._mem.queue.splice(idx, 1);
+                this.outlet(0, data);
+            }, this._mem.time);
+            this._mem.queue.push(id);
+            return true;
+        }
+        if (inlet == 1) {
+            try {
+                this._mem.time = parseFloat(data);
+            } catch (e) {
+                this.error("Time : don't understand " + data);
+            }
+            return true;
+        }
+    }
+    destroy() {
+        for (let i = 0; i < this._mem.queue.length; i++) {
+            const id = this._mem.queue[i];
+            window.clearTimeout(id);
+        }
+        return super.destroy()
+    }
+}
+
 class Message extends EmptyObject {
     static get _meta() {
         return Object.assign(super._meta, {
@@ -602,8 +758,10 @@ export default {
     BaseObject,
     Bang,
     Button,
+    Delay,
     Message,
+    Sel,
     Print,
-    "print" : Print,
+    "print" : Print, // alias
     Utils
 }

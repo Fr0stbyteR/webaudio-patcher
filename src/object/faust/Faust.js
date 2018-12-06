@@ -51,8 +51,12 @@ class DSP extends FaustObject {
             description : "Edit and compile a faust dsp file using WebAudio API",
             inlets : [{
                 isHot : true,
-                type : "signal",
-                description : "WebAudio Node input"
+                type : "signal", // or object
+                description : "signal : WebAudio Node input, object : change Parameters"
+            }, {
+                isHot : true,
+                type : "object",
+                description : "MIDI input [pitch, velocity]"
             }],
             outlets : [{
                 type : "signal",
@@ -60,12 +64,29 @@ class DSP extends FaustObject {
             }, {
                 type : "object",
                 description : "dumpout with { code: string, params: object, node: object }"
+            }],
+            args : [{
+                type : "string",
+                description : "Initial code"
+            }],
+            props : [{
+                name : "bufferSize",
+                type : "number",
+                description : "Node buffer size (minimum 256)"
+            }, {
+                name : "poly",
+                type : "boolean",
+                description : "Enable poly"
+            }, {
+                name : "voices",
+                type : "number",
+                description : "Voices count when poly is enabled (minimum 1)"
             }]
         });
     }
     constructor(box, patcher) {
         super(box, patcher);
-        this._inlets = 1;
+        this._inlets = 2;
         this._outlets = 2;
         if (!this.storage.hasOwnProperty("showEditor")) this.storage.showEditor = true;
         if (!this.storage.hasOwnProperty("code")) this.storage.code = "";
@@ -142,13 +163,23 @@ class DSP extends FaustObject {
         if (props && props.hasOwnProperty("bufferSize")) {
             let bufferSize = Base.Utils.toNumber(props.bufferSize);
             if (bufferSize === null) {
-                this.error("Don't understand" + args[0]);
+                this.error("bufferSize property : don't understand" + props.bufferSize);
             } else {
                 this._mem.compileArgs.bufferSize = bufferSize < 256 ? 256 : bufferSize;
                 this._mem.argsChanged = true;
             }
         } else {
             this._mem.compileArgs.bufferSize = 256;
+            this._mem.argsChanged = true;
+        }
+        if (props && props.hasOwnProperty("useWorklet")) {
+            let useWorklet = props.useWorklet ? true : false;
+            if (useWorklet !== this._mem.compileArgs.useWorklet) {
+                this._mem.compileArgs.useWorklet = useWorklet;
+                this._mem.argsChanged = true;
+            }
+        } else {
+            this._mem.compileArgs.useWorklet = false;
             this._mem.argsChanged = true;
         }
         if (props && props.hasOwnProperty("poly")) {
@@ -164,7 +195,7 @@ class DSP extends FaustObject {
         if (props && props.hasOwnProperty("voices")) {
             let voices = Base.Utils.toNumber(parseInt(props.voices));
             if (voices === null) {
-                this.error("Don't understand" + args[0]);
+                this.error("Voices property : don't understand" + props.voices);
             } else {
                 this._mem.compileArgs.voices = voices < 1 ? 1 : voices;
                 this._mem.argsChanged = true;
@@ -209,7 +240,7 @@ class DSP extends FaustObject {
                 if (srcObj._mem.hasOwnProperty("node") 
                         && srcObj._mem.node instanceof AudioNode) {
                     if (inlet >= this._mem.node.numberOfInputs 
-                            || srcOutlet >= srcObj._mem.node.numberOfOutputs) return this;
+                            || srcOutlet >= srcObj._mem.node.numberOfOutputs) continue;
                     srcObj._mem.node.connect(this._mem.node, srcOutlet, inlet);
                 }
             }
@@ -223,7 +254,7 @@ class DSP extends FaustObject {
                 if (destObj._mem.hasOwnProperty("node") 
                         && destObj._mem.node instanceof AudioNode) {
                     if (outlet >= this._mem.node.numberOfOutputs 
-                            || destInlet >= destObj._mem.node.numberOfInputs) return this;
+                            || destInlet >= destObj._mem.node.numberOfInputs) continue;
                     this._mem.node.connect(destObj._mem.node, outlet, destInlet);
                 }
             }
@@ -240,7 +271,7 @@ class DSP extends FaustObject {
                 if (srcObj._mem.hasOwnProperty("node") 
                         && srcObj._mem.node instanceof AudioNode) {
                     if (inlet >= this._mem.node.numberOfInputs 
-                            || srcOutlet >= srcObj._mem.node.numberOfOutputs) return this;
+                            || srcOutlet >= srcObj._mem.node.numberOfOutputs) continue;
                     srcObj._mem.node.disconnect(this._mem.node, srcOutlet, inlet);
                 }
             }
@@ -254,7 +285,7 @@ class DSP extends FaustObject {
                 if (destObj._mem.hasOwnProperty("node") 
                         && destObj._mem.node instanceof AudioNode) {
                     if (outlet >= this._mem.node.numberOfOutputs 
-                            || destInlet >= destObj._mem.node.numberOfInputs) return this;
+                            || destInlet >= destObj._mem.node.numberOfInputs) continue;
                     this._mem.node.disconnect(destObj._mem.node, outlet, destInlet);
                 }
             }
@@ -262,6 +293,7 @@ class DSP extends FaustObject {
         return this;
     }
     fn(data, inlet) {
+        if (!(this._mem.node instanceof AudioNode)) return this;
         if (data && typeof data === "object" && inlet == 0) {
             for (const k in data) {
                 if (data.hasOwnProperty(k)) {
@@ -271,6 +303,15 @@ class DSP extends FaustObject {
                 }
             }
         }
+        if (data && Array.isArray(data) && inlet == 1) {
+            if (typeof data[0] === "number" && typeof data[1] === "number" ) {
+                const [p, v] = data;
+                if (p < 0) this._mem.node.allNotesOff();
+                else if (v <= 0) this._mem.node.keyOff(0, p, v);
+                else this._mem.node.keyOn(0, p, v);
+            }
+        }
+        return this;
     }
     ui($, box) {
         let _faustUIList = {};

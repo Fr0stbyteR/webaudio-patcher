@@ -377,8 +377,9 @@ class Get extends JSBaseObject {
                 default : 0,
                 description : "Property name or array index"
             }, {
-                type : "...",
+                type : "anything",
                 optional : true,
+                varLength : true,
                 description : "Child property name or array index"
             }]
         });
@@ -448,8 +449,9 @@ class Set extends JSBaseObject {
                 default : 0,
                 description : "Property name or array index"
             }, {
-                type : "...",
+                type : "anything",
                 optional : true,
+                varLength : true,
                 description : "Child property name or array index"
             }, {
                 type : "angthing",
@@ -531,6 +533,7 @@ class JSCallback extends JSBaseObject {
                 description : "Bang when called"
             }, {
                 type : "anything",
+                varLength : true,
                 description : "argument when called"
             }],
             args : [{

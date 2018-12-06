@@ -38,6 +38,7 @@ export default class AutoImporter {
                         }, {
                             isHot : false,
                             type : "anything",
+                            varLength : true,
                             description : "Method argument"
                         }] : [{
                             isHot : true,
@@ -46,6 +47,7 @@ export default class AutoImporter {
                         }, {
                             isHot : false,
                             type : "anything",
+                            varLength : true,
                             description : "Method argument"
                         }],
                         outlets : fromProto ? [{
@@ -63,6 +65,11 @@ export default class AutoImporter {
                         },{
                             type : "anything",
                             description : "Arguments with method called as list"
+                        }],
+                        props : [{
+                            name : "inlets",
+                            type : "number",
+                            description : "arguments count for " + fromProto ? "method" : "function"
                         }]
                     });
                 }

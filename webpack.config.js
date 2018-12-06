@@ -40,7 +40,7 @@ module.exports = {
         }
       },
       {
-        test: /\.jsx?$/,
+        test: /\.jsx$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {

@@ -61,6 +61,7 @@ $(document).ready(() => {
 	patcher.on("resetPatcher", (patcher) => {
 		$(".box").remove();
 		$(".line").remove();
+		grid();
 	})
 	patcher.on("patcherLoaded", (patcher) => {
 		// TODO below is hack
@@ -197,7 +198,7 @@ $(document).ready(() => {
 	});
 
 	patcher.on("newLog", (log) => {
-		console.log(log[2]);
+		console.log(log[2]); // eslint-disable-line no-console
 		$("#log tbody").append(
 			$('<tr>').addClass(log[0] == 1 ? "error" : log[0] == -1 ? "warning" : log[0] == -2 ? "positive" : "")
 			.append($('<td>').addClass(["two", "wide"]).text(log[1]))
@@ -386,8 +387,8 @@ $(document).ready(() => {
 
 	//ui
 	$("#patcher").on("scroll", (e) => {
-		$(e.target).css("background-position", -e.target.scrollLeft + "px -" + e.target.scrollTop + "px");
-		$(".boxes, .lines").css("height", e.target.scrollHeight).css("width", e.target.scrollWidth);
+		//$(e.target).css("background-position", -e.target.scrollLeft + "px -" + e.target.scrollTop + "px");
+		$(".boxes, .lines, .grid-background").css("height", e.target.scrollHeight).css("width", e.target.scrollWidth);
 	});
 	const selection = Selection.create({
 		class: "selection",
@@ -601,10 +602,7 @@ let unlockPatcher = () => {
 	$("#undo, #redo").removeClass("disabled");
 }
 
-//background-image: repeating-linear-gradient(0deg,transparent,transparent 70px,#CCC 70px,#CCC 71px)
-//	,repeating-linear-gradient(-90deg,transparent,transparent 70px,#CCC 70px,#CCC 71px);
-//background-size: 71px 71px;
-let showGrid = () => {
+let grid = () => {
 	let grid = patcher.grid;
 	let bgcolor = patcher.bgcolor;
 	let isWhite = bgcolor[0] + bgcolor[1] + bgcolor[2] < 128 * 3;
@@ -615,7 +613,13 @@ let showGrid = () => {
 	let pxy1 = (grid[1] - 1) + "px";
 	let sBGImageX = "repeating-linear-gradient(" + ["0deg, transparent, transparent " + pxx1, gridColor + " " + pxx1, gridColor + " " + pxx].join(", ") + ")";
 	let sBGImageY = "repeating-linear-gradient(" + ["-90deg, transparent, transparent " + pxy1, gridColor + " " + pxy1, gridColor + " " + pxy].join(", ") + ")";
-	$("#patcher").addClass("grid").css("background-image", sBGImageX + ", " + sBGImageY).css("background-size", pxx + " " + pxy);
+	$(".grid-background").css("background-image", sBGImageX + ", " + sBGImageY).css("background-size", pxx + " " + pxy);
+}
+//background-image: repeating-linear-gradient(0deg,transparent,transparent 70px,#CCC 70px,#CCC 71px)
+//	,repeating-linear-gradient(-90deg,transparent,transparent 70px,#CCC 70px,#CCC 71px);
+//background-size: 71px 71px;
+let showGrid = () => {
+	$("#patcher").addClass("showgrid");
 	
 	patcher.state.showGrid = true;
 	$("#grid i").addClass("enabled");
@@ -623,7 +627,7 @@ let showGrid = () => {
 }
 
 let hideGrid = () => {
-	$("#patcher").removeClass("grid").css("background-image", "").css("background-size", "");
+	$("#patcher").removeClass("showgrid");
 	if (!patcher.state.locked) patcher.state.showGrid = false;
 	$("#grid i").removeClass("enabled");
 	$(".box").resizable("option", "grid", [1, 1]);

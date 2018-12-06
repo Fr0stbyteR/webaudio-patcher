@@ -1833,7 +1833,7 @@ faust.createDSPWorkletInstance = function(factory, context, callback)
               // Create audio node
               faust.createDSPWorkletInstanceAux(factory, context, callback);
         })
-        .catch(function(error) { /* console.log(error); */ /* console.log("Faust mydsp cannot be loaded or compiled"); */ alert(error); });
+        .catch(function(error) { console.log(error);  /* console.log("Faust mydsp cannot be loaded or compiled");*/ /* alert(error);*/ });
 
     } else {
         // Create audio node
@@ -3514,7 +3514,7 @@ faust.createPolyDSPWorkletInstanceAux = function (factory, context, polyphony, c
      */
     audio_node.allNotesOff = function()
     {
-        this.port.postMessage({ type: "ctrlChange", data: [channel, 123, 0] });
+        this.port.postMessage({ type: "ctrlChange", data: [0, 123, 0] });
     }
 
     audio_node.ctrlChange = function(channel, ctrl, value)
@@ -3583,7 +3583,7 @@ faust.createPolyDSPWorkletInstance = function(factory, context, polyphony, callb
               // Create audio node
               faust.createPolyDSPWorkletInstanceAux(factory, context, polyphony, callback);
         })
-        .catch(function(error) { /* console.log(error); */ /* console.log("Faust mydspPoly cannot be loaded or compiled"); */ alert(error); });
+        .catch(function(error) { /* console.log(error); */ /* console.log("Faust mydspPoly cannot be loaded or compiled"); */ /* alert(error);*/  });
 
     } else {
         // Create audio node

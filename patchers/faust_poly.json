@@ -11,7 +11,7 @@
             ],
             "id": "line-39",
             "disabled": false,
-            "positionHash": 57671907
+            "positionHash": 57671875
         },
         "line-40": {
             "src": [
@@ -24,7 +24,7 @@
             ],
             "id": "line-40",
             "disabled": false,
-            "positionHash": 73400547
+            "positionHash": 73400515
         },
         "line-41": {
             "src": [
@@ -37,7 +37,7 @@
             ],
             "id": "line-41",
             "disabled": false,
-            "positionHash": 655887
+            "positionHash": 655855
         },
         "line-46": {
             "src": [
@@ -50,7 +50,7 @@
             ],
             "id": "line-46",
             "disabled": false,
-            "positionHash": 57671712
+            "positionHash": 57671680
         },
         "line-47": {
             "src": [
@@ -63,7 +63,33 @@
             ],
             "id": "line-47",
             "disabled": false,
-            "positionHash": 655422
+            "positionHash": 655390
+        },
+        "line-51": {
+            "src": [
+                "box-35",
+                0
+            ],
+            "dest": [
+                "box-25",
+                1
+            ],
+            "id": "line-51",
+            "disabled": false,
+            "positionHash": 55377950
+        },
+        "line-52": {
+            "src": [
+                "box-36",
+                0
+            ],
+            "dest": [
+                "box-25",
+                1
+            ],
+            "id": "line-52",
+            "disabled": false,
+            "positionHash": 55377950
         }
     },
     "boxes": {
@@ -88,25 +114,26 @@
         },
         "box-25": {
             "id": "box-25",
-            "text": "Faust.DSP  @bufferSize 1024 @poly true",
+            "text": "Faust.DSP  @bufferSize 1024  @useWorklet true @poly true",
             "name": "box-25",
             "class": "Faust.DSP",
-            "inlets": 1,
+            "inlets": 2,
             "outlets": 2,
             "patching_rect": [
                 0,
                 30,
                 855,
-                878.891
+                22
             ],
             "args": [],
             "props": {
                 "bufferSize": 1024,
+                "useWorklet": true,
                 "poly": true
             },
             "prevData": {
                 "storage": {
-                    "showEditor": true,
+                    "showEditor": false,
                     "code": "import(\"stdfaust.lib\");\nprocess = os.osc(freq) * gain * gate with {\n  freq = hslider(\"freq\", 440, 40, 8000, 1);\n  gain = hslider(\"gain\", 0.5, 0, 1, 0.01);\n  gate = button(\"gate\") : en.adsr(0.01, 0.1, 0.9, 0.5);\n};\neffect = dm.freeverb_demo;"
                 }
             }
@@ -190,6 +217,52 @@
             "prevData": {
                 "storage": {}
             }
+        },
+        "box-35": {
+            "id": "box-35",
+            "text": "Message",
+            "name": "box-35",
+            "class": "Message",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                900,
+                435,
+                57.0313,
+                22
+            ],
+            "args": [
+                "[69, 100]"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {
+                    "text": "[69, 100]"
+                }
+            }
+        },
+        "box-36": {
+            "id": "box-36",
+            "text": "Message",
+            "name": "box-36",
+            "class": "Message",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                900,
+                480,
+                57.0313,
+                22
+            ],
+            "args": [
+                "[69, 0]"
+            ],
+            "props": {},
+            "prevData": {
+                "storage": {
+                    "text": "[69, 0]"
+                }
+            }
         }
     },
     "data": {
@@ -201,7 +274,7 @@
         "box-25": {
             "Faust.DSP": {
                 "storage": {
-                    "showEditor": true,
+                    "showEditor": false,
                     "code": "import(\"stdfaust.lib\");\nprocess = os.osc(freq) * gain * gate with {\n  freq = hslider(\"freq\", 440, 40, 8000, 1);\n  gain = hslider(\"gain\", 0.5, 0, 1, 0.01);\n  gate = button(\"gate\") : en.adsr(0.01, 0.1, 0.9, 0.5);\n};\neffect = dm.freeverb_demo;"
                 }
             }
@@ -225,6 +298,20 @@
             "adc~": {
                 "storage": {}
             }
+        },
+        "box-35": {
+            "Message": {
+                "storage": {
+                    "text": "[69, 100]"
+                }
+            }
+        },
+        "box-36": {
+            "Message": {
+                "storage": {
+                    "text": "[69, 0]"
+                }
+            }
         }
     },
     "state": {
@@ -232,8 +319,8 @@
         "presentation": false,
         "showGrid": true
     },
-    "boxIndexCount": 34,
-    "lineIndexCount": 50,
+    "boxIndexCount": 37,
+    "lineIndexCount": 52,
     "bgcolor": [
         61,
         65,

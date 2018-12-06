@@ -24,7 +24,7 @@
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
-    "@magenta/music": "^1.2.3",
+    "@magenta/music": "^1.4.0",
     "@simonwep/selection-js": "^0.1.4",
     "@tensorflow/tfjs": "^0.14.0",
     "babel-cli": "^6.26.0",
@@ -56,6 +56,6 @@
     "xebra.js": "^1.2.2"
   },
   "dependencies": {
-    "semantic-ui": "^2.4.1"
+    "semantic-ui": "^2.4.2"
   }
 }
