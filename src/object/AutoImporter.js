@@ -80,10 +80,10 @@ export default class AutoImporter {
                     this._mem.name = name;
                     this._mem.fn = el;
                     this._mem.instance = null;
-                    this._mem.inputs = box.args.slice();
+                    this._mem.inputs = box._args.slice();
                     this._mem.result = null;
                     this._mem.fromProto = fromProto ? true : false;
-                    this.update(this._mem.inputs, box.props);
+                    this.update(this._mem.inputs, box._props);
                 }
                 update(args, props) {
                     if (props && props.hasOwnProperty("inlets") && typeof props.inlets === "number") {

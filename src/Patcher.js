@@ -144,9 +144,9 @@ export default class Patcher extends EventEmitter {
                 Object.assign(box, Box.parseObjText(maxBox.text));
             }
             // get the name out to root
-            if (box.hasOwnProperty("props") && box.props.hasOwnProperty("name")) {
-                box.name = box.props.name;
-                delete box.props.name;
+            if (box.hasOwnProperty("props") && box._props.hasOwnProperty("name")) {
+                box.name = box._props.name;
+                delete box._props.name;
             }
             patcher.boxes[id] = box;
         }
@@ -575,9 +575,9 @@ class Box {
         this.inlets = props.inlets;
         this.outlets = props.outlets;
         this.patching_rect = props.patching_rect;
-        this.args = parsed.args;
-        this.props = parsed.props;
-        this.prevData = props.prevData;
+        this._args = parsed.args;
+        this._props = parsed.props;
+        this.prevData = props.prevData; // useful when copy paste a box
         if (this._patcher._prevData && this._patcher._prevData.hasOwnProperty(this.name) && this._patcher._prevData[this.name].hasOwnProperty(this.class)) 
             this.prevData = this._patcher._prevData[this.name][this.class];
     }
@@ -601,9 +601,9 @@ class Box {
         let parsed = Box.parseObjText(textIn);
         // if same class and name
         if (this.name == (parsed.props.name || this.id) && this.class == parsed.class) { 
-            this.props = parsed.props;
-            this.args = parsed.args;
-            this._patcher.data[this.name][this.class].update(this.args, this.props);
+            this._props = parsed.props;
+            this._args = parsed.args;
+            this._patcher.data[this.name][this.class].update(this._args, this._props);
             if (this.isValid) {
                 this.inlets = this.object._inlets;
                 this.outlets = this.object._outlets;
@@ -622,15 +622,15 @@ class Box {
         this._patcher.data[this.name][this.class].removeBox(this.id);
 
         this.class = parsed.class;
-        this.args = parsed.args;
-        this.props = parsed.props;
+        this._args = parsed.args;
+        this._props = parsed.props;
         this.name = parsed.props.name || this.id;
 
         if (!this._patcher.data.hasOwnProperty(this.name)) this._patcher.data[this.name] = {};
         if (!this._patcher.data[this.name].hasOwnProperty(this.class)) {
             this._patcher.data[this.name][this.class] = this._patcher.createObject(this);
         } else {
-            this._patcher.data[this.name][this.class].addBox(this.id).update(this.args, this.props);
+            this._patcher.data[this.name][this.class].addBox(this.id).update(this._args, this._props);
         }
         if (this.isValid) {
             this.inlets = this.object._inlets;

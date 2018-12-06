@@ -4,5 +4,6 @@
 ],
 "eslint.autoFixOnSave": true,
 "eslint.nodePath": "./node_modules",
-"cSpell.enabled": false
+"cSpell.enabled": false,
+"search.usePCRE2": true
 }

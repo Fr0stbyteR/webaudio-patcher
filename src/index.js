@@ -596,23 +596,27 @@ $(document).ready(() => {
 });
 
 let lockPatcher = () => {
-	$(".selected").removeClass("selected").blur();
 	patcher.state.locked = true;
+	$(".selected").removeClass("selected").blur();
+	$(".box.ui-draggable").draggable("disable");
+	$(".box-port.ui-draggable").draggable("disable");
 	$("#lock i").removeClass("open");
 	$("#patcher").removeClass("unlocked").addClass("locked");
-	hideGrid();
 	$("#grid i").addClass("disabled");
 	$("#undo, #redo").addClass("disabled");
+	hideGrid();
 }
 
 let unlockPatcher = () => {
-	$(".selected").removeClass("selected").blur();
 	patcher.state.locked = false;
+	$(".selected").removeClass("selected").blur();
+	$(".box.ui-draggable").draggable("enable");
+	$(".box-port.ui-draggable").draggable("enable");
 	$("#lock i").addClass("open");
 	$("#patcher").removeClass("locked").addClass("unlocked");
-	if (patcher.state.showGrid) showGrid();
 	$("#grid i").removeClass("disabled");
 	$("#undo, #redo").removeClass("disabled");
+	if (patcher.state.showGrid) showGrid();
 }
 
 let grid = () => {

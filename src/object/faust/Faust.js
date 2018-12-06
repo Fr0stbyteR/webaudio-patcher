@@ -102,10 +102,10 @@ class DSP extends FaustObject {
         this._mem.node = null;
         this._mem.params = null;
         this._mem.compiled = false;
-        if (Faust.loadStatus == 1) this.update(box.args, box.props);
+        if (Faust.loadStatus == 1) this.update(box._args, box._props);
         else {
             faustLoader.on("faustLoaded", () => {
-                this.update(box.args, box.props);
+                this.update(box._args, box._props);
             });
         }
     }
@@ -463,7 +463,7 @@ class DSP extends FaustObject {
             }
             return parent;
         }
-        let textarea = $("<textarea>").html(this.storage.code ? this.storage.code : box.args.length ? box.args[0] : "");
+        let textarea = $("<textarea>").html(this.storage.code ? this.storage.code : box._args.length ? box._args[0] : "");
         let editor = $("<div>").addClass(["dsp-editor"]).append(textarea);
         let faustUI = $("<div>").addClass(["faust-ui"]);
         let container = super.defaultDropdownUI($, box);

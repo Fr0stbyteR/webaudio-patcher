@@ -70,7 +70,7 @@ class BaseObject extends EventEmitter {
         // should save all temporary variables here
         this._mem = {};
         // usually do this after initialization
-        //this.update(box.args, box.props);
+        //this.update(box._args, box._props);
     }
     // when arguments and @properties are changed, can use this in constructor
     update(args, props) {
@@ -410,7 +410,7 @@ class Button extends EmptyObject {
         super(box, patcher);
         this._inlets = 1;
         this._outlets = 1;
-        this._mem.text = box.props.text || "Bang";
+        this._mem.text = box._props.text || "Bang";
     }
     fn(data, inlet) {
         if (data !== false) this.outlet(0, new Bang());
@@ -487,7 +487,7 @@ class Sel extends BaseObject {
         this._inlets = 1;
         this._outlets = 1;
         this._mem.tests = [];
-        this.update(box.args);
+        this.update(box._args);
     }
     update(args, props) {
         this._mem.tests = args;
@@ -543,7 +543,7 @@ class Delay extends EmptyObject {
         this._outlets = 1;
         this._mem.time = 0;
         this._mem.queue = [];
-        this.update(box.args, box.props);
+        this.update(box._args, box._props);
     }
     update(args, props) {
         this._mem.time = 0;
@@ -603,7 +603,7 @@ class Message extends EmptyObject {
         this._outlets = 1;
         this._mem.buffer = null;
         if (!this.storage.hasOwnProperty("text")) {
-            this.storage.text = box.args && box.args[0] ? box.args[0] : "";
+            this.storage.text = box._args && box._args[0] ? box._args[0] : "";
             if (typeof this.storage.text !== "string") this.storage.text = Util.inspect(this.storage.text);
         }
         this.update([this.storage.text]);
@@ -674,7 +674,7 @@ class Message extends EmptyObject {
     update(args, props) {
         if (args && typeof args[0] === "string") {
             this.storage.text = args[0];
-            this._box.args = args;
+            this._box._args = args;
             this._box.prevData = { storage : this.storage };
             this.uiUpdate({text : args[0]});
             try {

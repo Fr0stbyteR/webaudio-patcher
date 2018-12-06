@@ -123,7 +123,7 @@ class Oscillator extends WANode {
         this._inlets = 1;
         this._outlets = 1;
         this._mem.node = this._patcher._audioCtx.createOscillator();
-        this.update(box.args, box.props);
+        this.update(box._args, box._props);
         this._mem.node.start();
     }
     fn(data, inlet) {
@@ -215,7 +215,7 @@ class Oscilloscope extends WANode {
         this._mem.node.getByteTimeDomainData(this._mem.data);
         this._inlets = 1;
         this._outlets = 0;
-        this.update(box.args, box.props);
+        this.update(box._args, box._props);
     }
     update(args, props) {
         if (args && args[0]) this._mem.node.fftSize = args[0];
@@ -276,7 +276,7 @@ class Spectrogram extends WANode {
         this._mem.node.getByteFrequencyData(this._mem.data);
         this._inlets = 1;
         this._outlets = 0;
-        this.update(box.args, box.props);
+        this.update(box._args, box._props);
     }
     update(args, props) {
         if (args && args[0]) this._mem.node.fftSize = args[0];

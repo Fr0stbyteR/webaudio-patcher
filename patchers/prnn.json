@@ -3460,10 +3460,6 @@
                 652.516,
                 22
             ],
-            "args": [
-                "https://storage.googleapis.com/download.magenta.tensorflow.org/models/performance_rnn/dljs"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -3481,8 +3477,6 @@
                 224.297,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -3500,10 +3494,6 @@
                 299.641,
                 22
             ],
-            "args": [
-                "rnn/multi_rnn_cell/cell_0/basic_lstm_cell/kernel"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -3521,10 +3511,6 @@
                 287.188,
                 22
             ],
-            "args": [
-                "rnn/multi_rnn_cell/cell_0/basic_lstm_cell/bias"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -3542,10 +3528,6 @@
                 299.641,
                 22
             ],
-            "args": [
-                "rnn/multi_rnn_cell/cell_1/basic_lstm_cell/kernel"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -3563,10 +3545,6 @@
                 287.188,
                 22
             ],
-            "args": [
-                "rnn/multi_rnn_cell/cell_1/basic_lstm_cell/bias"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -3584,10 +3562,6 @@
                 299.641,
                 22
             ],
-            "args": [
-                "rnn/multi_rnn_cell/cell_2/basic_lstm_cell/kernel"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -3605,10 +3579,6 @@
                 287.188,
                 22
             ],
-            "args": [
-                "rnn/multi_rnn_cell/cell_2/basic_lstm_cell/bias"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -3626,10 +3596,6 @@
                 168.844,
                 22
             ],
-            "args": [
-                "fully_connected/biases"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -3647,10 +3613,6 @@
                 177.672,
                 22
             ],
-            "args": [
-                "fully_connected/weights"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -3668,8 +3630,6 @@
                 45,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -3687,11 +3647,6 @@
                 86.875,
                 22
             ],
-            "args": [
-                "shape",
-                0
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -3709,11 +3664,6 @@
                 86.875,
                 22
             ],
-            "args": [
-                "shape",
-                0
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -3731,11 +3681,6 @@
                 86.875,
                 22
             ],
-            "args": [
-                "shape",
-                0
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -3753,10 +3698,6 @@
                 45,
                 22
             ],
-            "args": [
-                4
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -3774,10 +3715,6 @@
                 45,
                 22
             ],
-            "args": [
-                4
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -3795,10 +3732,6 @@
                 45,
                 22
             ],
-            "args": [
-                4
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -3816,10 +3749,6 @@
                 71.875,
                 22
             ],
-            "args": [
-                1
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -3837,10 +3766,6 @@
                 45,
                 22
             ],
-            "args": [
-                "[1, 0]"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {
                     "text": "[1, 0]"
@@ -3860,10 +3785,6 @@
                 71.875,
                 22
             ],
-            "args": [
-                1
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -3881,10 +3802,6 @@
                 45,
                 22
             ],
-            "args": [
-                "[1, 0]"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {
                     "text": "[1, 0]"
@@ -3904,10 +3821,6 @@
                 71.875,
                 22
             ],
-            "args": [
-                1
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -3925,10 +3838,6 @@
                 45,
                 22
             ],
-            "args": [
-                "[1, 0]"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {
                     "text": "[1, 0]"
@@ -3948,10 +3857,6 @@
                 83.7969,
                 22
             ],
-            "args": [
-                []
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -3969,10 +3874,6 @@
                 83.7969,
                 22
             ],
-            "args": [
-                []
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -3990,10 +3891,6 @@
                 83.7969,
                 22
             ],
-            "args": [
-                []
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4011,11 +3908,6 @@
                 166.625,
                 22
             ],
-            "args": [
-                355,
-                "int32"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4033,10 +3925,6 @@
                 150.641,
                 22
             ],
-            "args": [
-                3
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4054,10 +3942,6 @@
                 95.4063,
                 22
             ],
-            "args": [
-                1
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4075,10 +3959,6 @@
                 173.938,
                 22
             ],
-            "args": [],
-            "props": {
-                "inlets": 6
-            },
             "prevData": {
                 "storage": {}
             }
@@ -4096,10 +3976,6 @@
                 150.641,
                 22
             ],
-            "args": [
-                3
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4117,10 +3993,6 @@
                 95.4063,
                 22
             ],
-            "args": [
-                1
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4138,10 +4010,6 @@
                 173.938,
                 22
             ],
-            "args": [],
-            "props": {
-                "inlets": 6
-            },
             "prevData": {
                 "storage": {}
             }
@@ -4159,10 +4027,6 @@
                 150.641,
                 22
             ],
-            "args": [
-                3
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4180,10 +4044,6 @@
                 95.4063,
                 22
             ],
-            "args": [
-                1
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4201,10 +4061,6 @@
                 173.938,
                 22
             ],
-            "args": [],
-            "props": {
-                "inlets": 6
-            },
             "prevData": {
                 "storage": {}
             }
@@ -4222,10 +4078,6 @@
                 105.641,
                 22
             ],
-            "args": [
-                0
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4243,8 +4095,6 @@
                 66.125,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4262,10 +4112,6 @@
                 58.3125,
                 22
             ],
-            "args": [
-                10
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4283,10 +4129,6 @@
                 99.3438,
                 22
             ],
-            "args": [
-                "lastSample"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4304,8 +4146,6 @@
                 45,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4323,13 +4163,6 @@
                 170.813,
                 36
             ],
-            "args": [
-                [],
-                388
-            ],
-            "props": {
-                "inlets": 2
-            },
             "prevData": {
                 "storage": {}
             }
@@ -4347,8 +4180,6 @@
                 67.7813,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4366,10 +4197,6 @@
                 242.094,
                 36
             ],
-            "args": [
-                "[[\"note_on\", 0, 127], [\"note_off\", 0, 127], [\"time_shift\", 1, 100], [\"velocity_change\", 1, 32]]"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {
                     "text": "[[\"note_on\", 0, 127], [\"note_off\", 0, 127], [\"time_shift\", 1, 100], [\"velocity_change\", 1, 32]]"
@@ -4389,10 +4216,6 @@
                 53,
                 22
             ],
-            "args": [
-                2
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4410,10 +4233,6 @@
                 53,
                 22
             ],
-            "args": [
-                1
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4431,8 +4250,6 @@
                 45,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4450,10 +4267,6 @@
                 45,
                 22
             ],
-            "args": [
-                1
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4471,8 +4284,6 @@
                 45,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4490,10 +4301,6 @@
                 45,
                 22
             ],
-            "args": [
-                "0"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {
                     "text": "0"
@@ -4513,8 +4320,6 @@
                 45,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4532,8 +4337,6 @@
                 109.188,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4551,8 +4354,6 @@
                 109.188,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4570,10 +4371,6 @@
                 99.3438,
                 22
             ],
-            "args": [
-                "lastSample"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4591,8 +4388,6 @@
                 121.688,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4610,10 +4405,6 @@
                 102.516,
                 22
             ],
-            "args": [
-                "EVENT_SIZE"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4631,10 +4422,6 @@
                 45,
                 22
             ],
-            "args": [
-                "c"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4652,10 +4439,6 @@
                 45,
                 22
             ],
-            "args": [
-                "h"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4673,10 +4456,6 @@
                 83.7969,
                 22
             ],
-            "args": [
-                []
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4694,10 +4473,6 @@
                 83.7969,
                 22
             ],
-            "args": [
-                []
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4715,10 +4490,6 @@
                 83.7969,
                 22
             ],
-            "args": [
-                []
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4736,10 +4507,6 @@
                 99.3438,
                 22
             ],
-            "args": [
-                "lastSample"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4757,8 +4524,6 @@
                 121.688,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4776,8 +4541,6 @@
                 45,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4795,10 +4558,6 @@
                 47.1875,
                 22
             ],
-            "args": [
-                0
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4816,10 +4575,6 @@
                 99.3438,
                 22
             ],
-            "args": [
-                "eventInput"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4837,11 +4592,6 @@
                 135.813,
                 22
             ],
-            "args": [
-                [],
-                8
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4859,8 +4609,6 @@
                 109.188,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4878,10 +4626,6 @@
                 45,
                 22
             ],
-            "args": [
-                "2"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {
                     "text": "2"
@@ -4901,10 +4645,6 @@
                 118.375,
                 22
             ],
-            "args": [
-                "noteDensityIdx"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4922,10 +4662,6 @@
                 45,
                 22
             ],
-            "args": [
-                1
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4943,11 +4679,6 @@
                 153.563,
                 22
             ],
-            "args": [
-                [],
-                "int32"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4965,8 +4696,6 @@
                 66.3125,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -4984,10 +4713,6 @@
                 150.641,
                 22
             ],
-            "args": [
-                "noteDensityEncoding"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5005,10 +4730,6 @@
                 197.547,
                 22
             ],
-            "args": [],
-            "props": {
-                "inlets": 3
-            },
             "prevData": {
                 "storage": {}
             }
@@ -5026,10 +4747,6 @@
                 197.547,
                 22
             ],
-            "args": [],
-            "props": {
-                "inlets": 3
-            },
             "prevData": {
                 "storage": {}
             }
@@ -5047,13 +4764,6 @@
                 153.313,
                 22
             ],
-            "args": [
-                [
-                    12
-                ],
-                "float32"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5071,10 +4781,6 @@
                 219.969,
                 22
             ],
-            "args": [
-                "[2, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1]"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {
                     "text": "[2, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1]"
@@ -5094,8 +4800,6 @@
                 95.4375,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5113,10 +4817,6 @@
                 91.25,
                 22
             ],
-            "args": [
-                2
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5134,8 +4834,6 @@
                 45,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5153,8 +4851,6 @@
                 45,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5172,8 +4868,6 @@
                 92.375,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5191,8 +4885,6 @@
                 45,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5210,8 +4902,6 @@
                 45,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5229,10 +4919,6 @@
                 68.2344,
                 22
             ],
-            "args": [
-                "buffer"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5250,8 +4936,6 @@
                 45,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5269,8 +4953,6 @@
                 45,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5288,10 +4970,6 @@
                 118.438,
                 22
             ],
-            "args": [
-                "pitchHistogram"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5309,10 +4987,6 @@
                 118.438,
                 22
             ],
-            "args": [
-                "pitchHistogram"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5330,8 +5004,6 @@
                 45,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5349,10 +5021,6 @@
                 179.016,
                 22
             ],
-            "args": [],
-            "props": {
-                "inlets": 2
-            },
             "prevData": {
                 "storage": {}
             }
@@ -5370,8 +5038,6 @@
                 159.438,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5389,10 +5055,6 @@
                 180.641,
                 22
             ],
-            "args": [
-                "pitchHistogramEncoding"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5410,11 +5072,6 @@
                 86.875,
                 22
             ],
-            "args": [
-                "shape",
-                0
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5432,11 +5089,6 @@
                 86.875,
                 22
             ],
-            "args": [
-                "shape",
-                0
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5454,10 +5106,6 @@
                 45,
                 22
             ],
-            "args": [
-                1
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5475,8 +5123,6 @@
                 45,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5494,10 +5140,6 @@
                 55.375,
                 22
             ],
-            "args": [
-                "size"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5515,11 +5157,6 @@
                 147.016,
                 22
             ],
-            "args": [
-                [],
-                0
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5537,10 +5174,6 @@
                 68.2344,
                 22
             ],
-            "args": [
-                "buffer"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5558,12 +5191,6 @@
                 108.563,
                 22
             ],
-            "args": [
-                [
-                    0
-                ]
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5581,11 +5208,6 @@
                 147.016,
                 22
             ],
-            "args": [
-                [],
-                0
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5603,10 +5225,6 @@
                 105.641,
                 22
             ],
-            "args": [
-                0
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5624,8 +5242,6 @@
                 66.125,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5643,8 +5259,6 @@
                 45,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5662,11 +5276,6 @@
                 147.016,
                 22
             ],
-            "args": [
-                [],
-                0
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5684,10 +5293,6 @@
                 114.344,
                 22
             ],
-            "args": [
-                "conditioning"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5705,11 +5310,6 @@
                 98.875,
                 22
             ],
-            "args": [
-                "innerOuts",
-                []
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5727,11 +5327,6 @@
                 124.125,
                 22
             ],
-            "args": [
-                1,
-                1
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5749,8 +5344,6 @@
                 122.5,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5768,10 +5361,6 @@
                 114.344,
                 22
             ],
-            "args": [
-                "conditioning"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5789,8 +5378,6 @@
                 45,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5808,10 +5395,6 @@
                 99.3438,
                 22
             ],
-            "args": [
-                "eventInput"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5829,10 +5412,6 @@
                 107.547,
                 22
             ],
-            "args": [],
-            "props": {
-                "inlets": 3
-            },
             "prevData": {
                 "storage": {}
             }
@@ -5850,10 +5429,6 @@
                 58.0938,
                 22
             ],
-            "args": [
-                "lstm"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5871,11 +5446,6 @@
                 129.172,
                 22
             ],
-            "args": [
-                1,
-                -1
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5893,10 +5463,6 @@
                 166.891,
                 22
             ],
-            "args": [],
-            "props": {
-                "inlets": 4
-            },
             "prevData": {
                 "storage": {}
             }
@@ -5914,10 +5480,6 @@
                 45,
                 22
             ],
-            "args": [
-                "c"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5935,10 +5497,6 @@
                 45,
                 22
             ],
-            "args": [
-                "h"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5956,10 +5514,6 @@
                 58.0938,
                 22
             ],
-            "args": [
-                "lstm"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5977,8 +5531,6 @@
                 45,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -5996,10 +5548,6 @@
                 45,
                 22
             ],
-            "args": [
-                "c"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6017,10 +5565,6 @@
                 45,
                 22
             ],
-            "args": [
-                "h"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6038,8 +5582,6 @@
                 67.7813,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6057,8 +5599,6 @@
                 118.938,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6076,8 +5616,6 @@
                 45,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6095,10 +5633,6 @@
                 53,
                 22
             ],
-            "args": [
-                0
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6116,10 +5650,6 @@
                 53,
                 22
             ],
-            "args": [
-                1
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6137,8 +5667,6 @@
                 84.2344,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6156,8 +5684,6 @@
                 45,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6175,10 +5701,6 @@
                 45,
                 22
             ],
-            "args": [
-                "h"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6196,10 +5718,6 @@
                 53,
                 22
             ],
-            "args": [
-                2
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6217,8 +5735,6 @@
                 125.438,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6236,10 +5752,6 @@
                 52.5938,
                 22
             ],
-            "args": [
-                "fcB"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6257,10 +5769,6 @@
                 58.5938,
                 22
             ],
-            "args": [
-                "fcW"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6278,10 +5786,6 @@
                 52.5938,
                 22
             ],
-            "args": [
-                "fcB"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6299,10 +5803,6 @@
                 58.5938,
                 22
             ],
-            "args": [
-                "fcW"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6320,8 +5820,6 @@
                 102.75,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6339,8 +5837,6 @@
                 45,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6358,10 +5854,6 @@
                 99.3438,
                 22
             ],
-            "args": [
-                "lastSample"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6379,10 +5871,6 @@
                 89.875,
                 22
             ],
-            "args": [
-                "innerOuts"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6400,8 +5888,6 @@
                 45,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6419,10 +5905,6 @@
                 45,
                 22
             ],
-            "args": [
-                "c"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6440,10 +5922,6 @@
                 45,
                 22
             ],
-            "args": [
-                "h"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6461,10 +5939,6 @@
                 137.547,
                 22
             ],
-            "args": [],
-            "props": {
-                "inlets": 3
-            },
             "prevData": {
                 "storage": {}
             }
@@ -6482,10 +5956,6 @@
                 53,
                 22
             ],
-            "args": [
-                2
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6503,10 +5973,6 @@
                 71.375,
                 22
             ],
-            "args": [
-                "output"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6524,8 +5990,6 @@
                 127.297,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6543,8 +6007,6 @@
                 67.7813,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6562,8 +6024,6 @@
                 45,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6581,10 +6041,6 @@
                 53,
                 22
             ],
-            "args": [
-                0
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6602,13 +6058,6 @@
                 129.047,
                 22
             ],
-            "args": [
-                0,
-                0
-            ],
-            "props": {
-                "inlets": 2
-            },
             "prevData": {
                 "storage": {}
             }
@@ -6626,10 +6075,6 @@
                 89.875,
                 22
             ],
-            "args": [
-                "innerOuts"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6647,8 +6092,6 @@
                 45,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6666,8 +6109,6 @@
                 57.2969,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6685,8 +6126,6 @@
                 45,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6704,10 +6143,6 @@
                 54.1563,
                 22
             ],
-            "args": [
-                128
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6725,10 +6160,6 @@
                 65.125,
                 22
             ],
-            "args": [
-                "event"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6746,10 +6177,6 @@
                 65.125,
                 22
             ],
-            "args": [
-                "event"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6767,10 +6194,6 @@
                 51.5,
                 22
             ],
-            "args": [
-                128
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6788,10 +6211,6 @@
                 54.1563,
                 22
             ],
-            "args": [
-                128
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6809,10 +6228,6 @@
                 65.125,
                 22
             ],
-            "args": [
-                "event"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6830,10 +6245,6 @@
                 65.125,
                 22
             ],
-            "args": [
-                "event"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6851,10 +6262,6 @@
                 51.5,
                 22
             ],
-            "args": [
-                128
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6872,10 +6279,6 @@
                 54.1563,
                 22
             ],
-            "args": [
-                100
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6893,10 +6296,6 @@
                 65.125,
                 22
             ],
-            "args": [
-                "event"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6914,10 +6313,6 @@
                 65.125,
                 22
             ],
-            "args": [
-                "event"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6935,10 +6330,6 @@
                 51.5,
                 22
             ],
-            "args": [
-                100
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -6956,13 +6347,6 @@
                 129.047,
                 22
             ],
-            "args": [
-                0,
-                0
-            ],
-            "props": {
-                "inlets": 2
-            },
             "prevData": {
                 "storage": {}
             }
@@ -6980,10 +6364,6 @@
                 45,
                 22
             ],
-            "args": [
-                32
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -7001,10 +6381,6 @@
                 52,
                 22
             ],
-            "args": [
-                127
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -7022,10 +6398,6 @@
                 45.0469,
                 22
             ],
-            "args": [
-                10
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -7043,10 +6415,6 @@
                 65.9375,
                 22
             ],
-            "args": [
-                "Delay"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -7064,10 +6432,6 @@
                 68.1563,
                 22
             ],
-            "args": [
-                "queue"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -7085,8 +6449,6 @@
                 84.2344,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -7104,8 +6466,6 @@
                 45,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -7123,36 +6483,6 @@
                 83.1563,
                 22
             ],
-            "args": [
-                "queue",
-                [
-                    268,
-                    200,
-                    74,
-                    262,
-                    202,
-                    265,
-                    375,
-                    69,
-                    261,
-                    197,
-                    264,
-                    71,
-                    262,
-                    199,
-                    264,
-                    69,
-                    270,
-                    369,
-                    62,
-                    368,
-                    65,
-                    256,
-                    197,
-                    259
-                ]
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -7170,8 +6500,6 @@
                 84.2344,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -7189,8 +6517,6 @@
                 45,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -7208,10 +6534,6 @@
                 45,
                 22
             ],
-            "args": [
-                "0"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {
                     "text": "0"
@@ -7231,11 +6553,6 @@
                 69.0625,
                 22
             ],
-            "args": [
-                "note",
-                []
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -7253,8 +6570,6 @@
                 45,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -7272,8 +6587,6 @@
                 60.7031,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -7291,10 +6604,6 @@
                 65.125,
                 22
             ],
-            "args": [
-                "event"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -7312,10 +6621,6 @@
                 67.375,
                 22
             ],
-            "args": [
-                0
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -7333,8 +6638,6 @@
                 92.375,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -7352,10 +6655,6 @@
                 47.2031,
                 22
             ],
-            "args": [
-                20
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -7373,8 +6672,6 @@
                 45,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -7392,10 +6689,6 @@
                 67.375,
                 22
             ],
-            "args": [
-                0
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -7413,15 +6706,9 @@
                 353.688,
                 22
             ],
-            "args": [],
-            "props": {
-                "bufferSize": 1024,
-                "useWorklet": true,
-                "poly": true
-            },
             "prevData": {
                 "storage": {
-                    "showEditor": true,
+                    "showEditor": false,
                     "code": "import(\"stdfaust.lib\");\nsig = 0.2 * os.osc(freq) * gain * gate with {\n  freq = hslider(\"freq\", 440, 40, 8000, 1);\n  gain = hslider(\"gain\", 0.5, 0, 1, 0.01);\n  gate = button(\"gate\") : en.adsr(0.01, 0.1, 0.9, 0.5);\n};\nprocess = sig, sig;\neffect = dm.freeverb_demo; "
                 }
             }
@@ -7439,8 +6726,6 @@
                 53,
                 22
             ],
-            "args": [],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -7458,10 +6743,6 @@
                 45,
                 22
             ],
-            "args": [
-                "[-1, 1]"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {
                     "text": "[-1, 1]"
@@ -7481,10 +6762,6 @@
                 86.7344,
                 22
             ],
-            "args": [
-                "number"
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -7502,11 +6779,6 @@
                 94.9844,
                 22
             ],
-            "args": [
-                true,
-                false
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -7524,11 +6796,6 @@
                 94.9844,
                 22
             ],
-            "args": [
-                true,
-                false
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -7546,11 +6813,6 @@
                 94.9844,
                 22
             ],
-            "args": [
-                true,
-                false
-            ],
-            "props": {},
             "prevData": {
                 "storage": {}
             }
@@ -8526,7 +7788,7 @@
         "box-375": {
             "Faust.DSP": {
                 "storage": {
-                    "showEditor": true,
+                    "showEditor": false,
                     "code": "import(\"stdfaust.lib\");\nsig = 0.2 * os.osc(freq) * gain * gate with {\n  freq = hslider(\"freq\", 440, 40, 8000, 1);\n  gain = hslider(\"gain\", 0.5, 0, 1, 0.01);\n  gate = button(\"gate\") : en.adsr(0.01, 0.1, 0.9, 0.5);\n};\nprocess = sig, sig;\neffect = dm.freeverb_demo; "
                 }
             }
@@ -8565,7 +7827,7 @@
         }
     },
     "state": {
-        "locked": false,
+        "locked": true,
         "presentation": false,
         "showGrid": true
     },

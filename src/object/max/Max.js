@@ -38,7 +38,7 @@ class random extends MaxObject {
         this._mem.seed = 0;
         this._mem.rng = Math.random;
         this._mem.maximum = 0;
-        this.update(box.args, box.props);
+        this.update(box._args, box._props);
     }
 
     update(args, props) {
@@ -89,7 +89,7 @@ class metro extends MaxObject {
         this._mem.interval = 5;
         this._mem.active = 0;
         this._mem.timeoutID = null;
-        this.update(box.args, box.props);
+        this.update(box._args, box._props);
     }
     update(args, props) {
         let callback = () => {

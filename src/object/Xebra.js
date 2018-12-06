@@ -95,7 +95,7 @@ class Receive extends State {
         this._mem.callback = (chan, data) => {
             if (!this._mem.channel || chan == this._mem.channel) return this.outlet(1, chan).outlet(0, data);
         };
-        this.update(box.args, box.props);
+        this.update(box._args, box._props);
     }
 
     update(args, props) {
@@ -145,7 +145,7 @@ class Send extends State {
         super(box, patcher);
         this._inlets = 1;
         this._outlets = 0;
-        this.update(box.args, box.props);
+        this.update(box.args, box._props);
     }
 
     update(args, props) {

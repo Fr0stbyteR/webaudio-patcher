@@ -91,7 +91,7 @@ class JSBoolean extends JSConvertObject {
     }
     constructor(box, patcher) {
         super(box, patcher);
-        this.update(box.args);
+        this.update(box._args);
     }
     _convert(data) {
         try {
@@ -110,7 +110,7 @@ class JSNumber extends JSConvertObject {
     }
     constructor(box, patcher) {
         super(box, patcher);
-        this.update(box.args);
+        this.update(box._args);
     }
     _convert(data) {
         if (Base.Utils.toNumber(data) !== null) this._mem.data = data;
@@ -126,7 +126,7 @@ class JSString extends JSConvertObject {
     }
     constructor(box, patcher) {
         super(box, patcher);
-        this.update(box.args);
+        this.update(box._args);
     }
     _convert(data) {
         if (Base.Utils.toString(data) !== null) this._mem.data = data;
@@ -141,7 +141,7 @@ class JSArray extends JSConvertObject {
     }
     constructor(box, patcher) {
         super(box, patcher);
-        this.update(box.args);
+        this.update(box._args);
     }
     _convert(data) {
         if (Array.isArray(data)) this._mem.data = data;
@@ -165,7 +165,7 @@ class JSObject extends JSConvertObject {
     }
     constructor(box, patcher) {
         super(box, patcher);
-        this.update(box.args);
+        this.update(box._args);
     }
     _convert(data) {
         this._mem.data = data;
@@ -195,7 +195,7 @@ class JSFunction extends JSConvertObject {
         super(box, patcher);
         this._inlets = 2;
         this._outlets = 1;
-        this.update(box.args);
+        this.update(box._args);
     }
     fn(data, inlet) {
         if (inlet == 0 && data instanceof Base.Bang) {
@@ -254,7 +254,7 @@ class JSCall extends JSConvertObject { //TODO Call with function name
         this._mem.fn = () => {};
         this._mem.args = [];
         this._mem.result;
-        this.update(box.args);
+        this.update(box._args);
     }
     fn(data, inlet) {
         if (inlet == 0 && data instanceof Base.Bang) {
@@ -321,7 +321,7 @@ class V extends JSConvertObject {
     constructor(box, patcher) {
         super(box, patcher);
         this._mem.name = box.id;
-        this.update(box.args);
+        this.update(box._args);
     }
     update(args, props) {
         let id = this._box.id;
@@ -390,7 +390,7 @@ class Get extends JSBaseObject {
         this._outlets = 1;
         this._mem.keys = [0];
         this._mem.result;
-        this.update(box.args);
+        this.update(box._args);
     }
     update(args, props) {
         this._mem.keys = [0];
@@ -468,7 +468,7 @@ class Set extends JSBaseObject {
         this._mem.keys = [0];
         this._mem.value;
         this._mem.result;
-        this.update(box.args);
+        this.update(box._args);
     }
     update(args, props) {
         this._mem.keys = [0];
@@ -549,7 +549,7 @@ class JSCallback extends JSBaseObject {
         this._inlets = 2;
         this._outlets = 2;
         this._mem.stack = [];
-        this.update(box.args);
+        this.update(box._args);
     }
     update(args, props) {
         if (typeof args[0] == "number") this._outlets = 2 + parseInt(args[0]);
@@ -605,7 +605,7 @@ class For extends JSBaseObject {
         this._inlets = 2;
         this._outlets = 2;
         this._mem.max = 0;
-        this.update(box.args);
+        this.update(box._args);
     }
     update(args, props) {
         this._mem.max = 0;
@@ -651,7 +651,7 @@ class ForEach extends JSConvertObject {
         super(box, patcher);
         this._inlets = 1;
         this._outlets = 3;
-        this.update(box.args);
+        this.update(box._args);
     }
     fn(data, inlet) {
         if (inlet == 0) {

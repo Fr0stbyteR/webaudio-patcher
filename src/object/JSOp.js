@@ -22,7 +22,7 @@ class JSUnaryOp extends JS.JSBaseObject {
         this._inlets = 1;
         this._outlets = 1;
         this._mem.result = 0;
-        this.update(box.args);
+        this.update(box._args);
     }
     update(args, props) {
         this._mem.result = 0;
@@ -78,7 +78,7 @@ class JSBinaryOp extends JS.JSBaseObject {
         this._outlets = 1;
         this._mem.arg = 0;
         this._mem.result = 0;
-        this.update(box.args);
+        this.update(box._args);
     }
     update(args, props) {
         this._mem.arg = 0;
@@ -149,7 +149,7 @@ class JSTernaryOp extends JS.JSBaseObject {
         this._outlets = 1;
         this._mem.args = [true, false];
         this._mem.result = true;
-        this.update(box.args);
+        this.update(box._args);
     }
     update(args, props) {
         this._mem.args = [true, false];
