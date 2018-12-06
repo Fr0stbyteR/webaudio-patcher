@@ -197,6 +197,7 @@ $(document).ready(() => {
 	});
 
 	patcher.on("newLog", (log) => {
+		console.log(log[2]);
 		$("#log tbody").append(
 			$('<tr>').addClass(log[0] == 1 ? "error" : log[0] == -1 ? "warning" : log[0] == -2 ? "positive" : "")
 			.append($('<td>').addClass(["two", "wide"]).text(log[1]))
@@ -673,7 +674,8 @@ let updateLine = (id) => {
 	let handlerPos = findHandlerPosLine(id);
 	$("#" + id).find(".line-handler-dest").first().css("left", handlerPos[2]).css("top", handlerPos[3])
 		.siblings(".line-handler-src").first().css("left", handlerPos[0]).css("top", handlerPos[1]);
-	lineObj.positionHash = dest[0] * 65536 + dest[1];
+	let parentOffset = $("#" + id).parents(".lines").offset();
+	lineObj.positionHash = (dest[0] - parentOffset.left) * 65536 + dest[1] - parentOffset.top;
 }
 
 let drawLine = (id, start, end) => {
