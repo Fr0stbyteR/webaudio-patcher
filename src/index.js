@@ -78,11 +78,13 @@ $(document).ready(() => {
 		if (!objUI.data("resizeVertical")) dom.height("auto");
 		dom.draggable({
 			start: (event, ui) => {
+				if (patcher.state.locked) return false;
 				ui.helper.addClass("dragged");
 				$('.box.selected').each((i) => {
 					let box = $('.box.selected').eq(i)
 					box.data("originalPosition", [box.position().top, box.position().left]);
 				})
+				return true;
 			},
 			drag: (event, ui) => {
 				if (patcher.state.showGrid) {
@@ -109,6 +111,10 @@ $(document).ready(() => {
 			handles: objUI.data("resizeVertical") ? "e, w, n, s, ne, se, sw, nw" : "e, w",
 			minHeight: 22,
 			grid: patcher.state.showGrid ? patcher.grid : [1, 1],
+			start: (event, ui) => {
+				if (patcher.state.locked) return false;
+				return true;
+			},
 			resize: (event, ui) => {
 				updateLineByBox(ui.helper.attr("id"));
 			},
@@ -141,7 +147,9 @@ $(document).ready(() => {
 		$(".lines").append(dom);
 		dom.find(".line-handler").draggable({
 			start: (event, ui) => {
+				if (patcher.state.locked) return false;
 				ui.helper.parents(".line").addClass("dragging");
+				return true;
 			},
 			drag: (event, ui) => {
 				let id = ui.helper.parents(".line").attr("id");
@@ -287,6 +295,19 @@ $(document).ready(() => {
 				patcher.newTimestamp();
 				box = patcher.createBox(box);
 				$("#" + box.id).width("auto").mousedown().find(".box-ui-text-container").click();
+				e.preventDefault();
+			}
+			return;
+		}
+		if (e.key == "b") { // B : new button
+			if (!keysPressed._hasFuncKeys() && !patcher.state.locked) {
+				let box = {
+					patching_rect : [mouseOffset[0], mouseOffset[1], 100, 22],
+					text : "Button"
+				}
+				patcher.newTimestamp();
+				box = patcher.createBox(box);
+				$("#" + box.id).width("auto");
 				e.preventDefault();
 			}
 			return;
@@ -575,11 +596,7 @@ $(document).ready(() => {
 });
 
 let lockPatcher = () => {
-	$(".selected").removeClass("selected");
-	$(".box").blur();
-	$(".line").blur();
-	$(".box.ui-draggable").draggable("disable");
-	$(".box-port.ui-draggable").draggable("disable");
+	$(".selected").removeClass("selected").blur();
 	patcher.state.locked = true;
 	$("#lock i").removeClass("open");
 	$("#patcher").removeClass("unlocked").addClass("locked");
@@ -589,11 +606,7 @@ let lockPatcher = () => {
 }
 
 let unlockPatcher = () => {
-	$(".selected").removeClass("selected");
-	$(".box").blur();
-	$(".line").blur();
-	$(".box.ui-draggable").draggable("enable");
-	$(".box-port.ui-draggable").draggable("enable");
+	$(".selected").removeClass("selected").blur();
 	patcher.state.locked = false;
 	$("#lock i").addClass("open");
 	$("#patcher").removeClass("locked").addClass("unlocked");
@@ -623,7 +636,7 @@ let showGrid = () => {
 	
 	patcher.state.showGrid = true;
 	$("#grid i").addClass("enabled");
-	$(".box").resizable("option", "grid", grid);
+	$(".box").resizable("option", "grid", patcher.grid);
 }
 
 let hideGrid = () => {
@@ -767,6 +780,7 @@ let updateBoxIO = (id) => {
 		revert: true,
 		revertDuration: 0,
 		start: (event, ui) => {
+			if (patcher.state.locked) return false;
 			let id = ui.helper.parents(".box").attr("id");
 			let eq = +ui.helper.attr("data-index");
 			let isSrc = ui.helper.hasClass("box-inlet");
@@ -779,6 +793,7 @@ let updateBoxIO = (id) => {
 			let fixed = [ui.offset.left, ui.offset.top];
 			newLine.find("path").data(isSrc ? "end" : "start", fixed);
 			$(".lines").append(newLine);
+			return true;
 		},
 		drag: (event, ui) => {
 			let isSrc = ui.helper.hasClass("box-inlet");

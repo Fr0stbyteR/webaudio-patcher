@@ -726,7 +726,7 @@
             ],
             "id": "line-193",
             "disabled": false,
-            "positionHash": 88146580
+            "positionHash": 94044820
         },
         "line-194": {
             "src": [
@@ -739,7 +739,7 @@
             ],
             "id": "line-194",
             "disabled": false,
-            "positionHash": 91095730
+            "positionHash": 96993970
         },
         "line-195": {
             "src": [
@@ -752,7 +752,7 @@
             ],
             "id": "line-195",
             "disabled": false,
-            "positionHash": 95027890
+            "positionHash": 100926130
         },
         "line-196": {
             "src": [
@@ -765,7 +765,7 @@
             ],
             "id": "line-196",
             "disabled": false,
-            "positionHash": 92734160
+            "positionHash": 98632400
         },
         "line-197": {
             "src": [
@@ -778,7 +778,7 @@
             ],
             "id": "line-197",
             "disabled": false,
-            "positionHash": 91095760
+            "positionHash": 96994000
         },
         "line-198": {
             "src": [
@@ -791,7 +791,7 @@
             ],
             "id": "line-198",
             "disabled": false,
-            "positionHash": 91095790
+            "positionHash": 96994030
         },
         "line-199": {
             "src": [
@@ -804,7 +804,7 @@
             ],
             "id": "line-199",
             "disabled": false,
-            "positionHash": 91095820
+            "positionHash": 96994060
         },
         "line-200": {
             "src": [
@@ -817,7 +817,7 @@
             ],
             "id": "line-200",
             "disabled": false,
-            "positionHash": 92734220
+            "positionHash": 98632460
         },
         "line-202": {
             "src": [
@@ -830,7 +830,7 @@
             ],
             "id": "line-202",
             "disabled": false,
-            "positionHash": 98960050
+            "positionHash": 104858290
         },
         "line-203": {
             "src": [
@@ -843,20 +843,7 @@
             ],
             "id": "line-203",
             "disabled": false,
-            "positionHash": 92734220
-        },
-        "line-204": {
-            "src": [
-                "box-140",
-                0
-            ],
-            "dest": [
-                "box-133",
-                1
-            ],
-            "id": "line-204",
-            "disabled": false,
-            "positionHash": 87872178
+            "positionHash": 98632460
         },
         "line-205": {
             "src": [
@@ -930,11 +917,11 @@
             ],
             "dest": [
                 "box-154",
-                0
+                1
             ],
             "id": "line-217",
             "disabled": false,
-            "positionHash": 95027980
+            "positionHash": 96748330
         },
         "line-227": {
             "src": [
@@ -1936,19 +1923,6 @@
             "id": "line-338",
             "disabled": false,
             "positionHash": 38994070
-        },
-        "line-339": {
-            "src": [
-                "box-146",
-                0
-            ],
-            "dest": [
-                "box-135",
-                0
-            ],
-            "id": "line-339",
-            "disabled": false,
-            "positionHash": 88146520
         },
         "line-340": {
             "src": [
@@ -3263,19 +3237,6 @@
             "disabled": false,
             "positionHash": 26214460
         },
-        "line-538": {
-            "src": [
-                "box-349",
-                0
-            ],
-            "dest": [
-                "box-294",
-                0
-            ],
-            "id": "line-538",
-            "disabled": false,
-            "positionHash": 11469535
-        },
         "line-540": {
             "src": [
                 "box-349",
@@ -3457,6 +3418,32 @@
             "id": "line-555",
             "disabled": false,
             "positionHash": 17367535
+        },
+        "line-557": {
+            "src": [
+                "box-134",
+                0
+            ],
+            "dest": [
+                "box-154",
+                0
+            ],
+            "id": "line-557",
+            "disabled": false,
+            "positionHash": 94044970
+        },
+        "line-559": {
+            "src": [
+                "box-154",
+                0
+            ],
+            "dest": [
+                "box-133",
+                1
+            ],
+            "id": "line-559",
+            "disabled": false,
+            "positionHash": 90165938
         }
     },
     "boxes": {
@@ -4325,7 +4312,7 @@
         },
         "box-133": {
             "id": "box-133",
-            "text": "TF.oneHot @inlets 2",
+            "text": "TF.oneHot [] 388 @inlets 2",
             "name": "box-133",
             "class": "TF.oneHot",
             "inlets": 2,
@@ -4333,10 +4320,13 @@
             "patching_rect": [
                 1215,
                 690,
-                135.813,
-                22
+                170.813,
+                36
             ],
-            "args": [],
+            "args": [
+                [],
+                388
+            ],
             "props": {
                 "inlets": 2
             },
@@ -4352,7 +4342,7 @@
             "inlets": 1,
             "outlets": 3,
             "patching_rect": [
-                1335,
+                1425,
                 660,
                 67.7813,
                 22
@@ -4371,7 +4361,7 @@
             "inlets": 2,
             "outlets": 1,
             "patching_rect": [
-                1335,
+                1425,
                 600,
                 242.094,
                 36
@@ -4394,7 +4384,7 @@
             "inlets": 2,
             "outlets": 1,
             "patching_rect": [
-                1380,
+                1470,
                 690,
                 53,
                 22
@@ -4415,7 +4405,7 @@
             "inlets": 2,
             "outlets": 1,
             "patching_rect": [
-                1440,
+                1530,
                 690,
                 53,
                 22
@@ -4436,7 +4426,7 @@
             "inlets": 2,
             "outlets": 1,
             "patching_rect": [
-                1380,
+                1470,
                 720,
                 45,
                 22
@@ -4455,7 +4445,7 @@
             "inlets": 2,
             "outlets": 1,
             "patching_rect": [
-                1380,
+                1470,
                 750,
                 45,
                 22
@@ -4476,7 +4466,7 @@
             "inlets": 2,
             "outlets": 1,
             "patching_rect": [
-                1380,
+                1470,
                 780,
                 45,
                 22
@@ -4495,7 +4485,7 @@
             "inlets": 2,
             "outlets": 1,
             "patching_rect": [
-                1500,
+                1590,
                 690,
                 45,
                 22
@@ -4615,8 +4605,8 @@
             "inlets": 3,
             "outlets": 2,
             "patching_rect": [
-                1440,
-                780,
+                1425,
+                810,
                 102.516,
                 22
             ],
@@ -6682,28 +6672,6 @@
                 "storage": {}
             }
         },
-        "box-294": {
-            "id": "box-294",
-            "text": "Xebra.Send localhost:8086 JS",
-            "name": "box-294",
-            "class": "Xebra.Send",
-            "inlets": 1,
-            "outlets": 0,
-            "patching_rect": [
-                165,
-                735,
-                182.141,
-                22
-            ],
-            "args": [
-                "localhost:8086",
-                "JS"
-            ],
-            "props": {},
-            "prevData": {
-                "storage": {}
-            }
-        },
         "box-295": {
             "id": "box-295",
             "text": "Button",
@@ -7158,34 +7126,29 @@
             "args": [
                 "queue",
                 [
-                    76,
-                    257,
-                    374,
-                    72,
-                    257,
-                    204,
-                    260,
-                    200,
-                    264,
-                    375,
-                    79,
-                    262,
-                    207,
-                    267,
-                    373,
-                    72,
-                    256,
-                    369,
-                    76,
-                    258,
-                    204,
-                    256,
-                    200,
-                    267,
-                    374,
-                    71,
+                    57,
                     259,
-                    199
+                    185,
+                    266,
+                    370,
+                    59,
+                    259,
+                    187,
+                    268,
+                    368,
+                    60,
+                    259,
+                    188,
+                    266,
+                    369,
+                    55,
+                    263,
+                    183,
+                    262,
+                    373,
+                    53,
+                    261,
+                    181
                 ]
             ],
             "props": {},
@@ -7520,7 +7483,10 @@
             "args": [
                 "number"
             ],
-            "props": {}
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
         },
         "box-380": {
             "id": "box-380",
@@ -7539,7 +7505,10 @@
                 true,
                 false
             ],
-            "props": {}
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
         },
         "box-381": {
             "id": "box-381",
@@ -7558,7 +7527,10 @@
                 true,
                 false
             ],
-            "props": {}
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
         },
         "box-382": {
             "id": "box-382",
@@ -7577,7 +7549,10 @@
                 true,
                 false
             ],
-            "props": {}
+            "props": {},
+            "prevData": {
+                "storage": {}
+            }
         }
     },
     "data": {
@@ -8375,11 +8350,6 @@
                 "storage": {}
             }
         },
-        "box-294": {
-            "Xebra.Send": {
-                "storage": {}
-            }
-        },
         "box-295": {
             "Button": {
                 "storage": {}
@@ -8598,8 +8568,8 @@
         "presentation": false,
         "showGrid": true
     },
-    "boxIndexCount": 385,
-    "lineIndexCount": 555,
+    "boxIndexCount": 388,
+    "lineIndexCount": 559,
     "bgcolor": [
         61,
         65,
