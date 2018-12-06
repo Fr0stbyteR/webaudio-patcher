@@ -174,6 +174,10 @@ class DSP extends FaustObject {
         }
         if (props && props.hasOwnProperty("useWorklet")) {
             let useWorklet = props.useWorklet ? true : false;
+            if (typeof AudioWorklet == "undefined" && useWorklet) {
+                useWorklet = false;
+                this.warn("AudioWorklet is not supported, fallback to ScriptProcessor.")
+            }
             if (useWorklet !== this._mem.compileArgs.useWorklet) {
                 this._mem.compileArgs.useWorklet = useWorklet;
                 this._mem.argsChanged = true;

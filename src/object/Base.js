@@ -497,7 +497,7 @@ class Sel extends BaseObject {
     fn(data, inlet) {
         if (inlet == 0) {
             let matched = false;
-            for (let i = 0; i < this._mem.tests.length; i++) {]
+            for (let i = 0; i < this._mem.tests.length; i++) {
                 if (data == this._mem.tests[i]) {
                     this.outlet(i, new Bang());
                     matched = true;
