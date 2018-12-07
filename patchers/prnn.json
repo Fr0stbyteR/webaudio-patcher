@@ -3224,19 +3224,6 @@
             "disabled": false,
             "positionHash": 12451915
         },
-        "line-534": {
-            "src": [
-                "box-370",
-                0
-            ],
-            "dest": [
-                "box-292",
-                0
-            ],
-            "id": "line-534",
-            "disabled": false,
-            "positionHash": 26214460
-        },
         "line-540": {
             "src": [
                 "box-349",
@@ -3444,6 +3431,45 @@
             "id": "line-559",
             "disabled": false,
             "positionHash": 90165938
+        },
+        "line-562": {
+            "src": [
+                "box-76",
+                0
+            ],
+            "dest": [
+                "box-87",
+                0
+            ],
+            "id": "line-562",
+            "disabled": false,
+            "positionHash": 64553050
+        },
+        "line-563": {
+            "src": [
+                "box-370",
+                0
+            ],
+            "dest": [
+                "box-292",
+                0
+            ],
+            "id": "line-563",
+            "disabled": false,
+            "positionHash": 26214460
+        },
+        "line-564": {
+            "src": [
+                "box-87",
+                0
+            ],
+            "dest": [
+                "box-343",
+                0
+            ],
+            "id": "line-564",
+            "disabled": false,
+            "positionHash": 2621455
         }
     },
     "boxes": {
@@ -3626,7 +3652,7 @@
             "outlets": 1,
             "patching_rect": [
                 975,
-                30,
+                90,
                 45,
                 22
             ],
@@ -6122,7 +6148,7 @@
             "outlets": 1,
             "patching_rect": [
                 1035,
-                30,
+                0,
                 45,
                 22
             ],
@@ -6708,7 +6734,7 @@
             ],
             "prevData": {
                 "storage": {
-                    "showEditor": false,
+                    "showEditor": true,
                     "code": "import(\"stdfaust.lib\");\nsig = 0.2 * os.osc(freq) * gain * gate with {\n  freq = hslider(\"freq\", 440, 40, 8000, 1);\n  gain = hslider(\"gain\", 0.5, 0, 1, 0.01);\n  gate = button(\"gate\") : en.adsr(0.01, 0.1, 0.9, 0.5);\n};\nprocess = sig, sig;\neffect = dm.freeverb_demo; "
                 }
             }
@@ -6815,6 +6841,25 @@
             ],
             "prevData": {
                 "storage": {}
+            }
+        },
+        "box-389": {
+            "id": "box-389",
+            "text": "Message",
+            "name": "box-389",
+            "class": "Message",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                855,
+                0,
+                143.141,
+                22
+            ],
+            "prevData": {
+                "storage": {
+                    "text": "BANG HERE TO START >"
+                }
             }
         }
     },
@@ -7788,7 +7833,7 @@
         "box-375": {
             "Faust.DSP": {
                 "storage": {
-                    "showEditor": false,
+                    "showEditor": true,
                     "code": "import(\"stdfaust.lib\");\nsig = 0.2 * os.osc(freq) * gain * gate with {\n  freq = hslider(\"freq\", 440, 40, 8000, 1);\n  gain = hslider(\"gain\", 0.5, 0, 1, 0.01);\n  gate = button(\"gate\") : en.adsr(0.01, 0.1, 0.9, 0.5);\n};\nprocess = sig, sig;\neffect = dm.freeverb_demo; "
                 }
             }
@@ -7824,6 +7869,13 @@
             "Sel": {
                 "storage": {}
             }
+        },
+        "box-389": {
+            "Message": {
+                "storage": {
+                    "text": "BANG HERE TO START >"
+                }
+            }
         }
     },
     "state": {
@@ -7831,8 +7883,8 @@
         "presentation": false,
         "showGrid": true
     },
-    "boxIndexCount": 388,
-    "lineIndexCount": 559,
+    "boxIndexCount": 389,
+    "lineIndexCount": 564,
     "bgcolor": [
         61,
         65,
