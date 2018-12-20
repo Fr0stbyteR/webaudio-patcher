@@ -7,6 +7,7 @@ import JSOp from "./object/JSOp.js";
 import JSArray from "./object/JSArray.js";
 import Max from "./object/max/Max.js";
 import Faust from "./object/faust/Faust.js";
+import Events from "./object/Events.js";
 import Xebra from "./object/Xebra.js";
 import AutoImporter from "./object/AutoImporter.js";
 import * as TF from "@tensorflow/tfjs";
@@ -19,6 +20,7 @@ let Packages = {
     JSOp,
     Max,
     Faust,
+    Events,
     Xebra,
     Array : JSArray,
     TF : AutoImporter.importer("TF", TF, 2),
