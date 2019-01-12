@@ -7,7 +7,7 @@ import JSOp from "./object/JSOp.js";
 import JSArray from "./object/JSArray.js";
 import Max from "./object/max/Max.js";
 import Faust from "./object/faust/Faust.js";
-import Events from "./object/Events.js";
+import E from "./object/Events.js";
 import Xebra from "./object/Xebra.js";
 import AutoImporter from "./object/AutoImporter.js";
 import * as TF from "@tensorflow/tfjs";
@@ -20,7 +20,7 @@ let Packages = {
     JSOp,
     Max,
     Faust,
-    Events,
+    E,
     Xebra,
     Array : JSArray,
     TF : AutoImporter.importer("TF", TF, 2),
@@ -392,7 +392,7 @@ export default class Patcher extends EventEmitter {
         return this;
     }
 
-    paste(clipboard) { // {boxes : [], lines : []}
+    paste(clipboard) { // {boxes : [], lines : []} TODO : parse / stringify
         let idMap = {};
 		let pasted = {boxes : [], lines : []};
         for (let box of clipboard.boxes) {
