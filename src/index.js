@@ -513,7 +513,9 @@ $(document).ready(() => {
 		$("#open input").click(e => e.stopPropagation()).click();
 	}).on("change", "#open input", (e) => {
 		let file = $("#open input").get(0).files[0];
-		if (file) loadPatcher(file);
+		let ext = file.name.split(".").pop();
+		if (ext == "maxpat" || ext == "gendsp") loadMaxPatcher(file);
+		else loadPatcher(file);
 	}).on("click", "#undo", (e) => {
 		patcher._history.undo();
 	}).on("click", "#redo", (e) => {
@@ -666,6 +668,15 @@ let loadPatcher = (file) => {
 	reader.readAsText(file, "UTF-8");
 	reader.onload = (e) => {
 		patcher.load(JSON.parse(e.target.result));
+	}
+	reader.onerror = (e) => {}
+}
+
+let loadMaxPatcher = (file) => {
+	let reader = new FileReader();
+	reader.readAsText(file, "UTF-8");
+	reader.onload = (e) => {
+		patcher.load(Patcher.fromMaxPatcher(JSON.parse(e.target.result)));
 	}
 	reader.onerror = (e) => {}
 }

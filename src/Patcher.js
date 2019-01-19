@@ -132,23 +132,10 @@ export default class Patcher extends EventEmitter {
             let id = "box-" + numID;
             let box = {
                 id: id,
-                name: id,
-                class: "",
                 inlets: maxBox.numinlets,
                 outlets: maxBox.numoutlets,
                 patching_rect: maxBox.patching_rect,
-                text: "",
-                args: [],
-                props: {}
-            }
-            if (maxBox.hasOwnProperty("text")) {
-                box.text = maxBox.text;
-                Object.assign(box, Box.parseObjText(maxBox.text));
-            }
-            // get the name out to root
-            if (box.hasOwnProperty("props") && box._props.hasOwnProperty("name")) {
-                box.name = box._props.name;
-                delete box._props.name;
+                text: (maxBox.maxclass == "newobj" ? "" : maxBox.maxclass + " ") + (maxBox.text ? maxBox.text : "")
             }
             patcher.boxes[id] = box;
         }
