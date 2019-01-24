@@ -21,7 +21,7 @@ let project = [
 	"patcher.json",
 	{
 		name : "demo",
-		items : ["faust.json", "faust_poly.json", "tf.json", "js.json", "com.json", "prnn.json"]
+		items : ["faust.json", "faust_poly.json", "tf.json", "js.json", "com.json", "sensors.json", "prnn.json"]
 	}
 ];
 

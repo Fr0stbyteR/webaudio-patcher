@@ -28,14 +28,33 @@ class EventObject extends Base.BaseObject {
         return super.destroy()
     }
 }
-let pkg = {};
+let pkg = { document : [] };
 let docEvents = [];
 for (const property in document) {
     const match = property.match(/^on(.*)/)
     if (match) docEvents.push(match[1]);
 }
-for (const event of docEvents) {
+let winEvents = [];
+for (const property in window) {
+    const match = property.match(/^on(.*)/)
+    if (match) winEvents.push(match[1]);
+}
+for (const event of winEvents) {
     pkg[event] = class extends EventObject {
+        static get _meta() {
+            return Object.assign(super._meta, {
+                name : event,
+            });
+        }
+        ui($, box) {
+            $(window).on(event, this._mem.callback);
+            this._mem.off = () => $(window).off(event, this._mem.callback);
+            return super.defaultUI($, box);
+        }
+    }
+}
+for (const event of docEvents) {
+    pkg.document[event] = class extends EventObject {
         static get _meta() {
             return Object.assign(super._meta, {
                 name : event,

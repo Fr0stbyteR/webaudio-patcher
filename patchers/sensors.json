@@ -1,0 +1,275 @@
+{
+    "lines": {
+        "line-1": {
+            "src": [
+                "box-3",
+                0
+            ],
+            "dest": [
+                "box-4",
+                0
+            ],
+            "id": "line-1",
+            "disabled": false,
+            "positionHash": 17367130
+        },
+        "line-2": {
+            "src": [
+                "box-4",
+                0
+            ],
+            "dest": [
+                "box-5",
+                0
+            ],
+            "id": "line-2",
+            "disabled": false,
+            "positionHash": 17367160
+        },
+        "line-3": {
+            "src": [
+                "box-4",
+                0
+            ],
+            "dest": [
+                "box-6",
+                0
+            ],
+            "id": "line-3",
+            "disabled": false,
+            "positionHash": 24248440
+        },
+        "line-4": {
+            "src": [
+                "box-4",
+                0
+            ],
+            "dest": [
+                "box-7",
+                0
+            ],
+            "id": "line-4",
+            "disabled": false,
+            "positionHash": 31129720
+        },
+        "line-5": {
+            "src": [
+                "box-5",
+                0
+            ],
+            "dest": [
+                "box-8",
+                0
+            ],
+            "id": "line-5",
+            "disabled": false,
+            "positionHash": 17367190
+        },
+        "line-6": {
+            "src": [
+                "box-6",
+                0
+            ],
+            "dest": [
+                "box-8",
+                1
+            ],
+            "id": "line-6",
+            "disabled": false,
+            "positionHash": 24250518
+        },
+        "line-7": {
+            "src": [
+                "box-7",
+                0
+            ],
+            "dest": [
+                "box-8",
+                2
+            ],
+            "id": "line-7",
+            "disabled": false,
+            "positionHash": 31133846
+        },
+        "line-8": {
+            "src": [
+                "box-8",
+                0
+            ],
+            "dest": [
+                "box-9",
+                1
+            ],
+            "id": "line-8",
+            "disabled": false,
+            "positionHash": 48496820
+        }
+    },
+    "boxes": {
+        "box-3": {
+            "id": "box-3",
+            "text": "E.deviceorientation",
+            "name": "box-3",
+            "class": "E.deviceorientation",
+            "inlets": 0,
+            "outlets": 1,
+            "patching_rect": [
+                255,
+                60,
+                130.125,
+                22
+            ]
+        },
+        "box-4": {
+            "id": "box-4",
+            "text": "Get originalEvent",
+            "name": "box-4",
+            "class": "Get",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                255,
+                90,
+                117.813,
+                22
+            ]
+        },
+        "box-5": {
+            "id": "box-5",
+            "text": "Get alpha",
+            "name": "box-5",
+            "class": "Get",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                255,
+                120,
+                75.4844,
+                22
+            ]
+        },
+        "box-6": {
+            "id": "box-6",
+            "text": "Get beta",
+            "name": "box-6",
+            "class": "Get",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                360,
+                120,
+                70.2344,
+                22
+            ]
+        },
+        "box-7": {
+            "id": "box-7",
+            "text": "Get gamma",
+            "name": "box-7",
+            "class": "Get",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                465,
+                120,
+                85.0469,
+                22
+            ]
+        },
+        "box-8": {
+            "id": "box-8",
+            "text": "Array [] @inlets 3",
+            "name": "box-8",
+            "class": "Array",
+            "inlets": 3,
+            "outlets": 2,
+            "patching_rect": [
+                255,
+                150,
+                230.063,
+                22
+            ]
+        },
+        "box-9": {
+            "id": "box-9",
+            "text": "Message",
+            "name": "box-9",
+            "class": "Message",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                255,
+                180,
+                495,
+                22
+            ],
+            "prevData": {
+                "storage": {
+                    "text": "[ 0, 90, 0 ]"
+                }
+            }
+        }
+    },
+    "data": {
+        "box-3": {
+            "E.deviceorientation": {
+                "storage": {}
+            }
+        },
+        "box-4": {
+            "Get": {
+                "storage": {}
+            }
+        },
+        "box-5": {
+            "Get": {
+                "storage": {}
+            }
+        },
+        "box-6": {
+            "Get": {
+                "storage": {}
+            }
+        },
+        "box-7": {
+            "Get": {
+                "storage": {}
+            }
+        },
+        "box-8": {
+            "Array": {
+                "storage": {}
+            }
+        },
+        "box-9": {
+            "Message": {
+                "storage": {
+                    "text": "[ 0, 90, 0 ]"
+                }
+            }
+        }
+    },
+    "state": {
+        "locked": true,
+        "presentation": false,
+        "showGrid": true
+    },
+    "boxIndexCount": 9,
+    "lineIndexCount": 8,
+    "bgcolor": [
+        61,
+        65,
+        70,
+        1
+    ],
+    "editing_bgcolor": [
+        82,
+        87,
+        94,
+        1
+    ],
+    "grid": [
+        15,
+        15
+    ]
+}
