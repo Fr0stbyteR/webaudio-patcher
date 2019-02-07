@@ -9,7 +9,7 @@ class EventObject extends Base.BaseObject {
             version : "1.0.0",
             inlets : [],
             outlets : [{
-                type : "onject",
+                type : "object",
                 description : "Output event object when fired"
             }],
             args : [],
@@ -43,7 +43,7 @@ for (const event of winEvents) {
     pkg[event] = class extends EventObject {
         static get _meta() {
             return Object.assign(super._meta, {
-                name : event,
+                name : event
             });
         }
         ui($, box) {
@@ -57,7 +57,7 @@ for (const event of docEvents) {
     pkg.document[event] = class extends EventObject {
         static get _meta() {
             return Object.assign(super._meta, {
-                name : event,
+                name : event
             });
         }
         ui($, box) {

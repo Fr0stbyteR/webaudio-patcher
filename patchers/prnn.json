@@ -1,22 +1,9 @@
 {
     "lines": {
-        "line-98": {
+        "line-102": {
             "src": [
                 "box-75",
                 0
-            ],
-            "dest": [
-                "box-76",
-                0
-            ],
-            "id": "line-98",
-            "disabled": false,
-            "positionHash": 68485270
-        },
-        "line-102": {
-            "src": [
-                "box-76",
-                1
             ],
             "dest": [
                 "box-79",
@@ -28,8 +15,8 @@
         },
         "line-104": {
             "src": [
-                "box-76",
-                1
+                "box-75",
+                0
             ],
             "dest": [
                 "box-80",
@@ -41,8 +28,8 @@
         },
         "line-105": {
             "src": [
-                "box-76",
-                1
+                "box-75",
+                0
             ],
             "dest": [
                 "box-81",
@@ -54,8 +41,8 @@
         },
         "line-106": {
             "src": [
-                "box-76",
-                1
+                "box-75",
+                0
             ],
             "dest": [
                 "box-82",
@@ -67,8 +54,8 @@
         },
         "line-107": {
             "src": [
-                "box-76",
-                1
+                "box-75",
+                0
             ],
             "dest": [
                 "box-83",
@@ -80,8 +67,8 @@
         },
         "line-108": {
             "src": [
-                "box-76",
-                1
+                "box-75",
+                0
             ],
             "dest": [
                 "box-84",
@@ -93,8 +80,8 @@
         },
         "line-109": {
             "src": [
-                "box-76",
-                1
+                "box-75",
+                0
             ],
             "dest": [
                 "box-85",
@@ -106,8 +93,8 @@
         },
         "line-111": {
             "src": [
-                "box-76",
-                1
+                "box-75",
+                0
             ],
             "dest": [
                 "box-86",
@@ -2736,12 +2723,12 @@
                 0
             ],
             "dest": [
-                "box-75",
+                "box-390",
                 0
             ],
             "id": "line-418",
             "disabled": false,
-            "positionHash": 68485240
+            "positionHash": 68485210
         },
         "line-419": {
             "src": [
@@ -3434,7 +3421,7 @@
         },
         "line-562": {
             "src": [
-                "box-76",
+                "box-75",
                 0
             ],
             "dest": [
@@ -3470,37 +3457,72 @@
             "id": "line-564",
             "disabled": false,
             "positionHash": 2621455
+        },
+        "line-565": {
+            "src": [
+                "box-390",
+                0
+            ],
+            "dest": [
+                "box-392",
+                0
+            ],
+            "id": "line-565",
+            "disabled": false,
+            "positionHash": 68485240
+        },
+        "line-566": {
+            "src": [
+                "box-295",
+                0
+            ],
+            "dest": [
+                "box-391",
+                0
+            ],
+            "id": "line-566",
+            "disabled": false,
+            "positionHash": 77332600
+        },
+        "line-567": {
+            "src": [
+                "box-391",
+                0
+            ],
+            "dest": [
+                "box-75",
+                1
+            ],
+            "id": "line-567",
+            "disabled": false,
+            "positionHash": 73127062
+        },
+        "line-568": {
+            "src": [
+                "box-392",
+                1
+            ],
+            "dest": [
+                "box-75",
+                0
+            ],
+            "id": "line-568",
+            "disabled": false,
+            "positionHash": 70451350
         }
     },
     "boxes": {
         "box-75": {
             "id": "box-75",
-            "text": "DL.CheckpointLoader https://storage.googleapis.com/download.magenta.tensorflow.org/models/performance_rnn/dljs",
+            "text": "TF.io.loadWeights",
             "name": "box-75",
-            "class": "DL.CheckpointLoader",
-            "inlets": 1,
+            "class": "TF.io.loadWeights",
+            "inlets": 4,
             "outlets": 2,
             "patching_rect": [
-                1035,
-                120,
-                652.516,
-                22
-            ],
-            "prevData": {
-                "storage": {}
-            }
-        },
-        "box-76": {
-            "id": "box-76",
-            "text": "DL.CheckpointLoader.getAllVariables",
-            "name": "box-76",
-            "class": "DL.CheckpointLoader.getAllVariables",
-            "inlets": 2,
-            "outlets": 3,
-            "patching_rect": [
-                1035,
+                1065,
                 150,
-                224.297,
+                142.516,
                 22
             ],
             "prevData": {
@@ -6730,7 +6752,7 @@
                 0,
                 765,
                 353.688,
-                22
+                890.891
             ],
             "prevData": {
                 "storage": {
@@ -6861,16 +6883,58 @@
                     "text": "BANG HERE TO START >"
                 }
             }
+        },
+        "box-390": {
+            "id": "box-390",
+            "text": "fetch \"http://localhost/magenta-demos/performance_rnn/models/tfjs/weights_manifest.json\"",
+            "name": "box-390",
+            "class": "fetch",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                1035,
+                90,
+                513.016,
+                22
+            ]
+        },
+        "box-391": {
+            "id": "box-391",
+            "text": "Message",
+            "name": "box-391",
+            "class": "Message",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                1170,
+                120,
+                344.875,
+                22
+            ],
+            "prevData": {
+                "storage": {
+                    "text": "http://localhost/magenta-demos/performance_rnn/models/tfjs"
+                }
+            }
+        },
+        "box-392": {
+            "id": "box-392",
+            "text": "Response.json",
+            "name": "box-392",
+            "class": "Response.json",
+            "inlets": 2,
+            "outlets": 3,
+            "patching_rect": [
+                1035,
+                120,
+                102.5,
+                22
+            ]
         }
     },
     "data": {
         "box-75": {
-            "DL.CheckpointLoader": {
-                "storage": {}
-            }
-        },
-        "box-76": {
-            "DL.CheckpointLoader.getAllVariables": {
+            "TF.io.loadWeights": {
                 "storage": {}
             }
         },
@@ -7876,15 +7940,32 @@
                     "text": "BANG HERE TO START >"
                 }
             }
+        },
+        "box-390": {
+            "fetch": {
+                "storage": {}
+            }
+        },
+        "box-391": {
+            "Message": {
+                "storage": {
+                    "text": "http://localhost/magenta-demos/performance_rnn/models/tfjs"
+                }
+            }
+        },
+        "box-392": {
+            "Response.json": {
+                "storage": {}
+            }
         }
     },
     "state": {
-        "locked": true,
+        "locked": false,
         "presentation": false,
         "showGrid": true
     },
-    "boxIndexCount": 389,
-    "lineIndexCount": 564,
+    "boxIndexCount": 392,
+    "lineIndexCount": 568,
     "bgcolor": [
         61,
         65,

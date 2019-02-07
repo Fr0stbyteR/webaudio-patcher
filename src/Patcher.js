@@ -5,6 +5,7 @@ import WA from "./object/WA.js";
 import JS from "./object/JS.js";
 import JSOp from "./object/JSOp.js";
 import JSArray from "./object/JSArray.js";
+import WebAPI from "./object/WebAPI.js";
 import Max from "./object/max/Max.js";
 import Faust from "./object/faust/Faust.js";
 import E from "./object/Events.js";
@@ -12,7 +13,6 @@ import Xebra from "./object/Xebra.js";
 import AutoImporter from "./object/AutoImporter.js";
 import * as TF from "@tensorflow/tfjs";
 import * as MM from "@magenta/music";
-import * as DL from "deeplearn";
 let Packages = {
     Base,
     WA,
@@ -23,9 +23,9 @@ let Packages = {
     E,
     Xebra,
     Array : JSArray,
+    WebAPI : WebAPI,
     TF : AutoImporter.importer("TF", TF, 2),
-    MM : AutoImporter.importer("MM", MM, 2),
-    DL : AutoImporter.importer("DL", DL, 2)
+    MM : AutoImporter.importer("MM", MM, 2)
 };
 
 export default class Patcher extends EventEmitter {

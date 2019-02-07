@@ -127,19 +127,17 @@ export default class AutoImporter {
                         callback();
                     }
                 }
-                
                 loading(bool) {
                     if (bool) {
                         for (const id in this._uiList) {
-                            this._uiList[id].find(".icon").removeClass("code").addClass(["spinner", "loading"]);
+                            this._uiList[id].find(".icon").removeClass(this._meta.icon).addClass(["spinner", "loading"]);
                         }
                     } else {
                         for (const id in this._uiList) {
-                            this._uiList[id].find(".icon").removeClass(["spinner", "loading"]).addClass("code");
+                            this._uiList[id].find(".icon").removeClass(["spinner", "loading"]).addClass(this._meta.icon);
                         }
                     }
                 }
-
                 execute() {
                     try {
                         if (this._mem.fromProto) {
@@ -149,16 +147,6 @@ export default class AutoImporter {
                             this._mem.result = new this._mem.fn(...this._mem.inputs);
                         } catch (e) {
                             this._mem.result = this._mem.fn(...this._mem.inputs);
-                        }
-                        if (this._mem.result instanceof Promise) {
-                            this.loading(true);
-                            this._mem.result.then((r) => {
-                                this.loading(false);
-                                this._mem.result = r;
-                            }, (r) => {
-                                this.loading(false);
-                                this.error(r);
-                            });
                         }
                         return true;
                     } catch (e) {

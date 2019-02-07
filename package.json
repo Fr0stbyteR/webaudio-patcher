@@ -32,7 +32,6 @@
     "babel-loader": "^8.0.2",
     "codemirror": "^5.40.0",
     "css-loader": "^1.0.0",
-    "deeplearn": "^0.5.1",
     "electron": "^3.0.4",
     "eslint": "^5.5.0",
     "eslint-config-google": "^0.10.0",
