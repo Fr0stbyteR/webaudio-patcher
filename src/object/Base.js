@@ -485,6 +485,73 @@ class Print extends EmptyObject {
     }
 }
 
+class Gate extends BaseObject {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            description : "Output if gate is opened",
+            inlets : [{
+                isHot : true,
+                type : "anything",
+                description : "Data input"
+            }, {
+                isHot : false,
+                type : "anything",
+                description : "Decide which output is opened, boolean / number / array (1-based)"
+            }],
+            outlets : [{
+                type : "anything",
+                varLength : true,
+                description : "Output input if gate is opened"
+            }],
+            args : [{
+                type : "number",
+                optional : true,
+                default : 1,
+                description : "Outputs count"
+            }, {
+                type : "anything",
+                optional : true,
+                default : false,
+                description : "Default gate state"
+            }]
+        });
+    }
+    constructor(box, patcher) {
+        super(box, patcher);
+        this._inlets = 2;
+        this._outlets = 1;
+        this._mem.state = [false];
+        this.update(box._args, box._props);
+    }
+    update(args, props) {
+        this._outlets = 1;
+        if (typeof args[0] === "number" && args[0] > 0) this._outlets = Math.floor(args[0]);
+        this.parseOutlet(args[1]);
+        return this;
+    }
+    parseOutlet(data) {
+        this._mem.state = new Array(this._outlets).fill(false);
+        if (typeof data === "boolean") this._mem.state.fill(data);
+        else if (typeof data === "number" && data > 0 && data <= this._outlets) this._mem.state[parseInt(data) - 1] = true;
+        else if (Array.isArray(data)) {
+            data.forEach(v => {
+                const int = parseInt(v);
+                if (int > 0 && int <= this._outlets) this._mem.state[int - 1] = true;
+            })
+        }
+        return this;
+    }
+    fn(data, inlet) {
+        if (inlet == 1) return this.parseOutlet(data);
+        if (inlet == 0) {
+            for (let i = this._mem.state.length; i >= 0; i--) {
+                if (this._mem.state[i]) this.outlet(i, data);
+            }
+        }
+        return this;
+    }
+}
+
 class Sel extends BaseObject {
     static get _meta() {
         return Object.assign(super._meta, {
@@ -791,6 +858,7 @@ export default {
     BaseObject,
     Bang,
     Loadbang,
+    Gate,
     Button,
     Delay,
     Message,

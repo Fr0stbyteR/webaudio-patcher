@@ -534,7 +534,7 @@ class JSCallback extends JSBaseObject {
             }, {
                 type : "anything",
                 varLength : true,
-                description : "argument when called"
+                description : "if arg is 0, arguments as array of function called, else each of them"
             }],
             args : [{
                 type : "number",
@@ -547,18 +547,26 @@ class JSCallback extends JSBaseObject {
     constructor(box, patcher) {
         super(box, patcher);
         this._inlets = 2;
-        this._outlets = 2;
+        this._outlets = 3;
+        this._mem.argsAsArray = true;
         this._mem.stack = [];
         this.update(box._args);
     }
     update(args, props) {
-        if (typeof args[0] == "number") this._outlets = 2 + parseInt(args[0]);
+        this._outlets = 3;
+        this._mem.argsAsArray = true;
+        if (typeof args[0] == "number" && args[0] > 0) {
+            this._outlets = 2 + parseInt(args[0]);
+            this._mem.argsAsArray = false;
+        }
+        return this;
     }
     fn(data, inlet) {
         if (inlet == 0) {
             this._mem.stack = [];
             this.outlet(0, (...args) => {
-                for (let i = args.length - 1; i >= 0; i--) {
+                if (this._mem.argsAsArray) this.outlet(2, args);
+                else for (let i = args.length - 1; i >= 0; i--) {
                     this.outlet(i + 2, args[i]);
                 }
                 this.outlet(1, new Base.Bang());
@@ -569,6 +577,7 @@ class JSCallback extends JSBaseObject {
         if (inlet == 1) {
             this._mem.stack.push(data);
         }
+        return this;
     }
 }
 

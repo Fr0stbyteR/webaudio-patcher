@@ -3148,7 +3148,7 @@
         },
         "line-522": {
             "src": [
-                "box-347",
+                "box-393",
                 0
             ],
             "dest": [
@@ -3222,7 +3222,7 @@
             ],
             "id": "line-540",
             "disabled": false,
-            "positionHash": 22524669
+            "positionHash": 22524774
         },
         "line-543": {
             "src": [
@@ -3235,7 +3235,7 @@
             ],
             "id": "line-543",
             "disabled": false,
-            "positionHash": 656275
+            "positionHash": 656260
         },
         "line-544": {
             "src": [
@@ -3248,7 +3248,7 @@
             ],
             "id": "line-544",
             "disabled": false,
-            "positionHash": 22524669
+            "positionHash": 22524774
         },
         "line-545": {
             "src": [
@@ -3509,6 +3509,45 @@
             "id": "line-568",
             "disabled": false,
             "positionHash": 70451350
+        },
+        "line-569": {
+            "src": [
+                "box-347",
+                0
+            ],
+            "dest": [
+                "box-393",
+                0
+            ],
+            "id": "line-569",
+            "disabled": false,
+            "positionHash": 656125
+        },
+        "line-570": {
+            "src": [
+                "box-395",
+                0
+            ],
+            "dest": [
+                "box-393",
+                1
+            ],
+            "id": "line-570",
+            "disabled": false,
+            "positionHash": 4055805
+        },
+        "line-571": {
+            "src": [
+                "box-396",
+                0
+            ],
+            "dest": [
+                "box-393",
+                1
+            ],
+            "id": "line-571",
+            "disabled": false,
+            "positionHash": 4055805
         }
     },
     "boxes": {
@@ -4119,7 +4158,7 @@
             "name": "box-126",
             "class": "JS.JSCallback",
             "inlets": 2,
-            "outlets": 2,
+            "outlets": 3,
             "patching_rect": [
                 390,
                 120,
@@ -5266,7 +5305,7 @@
             "name": "box-230",
             "class": "JS.JSCallback",
             "inlets": 2,
-            "outlets": 2,
+            "outlets": 3,
             "patching_rect": [
                 1755,
                 60,
@@ -6750,13 +6789,13 @@
             "outlets": 2,
             "patching_rect": [
                 0,
-                765,
+                870,
                 353.688,
-                890.891
+                22
             ],
             "prevData": {
                 "storage": {
-                    "showEditor": true,
+                    "showEditor": false,
                     "code": "import(\"stdfaust.lib\");\nsig = 0.2 * os.osc(freq) * gain * gate with {\n  freq = hslider(\"freq\", 440, 40, 8000, 1);\n  gain = hslider(\"gain\", 0.5, 0, 1, 0.01);\n  gate = button(\"gate\") : en.adsr(0.01, 0.1, 0.9, 0.5);\n};\nprocess = sig, sig;\neffect = dm.freeverb_demo; "
                 }
             }
@@ -6770,7 +6809,7 @@
             "outlets": 0,
             "patching_rect": [
                 0,
-                915,
+                900,
                 53,
                 22
             ],
@@ -6896,7 +6935,10 @@
                 90,
                 513.016,
                 22
-            ]
+            ],
+            "prevData": {
+                "storage": {}
+            }
         },
         "box-391": {
             "id": "box-391",
@@ -6929,7 +6971,62 @@
                 120,
                 102.5,
                 22
+            ],
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-393": {
+            "id": "box-393",
+            "text": "Gate 1 1",
+            "name": "box-393",
+            "class": "Gate",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                0,
+                765,
+                71.875,
+                22
             ]
+        },
+        "box-395": {
+            "id": "box-395",
+            "text": "Message",
+            "name": "box-395",
+            "class": "Message",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                195,
+                765,
+                45,
+                22
+            ],
+            "prevData": {
+                "storage": {
+                    "text": "0"
+                }
+            }
+        },
+        "box-396": {
+            "id": "box-396",
+            "text": "Message",
+            "name": "box-396",
+            "class": "Message",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                255,
+                765,
+                45,
+                22
+            ],
+            "prevData": {
+                "storage": {
+                    "text": "1"
+                }
+            }
         }
     },
     "data": {
@@ -7897,7 +7994,7 @@
         "box-375": {
             "Faust.DSP": {
                 "storage": {
-                    "showEditor": true,
+                    "showEditor": false,
                     "code": "import(\"stdfaust.lib\");\nsig = 0.2 * os.osc(freq) * gain * gate with {\n  freq = hslider(\"freq\", 440, 40, 8000, 1);\n  gain = hslider(\"gain\", 0.5, 0, 1, 0.01);\n  gate = button(\"gate\") : en.adsr(0.01, 0.1, 0.9, 0.5);\n};\nprocess = sig, sig;\neffect = dm.freeverb_demo; "
                 }
             }
@@ -7957,15 +8054,34 @@
             "Response.json": {
                 "storage": {}
             }
+        },
+        "box-393": {
+            "Gate": {
+                "storage": {}
+            }
+        },
+        "box-395": {
+            "Message": {
+                "storage": {
+                    "text": "0"
+                }
+            }
+        },
+        "box-396": {
+            "Message": {
+                "storage": {
+                    "text": "1"
+                }
+            }
         }
     },
     "state": {
-        "locked": false,
+        "locked": true,
         "presentation": false,
         "showGrid": true
     },
-    "boxIndexCount": 392,
-    "lineIndexCount": 568,
+    "boxIndexCount": 396,
+    "lineIndexCount": 571,
     "bgcolor": [
         61,
         65,
