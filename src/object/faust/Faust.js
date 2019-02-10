@@ -95,7 +95,7 @@ class DSP extends FaustObject {
             ftz : 2,
             voices : 16,
             useWorklet : false,
-            libraries : "https://faust.grame.fr/tools/editor/libraries/",
+            libraries : window.location.href.match(/.+\//)[0] + "dist/assets/faust-lib/",
             bufferSize : 256
         }
         this._mem.argsChanged = true;
