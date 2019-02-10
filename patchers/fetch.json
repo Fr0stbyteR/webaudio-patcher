@@ -1,0 +1,277 @@
+{
+    "lines": {
+        "line-3": {
+            "src": [
+                "box-2",
+                0
+            ],
+            "dest": [
+                "box-5",
+                0
+            ],
+            "id": "line-3",
+            "disabled": false,
+            "positionHash": 10485895
+        },
+        "line-4": {
+            "src": [
+                "box-5",
+                0
+            ],
+            "dest": [
+                "box-3",
+                0
+            ],
+            "id": "line-4",
+            "disabled": false,
+            "positionHash": 10485925
+        },
+        "line-6": {
+            "src": [
+                "box-8",
+                0
+            ],
+            "dest": [
+                "box-7",
+                0
+            ],
+            "id": "line-6",
+            "disabled": false,
+            "positionHash": 10486150
+        },
+        "line-7": {
+            "src": [
+                "box-3",
+                1
+            ],
+            "dest": [
+                "box-8",
+                0
+            ],
+            "id": "line-7",
+            "disabled": false,
+            "positionHash": 10485955
+        },
+        "line-8": {
+            "src": [
+                "box-2",
+                0
+            ],
+            "dest": [
+                "box-9",
+                0
+            ],
+            "id": "line-8",
+            "disabled": false,
+            "positionHash": 18350245
+        },
+        "line-9": {
+            "src": [
+                "box-9",
+                0
+            ],
+            "dest": [
+                "box-8",
+                1
+            ],
+            "id": "line-9",
+            "disabled": false,
+            "positionHash": 12707011
+        },
+        "line-10": {
+            "src": [
+                "box-11",
+                0
+            ],
+            "dest": [
+                "box-2",
+                0
+            ],
+            "id": "line-10",
+            "disabled": false,
+            "positionHash": 10485865
+        }
+    },
+    "boxes": {
+        "box-2": {
+            "id": "box-2",
+            "text": "Button",
+            "name": "box-2",
+            "class": "Button",
+            "inlets": 1,
+            "outlets": 1,
+            "patching_rect": [
+                150,
+                105,
+                45,
+                22
+            ],
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-3": {
+            "id": "box-3",
+            "text": "Response.json",
+            "name": "box-3",
+            "class": "Response.json",
+            "inlets": 2,
+            "outlets": 3,
+            "patching_rect": [
+                150,
+                165,
+                102.5,
+                22
+            ],
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-5": {
+            "id": "box-5",
+            "text": "fetch \"http://localhost/magenta-demos/performance_rnn/models/tfjs/weights_manifest.json\"",
+            "name": "box-5",
+            "class": "fetch",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                150,
+                135,
+                527.125,
+                22
+            ],
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-7": {
+            "id": "box-7",
+            "text": "Print",
+            "name": "box-7",
+            "class": "Print",
+            "inlets": 1,
+            "outlets": 0,
+            "patching_rect": [
+                150,
+                390,
+                45,
+                22
+            ],
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-8": {
+            "id": "box-8",
+            "text": "TF.io.loadWeights",
+            "name": "box-8",
+            "class": "TF.io.loadWeights",
+            "inlets": 4,
+            "outlets": 2,
+            "patching_rect": [
+                150,
+                195,
+                121.703,
+                22
+            ],
+            "prevData": {
+                "storage": {}
+            }
+        },
+        "box-9": {
+            "id": "box-9",
+            "text": "Message",
+            "name": "box-9",
+            "class": "Message",
+            "inlets": 2,
+            "outlets": 1,
+            "patching_rect": [
+                270,
+                165,
+                349.516,
+                22
+            ],
+            "prevData": {
+                "storage": {
+                    "text": "http://localhost/magenta-demos/performance_rnn/models/tfjs/"
+                }
+            }
+        },
+        "box-11": {
+            "id": "box-11",
+            "text": "Loadbang",
+            "name": "box-11",
+            "class": "Loadbang",
+            "inlets": 1,
+            "outlets": 1,
+            "patching_rect": [
+                150,
+                75,
+                78.6719,
+                22
+            ]
+        }
+    },
+    "data": {
+        "box-2": {
+            "Button": {
+                "storage": {}
+            }
+        },
+        "box-3": {
+            "Response.json": {
+                "storage": {}
+            }
+        },
+        "box-5": {
+            "fetch": {
+                "storage": {}
+            }
+        },
+        "box-7": {
+            "Print": {
+                "storage": {}
+            }
+        },
+        "box-8": {
+            "TF.io.loadWeights": {
+                "storage": {}
+            }
+        },
+        "box-9": {
+            "Message": {
+                "storage": {
+                    "text": "http://localhost/magenta-demos/performance_rnn/models/tfjs/"
+                }
+            }
+        },
+        "box-11": {
+            "Loadbang": {
+                "storage": {}
+            }
+        }
+    },
+    "state": {
+        "locked": false,
+        "presentation": false,
+        "showGrid": true
+    },
+    "boxIndexCount": 11,
+    "lineIndexCount": 10,
+    "bgcolor": [
+        61,
+        65,
+        70,
+        1
+    ],
+    "editing_bgcolor": [
+        82,
+        87,
+        94,
+        1
+    ],
+    "grid": [
+        15,
+        15
+    ]
+}

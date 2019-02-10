@@ -22,7 +22,6 @@ export default class AutoImporter {
         }
         return out;
     }
-
     static generator(el, pkgName, name, fromProto) {
         if (typeof el === "function") {
             return class extends Base.BaseObject {
@@ -80,7 +79,7 @@ export default class AutoImporter {
                     this._mem.name = name;
                     this._mem.fn = el;
                     this._mem.instance = null;
-                    this._mem.inputs = box._args.slice();
+                    this._mem.inputs = box._args.slice(); // copy array
                     this._mem.result = null;
                     this._mem.fromProto = fromProto ? true : false;
                     this.update(this._mem.inputs, box._props);

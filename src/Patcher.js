@@ -5,11 +5,14 @@ import WA from "./object/WA.js";
 import JS from "./object/JS.js";
 import JSOp from "./object/JSOp.js";
 import JSArray from "./object/JSArray.js";
+import JSMath from "./object/JSMath";
+import JSDate from "./object/JSDate";
 import WebAPI from "./object/WebAPI.js";
 import Max from "./object/max/Max.js";
 import Faust from "./object/faust/Faust.js";
 import E from "./object/Events.js";
 import Xebra from "./object/Xebra.js";
+import io from "socket.io-client";
 import AutoImporter from "./object/AutoImporter.js";
 import * as TF from "@tensorflow/tfjs";
 import * as MM from "@magenta/music";
@@ -23,7 +26,10 @@ let Packages = {
     E,
     Xebra,
     Array : JSArray,
+    Math : JSMath,
+    Date : JSDate,
     WebAPI : WebAPI,
+    IO : AutoImporter.importer("IO", { io, Socket: io.Socket, Manager: io.Manager }, 2),
     TF : AutoImporter.importer("TF", TF, 2),
     MM : AutoImporter.importer("MM", MM, 2)
 };
@@ -771,7 +777,7 @@ class Line {
         return this;
     }
     static calcPositionHash(rect, port, portCount) {
-        return ((rect[0] + 10) + (rect[2] - 20) * (port / portCount - 1)) * 65536 + rect[1] + rect[3];
+        return ((rect[0] + 10) + (rect[2] - 20) * port / (portCount > 1 ? portCount - 1 : 1)) * 65536 + rect[1];
     }
     get srcID() {
         return this.src[0];

@@ -10,6 +10,7 @@ import Selection from "./selection-js/src/selection.js"
 window.$ = $, window.jQuery = $;
 
 let fileName = window.location.hash.substr(1);
+let render = window.render === false ? false : true;
 let patcher;
 let injected = window.injected || false;
 if (injected) patcher = injected;
@@ -21,7 +22,7 @@ let project = [
 	"patcher.json",
 	{
 		name : "demo",
-		items : ["faust.json", "faust_poly.json", "tf.json", "js.json", "com.json", "sensors.json", "prnn.json"]
+		items : ["faust.json", "faust_poly.json", "tf.json", "js.json", "com.json", "sensors.json", "prnn.json", "fetch.json"]
 	}
 ];
 
@@ -57,7 +58,7 @@ let keysPressed = {
 let mouseOffset = [0, 0];
 let clipboard = {boxes : [], lines : []};
 
-$(document).ready(() => {
+if (render) $(document).ready(() => {
 	patcher.on("resetPatcher", (patcher) => {
 		$(".box").remove();
 		$(".line").remove();
@@ -596,6 +597,12 @@ $(document).ready(() => {
 	}
 	
 });
+else { // if not rendering
+	fetch("patchers/" + (fileName.length ? fileName : "patcher.json"))
+			.then(response => response.json())
+			.then(content => patcher.load(content));
+	patcher.on("newLog", log => console.log(log[2]));// eslint-disable-line no-console
+}
 
 let lockPatcher = () => {
 	patcher.state.locked = true;

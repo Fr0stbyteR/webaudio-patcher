@@ -14,7 +14,6 @@ class WebAPIObject extends Base.BaseObject {
 let Fetch = class Fetch extends WebAPIObject {
     static get _meta() {
         return Object.assign(super._meta, {
-            name : "fetch",
             description : "Fetching a resource from the network",
             inlets : [{
                 isHot : true,

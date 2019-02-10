@@ -432,6 +432,37 @@ class Button extends EmptyObject {
     }
 }
 
+class Loadbang extends BaseObject {
+    static get _meta() {
+        return Object.assign(super._meta, {
+            description : "Output a Bang when patcher is loaded",
+            inlets : [{
+                isHot : false,
+                type : "anything",
+                description : "output a new Bang"
+            }],
+            outlets : [{
+                type : "object",
+                description : "new Bang"
+            }]
+        });
+    }
+    constructor(box, patcher) {
+        super(box, patcher);
+        this._inlets = 1;
+        this._outlets = 1;
+        this._mem.callback = () => this.outlet(0, new Bang());
+        this._patcher.on("patcherLoaded", this._mem.callback);
+    }
+    fn(data, inlet) {
+        if (data !== false) this.outlet(0, new Bang());
+    }
+    destroy() {
+        this._patcher.removeListener("patcherLoaded", this._mem.callback);
+        return super.destroy();
+    }
+}
+
 class Print extends EmptyObject {
     static get _meta() {
         return Object.assign(super._meta, {
@@ -759,6 +790,7 @@ export default {
     InvalidObject,
     BaseObject,
     Bang,
+    Loadbang,
     Button,
     Delay,
     Message,
