@@ -10,8 +10,22 @@
     <title>JSPatcher</title>
     <script type="text/javascript">
         window.render = false;
+        const resume = () => {
+            if (patcher._audioCtx.state == "suspended") patcher._audioCtx.resume();
+        }
+        window.addEventListener("touchstart", resume);
+        window.addEventListener("mousedown", resume);
     </script>
     <script type="text/javascript" src="./dist/bundle.js?v=0.181024"></script>
+    <style>
+        body {
+            position: absolute;
+            margin: 0; 
+            width: 100%;
+            height: 100%;
+            background-color: black;
+        }
+    </style>
 </head>
 
 <body>

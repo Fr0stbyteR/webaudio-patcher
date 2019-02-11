@@ -46,10 +46,10 @@ for (const event of winEvents) {
                 name : event
             });
         }
-        ui($, box) {
-            $(window).on(event, this._mem.callback);
-            this._mem.off = () => $(window).off(event, this._mem.callback);
-            return super.defaultUI($, box);
+        constructor(box, patcher) {
+            super(box, patcher);
+            window.addEventListener(event, this._mem.callback);
+            this._mem.off = () => window.removeEventListener(event, this._mem.callback);
         }
     }
 }
@@ -60,10 +60,10 @@ for (const event of docEvents) {
                 name : event
             });
         }
-        ui($, box) {
-            $(document).on(event, this._mem.callback);
-            this._mem.off = () => $(document).off(event, this._mem.callback);
-            return super.defaultUI($, box);
+        constructor(box, patcher) {
+            super(box, patcher);
+            document.addEventListener(event, this._mem.callback);
+            this._mem.off = () => document.removeEventListener(event, this._mem.callback);
         }
     }
 }
