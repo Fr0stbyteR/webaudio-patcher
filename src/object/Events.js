@@ -29,16 +29,18 @@ class EventObject extends Base.BaseObject {
     }
 }
 let pkg = { document : [] };
-let docEvents = [];
+let docEvents = ["readystatechange","pointerlockchange","pointerlockerror","beforecopy","beforecut","beforepaste","search","visibilitychange","copy","cut","paste","abort","blur","cancel","canplay","canplaythrough","change","click","close","contextmenu","cuechange","dblclick","drag","dragend","dragenter","dragleave","dragover","dragstart","drop","durationchange","emptied","ended","error","focus","input","invalid","keydown","keypress","keyup","load","loadeddata","loadedmetadata","loadstart","mousedown","mouseenter","mouseleave","mousemove","mouseout","mouseover","mouseup","mousewheel","pause","play","playing","progress","ratechange","reset","resize","scroll","seeked","seeking","select","stalled","submit","suspend","timeupdate","toggle","volumechange","waiting","wheel","auxclick","gotpointercapture","lostpointercapture","pointerdown","pointermove","pointerup","pointercancel","pointerover","pointerout","pointerenter","pointerleave","selectstart","selectionchange","webkitfullscreenchange","webkitfullscreenerror","fullscreenchange","fullscreenerror","freeze","resume"];
+let winEvents = ["animationend","animationiteration","animationstart","search","transitionend","webkitanimationend","webkitanimationiteration","webkitanimationstart","webkittransitionend","abort","blur","cancel","canplay","canplaythrough","change","click","close","contextmenu","cuechange","dblclick","drag","dragend","dragenter","dragleave","dragover","dragstart","drop","durationchange","emptied","ended","error","focus","input","invalid","keydown","keypress","keyup","load","loadeddata","loadedmetadata","loadstart","mousedown","mouseenter","mouseleave","mousemove","mouseout","mouseover","mouseup","mousewheel","pause","play","playing","progress","ratechange","reset","resize","scroll","seeked","seeking","select","stalled","submit","suspend","timeupdate","toggle","volumechange","waiting","wheel","auxclick","gotpointercapture","lostpointercapture","pointerdown","pointermove","pointerup","pointercancel","pointerover","pointerout","pointerenter","pointerleave","selectstart","selectionchange","afterprint","beforeprint","beforeunload","hashchange","languagechange","message","messageerror","offline","online","pagehide","pageshow","popstate","rejectionhandled","storage","unhandledrejection","unload","appinstalled","beforeinstallprompt","devicemotion","deviceorientation","deviceorientationabsolute"];
+/*
 for (const property in document) {
-    const match = property.match(/^on(.*)/)
+    const match = property.match(/^on(.*)/);
     if (match) docEvents.push(match[1]);
 }
-let winEvents = [];
 for (const property in window) {
-    const match = property.match(/^on(.*)/)
+    const match = property.match(/^on(.*)/);
     if (match) winEvents.push(match[1]);
 }
+*/
 for (const event of winEvents) {
     pkg[event] = class extends EventObject {
         static get _meta() {

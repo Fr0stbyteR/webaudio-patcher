@@ -303,7 +303,7 @@ class DSP extends FaustObject {
                 if (data.hasOwnProperty(k)) {
                     const v = data[k];
                     this._mem.node.setParamValue(k, v);
-                    this._mem.node.output_handler(k, v);
+                    if (this._mem.node.output_handler) this._mem.node.output_handler(k, v);
                 }
             }
         }
