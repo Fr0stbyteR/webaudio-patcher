@@ -1,5 +1,20 @@
-# WebAudio-Patcher
+# WebAudio-Patcher  [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-## License
 
-[CC0 1.0 (Public Domain)](LICENSE.md)
+A web environment allows you to play with JavaScript and WebAudio.
+
+It's a playground, Every function, variable, method or object are boxes patching with each other. Messages are passing from right to left. (as MaxMSP)
+
+## Examples
+
+Listen MouseMove event, than transform the value to the frequency used to generate a sine wave. Then you can visalize your spectrum.
+
+![Example1](https://fr0stbyter.github.io/webaudio-patcher/patchers/example1.jpg)
+
+Or Fetch a Tensorflow model.
+
+![Example2](https://fr0stbyter.github.io/webaudio-patcher/patchers/example1.jpg)
+
+Or try [Performance RNN](https://magenta.tensorflow.org/performance-rnn) with TensorFlow.js
+
+https://fr0stbyter.github.io/webaudio-patcher/#prnn.json
