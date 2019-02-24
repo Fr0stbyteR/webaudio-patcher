@@ -9,11 +9,11 @@ It's a playground, Every function, variable, method or object are boxes patching
 
 Listen MouseMove event, than transform the value to the frequency used to generate a sine wave. Then you can visalize your spectrum.
 
-![Example1](https://fr0stbyter.github.io/webaudio-patcher/patchers/example2.jpg)
+![Example1](./patchers/example1.jpg)
 
 Or Fetch a Tensorflow model.
 
-![Example2](https://fr0stbyter.github.io/webaudio-patcher/patchers/example1.jpg)
+![Example2](./patchers/example2.jpg)
 
 Or try [Performance RNN](https://magenta.tensorflow.org/performance-rnn) with TensorFlow.js and [Faust](https://faust.grame.fr)
 
