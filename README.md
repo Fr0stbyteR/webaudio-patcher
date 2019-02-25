@@ -18,3 +18,11 @@ Or Fetch a Tensorflow model.
 Or try [Performance RNN](https://magenta.tensorflow.org/performance-rnn) with TensorFlow.js and [Faust](https://faust.grame.fr)
 
 https://fr0stbyter.github.io/webaudio-patcher/#prnn.json
+
+## Usage
+
+Press N or double click to create a new box.
+
+Press M to create a message.
+
+Ctrl + Click to Lock / Unlock patcher.
