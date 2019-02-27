@@ -6795,8 +6795,8 @@
             ],
             "prevData": {
                 "storage": {
-                    "showEditor": false,
-                    "code": "import(\"stdfaust.lib\");\nsig = 0.2 * os.osc(freq) * gain * gate with {\n  freq = hslider(\"freq\", 440, 40, 8000, 1);\n  gain = hslider(\"gain\", 0.5, 0, 1, 0.01);\n  gate = button(\"gate\") : en.adsr(0.01, 0.1, 0.9, 0.5);\n};\nprocess = sig, sig;\neffect = dm.freeverb_demo; "
+                    "showEditor": true,
+                    "code": "import(\"stdfaust.lib\");\nsig = 0.2 * os.osc(freq) * gain * gate with {\n  freq = hslider(\"freq\", 440, 40, 8000, 1);\n  gain = hslider(\"gain\", 0.5, 0, 1, 0.01);\n  gate = button(\"gate\") : en.adsr(0.01, 0.1, 0.9, 0.5);\n};\nprocess = sig <: _, _;\neffect = dm.freeverb_demo; "
                 }
             }
         },
@@ -6925,7 +6925,7 @@
         },
         "box-390": {
             "id": "box-390",
-            "text": "fetch \"http://localhost/magenta-demos/performance_rnn/models/tfjs/weights_manifest.json\"",
+            "text": "fetch \"./patchers/src/models/tfjs/weights_manifest.json\"",
             "name": "box-390",
             "class": "fetch",
             "inlets": 2,
@@ -6988,7 +6988,10 @@
                 765,
                 71.875,
                 22
-            ]
+            ],
+            "prevData": {
+                "storage": {}
+            }
         },
         "box-395": {
             "id": "box-395",
@@ -7994,8 +7997,8 @@
         "box-375": {
             "Faust.DSP": {
                 "storage": {
-                    "showEditor": false,
-                    "code": "import(\"stdfaust.lib\");\nsig = 0.2 * os.osc(freq) * gain * gate with {\n  freq = hslider(\"freq\", 440, 40, 8000, 1);\n  gain = hslider(\"gain\", 0.5, 0, 1, 0.01);\n  gate = button(\"gate\") : en.adsr(0.01, 0.1, 0.9, 0.5);\n};\nprocess = sig, sig;\neffect = dm.freeverb_demo; "
+                    "showEditor": true,
+                    "code": "import(\"stdfaust.lib\");\nsig = 0.2 * os.osc(freq) * gain * gate with {\n  freq = hslider(\"freq\", 440, 40, 8000, 1);\n  gain = hslider(\"gain\", 0.5, 0, 1, 0.01);\n  gate = button(\"gate\") : en.adsr(0.01, 0.1, 0.9, 0.5);\n};\nprocess = sig <: _, _;\neffect = dm.freeverb_demo; "
                 }
             }
         },
