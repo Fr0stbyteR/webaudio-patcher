@@ -6795,7 +6795,7 @@
             ],
             "prevData": {
                 "storage": {
-                    "showEditor": true,
+                    "showEditor": false,
                     "code": "import(\"stdfaust.lib\");\nsig = 0.2 * os.osc(freq) * gain * gate with {\n  freq = hslider(\"freq\", 440, 40, 8000, 1);\n  gain = hslider(\"gain\", 0.5, 0, 1, 0.01);\n  gate = button(\"gate\") : en.adsr(0.01, 0.1, 0.9, 0.5);\n};\nprocess = sig <: _, _;\neffect = dm.freeverb_demo; "
                 }
             }
@@ -7997,7 +7997,7 @@
         "box-375": {
             "Faust.DSP": {
                 "storage": {
-                    "showEditor": true,
+                    "showEditor": false,
                     "code": "import(\"stdfaust.lib\");\nsig = 0.2 * os.osc(freq) * gain * gate with {\n  freq = hslider(\"freq\", 440, 40, 8000, 1);\n  gain = hslider(\"gain\", 0.5, 0, 1, 0.01);\n  gate = button(\"gate\") : en.adsr(0.01, 0.1, 0.9, 0.5);\n};\nprocess = sig <: _, _;\neffect = dm.freeverb_demo; "
                 }
             }
