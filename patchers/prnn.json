@@ -6933,7 +6933,7 @@
             "patching_rect": [
                 1035,
                 90,
-                513.016,
+                333.016,
                 22
             ],
             "prevData": {
@@ -6950,12 +6950,12 @@
             "patching_rect": [
                 1170,
                 120,
-                344.875,
+                149.875,
                 22
             ],
             "prevData": {
                 "storage": {
-                    "text": "http://localhost/magenta-demos/performance_rnn/models/tfjs"
+                    "text": "./patchers/src/models/tfjs"
                 }
             }
         },
@@ -8049,7 +8049,7 @@
         "box-391": {
             "Message": {
                 "storage": {
-                    "text": "http://localhost/magenta-demos/performance_rnn/models/tfjs"
+                    "text": "./patchers/src/models/tfjs"
                 }
             }
         },
@@ -8079,7 +8079,7 @@
         }
     },
     "state": {
-        "locked": true,
+        "locked": false,
         "presentation": false,
         "showGrid": true
     },
